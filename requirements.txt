@@ -1,0 +1,14 @@
+# Pinned Environment for ชวกม.2 (Digital Evidence & Court Forensic Platform)
+accelerate==1.16.0
+einops==0.8.2
+nemotron-parse==3.5.0.post7
+pillow==13.0.0
+pillow-heif==1.8.1
+pymupdf==2.0.0
+pymupdf-layout==2.0.0
+pymupdf4llm==2.0.0
+pytesseract==0.3.13
+pythainlp==5.4.0
+rank-bm25==0.2.2
+torch==2.14.1
+torchvision==0.29.1

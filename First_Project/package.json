@@ -1,0 +1,48 @@
+{
+  "name": "first-project",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "engine": "powershell -ExecutionPolicy Bypass -File scripts/start-engine.ps1",
+    "test:e2e": "playwright test",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:generate": "drizzle-kit generate",
+    "skills:sync": "node scripts/install-skills.js",
+    "setup": "node scripts/setup-project.js",
+    "first-project": "node scripts/cli.js",
+    "audit": "node scripts/audit-execution-policy.js",
+    "adlc": "node scripts/run-adlc.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1162.0",
+    "@aws-sdk/s3-request-presigner": "^3.1162.0",
+    "@clerk/nextjs": "^7.9.24",
+    "@neondatabase/serverless": "^1.2.0",
+    "drizzle-orm": "^0.45.4",
+    "graphify": "^1.0.0",
+    "gsap": "^3.15.1",
+    "lucide-react": "^1.69.0",
+    "next": "16.4.5",
+    "react": "19.3.0",
+    "react-bits": "^1.0.5",
+    "react-dom": "19.3.0",
+    "svix": "^2.9.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.11",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.5",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

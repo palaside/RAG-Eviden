@@ -1,0 +1,28 @@
+📖 วิธีการใช้งาน (ง่ายและเร็วที่สุด)
+1️⃣ กรณีต้องการสร้างโฟลเดอร์โปรเจกต์ใหม่:
+
+เปิด Terminal ที่ใดก็ได้ แล้วพิมพ์:
+
+powershell
+first-project new "D:\Project\ชื่อโปรเจกต์ใหม่"
+
+(หรือใส่แค่ชื่อโฟลเดอร์ เช่น first-project new my-app)
+
+2️⃣ กรณีที่สร้างโฟลเดอร์เปล่าไว้แล้ว และเปิดอยู่ในโฟลเดอร์นั้น:
+
+พิมพ์คำสั่งสั้นๆ:
+
+powershell
+first-project init
+⚙️ สิ่งที่ระบบจะประมวลผลให้เองอัตโนมัติในคำสั่งเดียว:
+ดึง Master Template สะอาดจาก D:\iAMor Family\First_Project โดยตัดโฟลเดอร์ขยะ (node_modules, .next, แคช) ทิ้งอัตโนมัติ
+ปรับชื่อโปรเจกต์ใน package.json ให้ตรงกับโฟลเดอร์ปลายทาง
+สร้าง .env.local ให้จาก .env.example
+รัน npm install ติดตั้ง Dependencies สดใหม่ที่เข้ากับสภาพแวดล้อม
+ซิงค์คลัง 76 Skills และระเบียบบริหาร AI (AGENT.md, BRAIN.md, โหมดการทำงาน 5 โหมด)
+ตรวจสอบการเชื่อมต่อฐานข้อมูล Neon / Drizzle ORM
+แจ้งสถานะความพร้อม พร้อมคำสั่ง npm run dev เข้าใช้งานเว็บได้ทันที
+💡 คำสั่งเสริมอื่นๆ ที่เรียกใช้ได้ตลอดเวลา:
+first-project setup — รัน Master Bootstrapper (Skills + DB Sync) ในโปรเจกต์ปัจจุบัน
+first-project skills — อัปเดต/ซิงค์คลัง 76 Skills ให้สดใหม่อยู่เสมอ
+first-project help — เรียกดูวิธีใช้งานสรุป

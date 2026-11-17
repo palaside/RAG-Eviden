@@ -1,0 +1,31 @@
+{
+  "project_name": "ชวกม.2",
+  "version": "1.0.0",
+  "architecture": "Court Forensic Aligned Digital Evidence & Legal Triage Engine",
+  "created_at": "2026-11-17",
+  "engine_environment": {
+    "python_version": "3.12",
+    "ocr_models": [
+      "OpenThai2.0-OCR-Markdown (iapp/nemotron)",
+      "Tesseract-OCR v5.5 (tha.traineddata)"
+    ],
+    "pdf_engine": "PyMuPDF (fitz) v2.0"
+  },
+  "git_repository": {
+    "initialized": true,
+    "default_branch": "main",
+    "remote_url": "local-staged"
+  },
+  "entry_points": {
+    "one_click_triage": "1-CLICK_RUN_LEGAL_TRIAGE.bat",
+    "one_click_reconstruct": "1-CLICK_BUILD_TRANSCRIPT.bat",
+    "one_click_search": "1-CLICK_SEARCH_EVIDENCE.bat"
+  },
+  "primary_artifacts": [
+    "FINAL_EVIDENCE_JINNIPHA_Searchable.pdf",
+    "MASTER_TRANSCRIPT_CHRONOLOGICAL.md",
+    "COURT_TIMELINE_DOSSIER.md",
+    "LEGAL_TRIAGE_DOSSIER.md",
+    "Knowledge.md"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "language": "th",
+  "communication_style": {
+    "direct_and_concise": true,
+    "evidence_first": true,
+    "no_fluff": true,
+    "no_sycophancy": true
+  },
+  "preferences": {
+    "mobile_first": true,
+    "clean_architecture": true,
+    "vertical_slice_tdd": true,
+    "max_auto_loops": 3
+  },
+  "user_profile": {
+    "role": "Lead Architect / Product Owner",
+    "approval_required_for": [
+      "destructive_commands",
+      "major_refactoring",
+      "new_dependencies"
+    ]
+  }
+}

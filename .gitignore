@@ -1,0 +1,36 @@
+# ==============================================================================
+# PDPA & SECURITY SHIELD (.gitignore) - ชวกม.2
+# ==============================================================================
+
+# Python cache & build
+__pycache__/
+*.py[cod]
+*$py.class
+*.tmp
+*.log
+
+# Sensitive raw dumps & local heavy media
+*.png
+*.jpg
+*.jpeg
+*.heic
+*.mp4
+*.edb
+*.edb-wal
+*.edb-shm
+
+# Temp test files
+test_p13.*
+test_font.*
+test_searchable_p1.*
+
+# Local IDE & OS
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+
+# Environment
+.env
+.venv/
+env/

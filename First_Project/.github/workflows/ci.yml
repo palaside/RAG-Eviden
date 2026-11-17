@@ -1,0 +1,44 @@
+name: Production CI/CD Pipeline & Policy Gate
+
+on:
+  push:
+    branches: [main, master, dev]
+  pull_request:
+    branches: [main, master]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  forensic-audit-and-verify:
+    name: 🛡️ Forensic Audit, Typecheck & Build Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 📥 Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js 20 Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+          cache-dependency-path: package-lock.json
+
+      - name: 📦 Install Dependencies (Clean Slate)
+        run: npm ci
+
+      - name: 🔍 Gate 1: Engineering Execution Policy Audit
+        run: npm run audit
+
+      - name: 🔬 Gate 2: Strict Zero-Any Typecheck (tsc --noEmit)
+        run: npx tsc --noEmit
+
+      - name: 🏗️ Gate 3: Next.js Production Standalone Build
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+          NODE_ENV: production
+

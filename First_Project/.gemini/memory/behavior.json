@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "language": "th",
+  "communication_style": {
+    "direct_and_concise": true,
+    "evidence_first": true,
+    "no_fluff": true,
+    "no_sycophancy": true,
+    "no_redundant_testing_prompts": true
+  },
+  "operational_mindset": {
+    "chat_is_live_app": true,
+    "direct_execution": true,
+    "no_unnecessary_confirmation_loops": true
+  },
+  "document_rules": {
+    "two_modes_strictly_separated": true,
+    "auto_detect_training_by_date_field": true,
+    "insert_a_is_master_ssot": true,
+    "require_verified_google_place_id": true,
+    "no_artificial_2500_cap": true
+  },
+  "user_profile": {
+    "role": "Lead Architect / Mission Commander",
+    "approval_required_for": [
+      "destructive_commands",
+      "major_refactoring",
+      "new_dependencies"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "max_loops": 3,
+  "current_iteration": 0,
+  "last_status": "IDLE",
+  "circuit_open": false,
+  "policy": "Halt and escalate to human operator if current_iteration >= max_loops"
+}
