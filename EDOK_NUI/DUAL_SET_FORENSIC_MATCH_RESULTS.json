@@ -1,0 +1,74 @@
+{
+  "metadata": {
+    "title": "Forensic Dual-Set Match Results",
+    "set1_source": "d:\\Project\\ชวกม.2\\EDOK_NUI",
+    "set2_source": "C:\\Users\\EVE\\Downloads\\ของมันคนเดียว-20261117T094313Z-1-003\\ของมันคนเดียว",
+    "scanned_files_count": 191,
+    "slips_count": 0,
+    "total_slip_amount": 0
+  },
+  "slips": [],
+  "target_matches": [],
+  "special_entities": {
+    "maew_records": [
+      {
+        "file": "IMG_6246.PNG",
+        "folder": "03.6.68 พี่แมว",
+        "path": "C:\\Users\\EVE\\Downloads\\ของมันคนเดียว-20261117T094313Z-1-003\\ของมันคนเดียว\\New folder\\03.6.68 พี่แมว\\IMG_6246.PNG",
+        "is_slip": false,
+        "bank": null,
+        "amount": 0.0,
+        "receiver": null,
+        "date_str": null,
+        "ref_id": null,
+        "matched_targets": [],
+        "note": "",
+        "raw_snippet": "4 @ 59% #  sei gious 2 26/5/25 17200 i. areiitns 30 447%  = a) : 16:15  © aanwinauluuynanuanue ...,,  & Tnsuuuraden 2:56  16:32  Tautwuaiso shadiwav A5c3c853dc2a848fb  © an auasnigsa s* * *  nsvina XXX-X-XX526-6  © Tudo u.a. USau1dG Suwa  nansIna XXX-X-XX455-1  srusuidu 9,000.00 uin  fnsssuiiau 0.00 uin  Sunrinsiams 02 i.e. 2568 - 16:45  .,. Gufindoai Au 10000 Sufi 3 oe. ADIWLAD 16:45  26) tth Lef"
+      },
+      {
+        "file": "LINE_capture_796547198.800971.JPG",
+        "folder": "08.6.68 พี่แมว",
+        "path": "C:\\Users\\EVE\\Downloads\\ของมันคนเดียว-20261117T094313Z-1-003\\ของมันคนเดียว\\New folder\\08.6.68 พี่แมว\\LINE_capture_796547198.800971.JPG",
+        "is_slip": false,
+        "bank": null,
+        "amount": 0.0,
+        "receiver": null,
+        "date_str": null,
+        "ref_id": null,
+        "matched_targets": [],
+        "note": "",
+        "raw_snippet": "laauarlusnwwuad 45.5,  iigqaedu 18:05 https://www.facebook.com/share/ r/1Bk97UMyKo/?mibextid=D5vuiz  gaAQ 1.5 au Ada - 1 Malu AI rs po ols Jan | waaaanuuulanvvagil... wahaamuuulannuagiluls  18:09  & Tnsuuunasis  2:50 18:17  19:02  & Tnsuuuasi  1:12 19:34 oe Krungthai “3 soln JULVUAIISD sfiadwav Aac2ae61641ea42fb @: auasnigsa s*** nsving XXX-X-XX526-6 © Tudo u.a. U5au10 Guwa nansing XXX-X-XX455-1 s"
+      },
+      {
+        "file": "IMG_6242 (2).PNG",
+        "folder": "26.5.68 พี่แมว",
+        "path": "C:\\Users\\EVE\\Downloads\\ของมันคนเดียว-20261117T094313Z-1-003\\ของมันคนเดียว\\New folder\\26.5.68 พี่แมว\\IMG_6242 (2).PNG",
+        "is_slip": false,
+        "bank": null,
+        "amount": 0.0,
+        "receiver": null,
+        "date_str": null,
+        "ref_id": null,
+        "matched_targets": [],
+        "note": "",
+        "raw_snippet": "al Als > 13:57 @ 60% a)  1 va x H30n So 26 W.A. 2568 16:54 > = 16:54 u © Mo wil “Mil  < fuse Q&  Just  AuuAD Se eo ee me Lua: Lotus AMUAD wp eral ce eee SALA INIUEINAY  AMUAD  13:33 %, AOANIGAISSLAINAW  AMUAD  eee WALAYNMN  amuUAd  eee LA1Az LULU Lo  amuuAr  16224 4, =9000  OmMuAr eee ASUIAY 26/6/63  @® nansrsi25430551 ...,,  "
+      }
+    ],
+    "nong_records": [
+      {
+        "file": "LINE_capture_796546686.053676.JPG",
+        "folder": "27.5.68 พี่น้อง",
+        "path": "C:\\Users\\EVE\\Downloads\\ของมันคนเดียว-20261117T094313Z-1-003\\ของมันคนเดียว\\New folder\\27.5.68 พี่น้อง\\LINE_capture_796546686.053676.JPG",
+        "is_slip": false,
+        "bank": null,
+        "amount": 0.0,
+        "receiver": null,
+        "date_str": null,
+        "ref_id": null,
+        "matched_targets": [],
+        "note": "",
+        "raw_snippet": "® aulusunsnsass 8 lususia  aquuar 08:11  08:14  08:10  08:11  an  Vs)  nsvina  sada A7f942724e56a49ef  wna nigda s  eee  XXX-X-XX452-9  Tudo  aauau  uvand Ju3m Us:ainivasms  XXX-X-XXXX8-630  thusuiwu  fsssuidau . . Sufirhsiams aquuaa 10:00  &  an  nsvina  sfiad wav A42dd31c55a3840dc  wa nigda s  21,000.00 uin 0.00 uin 27 w.A. 2568 - 10:00  Krungthai  ngoina  eee  XXX-X-XX452-9  Tudo  thuouiwu  wsa"
+      }
+    ]
+  }
+}
