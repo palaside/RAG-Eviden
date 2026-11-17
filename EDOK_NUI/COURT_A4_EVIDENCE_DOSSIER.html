@@ -19,7 +19,7 @@
             background-color: #f1f5f9;
             font-family: 'Sarabun', 'TH Sarabun New', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-size: 10.5pt;
-            line-height: 1.32;
+            line-height: 1.30;
             color: #0f172a;
         }
         .a4-page {
@@ -52,7 +52,7 @@
         .court-header {
             border-bottom: 2px solid #0f172a;
             padding-bottom: 3px;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         .court-badge {
             display: flex;
@@ -76,7 +76,7 @@
             margin-top: 2px;
             font-size: 9pt;
             background: #f8fafc;
-            padding: 2.5px 6px;
+            padding: 2px 6px;
             border-radius: 4px;
             border: 1px solid #e2e8f0;
         }
@@ -93,12 +93,12 @@
         .court-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 8.5pt;
-            margin-bottom: 5px;
+            font-size: 8.4pt;
+            margin-bottom: 4px;
         }
         .court-table td {
             border: 1px solid #cbd5e1;
-            padding: 2px 4.5px;
+            padding: 1.8px 4px;
             vertical-align: top;
         }
         .col-header {
@@ -117,16 +117,54 @@
         }
         .amt-text {
             color: #15803d;
-            font-size: 9.2pt;
+            font-size: 9pt;
         }
 
         /* LAW PILLS */
         .law-pill {
-            font-size: 7.8pt;
+            font-size: 7.6pt;
             font-weight: 600;
-            margin-bottom: 1.5px;
-            line-height: 1.25;
+            margin-bottom: 1px;
+            line-height: 1.22;
             color: #1e293b;
+        }
+
+        /* TAG BADGES */
+        .page-tag-next {
+            background: #fef08a;
+            border: 1.5px solid #ca8a04;
+            color: #854d0e;
+            font-size: 8.5pt;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 4px;
+            letter-spacing: 0.2px;
+        }
+        .p2-summary-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 6px 10px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .p2-tag-badge {
+            background: #0284c7;
+            color: #ffffff;
+            font-size: 8.5pt;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+        .p2-desc-text {
+            font-size: 8.8pt;
+            color: #1e293b;
+            flex: 1;
+            margin-left: 10px;
         }
 
         /* EVIDENCE IMAGE BOX */
@@ -139,13 +177,17 @@
             overflow: hidden;
             background: #020617;
             margin-bottom: 3px;
-            min-height: 100mm;
-            max-height: 115mm;
+            min-height: 95mm;
+            max-height: 110mm;
+        }
+        .p2-large-box {
+            min-height: 230mm !important;
+            max-height: 245mm !important;
         }
         .evidence-box-title {
             background: #0f172a;
             color: #f8fafc;
-            font-size: 7.8pt;
+            font-size: 7.6pt;
             font-weight: 700;
             padding: 2px 6px;
             display: flex;
@@ -171,10 +213,13 @@
         }
         .evidence-img {
             max-width: 100%;
-            max-height: 108mm;
+            max-height: 102mm;
             object-fit: contain;
             border-radius: 2px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+        .p2-img {
+            max-height: 235mm !important;
         }
 
         /* FOOTER */
@@ -203,7 +248,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -253,24 +298,63 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        <div class="page-tag-next">📌 [มีต่อหน้า ๒: เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทขยายความต่อเนื่อง]</div>
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_01.jpg" alt="Evidence กรรมที่ ๑" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_01_p1.png" alt="Evidence กรรมที่ ๑" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 1 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 1 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
     
+        <div class="a4-page">
+            <!-- HEADER -->
+            <div class="court-header">
+                <div class="court-badge">
+                    <span class="badge-title">⚖️ แฟ้มสำนวนคดีอาญา (เอกสารแนบหลักฐานเพิ่มเติม - หน้า ๒)</span>
+                    <span class="badge-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรม (ป.อ. มาตรา ๙๑)</span>
+                </div>
+                <div class="page-meta">
+                    <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลัก (ผู้ต้องหาที่ ๑))</div>
+                    <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๑ (หน้า ๒ / หน้าต่อเนื่อง)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">2,000.00 บาท</span></div>
+                </div>
+            </div>
+
+            <!-- P2 CONTEXT SUMMARY BOX -->
+            <div class="p2-summary-box">
+                <div class="p2-tag-badge">📑 หน้า ๒ ต่อเนื่องจากหน้า ๑ ของกรรมนี้</div>
+                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> บริบทแชทท่อนต่อเนื่อง: ยืนยันคำสัญญา 'เค้าได้ก็ค่ำๆ แค่ทักไปยืมมัน' และการเร่งรัด 'แล้วครีมเค้าก็ต้องโอนให้เค้าปิดงาน 4.0'</div>
+            </div>
+
+            <!-- LARGE EVIDENCE IMAGE CONTAINER (FULL A4 CANVAS) -->
+            <div class="evidence-box p2-large-box">
+                <div class="evidence-box-title">
+                    <span>📸 ภาพหลักฐานฉบับขยายใหญ่เต็มหน้ากระดาษ (บริบทต่อเนื่อง / สลิปโอนเงินความละเอียดสูง)</span>
+                    <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
+                </div>
+                <div class="img-container p2-img-container">
+                    <img src="A4_EVIDENCE_ASSETS/ctx_count_01_p2.png" alt="Evidence กรรมที่ ๑ Part 2" class="evidence-img p2-img" />
+                </div>
+            </div>
+
+            <!-- FOOTER BAR -->
+            <div class="court-footer">
+                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 2 จากทั้งหมด 36 แผ่น (เอกสารแนบ กรรมที่ ๑)</div>
+                <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
+            </div>
+        </div>
+        
     <div class="a4-page">
         <!-- HEADER -->
         <div class="court-header">
@@ -284,7 +368,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -334,20 +418,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_02.jpg" alt="Evidence กรรมที่ ๒" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_02.png" alt="Evidence กรรมที่ ๒" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 2 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 3 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -365,7 +451,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -407,7 +493,7 @@
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">ยอดเงินแม้จะน้อย แต่กระทำซ้ำๆ ย่อมเป็นองค์ประกอบ 'ฉ้อโกงเป็นปกติธุระ' ปัดเป็นเรื่องให้โดยเสน่หาไม่ได้</td>
+                <td class="col-content">แม้ยอดเงินจะน้อย แต่กระทำซ้ำๆ ย่อมเป็นองค์ประกอบ 'ฉ้อโกงเป็นปกติธุระ' ปัดเป็นเรื่องให้โดยเสน่หาไม่ได้</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
@@ -415,20 +501,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_03.jpg" alt="Evidence กรรมที่ ๓" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_03.png" alt="Evidence กรรมที่ ๓" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 3 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 4 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -446,7 +534,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -496,24 +584,63 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        <div class="page-tag-next">📌 [มีต่อหน้า ๒: เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทขยายความต่อเนื่อง]</div>
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_04.jpg" alt="Evidence กรรมที่ ๔" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_04_p1.png" alt="Evidence กรรมที่ ๔" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 4 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 5 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
     
+        <div class="a4-page">
+            <!-- HEADER -->
+            <div class="court-header">
+                <div class="court-badge">
+                    <span class="badge-title">⚖️ แฟ้มสำนวนคดีอาญา (เอกสารแนบหลักฐานเพิ่มเติม - หน้า ๒)</span>
+                    <span class="badge-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรม (ป.อ. มาตรา ๙๑)</span>
+                </div>
+                <div class="page-meta">
+                    <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลัก (ผู้ต้องหาที่ ๑))</div>
+                    <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๔ (หน้า ๒ / หน้าต่อเนื่อง)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">2,000.00 บาท</span></div>
+                </div>
+            </div>
+
+            <!-- P2 CONTEXT SUMMARY BOX -->
+            <div class="p2-summary-box">
+                <div class="p2-tag-badge">📑 หน้า ๒ ต่อเนื่องจากหน้า ๑ ของกรรมนี้</div>
+                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> บริบทแชทท่อนต่อเนื่อง: บับเบิ้ลสร้างแรงกดดัน 'ต้องเคลียร์วันนี้ ถ้าเลยวันเรื่องถึงสำนักงาน' เพื่อบีบให้โอนเงินทันที</div>
+            </div>
+
+            <!-- LARGE EVIDENCE IMAGE CONTAINER (FULL A4 CANVAS) -->
+            <div class="evidence-box p2-large-box">
+                <div class="evidence-box-title">
+                    <span>📸 ภาพหลักฐานฉบับขยายใหญ่เต็มหน้ากระดาษ (บริบทต่อเนื่อง / สลิปโอนเงินความละเอียดสูง)</span>
+                    <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
+                </div>
+                <div class="img-container p2-img-container">
+                    <img src="A4_EVIDENCE_ASSETS/ctx_count_04_p2.png" alt="Evidence กรรมที่ ๔ Part 2" class="evidence-img p2-img" />
+                </div>
+            </div>
+
+            <!-- FOOTER BAR -->
+            <div class="court-footer">
+                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 6 จากทั้งหมด 36 แผ่น (เอกสารแนบ กรรมที่ ๔)</div>
+                <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
+            </div>
+        </div>
+        
     <div class="a4-page">
         <!-- HEADER -->
         <div class="court-header">
@@ -527,7 +654,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -577,20 +704,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_05.jpg" alt="Evidence กรรมที่ ๕" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_05.png" alt="Evidence กรรมที่ ๕" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 5 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 7 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -608,7 +737,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -658,24 +787,63 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        <div class="page-tag-next">📌 [มีต่อหน้า ๒: เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทขยายความต่อเนื่อง]</div>
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_06.jpg" alt="Evidence กรรมที่ ๖" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_06_p1.png" alt="Evidence กรรมที่ ๖" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 6 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 8 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
     
+        <div class="a4-page">
+            <!-- HEADER -->
+            <div class="court-header">
+                <div class="court-badge">
+                    <span class="badge-title">⚖️ แฟ้มสำนวนคดีอาญา (เอกสารแนบหลักฐานเพิ่มเติม - หน้า ๒)</span>
+                    <span class="badge-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรม (ป.อ. มาตรา ๙๑)</span>
+                </div>
+                <div class="page-meta">
+                    <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลัก (ผู้ต้องหาที่ ๑))</div>
+                    <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๖ (หน้า ๒ / หน้าต่อเนื่อง)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">2,000.00 บาท</span></div>
+                </div>
+            </div>
+
+            <!-- P2 CONTEXT SUMMARY BOX -->
+            <div class="p2-summary-box">
+                <div class="p2-tag-badge">📑 หน้า ๒ ต่อเนื่องจากหน้า ๑ ของกรรมนี้</div>
+                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> บริบทแชทท่อนต่อเนื่อง: บับเบิ้ลระบุคำสัญญาเงินก้อน 'เค้าต้องโอนให้พี่สาวเค้า 90,000' และการตัดพ้อเพื่อกดดัน</div>
+            </div>
+
+            <!-- LARGE EVIDENCE IMAGE CONTAINER (FULL A4 CANVAS) -->
+            <div class="evidence-box p2-large-box">
+                <div class="evidence-box-title">
+                    <span>📸 ภาพหลักฐานฉบับขยายใหญ่เต็มหน้ากระดาษ (บริบทต่อเนื่อง / สลิปโอนเงินความละเอียดสูง)</span>
+                    <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
+                </div>
+                <div class="img-container p2-img-container">
+                    <img src="A4_EVIDENCE_ASSETS/ctx_count_06_p2.png" alt="Evidence กรรมที่ ๖ Part 2" class="evidence-img p2-img" />
+                </div>
+            </div>
+
+            <!-- FOOTER BAR -->
+            <div class="court-footer">
+                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 9 จากทั้งหมด 36 แผ่น (เอกสารแนบ กรรมที่ ๖)</div>
+                <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
+            </div>
+        </div>
+        
     <div class="a4-page">
         <!-- HEADER -->
         <div class="court-header">
@@ -689,7 +857,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -739,20 +907,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_07.jpg" alt="Evidence กรรมที่ ๗" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_07.png" alt="Evidence กรรมที่ ๗" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 7 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 10 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -770,7 +940,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -820,20 +990,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_08.jpg" alt="Evidence กรรมที่ ๘" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_08.png" alt="Evidence กรรมที่ ๘" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 8 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 11 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -851,7 +1023,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -901,20 +1073,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_09.jpg" alt="Evidence กรรมที่ ๙" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_09.png" alt="Evidence กรรมที่ ๙" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 9 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 12 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -932,7 +1106,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -982,20 +1156,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_10.jpg" alt="Evidence กรรมที่ ๑๐" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_10.png" alt="Evidence กรรมที่ ๑๐" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 10 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 13 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1013,7 +1189,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -1063,20 +1239,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_11.jpg" alt="Evidence กรรมที่ ๑๑" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_11.png" alt="Evidence กรรมที่ ๑๑" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 11 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 14 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1094,7 +1272,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -1144,20 +1322,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_12.jpg" alt="Evidence กรรมที่ ๑๒" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_12.png" alt="Evidence กรรมที่ ๑๒" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 12 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 15 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1175,7 +1355,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -1225,20 +1405,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_13.jpg" alt="Evidence กรรมที่ ๑๓" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_13.png" alt="Evidence กรรมที่ ๑๓" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 13 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 16 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1256,7 +1438,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -1306,24 +1488,63 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        <div class="page-tag-next">📌 [มีต่อหน้า ๒: เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทขยายความต่อเนื่อง]</div>
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_14.jpg" alt="Evidence กรรมที่ ๑๔" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_14_p1.png" alt="Evidence กรรมที่ ๑๔" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 14 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 17 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
     
+        <div class="a4-page">
+            <!-- HEADER -->
+            <div class="court-header">
+                <div class="court-badge">
+                    <span class="badge-title">⚖️ แฟ้มสำนวนคดีอาญา (เอกสารแนบหลักฐานเพิ่มเติม - หน้า ๒)</span>
+                    <span class="badge-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรม (ป.อ. มาตรา ๙๑)</span>
+                </div>
+                <div class="page-meta">
+                    <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลัก (ผู้ต้องหาที่ ๑))</div>
+                    <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๑๔ (หน้า ๒ / หน้าต่อเนื่อง)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">23,700.00 บาท</span></div>
+                </div>
+            </div>
+
+            <!-- P2 CONTEXT SUMMARY BOX -->
+            <div class="p2-summary-box">
+                <div class="p2-tag-badge">📑 หน้า ๒ ต่อเนื่องจากหน้า ๑ ของกรรมนี้</div>
+                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> บริบทแชทท่อนต่อเนื่อง: รายการแจกแจงสูตรตัวเลขมัดรวมยอดหนี้ฉบับเต็ม</div>
+            </div>
+
+            <!-- LARGE EVIDENCE IMAGE CONTAINER (FULL A4 CANVAS) -->
+            <div class="evidence-box p2-large-box">
+                <div class="evidence-box-title">
+                    <span>📸 ภาพหลักฐานฉบับขยายใหญ่เต็มหน้ากระดาษ (บริบทต่อเนื่อง / สลิปโอนเงินความละเอียดสูง)</span>
+                    <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
+                </div>
+                <div class="img-container p2-img-container">
+                    <img src="A4_EVIDENCE_ASSETS/ctx_count_14_p2.png" alt="Evidence กรรมที่ ๑๔ Part 2" class="evidence-img p2-img" />
+                </div>
+            </div>
+
+            <!-- FOOTER BAR -->
+            <div class="court-footer">
+                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 18 จากทั้งหมด 36 แผ่น (เอกสารแนบ กรรมที่ ๑๔)</div>
+                <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
+            </div>
+        </div>
+        
     <div class="a4-page">
         <!-- HEADER -->
         <div class="court-header">
@@ -1337,7 +1558,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -1387,20 +1608,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_15.jpg" alt="Evidence กรรมที่ ๑๕" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_15.png" alt="Evidence กรรมที่ ๑๕" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 15 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 19 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1418,7 +1641,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -1468,20 +1691,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_16.jpg" alt="Evidence กรรมที่ ๑๖" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_16.png" alt="Evidence กรรมที่ ๑๖" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 16 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 20 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1499,7 +1724,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -1549,20 +1774,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_17.jpg" alt="Evidence กรรมที่ ๑๗" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_17.png" alt="Evidence กรรมที่ ๑๗" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 17 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 21 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1580,7 +1807,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -1630,20 +1857,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_18.jpg" alt="Evidence กรรมที่ ๑๘" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_18.png" alt="Evidence กรรมที่ ๑๘" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 18 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 22 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1661,7 +1890,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -1711,20 +1940,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_19.jpg" alt="Evidence กรรมที่ ๑๙" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_19.png" alt="Evidence กรรมที่ ๑๙" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 19 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 23 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1742,7 +1973,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -1792,20 +2023,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_20.jpg" alt="Evidence กรรมที่ ๒๐" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_20.png" alt="Evidence กรรมที่ ๒๐" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 20 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 24 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1823,7 +2056,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -1873,20 +2106,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_21.jpg" alt="Evidence กรรมที่ ๒๑" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_21.png" alt="Evidence กรรมที่ ๒๑" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 21 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 25 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1904,7 +2139,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -1954,24 +2189,63 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        <div class="page-tag-next">📌 [มีต่อหน้า ๒: เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทขยายความต่อเนื่อง]</div>
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_22.PNG" alt="Evidence กรรมที่ ๒๒" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_22_p1.png" alt="Evidence กรรมที่ ๒๒" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 22 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 26 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
     
+        <div class="a4-page">
+            <!-- HEADER -->
+            <div class="court-header">
+                <div class="court-badge">
+                    <span class="badge-title">⚖️ แฟ้มสำนวนคดีอาญา (เอกสารแนบหลักฐานเพิ่มเติม - หน้า ๒)</span>
+                    <span class="badge-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรม (ป.อ. มาตรา ๙๑)</span>
+                </div>
+                <div class="page-meta">
+                    <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลัก (ผู้ต้องหาที่ ๑))</div>
+                    <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๒๒ (หน้า ๒ / หน้าต่อเนื่อง)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">3,000.00 บาท</span></div>
+                </div>
+            </div>
+
+            <!-- P2 CONTEXT SUMMARY BOX -->
+            <div class="p2-summary-box">
+                <div class="p2-tag-badge">📑 หน้า ๒ ต่อเนื่องจากหน้า ๑ ของกรรมนี้</div>
+                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> หลักฐานสลิปโอนเงินสำเร็จฉบับขยายใหญ่: ธนาคาร ttb โอนเข้าบัญชี น.ส. จิณห์นิภา ประสาทเขตรการ เลขที่ xxx-x-xx996-5 ยอด 3,000 บาท</div>
+            </div>
+
+            <!-- LARGE EVIDENCE IMAGE CONTAINER (FULL A4 CANVAS) -->
+            <div class="evidence-box p2-large-box">
+                <div class="evidence-box-title">
+                    <span>📸 ภาพหลักฐานฉบับขยายใหญ่เต็มหน้ากระดาษ (บริบทต่อเนื่อง / สลิปโอนเงินความละเอียดสูง)</span>
+                    <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
+                </div>
+                <div class="img-container p2-img-container">
+                    <img src="A4_EVIDENCE_ASSETS/ctx_count_22_p2.png" alt="Evidence กรรมที่ ๒๒ Part 2" class="evidence-img p2-img" />
+                </div>
+            </div>
+
+            <!-- FOOTER BAR -->
+            <div class="court-footer">
+                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 27 จากทั้งหมด 36 แผ่น (เอกสารแนบ กรรมที่ ๒๒)</div>
+                <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
+            </div>
+        </div>
+        
     <div class="a4-page">
         <!-- HEADER -->
         <div class="court-header">
@@ -1985,7 +2259,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -2035,20 +2309,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_23.PNG" alt="Evidence กรรมที่ ๒๓" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_23.png" alt="Evidence กรรมที่ ๒๓" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 23 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 28 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2066,7 +2342,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -2116,20 +2392,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_24.PNG" alt="Evidence กรรมที่ ๒๔" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_24.png" alt="Evidence กรรมที่ ๒๔" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 24 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 29 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2147,7 +2425,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -2197,20 +2475,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_25.png" alt="Evidence กรรมที่ ๒๕" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_25.png" alt="Evidence กรรมที่ ๒๕" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 25 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 30 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2228,7 +2508,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -2278,20 +2558,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/count_26.PNG" alt="Evidence กรรมที่ ๒๖" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_count_26.png" alt="Evidence กรรมที่ ๒๖" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 26 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 31 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2309,7 +2591,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -2359,24 +2641,63 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        <div class="page-tag-next">📌 [มีต่อหน้า ๒: เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทขยายความต่อเนื่อง]</div>
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/maew_01.PNG" alt="Evidence กรรมที่ ๑ (พี่แมว)" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_maew_01_p1.png" alt="Evidence กรรมที่ ๑ (พี่แมว)" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 27 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 32 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
     
+        <div class="a4-page">
+            <!-- HEADER -->
+            <div class="court-header">
+                <div class="court-badge">
+                    <span class="badge-title">⚖️ แฟ้มสำนวนคดีอาญา (เอกสารแนบหลักฐานเพิ่มเติม - หน้า ๒)</span>
+                    <span class="badge-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรม (ป.อ. มาตรา ๙๑)</span>
+                </div>
+                <div class="page-meta">
+                    <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว ปรียาฉัตร ชิมพลี ("พี่แมว") (ตัวการร่วมและฟอกเงิน (ผู้ต้องหาที่ ๒))</div>
+                    <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๑ (พี่แมว) (หน้า ๒ / หน้าต่อเนื่อง)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">9,000.00 บาท</span></div>
+                </div>
+            </div>
+
+            <!-- P2 CONTEXT SUMMARY BOX -->
+            <div class="p2-summary-box">
+                <div class="p2-tag-badge">📑 หน้า ๒ ต่อเนื่องจากหน้า ๑ ของกรรมนี้</div>
+                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> หลักฐานสลิปโอนเงิน KBANK ฉบับขยายใหญ่: แสดงบันทึกช่วยจำ 'ยืมไปปิดยอดกสิกร คืน 10000 วันที่ 3 มิ.ย.' มัดตัวในฐานะตัวการร่วมและฟอกเงิน</div>
+            </div>
+
+            <!-- LARGE EVIDENCE IMAGE CONTAINER (FULL A4 CANVAS) -->
+            <div class="evidence-box p2-large-box">
+                <div class="evidence-box-title">
+                    <span>📸 ภาพหลักฐานฉบับขยายใหญ่เต็มหน้ากระดาษ (บริบทต่อเนื่อง / สลิปโอนเงินความละเอียดสูง)</span>
+                    <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
+                </div>
+                <div class="img-container p2-img-container">
+                    <img src="A4_EVIDENCE_ASSETS/ctx_maew_01_p2.png" alt="Evidence กรรมที่ ๑ (พี่แมว) Part 2" class="evidence-img p2-img" />
+                </div>
+            </div>
+
+            <!-- FOOTER BAR -->
+            <div class="court-footer">
+                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 33 จากทั้งหมด 36 แผ่น (เอกสารแนบ กรรมที่ ๑ (พี่แมว))</div>
+                <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
+            </div>
+        </div>
+        
     <div class="a4-page">
         <!-- HEADER -->
         <div class="court-header">
@@ -2390,7 +2711,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -2440,20 +2761,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/maew_02.JPG" alt="Evidence กรรมที่ ๒ (พี่แมว)" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_maew_02.png" alt="Evidence กรรมที่ ๒ (พี่แมว)" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 28 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 34 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2471,7 +2794,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -2521,20 +2844,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/wanwisa_01.JPG" alt="Evidence กรรมที่ ๑ (พี่สาว)" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_wanwisa_01.png" alt="Evidence กรรมที่ ๑ (พี่สาว)" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 29 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 35 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2552,7 +2877,7 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE WITH CODEX STATUTORY SECTION -->
+        <!-- 11 TOPICS MATRIX TABLE -->
         <table class="court-table">
             <tr>
                 <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
@@ -2602,20 +2927,22 @@
             </tr>
         </table>
 
-        <!-- EVIDENCE IMAGE DISPLAY (FITTED TO A4 BOTTOM) -->
+        
+
+        <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (สอดคล้องกับ ๑๑ หัวข้อข้างต้น 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/tatsanee_01.JPG" alt="Evidence กรรมที่ ๑ (น้องสาว)" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_tatsanee_01.png" alt="Evidence กรรมที่ ๑ (น้องสาว)" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 30 จากทั้งหมด 30 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 36 จากทั้งหมด 36 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
