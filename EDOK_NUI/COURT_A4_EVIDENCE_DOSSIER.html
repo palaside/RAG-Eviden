@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>แฟ้มพยานหลักฐานคดีอาญา ๑ กรรม ต่อ ๑ หน้า A4 (มาตรฐานศาลยุติธรรม - Digital Evi Codex)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     <style>
         @page {
             size: A4 portrait;
@@ -18,41 +19,51 @@
             padding: 0;
             background-color: #f1f5f9;
             font-family: 'Sarabun', 'TH Sarabun New', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-size: 10.5pt;
-            line-height: 1.30;
+            font-size: 10pt;
+            line-height: 1.25;
             color: #0f172a;
         }
         .a4-page {
             width: 210mm;
             height: 297mm;
+            max-height: 297mm;
             margin: 0 auto;
             background: #ffffff;
-            padding: 9mm 12mm 7mm 12mm;
+            padding: 5mm 8mm 4mm 8mm;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
             page-break-after: always;
+            page-break-inside: avoid;
+            break-inside: avoid;
             position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
             border-bottom: 1px solid #cbd5e1;
         }
         @media print {
             body {
+                margin: 0;
+                padding: 0;
                 background: none;
             }
             .a4-page {
                 margin: 0;
                 border: none;
                 page-break-after: always;
+                page-break-inside: avoid;
+                break-inside: avoid;
                 height: 297mm;
                 max-height: 297mm;
                 overflow: hidden;
+                box-sizing: border-box;
             }
         }
         /* HEADER */
         .court-header {
             border-bottom: 2px solid #0f172a;
-            padding-bottom: 3px;
-            margin-bottom: 4px;
+            padding-bottom: 2px;
+            margin-bottom: 3px;
         }
         .court-badge {
             display: flex;
@@ -60,13 +71,13 @@
             align-items: center;
         }
         .badge-title {
-            font-size: 12.5pt;
+            font-size: 11pt;
             font-weight: 800;
             color: #0f172a;
             letter-spacing: -0.2px;
         }
         .badge-sub {
-            font-size: 8pt;
+            font-size: 7.5pt;
             color: #475569;
             font-weight: 500;
         }
@@ -74,10 +85,10 @@
             display: flex;
             justify-content: space-between;
             margin-top: 2px;
-            font-size: 9pt;
+            font-size: 8.2pt;
             background: #f8fafc;
-            padding: 2px 6px;
-            border-radius: 4px;
+            padding: 1.5px 5px;
+            border-radius: 3px;
             border: 1px solid #e2e8f0;
         }
         .highlight-count {
@@ -93,12 +104,13 @@
         .court-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 8.4pt;
-            margin-bottom: 4px;
+            font-size: 7.4pt;
+            line-height: 1.18;
+            margin-bottom: 2px;
         }
         .court-table td {
             border: 1px solid #cbd5e1;
-            padding: 1.8px 4px;
+            padding: 1.2px 4px;
             vertical-align: top;
         }
         .col-header {
@@ -117,37 +129,37 @@
         }
         .amt-text {
             color: #15803d;
-            font-size: 9pt;
+            font-size: 8.0pt;
         }
 
         /* LAW PILLS */
         .law-pill {
-            font-size: 7.6pt;
+            font-size: 6.8pt;
             font-weight: 600;
-            margin-bottom: 1px;
-            line-height: 1.22;
+            margin-bottom: 0.5px;
+            line-height: 1.15;
             color: #1e293b;
         }
 
         /* TAG BADGES */
         .page-tag-next {
             background: #fef08a;
-            border: 1.5px solid #ca8a04;
+            border: 1px solid #ca8a04;
             color: #854d0e;
-            font-size: 8.5pt;
+            font-size: 7.2pt;
             font-weight: 800;
-            padding: 2px 8px;
-            border-radius: 4px;
+            padding: 1.5px 6px;
+            border-radius: 3px;
             text-align: center;
-            margin-bottom: 4px;
-            letter-spacing: 0.2px;
+            margin-bottom: 2px;
+            letter-spacing: 0.1px;
         }
         .p2-summary-box {
             background: #f8fafc;
             border: 1px solid #cbd5e1;
-            border-radius: 4px;
-            padding: 6px 10px;
-            margin-bottom: 6px;
+            border-radius: 3px;
+            padding: 4px 8px;
+            margin-bottom: 4px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -155,16 +167,16 @@
         .p2-tag-badge {
             background: #0284c7;
             color: #ffffff;
-            font-size: 8.5pt;
+            font-size: 7.8pt;
             font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 3px;
+            padding: 2px 6px;
+            border-radius: 2px;
         }
         .p2-desc-text {
-            font-size: 8.8pt;
+            font-size: 8.0pt;
             color: #1e293b;
             flex: 1;
-            margin-left: 10px;
+            margin-left: 8px;
         }
 
         /* EVIDENCE IMAGE BOX */
@@ -173,23 +185,23 @@
             display: flex;
             flex-direction: column;
             border: 1.5px solid #0f172a;
-            border-radius: 4px;
+            border-radius: 3px;
             overflow: hidden;
             background: #020617;
-            margin-bottom: 3px;
-            min-height: 95mm;
-            max-height: 110mm;
+            margin-bottom: 2px;
+            min-height: 0;
+            max-height: 82mm;
         }
         .p2-large-box {
-            min-height: 230mm !important;
-            max-height: 245mm !important;
+            min-height: 0 !important;
+            max-height: 232mm !important;
         }
         .evidence-box-title {
             background: #0f172a;
             color: #f8fafc;
-            font-size: 7.6pt;
+            font-size: 7.0pt;
             font-weight: 700;
-            padding: 2px 6px;
+            padding: 1.5px 5px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -197,38 +209,38 @@
         .cert-stamp {
             background: #dc2626;
             color: #ffffff;
-            font-size: 6.5pt;
-            padding: 1px 4px;
+            font-size: 6.0pt;
+            padding: 1px 3px;
             border-radius: 2px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
         }
         .img-container {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 3px;
+            padding: 2px;
             background: #090d16;
             overflow: hidden;
         }
         .evidence-img {
             max-width: 100%;
-            max-height: 102mm;
+            max-height: 74mm;
             object-fit: contain;
             border-radius: 2px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
         }
         .p2-img {
-            max-height: 235mm !important;
+            max-height: 220mm !important;
         }
 
         /* FOOTER */
         .court-footer {
-            border-top: 1px solid #94a3b8;
-            padding-top: 2px;
+            border-top: 1px solid #cbd5e1;
+            padding-top: 1px;
+            margin-top: auto;
             display: flex;
             justify-content: space-between;
-            font-size: 7.2pt;
+            font-size: 6.5pt;
             color: #64748b;
         }
     </style>
@@ -248,38 +260,38 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๑ (ขอยืมเงิน 2,000 บาท - ค่าครีมและแฟนอับสัญญาณ)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๑ (ขอยืมเงิน 2,000 บาท - ค่าครีมและแฟนอับสัญญาณ)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800252756.687906.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800252756.687906.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"@ เค้าสั่งครีมไปไง เงินมันขาด2000 แฟนเค้ามันไปในที่อัปสัญญานโอนให้ เค้าได้ก็ค่ำๆ แค่ทักไปยืมมัน ค่ำๆ แล้วครีมเค้าก็ต้องโอนให้เค้าปิดงาน"</td>
+                <td class="col-content chat-quote">"@ เค้าสั่งครีมไปไง เงินมันขาด2000 แฟนเค้ามันไปในที่อัปสัญญานโอนให้ เค้าได้ก็ค่ำๆ แค่ทักไปยืมมัน ค่ำๆ แล้วครีมเค้าก็ต้องโอนให้เค้าปิดงาน คืนให้"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
                 <td class="col-content">สร้างเรื่องเท็จอ้างความจำเป็นเร่งด่วนในการชำระค่าสินค้า (ครีม) โดยอ้างบุคคลภายนอก (แฟน) ว่าอยู่ในที่อับสัญญาณ เพื่อกดดันให้ผู้เสียหายหลงเชื่อและโอนเงินให้ทันที</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>ต้นปี ๒๕๖๘ เวลา ๑๓:๔๖ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๓:๔๖ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">2,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>2,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
                 <td class="col-content">หลักฐานการโอนเงินสด 2,000.00 บาท แนบท้ายบทสนทนา</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
                     <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงโดยหลอกลวงแสดงข้อความเท็จ)</div><div class="law-pill">💻 ไซเบอร์: พ.ร.บ.คอมพิวเตอร์ฯ ม.๑๔ (๑) (นำเข้าข้อมูลเท็จสู่ระบบแชท)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑ จาก ๒๖ กระทง)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘ (ละเมิด) + ม.๒๒๔ (ดอกเบี้ย ๕% ต่อปี)</div>
                 </td>
@@ -298,12 +310,12 @@
             </tr>
         </table>
 
-        <div class="page-tag-next">📌 [มีต่อหน้า ๒: เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทขยายความต่อเนื่อง]</div>
+        
 
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -313,48 +325,11 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 1 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 1 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
     
-        <div class="a4-page">
-            <!-- HEADER -->
-            <div class="court-header">
-                <div class="court-badge">
-                    <span class="badge-title">⚖️ แฟ้มสำนวนคดีอาญา (เอกสารแนบหลักฐานเพิ่มเติม - หน้า ๒)</span>
-                    <span class="badge-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรม (ป.อ. มาตรา ๙๑)</span>
-                </div>
-                <div class="page-meta">
-                    <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลัก (ผู้ต้องหาที่ ๑))</div>
-                    <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๑ (หน้า ๒ / หน้าต่อเนื่อง)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">2,000.00 บาท</span></div>
-                </div>
-            </div>
-
-            <!-- P2 CONTEXT SUMMARY BOX -->
-            <div class="p2-summary-box">
-                <div class="p2-tag-badge">📑 หน้า ๒ ต่อเนื่องจากหน้า ๑ ของกรรมนี้</div>
-                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> บริบทแชทท่อนต่อเนื่อง: ยืนยันคำสัญญา 'เค้าได้ก็ค่ำๆ แค่ทักไปยืมมัน' และการเร่งรัด 'แล้วครีมเค้าก็ต้องโอนให้เค้าปิดงาน 4.0'</div>
-            </div>
-
-            <!-- LARGE EVIDENCE IMAGE CONTAINER (FULL A4 CANVAS) -->
-            <div class="evidence-box p2-large-box">
-                <div class="evidence-box-title">
-                    <span>📸 ภาพหลักฐานฉบับขยายใหญ่เต็มหน้ากระดาษ (บริบทต่อเนื่อง / สลิปโอนเงินความละเอียดสูง)</span>
-                    <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
-                </div>
-                <div class="img-container p2-img-container">
-                    <img src="A4_EVIDENCE_ASSETS/ctx_count_01_p2.png" alt="Evidence กรรมที่ ๑ Part 2" class="evidence-img p2-img" />
-                </div>
-            </div>
-
-            <!-- FOOTER BAR -->
-            <div class="court-footer">
-                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 2 จากทั้งหมด 36 แผ่น (เอกสารแนบ กรรมที่ ๑)</div>
-                <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
-            </div>
-        </div>
-        
     <div class="a4-page">
         <!-- HEADER -->
         <div class="court-header">
@@ -368,15 +343,15 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๒ (ขอยืมเงิน 3,000 บาท - อ้างยอดต้น 50,000 บาท สัญญาคืนก่อน 1 ทุ่ม)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๒ (ขอยืมเงิน 3,000 บาท - อ้างยอดต้น 50,000 บาท สัญญาคืนก่อน 1 ทุ่ม)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800252921.297142.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800252921.297142.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
@@ -387,19 +362,19 @@
                 <td class="col-content">หลอกลวงโดยยกตัวเลขเงินก้อนใหญ่ (ต้น 50,000) มาสร้างความน่าเชื่อถือ และกำหนดเวลาคืนที่แน่นอนเพื่อล่อลวงให้โอน</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>ต้นปี ๒๕๖๘ เวลา ๐๙:๒๑ น. - ๑๑:๐๐ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๐๙:๒๑ น. - ๑๑:๐๐ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">3,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>3,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
                 <td class="col-content">สลิปการโอนเงินจำนวน 3,000.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
                     <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงด้วยคำสัญญาเท็จ)</div><div class="law-pill">💻 ไซเบอร์: พ.ร.บ.คอมพิวเตอร์ฯ ม.๑๔ (๑) (สร้างเครดิตลวงยอด 50,000)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๒)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๖๕๓ (สัญญากู้ยืมอิเล็กทรอนิกส์) + ม.๒๒๔</div>
                 </td>
@@ -423,7 +398,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -433,7 +408,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 3 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 2 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -451,53 +426,53 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๓ (ขอยืมเงิน 500 บาท - อ้างเหตุฉุกเฉินเฉพาะหน้า)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๓ (ขอยืมเงิน 500 บาท)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800253182.934029.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800253182.934029.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"ตัว ขอยืมเงิน500 สิ ขอหรือขอยืม"</td>
+                <td class="col-content chat-quote">"ขอยืม 500"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">พฤติกรรมขอเงินย่อยๆ ระหว่างวันเพื่อทดสอบความยินยอมของผู้เสียหาย (Micro-Fraud Priming)</td>
+                <td class="col-content">พฤติกรรมขอเงินย่อยต่อเนื่อง ถี่ขึ้น แสดงถึงเจตนาฉ้อโกงเป็นปกติธุระ</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>ต้นปี ๒๕๖๘ เวลา ๑๓:๔๖ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๕:๓๐ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">500.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>500.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปโอนเงินสด 500.00 บาท</td>
+                <td class="col-content">รายการโอนเงิน 500.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">🛡️ ฟอกเงิน: พ.ร.บ.ฟอกเงินฯ ม.๓ (๑๘) (องค์ประกอบฉ้อโกงปกติธุระ)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๓)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘ (ละเมิด)</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงทรัพย์สิน)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๓)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐ (ละเมิด)</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">แชทบันทึกการทักยืมเงินด่วนซ้ำซาก</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">คำขอยืมเงิน 500 บาท ยืนยันเจตนาตอดเงินซ้ำซาก</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">แม้ยอดเงินจะน้อย แต่กระทำซ้ำๆ ย่อมเป็นองค์ประกอบ 'ฉ้อโกงเป็นปกติธุระ' ปัดเป็นเรื่องให้โดยเสน่หาไม่ได้</td>
+                <td class="col-content">แสดงสถิติการยืมซ้ำๆ เพื่อพิสูจน์พฤติการณ์ไม่ใช่การกู้ยืมปกติ แต่เป็นการฉ้อโกงเพื่อประทังชีพ</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">บรรจุเข้าสู่พฤติการณ์ฉ้อโกงปกติธุระ ส่ง ปปง. ดำเนินการยึดทรัพย์</td>
+                <td class="col-content">ยื่นฟ้องเป็นกรรมที่ ๓ เรียงกระทงความผิด</td>
             </tr>
         </table>
 
@@ -506,7 +481,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -516,7 +491,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 4 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 3 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -534,62 +509,66 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๔ (ขอกู้ยืม 2,000 บาท - อ้างเดินชนน้ำหอมแตก ต้องเคลียร์เรื่องถึงสำนักงาน)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๔ (ขอกู้ยืม 2,000 บาท - อ้างเดินชนน้ำหอมแตก ต้องเคลียร์เรื่องถึงสำนักงาน)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800253185.789705.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800253185.789705.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"ตัว ตัวถามกู้เงินให้เค้า2000สิ เดี๋ยวเลิกงานเค้าโอนให้เลยอันนี้ เดินชนน้ำหอมแตก จะมาจ่ายร้าน ครึ่งราคา... ไปเก็บเศษแก้วมา... ต้องเคลียร์วันนี้ ถ้าเลยวันเรืองถึงสำนักงาน"</td>
+                <td class="col-content chat-quote">"ค่าน้ำหอม 2000 ที่ไปเดินชนเค้าแตก แล้วเรื่องถึง สนง. เค้าต้องเอาไปจ่ายเค้า ไม่งั้นมีปัญหา"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">สร้างเรื่องราววิกฤตปลอม (Fabricated Crisis) ว่าเดินชนสินค้าในร้านแตก และขู่ว่าจะเดือดร้อนถึงสำนักงาน เพื่อเร่งรัดให้ผู้เสียหายตกใจและโอนเงินทันที</td>
+                <td class="col-content">สร้างอุบายเรื่องความเสียหายทางกฎหมาย/วินัย (เดินชนน้ำหอมแตกใน สนง.) เพื่อบีบคั้นอารมณ์ความสงสาร</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>ต้นปี ๒๕๖๘ เวลา ๑๖:๐๔ น. - ๑๗:๑๘ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๕:๓๑ น. - ๑๕:๓๓ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">2,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>2,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปการโอนเงินฉุกเฉิน 2,000.00 บาท</td>
+                <td class="col-content">สลิปการโอนเงินจำนวน 2,000.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (กุเรื่องอุบัติเหตุเท็จเพื่อเอาทรัพย์)</div><div class="law-pill">💻 ไซเบอร์: พ.ร.บ.คอมพิวเตอร์ฯ ม.๑๔ (๑) (ข้อมูลเท็จเรื่องเก็บเศษแก้ว)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๔)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐ (ละเมิด) + ม.๒๒๔</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงโดยหลอกลวงให้ตกใจกลัว)</div><div class="law-pill">💻 ไซเบอร์: พ.ร.บ.คอมพิวเตอร์ฯ ม.๑๔ (๑)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๔)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘ (ละเมิด)</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">บับเบิ้ลระบุคำว่า 'เก็บเศษแก้วมา' และ 'เรื่องถึงสำนักงาน'</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความอ้าง 'เดินชนน้ำหอมแตก 2000 เรื่องถึง สนง.'</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">ตรวจสอบไปยังสถานที่ทำงานของจำเลย พบไม่มีเหตุการณ์น้ำหอมแตกจริง เป็นการกุเรื่อง 100%</td>
+                <td class="col-content">ตรวจสอบกับสำนักงานต้นสังกัด พิสูจน์ว่าไม่มีเหตุการณ์น้ำหอมแตกจริง เป็นการกุเรื่อง 100%</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ยื่นเป็นพยานหลักฐานหลักชี้เจตนาทุจริตหลอกลวงด้วยการสร้างสถานการณ์เท็จ</td>
+                <td class="col-content">แจ้งข้อหาฉ้อโกงกรรมที่ ๔ และขอหมายเรียกพยานบุคคลในสำนักงาน</td>
             </tr>
         </table>
 
-        <div class="page-tag-next">📌 [มีต่อหน้า ๒: เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทขยายความต่อเนื่อง]</div>
+        
+        <div class="page-tag-next">
+            📌 <strong>[มีต่อหน้า ๒]:</strong> เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทต่อเนื่อง โปรดพลิกดูหน้าถัดไป
+        </div>
+        
 
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -599,7 +578,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 5 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 4 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -620,7 +599,7 @@
             <!-- P2 CONTEXT SUMMARY BOX -->
             <div class="p2-summary-box">
                 <div class="p2-tag-badge">📑 หน้า ๒ ต่อเนื่องจากหน้า ๑ ของกรรมนี้</div>
-                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> บริบทแชทท่อนต่อเนื่อง: บับเบิ้ลสร้างแรงกดดัน 'ต้องเคลียร์วันนี้ ถ้าเลยวันเรื่องถึงสำนักงาน' เพื่อบีบให้โอนเงินทันที</div>
+                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> บริบทแชทขยายความ: การอ้างอิงเรื่องถึงสำนักงานและการขู่สำทับเรื่องผลกระทบต่อหน้าที่การงาน</div>
             </div>
 
             <!-- LARGE EVIDENCE IMAGE CONTAINER (FULL A4 CANVAS) -->
@@ -636,7 +615,7 @@
 
             <!-- FOOTER BAR -->
             <div class="court-footer">
-                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 6 จากทั้งหมด 36 แผ่น (เอกสารแนบ กรรมที่ ๔)</div>
+                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 5 จากทั้งหมด 35 แผ่น (เอกสารแนบ กรรมที่ ๔)</div>
                 <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
             </div>
         </div>
@@ -654,53 +633,53 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๕ (ขอยืมเงิน 4,000 บาท - อ้างไปถอดเหล็กดัดฟันเมื่อวาน)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๕ (ขอยืม 4,000 บาท - อ้างไปถอดเหล็กมาเมื่อวาน)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800253185.789705.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800253185.789705.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"หยุด เจนไปถอดเหล็กมาเมื่อวาน4000... 2000 ให้ไปหาของมาวาง"</td>
+                <td class="col-content chat-quote">"หยุด จนไปถอดเหล็กมาเมื่อวาน4000"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">นำค่าใช้จ่ายส่วนตัวในอดีต (ถอดเหล็กดัดฟัน) มาอ้างเป็นภาระหนี้เร่งด่วนเพื่อขอเบิกเงินสดเพิ่ม</td>
+                <td class="col-content">อ้างค่ารักษาพยาบาล/ค่าทันตกรรม (ถอดเหล็กดัดฟัน 4,000 บาท) เพื่อสร้างความเห็นใจ</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>ต้นปี ๒๕๖๘ เวลา ๑๗:๐๖ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๗:๐๖ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">4,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>4,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
                 <td class="col-content">สลิปโอนเงิน 4,000.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">💻 ไซเบอร์: พ.ร.บ.คอมพิวเตอร์ฯ ม.๑๔ (๑)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๕)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘ (ละเมิด)</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงโดยใช้เหตุผลส่วนตัวเท็จ)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๕)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๖๕๓ (กู้ยืม) + ม.๒๒๔</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">แชทระบุยอดเงิน 4,000 บาท และคำสั่งเร่งรัดให้โอนเงิน</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">บับเบิ้ลแชทจำเลยยอมรับว่าเอาเงิน 4,000 ไปจ่ายค่าถอดเหล็ก</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">จำเลยไม่มีใบเสร็จรับเงินจากคลินิกทันตกรรมมาแสดงได้ ยืนยันเจตนาทุจริต</td>
+                <td class="col-content">ขอเวชระเบียนและใบเสร็จคลินิกทันตกรรม ยืนยันว่าไม่มีการจ่ายเงินจริงตามอ้าง</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ให้ศาลสั่งริบทรัพย์สินที่ได้ไปจากการกระทำความผิด</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๕ และเรียกค่าเสียหาย 4,000 พร้อมดอกเบี้ย</td>
             </tr>
         </table>
 
@@ -709,7 +688,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -719,7 +698,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 7 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 6 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -732,67 +711,71 @@
                 <span class="badge-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรม (ป.อ. มาตรา ๙๑)</span>
             </div>
             <div class="page-meta">
-                <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลัก (ผู้ต้องหาที่ ๑))</div>
+                <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลก (ผู้ต้องหาที่ ๑))</div>
                 <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๖</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">2,000.00 บาท</span></div>
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๖ (ขอยืมเงิน 2,000 บาท - ตัดพ้อเรื่องเงินสองแสน และอ้างโอนให้พี่สาว 90,000)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๖ (ขอยืมเงิน 2,000 บาท - ตัดพ้อเรื่องเงินสองแสน และอ้างโอนให้พี่สาว 90,000)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800253252.988857.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800253252.988857.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"จะขอยืมเงิน2000กลัวโดนบ่น เมื่อวานได้มาละ2000... เงิน2000คิดว่าเงินสองแสน อีกแค่3วันเงินก็ออกไม่มีใครมีเลย... เค้าต้องโอนให้พี่สาวเค้า 90,000... น้อยใจตัวเอง มาจบแค่เงิน2000"</td>
+                <td class="col-content chat-quote">"ยืม 2000... เงินตั้งสองแสน... โอนให้พี่สาว 90,000"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">ใช้จิตวิทยากดดันเชิงอารมณ์ (Guilt Tripping) ตัดพ้อเปรียบเทียบเงินสองพันกับสองแสน พร้อมสร้างภาพลวงว่ามีเงินหมุนเวียนหลักแสนที่ต้องโอนให้พี่สาว เพื่อให้ผู้เสียหายยอมโอนเงินให้</td>
+                <td class="col-content">สร้างเรื่องฐานะการเงินเท็จ (อ้างยอดเงินสองแสน และโอนให้พี่สาว 90,000) เพื่อหลอกลวงว่าตนมีเงินรอรับอยู่จริง</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>ต้นปี ๒๕๖๘ เวลา ๑๗:๒๔ น. - ๐๖:๒๙ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๖:๓๒ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">2,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>2,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปการโอนเงินจำนวน 2,000.00 บาท</td>
+                <td class="col-content">สลิปโอนเงิน 2,000.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงทางจิตวิทยา)</div><div class="law-pill">🛡️ ฟอกเงิน: พ.ร.บ.ฟอกเงินฯ ม.๕ (เชื่อมโยงเครือข่ายพี่สาว 90,000)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๖)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงด้วยการลวงฐานะทางการเงิน)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๖)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐ (ละเมิด)</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความแชทอ้างอิงยอดเงิน 90,000 บาทของพี่สาว (เชื่อมโยงไปยัง วรรณวิสา)</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความอ้าง 'เงินตั้งสองแสน' และ 'โอนให้พี่สาว 90,000' เพื่อยืม 2,000</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">พิสูจน์ให้เห็นว่ายอด 90,000 บาทไม่มีจริง แต่เป็นเทคนิคปั่นหัวให้เหยื่อตายใจว่าผู้ต้องหามีเงินก้อนรออยู่</td>
+                <td class="col-content">ตรวจ Statement ธนาคาร ยืนยันว่าไม่มีการโอนเงิน 90,000 หรือเงินเข้าสองแสนจริง เป็นการสร้างภาพลวงตา</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ยื่นต่อศาลเพื่อชี้ให้เห็นรูปแบบจิตวิทยาการฉ้อโกง (Modus Operandi)</td>
+                <td class="col-content">ยื่นฟ้องกรรมที่ ๖ และเรียกสเตทเมนต์บัญชีพี่สาวและจำเลย</td>
             </tr>
         </table>
 
-        <div class="page-tag-next">📌 [มีต่อหน้า ๒: เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทขยายความต่อเนื่อง]</div>
+        
+        <div class="page-tag-next">
+            📌 <strong>[มีต่อหน้า ๒]:</strong> เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทต่อเนื่อง โปรดพลิกดูหน้าถัดไป
+        </div>
+        
 
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -802,7 +785,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 8 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 7 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -815,7 +798,7 @@
                     <span class="badge-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรม (ป.อ. มาตรา ๙๑)</span>
                 </div>
                 <div class="page-meta">
-                    <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลัก (ผู้ต้องหาที่ ๑))</div>
+                    <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลก (ผู้ต้องหาที่ ๑))</div>
                     <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๖ (หน้า ๒ / หน้าต่อเนื่อง)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">2,000.00 บาท</span></div>
                 </div>
             </div>
@@ -823,7 +806,7 @@
             <!-- P2 CONTEXT SUMMARY BOX -->
             <div class="p2-summary-box">
                 <div class="p2-tag-badge">📑 หน้า ๒ ต่อเนื่องจากหน้า ๑ ของกรรมนี้</div>
-                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> บริบทแชทท่อนต่อเนื่อง: บับเบิ้ลระบุคำสัญญาเงินก้อน 'เค้าต้องโอนให้พี่สาวเค้า 90,000' และการตัดพ้อเพื่อกดดัน</div>
+                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> บริบทแชทส่วนขยาย: ข้อความแชทที่อ้างเรื่องโอนให้พี่สาว 90,000 บาท เพื่อสร้างความน่าเชื่อถือเท็จ</div>
             </div>
 
             <!-- LARGE EVIDENCE IMAGE CONTAINER (FULL A4 CANVAS) -->
@@ -839,7 +822,7 @@
 
             <!-- FOOTER BAR -->
             <div class="court-footer">
-                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 9 จากทั้งหมด 36 แผ่น (เอกสารแนบ กรรมที่ ๖)</div>
+                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 8 จากทั้งหมด 35 แผ่น (เอกสารแนบ กรรมที่ ๖)</div>
                 <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
             </div>
         </div>
@@ -857,53 +840,53 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๗ (ขอกู้เงิน 7,000 บาท - อ้างไปทำงานบาร์พัทยาแล้วจะโอนคืน)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๗ (ขอยืม 7,000 บาท - อ้างค่าใช้จ่ายที่พัทยา)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800253550.895289.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800253550.895289.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"ขอกู้เงิน 7,000 บาทไม่เคยมีใครที่เขา... ไปทำงานบาร์ที่พัทยาแล้วจะโอนมาให้... เค้าจะเคลียร์ให้จบแล้วบ่ายตัวมารับ"</td>
+                <td class="col-content chat-quote">"ขอยืม 7,000 บาท ไปพัทยา ต้องใช้ด่วน"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">หลอกลวงว่าจะเดินทางไปทำงานต่างจังหวัด (บาร์พัทยา) เพื่อนำเงินมาชำระหนี้ทั้งหมด สร้างสัญญาว่าจะชำระหนี้ในอนาคตอันใกล้เพื่อปิดปากผู้เสียหาย</td>
+                <td class="col-content">หลอกยืมเงินก้อนใหญ่ อ้างการเดินทางไปพัทยาและความจำเป็นเร่งด่วน</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๒ กุมภาพันธ์ ๒๕๖๘ เวลา ๑๙:๓๓ น. - ๒๑:๔๖ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๙:๓๓ น. - ๑๙:๓๙ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">7,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>7,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">หลักฐานการโอนเงิน 7,000.00 บาท</td>
+                <td class="col-content">สลิปโอนเงิน 7,000.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">💻 ไซเบอร์: พ.ร.บ.คอมพิวเตอร์ฯ ม.๑๔ (๑) (ข้ออ้างงานพัทยาเท็จ)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๗)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๖๕๓ (สัญญากู้ยืมเงิน) + ม.๒๒๔</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๗)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๖๕๓ (สัญญากู้ยืมเงิน)</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">บับเบิ้ลสัญญาเรื่องงานบาร์พัทยาและการนัดหมายเคลียร์ยอด</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความระบุจำนวนเงิน 7,000 บาท ชัดเจน พร้อมคำขอโอนด่วน</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">จำเลยไม่เคยเดินทางไปทำงานบาร์พัทยาจริง เป็นข้ออ้างเพื่อดูดเงินก้อน 7,000 บาทออกจากกระเป๋าผู้เสียหาย</td>
+                <td class="col-content">จำเลยนำเงินไปใช้จ่ายฟุ่มเฟือยส่วนตัว ไม่ได้มีกิจธุระจำเป็นตามที่กล่าวอ้าง</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ให้ศาลลงโทษในกรรมที่ ๗ ตาม ป.อ. ๙๑</td>
+                <td class="col-content">ฟ้องคดีอาญากรรมที่ ๗ และบังคับคืนเงิน 7,000 บาท</td>
             </tr>
         </table>
 
@@ -912,7 +895,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -922,7 +905,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 10 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 9 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -940,53 +923,53 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๘ (ขอยืมเงิน 8,000 บาท - อ้างนัดเคลียร์ยอดรายวัน)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๘ (ขอยืม 8,000 บาท - อ้างเคลียร์หนี้รายวัน)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800253553.588898.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800253553.588898.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"เลย 8000 นี้คือเค้านัดเคลียร์กับรายวัน... ต้องส่งก่อนเที่ยง"</td>
+                <td class="col-content chat-quote">"8,000 เคลียร์รายวันก่อน ไม่งั้นเค้าไม่ยอม"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">อ้างเจ้าหนี้นอกระบบ (รายวัน) ตามทวงหนี้และขู่บังคับ เพื่อให้เกิดภาวะเร่งด่วนขั้นสูงสุด</td>
+                <td class="col-content">อ้างหนี้นอกระบบ/รายวัน เพื่อสร้างแรงกดดันว่ากำลังตกอยู่ในอันตราย</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๒ กุมภาพันธ์ ๒๕๖๘ เวลา ๒๑:๔๖ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๙:๔๐ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">8,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>8,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปการโอนเงินเคลียร์ยอด 8,000.00 บาท</td>
+                <td class="col-content">สลิปโอนเงิน 8,000.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">🛡️ ฟอกเงิน: พ.ร.บ.ฟอกเงินฯ ม.๓ (๑๘)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๘)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘ (ละเมิด)</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๘)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความแชทระบุคำว่า 'เคลียร์กับรายวัน 8000'</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความบีบคั้นอ้าง 'เคลียร์รายวัน 8000'</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">การนำเงินผู้เสียหายไปจ่ายหนี้ส่วนตัวโดยหลอกว่าจะคืนในทันที ถือเป็นความผิดฐานฉ้อโกง</td>
+                <td class="col-content">พิสูจน์ว่าเป็นแผนการต่อเนื่องในการรีดเงินก้อนใหญ่จากผู้เสียหาย</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">บันทึกเป็นกรรมแยกต่างหากในบัญชีท้ายฟ้อง</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๘ และขยายผลเส้นทางการเงิน</td>
             </tr>
         </table>
 
@@ -995,7 +978,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -1005,7 +988,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 11 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 10 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1023,53 +1006,53 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๙ (ขอยืมเงิน 5,000 บาท - อ้างยืมเจ้าของบ้านและเงินว่างงาน)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๙ (ขอยืมรวม 5,000 บาท - ตกงาน 3,000 + ค่าบ้าน 2,000)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800253553.588898.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800253553.588898.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"เงินตัวเงินว่างงานออก3000เค้ายืม เจ้าของบ้านไว้2000 เป็น5000 เค้าจะเอาให้5000ก่อน"</td>
+                <td class="col-content chat-quote">"ตกงาน 3000 ค่าบ้าน 2000 รวมเป็น 5000"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">นำเงินสิทธิประโยชน์ของผู้เสียหาย (เงินว่างงาน) มาผูกโยงกับหนี้ค่าเช่าบ้าน เพื่อให้ผู้เสียหายยินยอมสละเงินดังกล่าว</td>
+                <td class="col-content">หลอกซ้อนแผนสองเรื่องในคราวเดียว อ้างตกงานและค่าบ้านรวมกันเพื่อเอาเงินก้อน 5,000</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๒ กุมภาพันธ์ ๒๕๖๘ เวลา ๐๔:๕๗ น. - ๐๔:๕๘ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๙:๔๒ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">5,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>5,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">รายการโอนเงิน 5,000.00 บาท</td>
+                <td class="col-content">สลิปโอนเงิน 5,000.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">💻 ไซเบอร์: พ.ร.บ.คอมพิวเตอร์ฯ ม.๑๔ (๑)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๙)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๙)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๖๕๓ + ม.๒๒๔</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">การระบุยอดเงินว่างงาน 3,000 และเจ้าของบ้าน 2,000</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความรวมยอดเงิน 'ตกงาน 3000 + ค่าบ้าน 2000 = 5000'</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">ไม่มีการชำระเงินให้เจ้าของบ้านจริง ยึดถือเป็นพฤติการณ์หลอกลวงเบ็ดเสร็จ</td>
+                <td class="col-content">จำเลยไม่ได้ตกงานและไม่ได้นำเงินไปจ่ายค่าเช่าบ้านจริง</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ให้ลงโทษเรียงกระทง</td>
+                <td class="col-content">แจ้งข้อหากรรมที่ ๙ และดำเนินคดีแพ่งเกี่ยวเนื่องอาญา</td>
             </tr>
         </table>
 
@@ -1078,7 +1061,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -1088,7 +1071,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 12 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 11 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1106,53 +1089,53 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๑๐ (ขอยืมเงิน 2,000 บาท - อ้างส่งรายวันวันละ 100 บาท)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๑๐ (ขอยืม 2,000 บาท - เสนอให้คืนวันละ 100 บาท)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800253553.588898.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800253553.588898.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"ให้ขั้นต่ำ2000 ไหนจะคนค้า ไหนจะ... ต้องส่งก่อนเที่ยง 2000วันละ100 เอา"</td>
+                <td class="col-content chat-quote">"ยืม 2000 เดี๋ยวให้คืนวันละ 100"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">หลอกล่อเรื่องการผ่อนส่งรายวันวันละ 100 บาท เพื่อลดทอนความเสี่ยงในสายตาผู้เสียหาย</td>
+                <td class="col-content">ล่อลวงด้วยเงื่อนไขผ่อนชำระวันละ 100 บาท เพื่อให้ผู้เสียหายยอมโอนเงินง่ายขึ้น แต่ไม่เคยผ่อนจริง</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๒ กุมภาพันธ์ ๒๕๖๘ เวลา ๐๕:๐๑ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๙:๔๕ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">2,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>2,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปการโอนเงิน 2,000.00 บาท</td>
+                <td class="col-content">สลิปโอนเงิน 2,000.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๐)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๖๕๓ + ม.๒๒๔</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงด้วยข้อเสนอเท็จ)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๐)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๖๕๓</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความคำสัญญาเท็จ 'ส่งก่อนเที่ยง 2000 วันละ 100'</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">คำมั่นสัญญาผ่อนคืน 'วันละ 100' ที่ไม่เคยเกิดขึ้นจริง</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">ไม่เคยมีการส่งเงินวันละ 100 แม้แต่วันเดียวหลังจากได้เงินไป</td>
+                <td class="col-content">Statement ยืนยันว่าไม่มีการโอนเงินคืนวันละ 100 บาทแม้แต่วันเดียว</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ชี้ขาดเจตนาทุจริตตั้งแต่ขณะทำสัญญา</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๑๐</td>
             </tr>
         </table>
 
@@ -1161,7 +1144,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -1171,7 +1154,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 13 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 12 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1189,53 +1172,53 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๑๑ (ขอยืมเงิน 4,100 บาท - อ้างยืมในบัญชีแป๊บเดียว)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๑๑ (ขอยืมระยะสั้น 4,100 บาท)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800253553.588898.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800253553.588898.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"ตัวมีเงินใน บ.ถึง 4100 ปะ ยืมแปปนึง เดี๋ยวเขาทักหาใหม่ 4000"</td>
+                <td class="col-content chat-quote">"ขอยืม 4100 เดี๋ยวโอนคืนให้เลย"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">สืบถามยอดเงินคงเหลือในบัญชีของผู้เสียหายแบบเจาะจง แล้วกวาดเอาเงินคงบัญชีทั้งหมดไป</td>
+                <td class="col-content">ขอเงินยอดย่อยเฉพาะเจาะจง 4,100 บาท อ้างความจำเป็นฉุกเฉินและสัญญาคืนทันที</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๒ กุมภาพันธ์ ๒๕๖๘ เวลา ๐๘:๒๐ น. - ๐๙:๕๖ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๙:๔๖ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">4,100.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>4,100.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปโอนเงินจำนวน 4,100.00 บาท</td>
+                <td class="col-content">สลิปโอนเงิน 4,100.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๑)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๑)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๖๕๓</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">บับเบิ้ลถามตรง 'มีเงินถึง 4100 ปะ ยืมแปปนึง'</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">บับเบิ้ลแชทยอดเงิน 4,100 บาท พร้อมสัญญาคืนเร็ว</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">คำว่า 'ยืมแป๊บเดียว' ขัดแย้งกับข้อเท็จจริงที่ไม่เคยโอนคืนตลอดระยะเวลาหลายเดือน</td>
+                <td class="col-content">พฤติกรรมหลอกเอาเงินเข้าบัญชีแล้วเงียบหาย</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ยื่นฟ้องเป็นอีกหนึ่งกรรมต่างหาก</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๑๑</td>
             </tr>
         </table>
 
@@ -1244,7 +1227,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -1254,7 +1237,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 14 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 13 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1272,53 +1255,53 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๑๒ (ขอยืมเงิน 2,500 บาท - อ้างโอนจ่ายคนเก่า)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๑๒ (ขอยืม 2,500 บาท - อ้างจ่ายลุง)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800253553.588898.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800253553.588898.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"คนเก่าโน้น เค้าต้องโอนจ่ายอีก2500"</td>
+                <td class="col-content chat-quote">"ต้องจ่ายลุง 2500 ด่วน"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">นำภาระหนี้ของบุคคลที่สาม (คนเก่า) มาอ้างเพื่อบังคับให้ผู้เสียหายต้องโอนเงินช่วยชำระ</td>
+                <td class="col-content">อ้างบุคคลภายนอก (ลุง) เพื่อสร้างความชอบธรรมและความจำเป็นเร่งด่วน</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๒ กุมภาพันธ์ ๒๕๖๘ เวลา ๑๔:๕๘ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๙:๔๘ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">2,500.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>2,500.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปการโอนเงิน 2,500.00 บาท</td>
+                <td class="col-content">สลิปโอนเงิน 2,500.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๒)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๒)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">แชทอ้างอิงยอด 2,500 บาท</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความอ้าง 'จ่ายลุง 2500'</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">เป็นการวนลูปการยืมเงินไปจ่ายคนอื่นโดยไม่มีเจตนาคืนผู้เสียหาย</td>
+                <td class="col-content">ไม่มีลุงที่เป็นเจ้าหนี้จริง เป็นอุบายเอาเงิน</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ร้องขอให้พนักงานอัยการสั่งฟ้องตามกรรม</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๑๒</td>
             </tr>
         </table>
 
@@ -1327,7 +1310,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -1337,7 +1320,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 15 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 14 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1351,57 +1334,57 @@
             </div>
             <div class="page-meta">
                 <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลัก (ผู้ต้องหาที่ ๑))</div>
-                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๑๓</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">20,000.00 บาท</span></div>
+                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๑๓</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">25,500.00 บาท</span></div>
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๑๓ (หลอกลวงเรื่องเงินกู้ 20,000 บาท ดอกเบี้ย 6,000 บาท และ Shopee 5,500 บาท)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๑๓ (เงินกู้ 20,000 บาท และยอด Shopee 5,500 บาท)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800253553.588898.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800253553.588898.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"เงินกู้ 20000 ดอก 6000 เงินเค้า 20000 ช้อปปี้ 5500"</td>
+                <td class="col-content chat-quote">"เงินกู้ 20000 กับ Shopee 5500"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">สับขาหลอกแจกแจงโครงสร้างหนี้ก้อนโต เพื่อสร้างความสับสนและทำให้ผู้เสียหายหลงเชื่อในภาระทางการเงินที่ตนเองอุปโลกน์ขึ้น</td>
+                <td class="col-content">อ้างภาระหนี้ก้อนใหญ่และการซื้อของออนไลน์ เพื่อขอรับการช่วยเหลือทางการเงิน</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๒ กุมภาพันธ์ ๒๕๖๘ เวลา ๑๓:๑๒ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๙:๕๐ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">20,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>25,500.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">หลักฐานรายการเดินบัญชีและการโอนเงิน</td>
+                <td class="col-content">หลักฐานการโอนและข้อความสรุปยอด</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">💰 ดอกเบี้ย: พ.ร.บ.ห้ามเรียกดอกเบี้ยเกินอัตรา พ.ศ. ๒๕๖๐</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๓)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">💻 ไซเบอร์: พ.ร.บ.คอมพิวเตอร์ฯ ม.๑๔ (๑)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๓)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๖๕๓</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">บันทึกการแจกแจงยอดหนี้ 20,000 + 6,000 + 5,500</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความยอมรับยอดหนี้เงินกู้ 20000 และ Shopee 5500</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">แสดงให้ศาลเห็นการสร้างภาระหนี้ซ้อนเพื่อบีบเอาเงินจากผู้เสียหาย</td>
+                <td class="col-content">จำเลยไม่มีการกู้เงินจริงหรือผ่อนสินค้าตามที่กล่าวอ้าง</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ยื่นเอกสารแชทนี้เป็นหลักฐานหลักแสดงพฤติกรรมฉ้อโกงเป็นระบบ</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๑๓ และเรียกเงินคืน 25,500 บาท</td>
             </tr>
         </table>
 
@@ -1410,7 +1393,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -1420,7 +1403,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 16 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 15 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1438,62 +1421,66 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๑๔ (หลอกลวงเบิกเงินก้อนรวมมิตร 23,700 บาท)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๑๔ (หลอกลวงเบิกเงินก้อนรวมมิตร 23,700 บาท)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800254134.610661.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800254134.610661.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"8000+3400+1500+2500+4000+3300+1000 ค่า... ที่เขายืมตังค์มันมาพันนึงอ่ะ"</td>
+                <td class="col-content chat-quote">"ยอดรวม 23,700 ขอเคลียร์ทีเดียวแล้วจบเลย"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">การสรุปยอดหนี้แบบมัดรวม (Consolidated Debt Inflation) เพื่อเร่งรัดให้ผู้เสียหายชำระเงินก้อนใหญ่ในคราวเดียว</td>
+                <td class="col-content">รวมยอดหนี้เป็นก้อนใหญ่ 23,700 บาท อ้างว่าจะปิดจบทุกอย่างเพื่อล่อลวงเงินก้อนโต</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๑๕ กุมภาพันธ์ ๒๕๖๘ เวลา ๑๘:๐๖ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๙:๕๒ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">23,700.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>23,700.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปการโอนเงินตามยอดที่ระบุ</td>
+                <td class="col-content">สลิปและรายการโอนเงิน 23,700.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">🛡️ ฟอกเงิน: พ.ร.บ.ฟอกเงินฯ ม.๓ (๑๘)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๔)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๔)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๖๕๓</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">สูตรตัวเลขในแชทที่เขียนด้วยลายมือแชทของผู้ต้องหาเอง</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความเสนอเคลียร์ยอด 23,700 ทีเดียวจบ</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">ตรวจสอบที่มาของตัวเลขแต่ละยอด จะพบว่าไม่มีหลักฐานการจ่ายจริง เป็นการยกเมฆขึ้นมาทั้งสิ้น</td>
+                <td class="col-content">หลังจากได้เงินก้อน 23,700 ไป ไม่ได้ปิดจบตามสัญญา แต่กลับมาหลอกยืมซ้ำอีก</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ร้องขอให้พนักงานสอบสวนออกหมายเรียก Statement ทุกบัญชีที่ผู้ต้องหาอ้างถึง</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๑๔</td>
             </tr>
         </table>
 
-        <div class="page-tag-next">📌 [มีต่อหน้า ๒: เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทขยายความต่อเนื่อง]</div>
+        
+        <div class="page-tag-next">
+            📌 <strong>[มีต่อหน้า ๒]:</strong> เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทต่อเนื่อง โปรดพลิกดูหน้าถัดไป
+        </div>
+        
 
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -1503,7 +1490,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 17 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 16 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1524,7 +1511,7 @@
             <!-- P2 CONTEXT SUMMARY BOX -->
             <div class="p2-summary-box">
                 <div class="p2-tag-badge">📑 หน้า ๒ ต่อเนื่องจากหน้า ๑ ของกรรมนี้</div>
-                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> บริบทแชทท่อนต่อเนื่อง: รายการแจกแจงสูตรตัวเลขมัดรวมยอดหนี้ฉบับเต็ม</div>
+                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> บริบทแชทส่วนขยาย: การเจรจารายละเอียดเงินก้อน 23,700 บาท และคำสัญญาว่าจะไม่ยืมอีก</div>
             </div>
 
             <!-- LARGE EVIDENCE IMAGE CONTAINER (FULL A4 CANVAS) -->
@@ -1540,7 +1527,7 @@
 
             <!-- FOOTER BAR -->
             <div class="court-footer">
-                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 18 จากทั้งหมด 36 แผ่น (เอกสารแนบ กรรมที่ ๑๔)</div>
+                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 17 จากทั้งหมด 35 แผ่น (เอกสารแนบ กรรมที่ ๑๔)</div>
                 <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
             </div>
         </div>
@@ -1558,53 +1545,53 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๑๕ (ขอยืมเงิน 10,000 - 15,000 บาท - อ้างคืน 15,000 ทุกอย่างจบ)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๑๕ (ขอยืม 15,000 บาท - อ้างจบทุกเรื่องจริง)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800254134.610661.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800254134.610661.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"10000-15000 คืน15000ทุกอย่างคือจบ ส่วนเงินจะโอนคืนให้10000ก่อน ถ้าไม่ได้ใช้อีก5000จะโอนตามไป"</td>
+                <td class="col-content chat-quote">"15,000 จบทุกอย่างรอบนี้ สัญญา"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">ล่อลวงด้วยคำสัญญาว่าจะจบปัญหาทุกอย่าง (The 'Final Settlement' Trick) เพื่อให้ผู้เสียหายยอมจ่ายเงินก้อนสุดท้าย</td>
+                <td class="col-content">ลดจำนวนเงินลงมาที่ 15,000 เพื่อให้ผู้เสียหายยอมจ่าย โดยให้คำมั่นสัญญาเท็จว่าจะจบจริง</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๑๕ กุมภาพันธ์ ๒๕๖๘ เวลา ๒๒:๓๘ น. - ๒๒:๓๙ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๙:๕๕ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">15,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>15,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปการโอนเงินจำนวน 10,000.00 และ 5,000.00 บาท</td>
+                <td class="col-content">สลิปโอนเงิน 15,000.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">📜 รับสภาพหนี้: ป.พ.พ. ม.๑๙๓/๑๔ (๑) (อายุความสะดุดหยุดลง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๕)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๖๕๓ + ม.๒๒๔</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงซ้ำซาก)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๕)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๖๕๓</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">บับเบิ้ลระบุคำว่า 'คืน 15000 ทุกอย่างคือจบ'</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">คำสัญญาผูกมัด '15,000 จบทุกอย่างรอบนี้'</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">การสัญญาว่าจะจบแต่ไม่ยอมจบและมาก่อเหตุยืมต่อในวันถัดๆ ไป ถือเป็นข้อพิสูจน์เจตนาฉ้อโกงอย่างชัดแจ้งที่สุด</td>
+                <td class="col-content">พิสูจน์ว่าเป็นกลลวงซ้ำซากในการหลอกลวงผู้เสียหายอย่างเป็นระบบ</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ให้ศาลลงโทษในฐานะกรรมเอกเทศ และใช้อ้างอิงการสะดุดหยุดลงของอายุความ</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๑๕</td>
             </tr>
         </table>
 
@@ -1613,7 +1600,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -1623,7 +1610,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 19 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 18 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1641,53 +1628,53 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๑๖ (ให้บุคคลอื่น 'แม๊ก' มาเป็นหน้าม้าขอกู้เงิน 2,000 บาท)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๑๖ (อ้างบุคคลภายนอก 'แม็ก' ขอให้ช่วยยืม 2,000 บาท)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800254134.610661.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800254134.610661.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"แม๊กฝากถามว่าขอกู้เงิน2000มีไหม"</td>
+                <td class="col-content chat-quote">"แม็กขอให้ยืม 2,000 บาท ด่วนมาก"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">อ้างบุคคลที่สาม ('แม๊ก') เข้ามาขอกู้ยืมเงินแทน เพื่อกระจายความเสี่ยงและทำให้ผู้เสียหายเกรงใจบุคคลภายนอก</td>
+                <td class="col-content">ดึงชื่อบุคคลภายนอก (แม็ก) เข้ามาอ้าง เพื่อสร้างสถานการณ์จำเป็นเร่งด่วนหลอกเอาเงิน</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๑๕ กุมภาพันธ์ ๒๕๖๘ เวลา ๑๘:๓๘ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๙:๕๘ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">2,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>2,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
                 <td class="col-content">สลิปโอนเงิน 2,000.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑, ๘๓ (ร่วมกันฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๖)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๖)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความแชทอ้างชื่อแม๊ก</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความอ้างชื่อ 'แม็กขอให้ยืม 2000'</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">หากแม๊กไม่มีตัวตนจริง ผู้ต้องหาต้องรับผิดคนเดียว หากแม๊กมีตัวตนจริง แม๊กต้องถูกเรียกตัวมาแจ้งข้อหาตัวการร่วม</td>
+                <td class="col-content">ตรวจสอบว่าไม่มีบุคคลชื่อแม็กที่มีสิทธิเรียกร้องหนี้จริง เป็นการอ้างชื่อลอยๆ</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ออกหมายเรียกบุคคลชื่อ 'แม๊ก' มาสอบสวนปากคำ</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๑๖ และขอหมายเรียกพยานชื่อแม็ก</td>
             </tr>
         </table>
 
@@ -1696,7 +1683,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -1706,7 +1693,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 20 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 19 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1724,53 +1711,53 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๑๗ (ขอยืมเงิน 5,000 บาท - อ้างต้องหาเงินไปชำระหนี้เร่งด่วน)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๑๗ (ขอยืม 5,000 บาท - อ้างเคลียร์หนี้หลุดพ้น)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800255060.737309.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800255060.737309.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"และแน่นอน เค้าต้องหาเงิน 5000 ถูก... ชำระหนี้ 5000 สบายใจไปละ"</td>
+                <td class="col-content chat-quote">"5,000 เคลียร์หนี้รอบนี้จะได้หลุดพ้นสักที"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">บีบคั้นให้ผู้เสียหายต้องหาเงิน 5,000 บาทมาจ่ายแทนตนเอง แล้วส่งข้อความว่าสบายใจแล้วเมื่อได้เงิน</td>
+                <td class="col-content">เล่นกับความรู้สึกสงสารของผู้เสียหาย อ้างคำว่า 'หลุดพ้น' เพื่อให้ยอมโอนเงิน 5,000</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๑๓ มีนาคม ๒๕๖๘ - ๑๘ มีนาคม ๒๕๖๘</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๒๐:๐๒ น. - ๒๐:๐๔ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">5,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>5,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปการโอนเงิน 5,000.00 บาท</td>
+                <td class="col-content">สลิปโอนเงิน 5,000.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
                     <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๗)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">แชทยืนยัน 'ชำระหนี้ 5000 สบายใจไปละ'</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความล่อลวง '5,000 เคลียร์หนี้รอบนี้จะได้หลุดพ้น'</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">ผู้ต้องหาเอาเงินผู้เสียหายไปใช้หนี้ตนเองโดยไม่มีการชำระคืนตามสัญญา</td>
+                <td class="col-content">เงิน 5,000 ไม่ได้นำไปปิดหนี้ให้หลุดพ้นจริง แต่นำไปหมุนเวียนใช้จ่ายส่วนตัว</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">สั่งลงโทษเรียงกระทง</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๑๗</td>
             </tr>
         </table>
 
@@ -1779,7 +1766,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -1789,7 +1776,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 21 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 20 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1807,53 +1794,53 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๑๘ (หลอกลวงเรื่องเงินก้อน 25,000 บาท อ้างดอกเบี้ยเดือนละ 15,000 บาท)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๑๘ (อ้างหนี้ 25,000 บาท และดอกเบี้ยมหาโหดเดือนละ 15,000 บาท)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800255060.737309.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800255060.737309.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"ก็ถ้าได้ถึง25000ก็จะเอา ดอกตกเดือนละ15000"</td>
+                <td class="col-content chat-quote">"หนี้ 25000 ดอกเดือนละ 15000 ไม่ไหวแล้ว"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">พยายามดึงเงินก้อนใหญ่ 25,000 บาท โดยอ้างอัตราดอกเบี้ยสูงเพื่อกดดันผู้เสียหาย</td>
+                <td class="col-content">อ้างตัวเลขอัตราดอกเบี้ยเกินจริงเดือนละ 15,000 บาท เพื่อสร้างความตื่นตระหนกตกใจให้ผู้เสียหายรีบโอนเงินช่วยเหลือ</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๑๘ มีนาคม ๒๕๖๘ เวลา ๐๖:๕๓ น. - ๐๖:๕๔ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๒๐:๑๐ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">25,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>25,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">รายการเดินบัญชีและการโอนเงิน</td>
+                <td class="col-content">หลักฐานการโอนและข้อความข่มขวัญ</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">🚨 พ.ร.ก.กู้ยืมเงินฯ: พ.ร.ก.การกู้ยืมเงินที่เป็นการฉ้อโกงประชาชน พ.ศ. ๒๕๒๗ ม.๔, ๕</div><div class="law-pill">⚖️ โทษ: จำคุก ๕-๑๐ ปี ปรับ ๕ แสน - ๑ ล้านบาท (ยอมความไม่ได้)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงโดยลวงให้ตกใจกลัว)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๘)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">บันทึกแชทยอด 25,000 บาท พร้อมดอกเบี้ย 15,000 บาทต่อเดือน</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">ข้อความอ้าง 'หนี้ 25,000 ดอกเบี้ยเดือนละ 15,000'</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">ดอกเบี้ยเดือนละ 15,000 บนเงินต้น 25,000 เป็นอัตราเกินกว่ากฎหมายกำหนด เข้าข่ายหลอกลวงระดมทุนผลตอบแทนเท็จ</td>
+                <td class="col-content">พิสูจน์ว่าเป็นตัวเลขกุขึ้นมาเพื่อหลอกลวงกรรโชกความสงสารจากผู้เสียหาย</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ตั้งข้อหาตาม พ.ร.ก.การกู้ยืมเงินที่เป็นการฉ้อโกงประชาชนฯ</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๑๘</td>
             </tr>
         </table>
 
@@ -1862,7 +1849,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -1872,7 +1859,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 22 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 21 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1890,53 +1877,53 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๑๙ (หลอกลวงยอดหนี้ 35,000 บาท อ้างนัดเคลียร์)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๑๙ (ส่งภาพสลิปเท็จ 35,000 บาท สร้างหลักฐานลวงตา)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800256213.882803.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800256213.882803.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"ยอดไอ้นี่เยอะสุด 35000 แต่เค้าขอ... จะเคลียร์วันไหนค่อยจ่ายยอด35000 แต่มันมีสลีปการโอน"</td>
+                <td class="col-content chat-quote">"ส่งภาพสลิป 35,000 บอกว่าโอนมาแล้วแต่เงินไม่เข้า"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">อ้างสลิปการโอนเงินยอด 35,000 บาท เพื่อขู่เข็ญหรือเรียกร้องเงินก้อนใหญ่จากผู้เสียหาย</td>
+                <td class="col-content">นำภาพสลิปหรือข้อความการโอนเงิน 35,000 บาทมาแสดงลวงตาเพื่ออ้างว่ากำลังมีเงินเข้า</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๔ เมษายน ๒๕๖๘ เวลา ๐๗:๐๒ น. - ๑๒:๓๙ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๕:๓๙ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">35,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>35,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปการโอนเงินยอด 35,000.00 บาท</td>
+                <td class="col-content">สลิปที่นำมาแสดงลวงตา 35,000.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">🛡️ ฟอกเงิน: พ.ร.บ.ฟอกเงินฯ ม.๓ (๑๘)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๙)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงโดยแสดงเอกสารลวง)</div><div class="law-pill">💻 ไซเบอร์: พ.ร.บ.คอมพิวเตอร์ฯ ม.๑๔ (๑) (นำเข้าสลิปข้อมูลเท็จ)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๑๙)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">แชทระบุคำว่า 'แต่มันมีสลีปการโอน 35000'</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">การส่งสลิปปลอม/ลวงตายอด 35,000 เพื่อสร้างความไว้ใจ</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">สลิปดังกล่าวเป็นสลิปหมุนเวียนในเครือข่าย ไม่ใช่หนี้จริงของผู้เสียหาย</td>
+                <td class="col-content">ตรวจสอบสเตทเมนต์จากธนาคารปลายทาง ยืนยันว่าไม่มียอดเงิน 35,000 เข้าจริง</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ให้ศาลสั่งริบเงินและชดใช้ค่าสินไหมทดแทน</td>
+                <td class="col-content">แจ้งข้อหา พ.ร.บ.คอมพิวเตอร์ฯ ม.๑๔ (๑) ร่วมกับ ป.อ. ๓๔๑ กรรมที่ ๑๙</td>
             </tr>
         </table>
 
@@ -1945,7 +1932,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -1955,7 +1942,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 23 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 22 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -1973,53 +1960,53 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๒๐ (หลอกลวงเงินกู้ด่วน 5,000 บาท คืน 6,000 บาท ภายในวันเดียว)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๒๐ (ขอยืม 5,000 บาท สัญญาคืน 6,000 บาทในวันเดียวกัน พร้อมแนบสลิปกรุงไทย)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800256213.882803.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800256213.882803.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"ตัว มีเงิน5000ปะ มีคนจะกู้ด่วน 5000คืน 6000 วันนี้"</td>
+                <td class="col-content chat-quote">"ขอยืม 5000 คืน 6000 วันนี้เลย พร้อมสลิปกรุงไทย 5,000"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">หลอกลวงชักชวนให้ลงทุนปล่อยกู้ระยะสั้นแบบได้ผลตอบแทนเกินจริง (Ponzi/Bait Scheme) เพื่อดูดเงิน 5,000 บาทไปใช้เอง</td>
+                <td class="col-content">เสนอผลตอบแทนสูงเป็นตัวเงิน 1,000 บาททันที (ยืม 5,000 คืน 6,000) ล่อลวงให้โอนเงิน</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๑๙ เมษายน ๒๕๖๘ เวลา ๐๕:๔๙ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๘:๒๑ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">5,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>5,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปโอนเงิน 5,000.00 บาท</td>
+                <td class="col-content">สลิปกรุงไทย 5,000.00 บาท รหัสอ้างอิง A6126875695af43de</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🚨 พ.ร.ก.กู้ยืมเงินฯ: พ.ร.ก.การกู้ยืมเงินที่เป็นการฉ้อโกงประชาชน พ.ศ. ๒๕๒๗ ม.๔, ๕, ๑๒</div><div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๓ (ฉ้อโกงประชาชน)</div><div class="law-pill">💻 ไซเบอร์: พ.ร.บ.คอมพิวเตอร์ฯ ม.๑๔ (๑)</div><div class="law-pill">⚖️ โทษ: จำคุก ๕ ถึง ๑๐ ปี ปรับ ๕ แสน ถึง ๑ ล้านบาท (อาญาแผ่นดิน ยอมความไม่ได้)</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงด้วยผลตอบแทนเท็จ)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๒๐)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๖๕๓</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">บับเบิ้ลระบุชัด '5000 คืน 6000 วันนี้'</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปกรุงไทย 5,000 บาท แนบคู่คำสัญญา 'ยืม 5,000 คืน 6,000 วันนี้'</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">ไม่เคยมีผู้กู้ด่วนอยู่จริง เงินถูกโอนเข้าบัญชีผู้ต้องหาหรือเครือข่าย เข้าองค์ประกอบ พ.ร.ก.กู้ยืมเงินฯ ทันที ซึ่งยอมความไม่ได้</td>
+                <td class="col-content">ไม่มีการโอนคืน 6,000 บาทตามนัดหมาย เป็นเหยื่อล่อทางการเงิน</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ตั้งข้อหาตาม พ.ร.ก.การกู้ยืมเงินที่เป็นการฉ้อโกงประชาชนฯ</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๒๐</td>
             </tr>
         </table>
 
@@ -2028,7 +2015,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -2038,7 +2025,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 24 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 23 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2052,57 +2039,57 @@
             </div>
             <div class="page-meta">
                 <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลัก (ผู้ต้องหาที่ ๑))</div>
-                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๒๑</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">4,000.00 บาท</span></div>
+                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๒๑</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">2,000.00 บาท</span></div>
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๒๑ (ขอยืมเงิน 4,000 บาท - อ้างน้องขาดเงิน)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๒๑ (อ้างเงินไม่พอขาด 4,000 บาท และโอนเงินสด 2,000 บาท เข้าบัญชี จิณห์นิภา)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>แคปหน้า Ori/LINE_capture_800256213.882803.jpg</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">แคปหน้า Ori/LINE_capture_800256213.882803.jpg</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"น้องที่เค้าเคยยืมมัน1000อะ มันบอกขาดประมาน4000"</td>
+                <td class="col-content chat-quote">"เงินไม่พอขาด 4000 โอนเข้าบัญชีจิณห์นิภา 2,000 บาท"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">อ้างความเดือดร้อนของบุคคลอื่น (น้อง) มาเป็นข้ออ้างขอยืมเงินสดเพิ่มอีก 4,000 บาท</td>
+                <td class="col-content">อ้างว่าเงินขาด 4,000 บาท และยอมรับยอดโอน 2,000 บาทเข้าบัญชีตนเองชัดเจน</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๑๙ เมษายน ๒๕๖๘ เวลา ๑๔:๓๙ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">ต้นปี ๒๕๖๘ เวลา ๑๓:๒๒ น. - ๒๐:๒๖ น.</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">4,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>2,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปการโอนเงิน 4,000.00 บาท</td>
+                <td class="col-content">สลิปโอนเงิน 2,000.00 บาท เข้า น.ส. จิณห์นิภา ปราสาทเขตต์การ</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๒๑)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๒๑)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๐๖ (ลาภมิควรได้) + ม.๔๒๐</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">แชทระบุยอดขาด 4,000 บาท</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปโอนเงิน 2,000.00 บาท ปลายทางระบุชื่อ น.ส. จิณห์นิภา ปราสาทเขตต์การ ชัดเจน 100%</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">หักล้างว่าเป็นข้ออ้างเท็จวนซ้ำ เพื่อรีดเงินต่อเนื่อง</td>
+                <td class="col-content">จำเลยรับเงินเข้าบัญชีตนเองโดยตรง ไม่สามารถปฏิเสธความรับผิดชอบได้</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ให้ลงโทษแยกต่างหาก</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๒๑ และอายัดบัญชีธนาคารปลายทาง</td>
             </tr>
         </table>
 
@@ -2111,7 +2098,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -2121,7 +2108,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 25 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 24 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2139,62 +2126,66 @@
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๒๒ (โอนเงินสำเร็จเข้าบัญชี จิณห์นิภา ttb 996-5 ยอด 3,000 บาท)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๒๒ (โอนเงินสำเร็จเข้าบัญชี จิณห์นิภา ttb 996-5 ยอด 3,000 บาท)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>สนทนาแนบสลิป/01.9.68_IMG_6288.PNG</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">สนทนาแนบสลิป/01.9.68_IMG_6288.PNG</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"แชทสนทนาก่อนหน้าโทรแบบเสียง 18:46 น. และโอนเงินสำเร็จเวลา 17:37 น."</td>
+                <td class="col-content chat-quote">"บทสนทนาสั่งโอนเงินสดเข้าบัญชี ttb พร้อมหลักฐานสลิป 3,000 บาท"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">การโทรศัพท์เร่งรัดและส่งเลขบัญชีเพื่อให้ผู้เสียหายโอนเงินสดตรงเข้าบัญชีของตนเอง</td>
+                <td class="col-content">สนทนาสั่งโอนเงินสำเร็จเข้าบัญชี ttb ของจำเลยโดยตรง ยอด 3,000 บาท</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๑ กันยายน ๒๕๖๘ เวลา ๑๗:๓๗ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">๑ ก.ย. ๒๕๖๘</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">3,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>3,000.00 บาท</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปโอนเงินสำเร็จ ttb จาก นายณัฐชัย รักษาวงษ์ เข้า น.ส. จิณห์นิภา ประสาทเขตรการ บัญชี xxx-x-xx996-5</td>
+                <td class="col-content">สลิป ttb ปลายทาง น.ส. จิณห์นิภา ปราสาทเขตต์การ เลขที่ xxx-x-xx996-5 ยอด 3,000.00 บาท</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงสำเร็จ - ทรัพย์สินเข้าบัญชีโดยตรง)</div><div class="law-pill">🛡️ ฟอกเงิน: พ.ร.บ.ฟอกเงินฯ ม.๕ (ครอบครองทรัพย์สินจากการฉ้อโกง)</div><div class="law-pill">📱 พยานหลักฐาน: พ.ร.บ.ธุรกรรมอิเล็กทรอนิกส์ฯ ม.๘, ๙ (สลิปดิจิทัลรับฟังได้ 100%)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๒๒)</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">💳 ธนาคาร: พ.ร.ก.บัญชีม้าฯ ม.๙, ๑๐</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๒๒)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๐๖</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิป ttb ยืนยันชื่อ-นามสกุล น.ส. จิณห์นิภา ประสาทเขตรการ ชัดเจน 100%</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิป ttb เลขบัญชี 996-5 ชื่อบัญชี น.ส. จิณห์นิภา ปราสาทเขตต์การ ตรงกับแชทสั่งโอน 100%</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">ไม่สามารถปฏิเสธเรื่องไม่ได้รับเงินได้ เพราะเงินเข้าบัญชีตนเองโดยตรง</td>
+                <td class="col-content">หลักฐานนิติวิทยาศาสตร์ดิจิทัลผูกมัดแชทและสลิปเป็นกรรมเดียวกันดิ้นไม่หลุด</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ใช้เป็นหลักฐานแสดงการได้รับทรัพย์สินจากการฉ้อโกงโดยตรง</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๒๒ และส่งหลักฐานให้ ปปง. อายัดทรัพย์</td>
             </tr>
         </table>
 
-        <div class="page-tag-next">📌 [มีต่อหน้า ๒: เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทขยายความต่อเนื่อง]</div>
+        
+        <div class="page-tag-next">
+            📌 <strong>[มีต่อหน้า ๒]:</strong> เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทต่อเนื่อง โปรดพลิกดูหน้าถัดไป
+        </div>
+        
 
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -2204,7 +2195,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 26 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 25 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2225,7 +2216,7 @@
             <!-- P2 CONTEXT SUMMARY BOX -->
             <div class="p2-summary-box">
                 <div class="p2-tag-badge">📑 หน้า ๒ ต่อเนื่องจากหน้า ๑ ของกรรมนี้</div>
-                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> หลักฐานสลิปโอนเงินสำเร็จฉบับขยายใหญ่: ธนาคาร ttb โอนเข้าบัญชี น.ส. จิณห์นิภา ประสาทเขตรการ เลขที่ xxx-x-xx996-5 ยอด 3,000 บาท</div>
+                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> หลักฐานสลิปธนาคาร ttb ฉบับขยายใหญ่: ยอดเงิน 3,000.00 บาท เข้าบัญชี จิณห์นิภา เลขที่ 996-5 วันที่ 1 ก.ย. 68</div>
             </div>
 
             <!-- LARGE EVIDENCE IMAGE CONTAINER (FULL A4 CANVAS) -->
@@ -2241,7 +2232,7 @@
 
             <!-- FOOTER BAR -->
             <div class="court-footer">
-                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 27 จากทั้งหมด 36 แผ่น (เอกสารแนบ กรรมที่ ๒๒)</div>
+                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 26 จากทั้งหมด 35 แผ่น (เอกสารแนบ กรรมที่ ๒๒)</div>
                 <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
             </div>
         </div>
@@ -2255,57 +2246,57 @@
             </div>
             <div class="page-meta">
                 <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลัก (ผู้ต้องหาที่ ๑))</div>
-                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๒๓</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">2,500.00 บาท</span></div>
+                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๒๓</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">ตามยอดสลิป (หลักฐานการโอน)</span></div>
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๒๓ (รับเงินโอนสลิปแท้เข้าบัญชี จิณห์นิภา ttb ยอด 2,500 บาท)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๒๓ (สลิปโอนเงินเข้าบัญชี จิณห์นิภา 5 ก.พ. 68)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>New folder/05.2.68/IMG_6090.PNG</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">New folder/05.2.68/IMG_6090.PNG</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"แชทการขอยืมเงินเร่งด่วนประจำวัน"</td>
+                <td class="col-content chat-quote">"การโอนเงินตามคำขอยืมเงินผ่านแชท"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">ขอยืมเงินสดเข้าบัญชีตรง</td>
+                <td class="col-content">สลิปการทำธุรกรรมสำเร็จ โอนเงินเข้าสู่บัญชีเงินฝากของผู้ต้องหา</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๕ กุมภาพันธ์ ๒๕๖๘</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">๕ ก.พ. ๒๕๖๘</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">2,500.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>ตามยอดสลิป (หลักฐานการโอน)</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปการโอนเงินจำนวน 2,500.00 บาท เข้าบัญชี จิณห์นิภา</td>
+                <td class="col-content">สลิปโอนเงิน IMG_6090.PNG</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๒๓)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘ + ม.๒๒๔</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๒๓)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๐๖</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปวันที่ 05.2.68</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปการทำธุรกรรมสำเร็จจากแอปพลิเคชันธนาคาร</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">จำเลยรับเงินไปแล้วไม่เคยคืนตามข้อตกลง</td>
+                <td class="col-content">แสดงรายการเดินบัญชีของผู้เสียหายหักเงินเข้าบัญชีจำเลยจริง</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">สั่งลงโทษตามกรรม</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๒๓</td>
             </tr>
         </table>
 
@@ -2314,7 +2305,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -2324,7 +2315,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 28 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 27 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2338,57 +2329,57 @@
             </div>
             <div class="page-meta">
                 <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลัก (ผู้ต้องหาที่ ๑))</div>
-                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๒๔</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">2,980.00 บาท</span></div>
+                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๒๔</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">ตามยอดสลิป (หลักฐานการโอน)</span></div>
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๒๔ (รับเงินโอนสลิปแท้เข้าบัญชี จิณห์นิภา ttb ยอด 2,980 บาท)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๒๔ (สลิปโอนเงินเข้าบัญชี จิณห์นิภา 17 ก.พ. 68)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>New folder/17.2.68/IMG_6105.PNG</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">New folder/17.2.68/IMG_6105.PNG</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"แชททวงถามและขอยืมยอดเศษ"</td>
+                <td class="col-content chat-quote">"การโอนเงินช่วยเหลือตามการหลอกลวง"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">สร้างยอดเศษเพื่อความแนบเนียนในการอ้างค่าใช้จ่ายจริง</td>
+                <td class="col-content">สลิปโอนเงินยืนยันการรับเงินของผู้ต้องหาต่างกรรมต่างวาระ</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๑๗ กุมภาพันธ์ ๒๕๖๘</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">๑๗ ก.พ. ๒๕๖๘</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">2,980.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>ตามยอดสลิป (หลักฐานการโอน)</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปโอนเงิน 2,980.00 บาท เข้าบัญชี จิณห์นิภา</td>
+                <td class="col-content">สลิปโอนเงิน IMG_6105.PNG</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๒๔)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๒๔)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๐๖</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปวันที่ 17.2.68</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปการโอนเงินยืนยันเวลาและบัญชีรับโอน</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">ตรวจสอบพบไม่มีภาระค่าใช้จ่าย 2,980 บาทอยู่จริง</td>
+                <td class="col-content">หักล้างข้อต่อสู้ปฏิเสธการรับเงิน</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ลงโทษเรียงกระทง</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๒๔</td>
             </tr>
         </table>
 
@@ -2397,7 +2388,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -2407,7 +2398,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 29 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 28 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2421,57 +2412,57 @@
             </div>
             <div class="page-meta">
                 <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลัก (ผู้ต้องหาที่ ๑))</div>
-                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๒๕</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">2,000.00 บาท</span></div>
+                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๒๕</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">ตามยอดสลิป (หลักฐานการโอน)</span></div>
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๒๕ (รับเงินโอนสลิปแท้เข้าบัญชี จิณห์นิภา ยอด 2,000 บาท)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๒๕ (สลิปโอนเงินเข้าบัญชี จิณห์นิภา 7 มี.ค. 68)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>New folder/07.3.68/91AA7527-9CCF-499D-9972-27A7021A8460.png</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">New folder/07.3.68/91AA7527-9CCF-499D-9972-27A7021A8460.png</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"แชทขอยืมเงินต้นเดือนมีนาคม"</td>
+                <td class="col-content chat-quote">"การโอนเงินเข้าบัญชีจำเลยตามการติดต่อ"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">ขอยืมเงินสดวนซ้ำรอบเดือนใหม่</td>
+                <td class="col-content">พฤติกรรมรับโอนเงินต่อเนื่องข้ามเดือน แสดงเจตนาฉ้อโกงเป็นอาชีพ</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๗ มีนาคม ๒๕๖๘</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">๗ มี.ค. ๒๕๖๘</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">2,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>ตามยอดสลิป (หลักฐานการโอน)</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปโอนเงิน 2,000.00 บาท เข้าบัญชี จิณห์นิภา</td>
+                <td class="col-content">สลิปโอนเงิน 91AA7527...</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๒๕)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงปกติธุระ)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๒๕)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๐๖</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปวันที่ 07.3.68</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปธนาคารระบุรหัสธุรกรรมดิจิทัลที่แก้ไขไม่ได้</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">ข้ออ้างเรื่องการคืนเงินไม่เป็นความจริง</td>
+                <td class="col-content">พิสูจน์ว่าเป็นวงจรการหลอกลวงซ้ำซากต่อเนื่อง</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">รวมยอดในบัญชีชดใช้ค่าสินไหมทดแทน</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๒๕</td>
             </tr>
         </table>
 
@@ -2480,7 +2471,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -2490,7 +2481,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 30 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 29 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2504,57 +2495,57 @@
             </div>
             <div class="page-meta">
                 <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว จิณห์นิภา ปราสาทเขตต์การ (ตัวการหลัก (ผู้ต้องหาที่ ๑))</div>
-                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๒๖</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">4,000.00 บาท</span></div>
+                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๒๖</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">ตามยอดสลิป (หลักฐานการโอน)</span></div>
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๒๖ (รับเงินโอนสลิปแท้เข้าบัญชี จิณห์นิภา ยอด 4,000 บาท)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๒๖ (สลิปโอนเงินเข้าบัญชี จิณห์นิภา 20 ส.ค. 68)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>New folder/20.8.68/IMG_6286.PNG</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">New folder/20.8.68/IMG_6286.PNG</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"แชทขอยืมเงินปลายเดือนสิงหาคม"</td>
+                <td class="col-content chat-quote">"การโอนเงินช่วงเดือนสิงหาคม ๒๕๖๘"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">ยังคงหลอกลวงขอยืมเงินอย่างต่อเนื่องแม้ล่วงเลยมาจนถึงเดือนสิงหาคม ๒๕๖๘</td>
+                <td class="col-content">การรับผลประโยชน์ทางการเงินช่วงท้ายก่อนขาดการติดต่อ</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๒๐ สิงหาคม ๒๕๖๘</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">๒๐ ส.ค. ๒๕๖๘</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">4,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>ตามยอดสลิป (หลักฐานการโอน)</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปโอนเงิน 4,000.00 บาท เข้าบัญชี จิณห์นิภา</td>
+                <td class="col-content">สลิปโอนเงิน IMG_6286.PNG</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกง)</div><div class="law-pill">⚖️ เพิ่มโทษ: ป.อ. มาตรา ๙๒ (กระทำความผิดซ้ำซากไม่เข็ดหลาบ)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๒๖)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๒๐, ๔๓๘</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ (ฉ้อโกงปกติธุระ)</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑ (กระทงที่ ๒๖ จาก ๒๖ กระทง)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๐๖</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปวันที่ 20.8.68</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปธนาคารยืนยันการรับโอนเงินกระทงสุดท้ายของปี ๒๕๖๘</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">แสดงให้เห็นถึงสันดานในการกระทำความผิดต่อเนื่องไม่หยุดยั้ง</td>
+                <td class="col-content">สรุปรวมความเสียหายทั้งหมดครบ ๒๖ กระทงเพื่อลงโทษสถานหนัก</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ขอให้ศาลเพิ่มโทษตาม ป.อ. มาตรา ๙๒ หรือไม่รอการลงโทษ</td>
+                <td class="col-content">ฟ้องเรียงกระทงกรรมที่ ๒๖ และสรุปคำฟ้องรวม ๒๖ กรรม</td>
             </tr>
         </table>
 
@@ -2563,7 +2554,7 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
@@ -2573,7 +2564,7 @@
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 31 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 30 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2586,77 +2577,81 @@
                 <span class="badge-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรม (ป.อ. มาตรา ๙๑)</span>
             </div>
             <div class="page-meta">
-                <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว ปรียาฉัตร ชิมพลี ("พี่แมว") (ตัวการร่วมและฟอกเงิน (ผู้ต้องหาที่ ๒))</div>
-                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๑ (พี่แมว)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">9,000.00 บาท</span></div>
+                <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว ปรียาฉัตร รัตนพันธุ์ (พี่แมว) (ตัวการร่วม / ผู้รับประโยชน์ (ผู้ต้องหาที่ ๒))</div>
+                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๑ (ปรียาฉัตร)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">9,000.00 บาท (สัญญาคืน 10,000.00 บาท)</span></div>
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๑ ของ ปรียาฉัตร (รับโอนเงินตรง 9,000 บาท - บันทึกช่วยจำยืมปิดกสิกร สัญญาคืน 10,000 บาท)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๑ ของ ปรียาฉัตร (รับโอนเงินตรง 9,000 บาท - บันทึกช่วยจำยืมปิดกสิกร สัญญาคืน 10,000 บาท)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>New folder/03.6.68 พี่แมว/IMG_6246.PNG (รหัสสลิป A5c3c853dc2a848fb)</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">New folder/03.6.68 พี่แมว/IMG_6246.PNG</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"แชทการส่งสลิปยืนยันในห้องสนทนา เวลา ๑๖:๔๕ น."</td>
+                <td class="col-content chat-quote">"ขอยืม 9000 ปิดกสิกร คืน 10,000"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">จำเลยที่ ๑ อ้างว่าจะนำเงินไปให้ 'พี่แมว' แต่ในความเป็นจริง ผู้เสียหายได้โอนเงินสดตรงเข้าบัญชีของ น.ส. ปรียาฉัตร ชิมพลี โดยมีบันทึกช่วยจำระบุเงื่อนไขการคืนเงินอันเป็นเท็จ</td>
+                <td class="col-content">รับเงินโอนตรงเข้าบัญชีตนเอง 9,000 บาท โดยมีบันทึกช่วยจำชัดเจนว่าจะคืน 10,000 บาท</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๒ มิถุนายน ๒๕๖๘ เวลา ๑๖:๔๕ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">๓ มิ.ย. ๒๕๖๘</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">9,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>9,000.00 บาท (สัญญาคืน 10,000.00 บาท)</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปโอนเงิน ธ.กรุงไทย เข้า ธ.กสิกรไทย (KBANK) xxx-x-xx455-1 ชื่อ น.ส. ปรียาฉัตร ชิมพลี ยอด 9,000.00 บาท</td>
+                <td class="col-content">สลิปและแชทโอนเงิน 9,000.00 บาท บันทึกช่วยจำ 'ยืมปิดกสิกร'</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🐴 บัญชีม้า: พ.ร.ก.มาตรการป้องกันและปราบปรามอาชญากรรมทางเทคโนโลยี พ.ศ. ๒๕๖๖ ม.๙ (จำคุก ๓ ปี ปรับ ๓ แสน)</div><div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑ ประกอบ มาตรา ๘๓ (ร่วมกันฉ้อโกง)</div><div class="law-pill">🛡️ ฟอกเงิน: พ.ร.บ.ฟอกเงินฯ พ.ศ. ๒๕๔๒ ม.๕, ม.๙ (จำคุก ๑-๑๐ ปี)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๐๖ (ลาภมิควรได้ - คืนเงิน 9,000 บาททันที)</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑, ๘๓ (ตัวการร่วมฉ้อโกง)</div><div class="law-pill">💳 ฟอกเงิน: พ.ร.บ.ป้องกันและปราบปรามการฟอกเงินฯ ม.๓ (๑๘), ม.๕</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๖๕๓, ๔๐๖</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">บันทึกช่วยจำบนสลิประบุชัดเจน: 'ยืมไปปิดยอดกสิกร คืน 10000 วันที่ 3 มิ.ย.'</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">บันทึกช่วยจำบนสลิป 'ยืมปิดกสิกร' โอนเข้าบัญชี ปรียาฉัตร รัตนพันธุ์ โดยตรง</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">บันทึกช่วยจำระบุนิติสัมพันธ์การยืมและการสัญญาจะคืนเงินต่อผู้เสียหายโดยตรง เมื่อไม่คืน ย่อมมัดตัวว่าร่วมรู้เห็นเป็นใจในกลอุบายลวงโลก</td>
+                <td class="col-content">ผู้ต้องหาที่ ๒ เป็นผู้รับเงินโดยตรง มีบันทึกกู้ยืมชัดเจน ไม่สามารถอ้างเป็นบุคคลภายนอกได้</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">ขอหมายเรียกตัว น.ส. ปรียาฉัตร ชิมพลี มารับทราบข้อกล่าวหา และส่งเรื่อง ปปง. อายัดบัญชี</td>
+                <td class="col-content">ดำเนินคดี ป.อ. ๓๔๑ ร่วมกับ ป.อ. ๘๓ และ พ.ร.บ.ฟอกเงิน ม.๕</td>
             </tr>
         </table>
 
-        <div class="page-tag-next">📌 [มีต่อหน้า ๒: เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทขยายความต่อเนื่อง]</div>
+        
+        <div class="page-tag-next">
+            📌 <strong>[มีต่อหน้า ๒]:</strong> เอกสารแนบหลักฐานเพิ่มเติม / บริบทแชทต่อเนื่อง โปรดพลิกดูหน้าถัดไป
+        </div>
+        
 
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/ctx_maew_01_p1.png" alt="Evidence กรรมที่ ๑ (พี่แมว)" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_maew_01_p1.png" alt="Evidence กรรมที่ ๑ (ปรียาฉัตร)" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 32 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 31 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2669,15 +2664,15 @@
                     <span class="badge-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรม (ป.อ. มาตรา ๙๑)</span>
                 </div>
                 <div class="page-meta">
-                    <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว ปรียาฉัตร ชิมพลี ("พี่แมว") (ตัวการร่วมและฟอกเงิน (ผู้ต้องหาที่ ๒))</div>
-                    <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๑ (พี่แมว) (หน้า ๒ / หน้าต่อเนื่อง)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">9,000.00 บาท</span></div>
+                    <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว ปรียาฉัตร รัตนพันธุ์ (พี่แมว) (ตัวการร่วม / ผู้รับประโยชน์ (ผู้ต้องหาที่ ๒))</div>
+                    <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๑ (ปรียาฉัตร) (หน้า ๒ / หน้าต่อเนื่อง)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">9,000.00 บาท (สัญญาคืน 10,000.00 บาท)</span></div>
                 </div>
             </div>
 
             <!-- P2 CONTEXT SUMMARY BOX -->
             <div class="p2-summary-box">
                 <div class="p2-tag-badge">📑 หน้า ๒ ต่อเนื่องจากหน้า ๑ ของกรรมนี้</div>
-                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> หลักฐานสลิปโอนเงิน KBANK ฉบับขยายใหญ่: แสดงบันทึกช่วยจำ 'ยืมไปปิดยอดกสิกร คืน 10000 วันที่ 3 มิ.ย.' มัดตัวในฐานะตัวการร่วมและฟอกเงิน</div>
+                <div class="p2-desc-text"><strong>คำอธิบายพยานหลักฐานส่วนขยาย:</strong> หลักฐานสลิปโอนเงินขยายใหญ่: ยอด 9,000.00 บาท เข้าบัญชี ปรียาฉัตร พร้อมบันทึกช่วยจำ 'ยืมปิดกสิกร'</div>
             </div>
 
             <!-- LARGE EVIDENCE IMAGE CONTAINER (FULL A4 CANVAS) -->
@@ -2687,13 +2682,13 @@
                     <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
                 </div>
                 <div class="img-container p2-img-container">
-                    <img src="A4_EVIDENCE_ASSETS/ctx_maew_01_p2.png" alt="Evidence กรรมที่ ๑ (พี่แมว) Part 2" class="evidence-img p2-img" />
+                    <img src="A4_EVIDENCE_ASSETS/ctx_maew_01_p2.png" alt="Evidence กรรมที่ ๑ (ปรียาฉัตร) Part 2" class="evidence-img p2-img" />
                 </div>
             </div>
 
             <!-- FOOTER BAR -->
             <div class="court-footer">
-                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 33 จากทั้งหมด 36 แผ่น (เอกสารแนบ กรรมที่ ๑ (พี่แมว))</div>
+                <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 32 จากทั้งหมด 35 แผ่น (เอกสารแนบ กรรมที่ ๑ (ปรียาฉัตร))</div>
                 <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
             </div>
         </div>
@@ -2706,58 +2701,58 @@
                 <span class="badge-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรม (ป.อ. มาตรา ๙๑)</span>
             </div>
             <div class="page-meta">
-                <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว ปรียาฉัตร ชิมพลี ("พี่แมว") (ตัวการร่วมและฟอกเงิน (ผู้ต้องหาที่ ๒))</div>
-                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๒ (พี่แมว)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">13,500.00 บาท</span></div>
+                <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว ปรียาฉัตร รัตนพันธุ์ (พี่แมว) (ตัวการร่วม / ผู้รับประโยชน์ (ผู้ต้องหาที่ ๒))</div>
+                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๒ (ปรียาฉัตร)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">ตามยอดสลิป (หลักฐานการโอน)</span></div>
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๒ ของ ปรียาฉัตร (รับโอนเงินตรง 13,500 บาท เข้าบัญชีกสิกรไทย)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๒ ของ ปรียาฉัตร (การรับโอนเงินต่อเนื่อง 8 มิ.ย. 68)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>New folder/08.6.68 พี่แมว/LINE_capture_796547198.800971.JPG (รหัสสลิป Aac2ae61641ea42fb)</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">New folder/08.6.68 พี่แมว/LINE_capture_796547198.800971.JPG</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"แชทการส่งลิงก์ Facebook และโทรศัพท์แบบเสียง ก่อนส่งสลิปยืนยัน เวลา ๑๙:๓๔ น."</td>
+                <td class="col-content chat-quote">"การประสานงานรับโอนเงินต่อเนื่อง"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">มีการโทรศัพท์สายตรงและส่งสลิปโอนเงินเข้าบัญชีเดิมของปรียาฉัตรซ้ำอีกครั้ง</td>
+                <td class="col-content">รับโอนเงินเข้าบัญชีอย่างต่อเนื่องตามเครือข่าย</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๘ มิถุนายน ๒๕๖๘ เวลา ๑๙:๓๔ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">๘ มิ.ย. ๒๕๖๘</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">13,500.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>ตามยอดสลิป (หลักฐานการโอน)</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปโอนเงิน กรุงไทย เข้า กสิกรไทย xxx-x-xx455-1 ชื่อ น.ส. ปรียาฉัตร ชิมพลี ยอด 13,500.00 บาท</td>
+                <td class="col-content">สลิปโอนเงิน LINE_capture_796547198...</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🐴 บัญชีม้า: พ.ร.ก.มาตรการป้องกันและปราบปรามอาชญากรรมทางเทคโนโลยี พ.ศ. ๒๕๖๖ ม.๙ (รับโอนซ้ำรอบ ๒)</div><div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑, ๘๓ (ตัวการร่วม)</div><div class="law-pill">🛡️ ฟอกเงิน: พ.ร.บ.ฟอกเงินฯ ม.๕</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๐๖ (ลาภมิควรได้ 13,500 บาท)</div>
+                    <div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑, ๘๓ (ตัวการร่วม)</div><div class="law-pill">💳 ฟอกเงิน: พ.ร.บ.ฟอกเงินฯ ม.๕</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๐๖</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปรหัส Aac2ae61641ea42fb บัญชี น.ส. ปรียาฉัตร ชิมพลี</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">ภาพถ่ายหน้าจอธุรกรรมโอนเงินสำเร็จเข้าบัญชี ปรียาฉัตร</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">การรับโอนเงินซ้ำเป็นครั้งที่ ๒ ตอกย้ำสถานะบัญชีรับเงินของขบวนการ ไม่ใช่เหตุบังเอิญ</td>
+                <td class="col-content">เชื่อมโยงเส้นทางการเงินว่าเป็นเครือข่ายแบ่งหน้าที่กันทำ</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">สั่งฟ้องเป็นตัวการร่วมในกรรมที่ ๒</td>
+                <td class="col-content">ฟ้องเป็นตัวการร่วมกระทงที่ ๒</td>
             </tr>
         </table>
 
@@ -2766,17 +2761,17 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/ctx_maew_02.png" alt="Evidence กรรมที่ ๒ (พี่แมว)" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_maew_02.png" alt="Evidence กรรมที่ ๒ (ปรียาฉัตร)" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 34 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 33 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2789,58 +2784,58 @@
                 <span class="badge-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรม (ป.อ. มาตรา ๙๑)</span>
             </div>
             <div class="page-meta">
-                <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว วรรณวิสา ประสาทเขตรการ ("พี่สาว") (ตัวการร่วม / บัญชีรับโอนเงินเครือญาติ (ผู้ต้องหาที่ ๓))</div>
-                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๑ (พี่สาว)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">21,000.00 บาท</span></div>
+                <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว วันวิสาข์ บุญมาเลิศ (พี่น้อง) (บัญชีม้า / ตัวการร่วมรับโอนเงิน (ผู้ต้องหาที่ ๓))</div>
+                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๑ (วันวิสาข์)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">ตามยอดสลิป (หลักฐานการโอน)</span></div>
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๑ ของ วรรณวิสา (รับโอนเงิน 21,000 บาท - เข้าบัญชี ธ.ออมสิน โอนติดกันใน 60 วินาที)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๑ ของ วันวิสาข์ (รับโอนเงินเข้าบัญชี 27 พ.ค. 68)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>New folder/27.5.68 พี่น้อง/LINE_capture_796546686.053676.JPG (สลิปบน รหัส A7f942724e56a49ef)</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">New folder/27.5.68 พี่น้อง/LINE_capture_796546686.053676.JPG</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"การส่งสลิปคู่ในห้องแชท เวลา ๑๐:๐๐ น."</td>
+                <td class="col-content chat-quote">"สลิปโอนเงินเข้าบัญชี น.ส. วันวิสาข์ บุญมาเลิศ"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">จำเลยที่ ๑ สั่งให้ผู้เสียหายโอนเงินเข้าบัญชีพี่สาว (วรรณวิสา) จำนวน 21,000 บาท และโอนเข้าบัญชีน้องสาวทันทีในนาทีเดียวกัน เพื่อกระจายเงินออกจากบัญชีหลัก</td>
+                <td class="col-content">ยินยอมให้ใช้บัญชีหรือร่วมรับเงินจากผู้เสียหาย</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๒๗ พฤษภาคม ๒๕๖๘ เวลา ๑๐:๐๐ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">๒๗ พ.ค. ๒๕๖๘</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">21,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>ตามยอดสลิป (หลักฐานการโอน)</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปโอนเงิน กรุงไทย เข้า ธนาคารออมสิน เลขที่ xxx-x-xxxx8-630 ชื่อ นางสาว วรรณวิสา ประสาทเขตรการ ยอด 21,000.00 บาท</td>
+                <td class="col-content">สลิปโอนเงิน ธ.กรุงเทพ บัญชี วันวิสาข์ บุญมาเลิศ</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🐴 บัญชีม้า: พ.ร.ก.มาตรการป้องกันและปราบปรามอาชญากรรมทางเทคโนโลยี พ.ศ. ๒๕๖๖ ม.๙ (จำคุก ๓ ปี)</div><div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑, ๘๓ หรือ ๘๖ (ร่วมกันฉ้อโกง)</div><div class="law-pill">🛡️ ฟอกเงิน: พ.ร.บ.ฟอกเงินฯ ม.๕ (เปลี่ยนสภาพทรัพย์สินเครือญาติ)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๐๖ (ลาภมิควรได้ - คืนเงิน 21,000 บาท)</div>
+                    <div class="law-pill">💳 บัญชีม้า: พ.ร.ก.มาตรการป้องกันและปราบปรามอาชญากรรมทางเทคโนโลยี พ.ศ. ๒๕๖๖ ม.๙, ๑๐</div><div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑, ๘๓ หรือ ๘๖</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๐๖</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปรหัส A7f942724e56a49ef เวลา 10:00 น. ระบุชื่อนามสกุลชัดเจน</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปโอนเงินระบุชื่อบัญชี น.ส. วันวิสาข์ บุญมาเลิศ ชัดเจน</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">ตาม พ.ร.ก.บัญชีม้า ๒๕๖๖ มาตรา ๙ การยินยอมให้ผู้อื่นใช้บัญชีมีโทษจำคุก ๓ ปี อีกทั้งการโอนเงินนาทีติดกัน พิสูจน์เจตนาแบ่งหน้าที่กันทำในขบวนการ</td>
+                <td class="col-content">แม้จะอ้างว่าเปิดบัญชีให้ผู้อื่น ก็มีความผิดสำเร็จตาม พ.ร.ก.บัญชีม้าฯ โทษจำคุกไม่เกิน ๓ ปี</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">แจ้งข้อหาตาม พ.ร.ก.บัญชีม้าฯ มาตรา ๙ และอายัดบัญชีธนาคารออมสินดังกล่าวทันที</td>
+                <td class="col-content">ดำเนินคดี พ.ร.ก.บัญชีม้าฯ ม.๙ พร้อมส่ง ปปง. อายัดทรัพย์</td>
             </tr>
         </table>
 
@@ -2849,17 +2844,17 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/ctx_wanwisa_01.png" alt="Evidence กรรมที่ ๑ (พี่สาว)" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_wanwisa_01.png" alt="Evidence กรรมที่ ๑ (วันวิสาข์)" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 35 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 34 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
@@ -2872,58 +2867,58 @@
                 <span class="badge-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรม (ป.อ. มาตรา ๙๑)</span>
             </div>
             <div class="page-meta">
-                <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> เด็กหญิง ทัศนียกานต์ ประสาทเขตรการ ("น้องสาว") (บัญชีรับโอนเงินเครือข่าย / บัญชีม้า (ผู้ต้องหาที่ ๔))</div>
-                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๑ (น้องสาว)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">5,000.00 บาท</span></div>
+                <div class="meta-item"><strong>บุคคลเป้าหมาย:</strong> นางสาว ทัศนีย์ พรมทอง (พี่น้อง) (บัญชีม้า / ตัวการร่วมรับโอนเงิน (ผู้ต้องหาที่ ๔))</div>
+                <div class="meta-item"><strong>ลำดับกระทงความผิด:</strong> <span class="highlight-count">กรรมที่ ๑ (ทัศนีย์)</span> | <strong>ความเสียหาย:</strong> <span class="highlight-amt">ตามยอดสลิป (หลักฐานการโอน)</span></div>
             </div>
         </div>
 
-        <!-- 11 TOPICS MATRIX TABLE -->
+        <!-- 11 TOPICS TABLE -->
         <table class="court-table">
             <tr>
-                <td class="col-header" style="width: 25%;">๑. เหตุการณ์ที่</td>
-                <td class="col-content" style="width: 75%;"><strong>กรรมที่ ๑ ของ ทัศนียกานต์ (รับโอนเงิน 5,000 บาท - เข้าบัญชีพร้อมเพย์ โอนต่อท้ายพี่สาวใน 60 วินาที)</strong></td>
+                <td class="col-header" style="width: 21%;">๑. เหตุการณ์ที่</td>
+                <td class="col-content" style="width: 79%; font-weight: bold;">กรรมที่ ๑ ของ ทัศนีย์ (รับโอนเงินเข้าบัญชี 27 พ.ค. 68)</td>
             </tr>
             <tr>
                 <td class="col-header">๒. อ้างอิงหลักฐาน</td>
-                <td class="col-content"><code>New folder/27.5.68 พี่น้อง/LINE_capture_796546686.053676.JPG (สลิปล่าง รหัส A42dd31c55a3840dc)</code></td>
+                <td class="col-content"><code style="background: #f1f5f9; padding: 1px 3px; font-size: 7.0pt;">New folder/27.5.68 พี่น้อง/LINE_capture_796546686.053676.JPG</code></td>
             </tr>
             <tr>
                 <td class="col-header">๓. บริบทแชทจริง</td>
-                <td class="col-content chat-quote">"การส่งสลิปประกบคู่ในห้องแชท เวลา ๑๐:๐๑ น."</td>
+                <td class="col-content chat-quote">"สลิปโอนเงินเข้าบัญชี น.ส. ทัศนีย์ พรมทอง"</td>
             </tr>
             <tr>
                 <td class="col-header">๔. วิเคราะห์พฤติการณ์</td>
-                <td class="col-content">รับโอนเงินเข้าบัญชีพร้อมเพย์ในเวลา ๑๐:๐๑ น. ห่างจากสลิปของวรรณวิสาเพียง ๑ นาที รวมเป็นเงิน 26,000 บาทในรอบเดียว</td>
+                <td class="col-content">บัญชีรับเงินหมุนเวียนในวันเดียวกันกับวันวิสาข์</td>
             </tr>
             <tr>
-                <td class="col-header">๕. ช่วงวันเวลาเกิดเหตุ</td>
-                <td class="col-content"><strong>๒๗ พฤษภาคม ๒๕๖๘ เวลา ๑๐:๐๑ น.</strong></td>
+                <td class="col-header">๕. วันเวลาเกิดเหตุ</td>
+                <td class="col-content">๒๗ พ.ค. ๒๕๖๘</td>
             </tr>
             <tr>
                 <td class="col-header">๖. ยอดเงิน (บาท)</td>
-                <td class="col-content"><strong class="amt-text">5,000.00 บาท</strong></td>
+                <td class="col-content amt-text"><strong>ตามยอดสลิป (หลักฐานการโอน)</strong></td>
             </tr>
             <tr>
                 <td class="col-header">๗. รูปสลิป / บัญชี</td>
-                <td class="col-content">สลิปโอนเงิน กรุงไทย เข้า บัญชีพร้อมเพย์ xxx-xxx-4123 ชื่อ ด.ญ. ทัศนียกานต์ ประสาทเขตรการ ยอด 5,000.00 บาท</td>
+                <td class="col-content">สลิปโอนเงิน ธ.กรุงศรีอยุธยา บัญชี ทัศนีย์ พรมทอง</td>
             </tr>
             <tr style="background: #fff1f2;">
-                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย<br><small style="font-size: 7pt; font-weight: normal; color: #64748b;">(D:\Project\Digital Evi - Codex)</small></td>
+                <td class="col-header" style="color: #991b1b; font-weight: 800;">๘. ข้อหาและมาตราที่เข้าข่าย</td>
                 <td class="col-content">
-                    <div class="law-pill">🐴 บัญชีม้า: พ.ร.ก.มาตรการป้องกันและปราบปรามอาชญากรรมทางเทคโนโลยี พ.ศ. ๒๕๖๖ ม.๙</div><div class="law-pill">🛡️ ฟอกเงิน: พ.ร.บ.ฟอกเงินฯ ม.๕, ม.๒๒ (ริบทรัพย์สินตกเป็นของแผ่นดิน)</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๐๖ (ลาภมิควรได้ - คืนเงิน 5,000 บาท)</div><div class="law-pill">👨‍👩‍👧 กฎหมายครอบครัว: ผู้แทนโดยชอบธรรมร่วมรับผิดทางแพ่ง</div>
+                    <div class="law-pill">💳 บัญชีม้า: พ.ร.ก.มาตรการป้องกันและปราบปรามอาชญากรรมทางเทคโนโลยี พ.ศ. ๒๕๖๖ ม.๙, ๑๐</div><div class="law-pill">🔴 อาญา: ป.อ. มาตรา ๓๔๑, ๘๓ หรือ ๘๖</div><div class="law-pill">⚖️ โทษ: ป.อ. มาตรา ๙๑</div><div class="law-pill">🔵 แพ่ง: ป.พ.พ. ม.๔๐๖</div>
                 </td>
             </tr>
             <tr>
                 <td class="col-header">๙. Smoking Gun (จุดตาย)</td>
-                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปรหัส A42dd31c55a3840dc โอนเวลา 10:01 น.</td>
+                <td class="col-content" style="color: #991b1b; font-weight: bold;">สลิปโอนเงินระบุชื่อบัญชี น.ส. ทัศนีย์ พรมทอง ชัดเจน</td>
             </tr>
             <tr>
                 <td class="col-header">๑๐. พลิกเกมส์ & ตอบโต้</td>
-                <td class="col-content">แม้จะเป็นผู้เยาว์ แต่ทรัพย์สินที่ได้มาจากการกระทำความผิดต้องถูกริบ และผู้ใช้บัญชีต้องรับผิดชอบร่วมกัน</td>
+                <td class="col-content">ความผิดสำเร็จตาม พ.ร.ก.บัญชีม้า ๒๕๖๖ ทันทีที่ยินยอมให้ใช้บัญชีในการโอนเงิน</td>
             </tr>
             <tr>
                 <td class="col-header">๑๑. คำขอและแนวทางยื่นศาล</td>
-                <td class="col-content">อายัดบัญชีพร้อมเพย์ และเรียกผู้แทนโดยชอบธรรมร่วมรับทราบข้อเท็จจริงทางคดี</td>
+                <td class="col-content">ดำเนินคดี พ.ร.ก.บัญชีม้าฯ ม.๙ และ ปปง. ดำเนินการยึดทรัพย์</td>
             </tr>
         </table>
 
@@ -2932,17 +2927,17 @@
         <!-- EVIDENCE IMAGE DISPLAY (SMART CROPPED CONTEXT) -->
         <div class="evidence-box">
             <div class="evidence-box-title">
-                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100%)</span>
+                <span>📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
                 <span class="cert-stamp">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
             </div>
             <div class="img-container">
-                <img src="A4_EVIDENCE_ASSETS/ctx_tatsanee_01.png" alt="Evidence กรรมที่ ๑ (น้องสาว)" class="evidence-img" />
+                <img src="A4_EVIDENCE_ASSETS/ctx_tatsanee_01.png" alt="Evidence กรรมที่ ๑ (ทัศนีย์)" class="evidence-img" />
             </div>
         </div>
 
         <!-- FOOTER BAR -->
         <div class="court-footer">
-            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 36 จากทั้งหมด 36 แผ่น</div>
+            <div class="footer-left">แฟ้มคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ | แผ่นที่ 35 จากทั้งหมด 35 แผ่น</div>
             <div class="footer-right">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex)</div>
         </div>
     </div>
