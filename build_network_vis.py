@@ -1,0 +1,274 @@
+import json
+import os
+
+HTML_PATH = r"d:\Project\ชวกม.2\EDOK_NUI\FORENSIC_MONEY_NETWORK.html"
+
+html = """<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ผังใยแมงมุมเส้นทางการเงินและเครือข่ายบัญชีม้า (Forensic Money Network)</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Tahoma', 'Sarabun', -apple-system, sans-serif;
+            background: radial-gradient(circle at 50% 10%, #1e293b, #0a0f1d 80%);
+            color: #f8fafc;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        h1 {
+            color: #38bdf8;
+            margin: 0 0 8px;
+            font-size: 26px;
+            letter-spacing: 0.5px;
+        }
+        .subtitle {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        .kpi-deck {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            max-width: 1300px;
+            margin: 0 auto 20px;
+        }
+        .kpi-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .kpi-num {
+            font-size: 24px;
+            font-weight: 800;
+        }
+        .red { color: #f43f5e; text-shadow: 0 0 15px rgba(244, 63, 94, 0.4); }
+        .gold { color: #f59e0b; text-shadow: 0 0 15px rgba(245, 158, 11, 0.4); }
+        .cyan { color: #38bdf8; text-shadow: 0 0 15px rgba(56, 189, 248, 0.4); }
+        .green { color: #10b981; }
+        .kpi-title {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+        
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 680px;
+        }
+        @media (max-width: 1024px) {
+            .main-container { grid-template-columns: 1fr; height: auto; }
+        }
+        
+        #network-canvas {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 16px;
+            height: 100%;
+            min-height: 550px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+        }
+        
+        .side-panel {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+        }
+        .panel-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #38bdf8;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .node-info-box {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 10px;
+            padding: 14px;
+            border-left: 4px solid #38bdf8;
+            margin-bottom: 15px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            margin-bottom: 10px;
+            color: #cbd5e1;
+        }
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot-victim { background: #38bdf8; box-shadow: 0 0 10px #38bdf8; }
+        .dot-jin { background: #f43f5e; box-shadow: 0 0 10px #f43f5e; }
+        .dot-mule { background: #f59e0b; box-shadow: 0 0 10px #f59e0b; }
+        .dot-person { background: #a855f7; }
+        
+        .tip-banner {
+            margin-top: auto;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 12px;
+            color: #fcd34d;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🕸️ ผังใยแมงมุมเส้นทางการเงินและเครือข่ายบัญชีม้า</h1>
+        <div class="subtitle">สกัดจากสลิปธุรกรรมจริง 212 ใบ • โครงการสืบสวนคดีดิจิทัล ชวกม.2 (EDOK_NUI)</div>
+    </div>
+
+    <div class="kpi-deck">
+        <div class="kpi-card">
+            <div class="kpi-num red">฿ 358,840.78</div>
+            <div class="kpi-title">ยอดเงินโอนออกรวมทั้งหมด</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-num red">฿ 217,580.50 (61%)</div>
+            <div class="kpi-title">โอนตรงเข้า จิณห์นิภา (38 ครั้ง)</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-num gold">฿ 67,533.80</div>
+            <div class="kpi-title">ยอดโอนเข้า บัญชีม้า 526-6 (10 คน)</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-num cyan">212 สลิป</div>
+            <div class="kpi-title">สลิปตรวจจับได้สมบูรณ์</div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div id="network-canvas"></div>
+        
+        <div class="side-panel">
+            <div class="panel-title">🎯 ข้อมูลเจาะลึกโหนดที่เลือก (Node Inspector)</div>
+            <div id="detailsBox" class="node-info-box">
+                <div style="color: #94a3b8; font-size: 13px;">คลิกที่โหนดใดก็ได้ในผังใยแมงมุม เพื่อดูประวัติการโอน เลขบัญชี และข้อกฎหมาย</div>
+            </div>
+
+            <div class="panel-title" style="margin-top: 10px;">🏷️ สัญลักษณ์ในผังใยแมงมุม</div>
+            <div class="legend-item"><span class="dot dot-victim"></span> <strong>ณัฐชัย (ผู้เสียหาย)</strong> - จุดศูนย์กลางผู้โอนเงิน</div>
+            <div class="legend-item"><span class="dot dot-jin"></span> <strong>จิณห์นิภา (จำเลยหลัก)</strong> - ปลายทางหลัก 2.17 แสน</div>
+            <div class="legend-item"><span class="dot dot-mule"></span> <strong>บัญชีม้ากลาง XXX-X-XX526-6</strong> - บัญชีหมุนเวียน 10 ชื่อ</div>
+            <div class="legend-item"><span class="dot dot-person"></span> <strong>บุคคลผู้รับโอนรายย่อย</strong> - เครือข่ายบัญชีปลายทาง</div>
+
+            <div class="tip-banner">
+                💡 <strong>เคล็ดลับ:</strong> คุณสามารถใช้เมาส์ <strong>ลากย้ายโหนด</strong>, <strong>หมุนลูกกลิ้งซูมเข้า-ออก</strong> ได้แบบ Interactive 360 องศา!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const nodes = new vis.DataSet([
+            // Center Victim
+            { id: 1, label: 'ณัฐชัย รักษาวงษ์\\n(ผู้เสียหาย)', shape: 'dot', size: 38, color: '#38bdf8', font: { color: '#fff', size: 14, strokeWidth: 3, strokeColor: '#000' } },
+            
+            // Primary Target
+            { id: 2, label: 'น.ส. จิณห์นิภา\\nประสาทเขตรการ\\n฿ 217,580.50 (38 ครั้ง)', shape: 'dot', size: 45, color: '#f43f5e', font: { color: '#fff', size: 14, strokeWidth: 3, strokeColor: '#000' } },
+            
+            // Mule Account Central Hub
+            { id: 3, label: '⚠️ บัญชีม้ากลาง 526-6\\n(ธ.กรุงไทย KTB)\\n฿ 67,533.80', shape: 'diamond', size: 36, color: '#f59e0b', font: { color: '#000', size: 13, bold: true } },
+            
+            // People using Mule Account 526-6
+            { id: 10, label: 'เบญจมาศ ผุ่มกลิ่น\\n฿ 21,000.00', shape: 'dot', size: 22, color: '#fb923c' },
+            { id: 11, label: 'สุธีรัตน์ โตสกุณี\\n฿ 13,701.80', shape: 'dot', size: 20, color: '#fb923c' },
+            { id: 12, label: 'ชนัญชิดามนต์ วงค์เขียว\\n฿ 13,250.00 (13 ครั้ง)', shape: 'dot', size: 24, color: '#fb923c' },
+            { id: 13, label: 'จูรีพร วัฒนใย\\n฿ 7,020.00', shape: 'dot', size: 18, color: '#fb923c' },
+            { id: 14, label: 'อลงกรณ์ แจ่มเมือง\\n฿ 5,600.00', shape: 'dot', size: 17, color: '#fb923c' },
+            { id: 15, label: 'ฤทธิชัย หาญวัฒนา\\n฿ 3,402.00', shape: 'dot', size: 16, color: '#fb923c' },
+            { id: 16, label: 'สามารถ ทวีทา\\n฿ 1,500.00', shape: 'dot', size: 15, color: '#fb923c' },
+            
+            // Other Large Transfers
+            { id: 4, label: 'ธิติณัฏฐ์ เหมือนขวัญ\\n฿ 15,900.00', shape: 'dot', size: 24, color: '#a855f7' },
+            { id: 5, label: 'จิณห์นิภา บุญประเสริฐ\\n฿ 7,252.00', shape: 'dot', size: 20, color: '#ec4899' },
+            { id: 6, label: 'บัญชีรายย่อยอื่นๆ\\n(40+ รายการ) ฿ 38,524', shape: 'dot', size: 22, color: '#64748b' }
+        ]);
+
+        const edges = new vis.DataSet([
+            // Main Target heavy line
+            { from: 1, to: 2, label: '฿ 217,580.50\\n(38 ครั้ง)', width: 6, color: { color: '#f43f5e', highlight: '#fb7185' }, arrows: 'to' },
+            
+            // To Mule Hub
+            { from: 1, to: 3, label: '฿ 67,533.80\\n(เข้าบัญชีม้า)', width: 4.5, color: { color: '#f59e0b', highlight: '#fcd34d' }, arrows: 'to', dashes: true },
+            
+            // Mule Hub to Names
+            { from: 3, to: 10, label: '฿ 21,000', width: 2.5, color: '#f97316', arrows: 'to' },
+            { from: 3, to: 11, label: '฿ 13,701', width: 2, color: '#f97316', arrows: 'to' },
+            { from: 3, to: 12, label: '฿ 13,250 (13x)', width: 2.5, color: '#f97316', arrows: 'to' },
+            { from: 3, to: 13, label: '฿ 7,020', width: 1.5, color: '#f97316', arrows: 'to' },
+            { from: 3, to: 14, label: '฿ 5,600', width: 1.5, color: '#f97316', arrows: 'to' },
+            { from: 3, to: 15, label: '฿ 3,402', width: 1.2, color: '#f97316', arrows: 'to' },
+            { from: 3, to: 16, label: '฿ 1,500', width: 1.0, color: '#f97316', arrows: 'to' },
+            
+            // Other Transfers
+            { from: 1, to: 4, label: '฿ 15,900', width: 2.2, color: '#a855f7', arrows: 'to' },
+            { from: 1, to: 5, label: '฿ 7,252', width: 1.8, color: '#ec4899', arrows: 'to' },
+            { from: 1, to: 6, label: '฿ 38,524', width: 2.5, color: '#64748b', arrows: 'to' }
+        ]);
+
+        const container = document.getElementById('network-canvas');
+        const data = { nodes: nodes, edges: edges };
+        const options = {
+            physics: {
+                stabilization: true,
+                barnesHut: { gravitationalConstant: -3500, centralGravity: 0.3, springLength: 140 }
+            },
+            interaction: { hover: true, tooltipDelay: 100 }
+        };
+        const network = new vis.Network(container, data, options);
+
+        const nodeDetails = {
+            1: "<strong>ผู้เสียหาย: ณัฐชัย รักษาวงษ์</strong><br/>ต้นทางของเงินทั้งหมด 358,840.78 บาท โอนผ่าน ttb และ กรุงไทย",
+            2: "<strong style='color:#f43f5e;'>เป้าหมายหลัก: น.ส. จิณห์นิภา ประสาทเขตรการ</strong><br/>• ยอดเงินรวม: 217,580.50 บาท (38 สลิป)<br/>• บัญชี: ttb (XXX-X-XX996-5) และ กรุงไทย<br/>• พฤติการณ์: หลอกลวง/กู้ยืมต่อเนื่อง เข้าข่าย ป.อ. 341 และ ป.พ.พ. 653",
+            3: "<strong style='color:#f59e0b;'>⚠️ บัญชีม้ากลาง: XXX-X-XX526-6 (ธ.กรุงไทย)</strong><br/>• รวมเงินโอน: 67,533.80 บาท<br/>• พฤติการณ์: มีชื่อผู้รับโอนหมุนเวียนถึง 10 คนบนเลขบัญชีเดียวกัน เข้าข่าย พ.ร.ก. อาชญากรรมไซเบอร์ ม.9, 10, 11 (โทษจำคุก 3 ปี)",
+            10: "<strong>เบญจมาศ ผุ่มกลิ่น</strong><br/>ยอดก้อนใหญ่ 21,000.00 บาท ใช้บัญชีม้า 526-6",
+            12: "<strong>ชนัญชิดามนต์ วงค์เขียว</strong><br/>โอนถี่ 13 ครั้ง ยอดรวม 13,250.00 บาท ใช้บัญชีม้า 526-6",
+            4: "<strong>ธิติณัฏฐ์ เหมือนขวัญ</strong><br/>ยอดก้อนใหญ่ 15,900.00 บาท บัญชีกรุงไทย XXX-X-XX790-8"
+        };
+
+        network.on("click", function (params) {
+            if (params.nodes.length > 0) {
+                const nodeId = params.nodes[0];
+                const detail = nodeDetails[nodeId] || "ข้อมูลบัญชีปลายทางในเครือข่าย";
+                document.getElementById('detailsBox').innerHTML = detail;
+            }
+        });
+    </script>
+</body>
+</html>
+"""
+
+with open(HTML_PATH, "w", encoding="utf-8") as f:
+    f.write(html)
+
+print("Generated Interactive Money Network HTML successfully!")

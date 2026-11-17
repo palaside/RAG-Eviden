@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ชวกม.2 - แผนผังเครือข่ายคนโกงและเส้นทางบัญชีโอนเงิน (Forensic Fraud & Money Trail System)</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #090d16;
+            --panel-bg: rgba(15, 23, 42, 0.85);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --accent-cyan: #06b6d4;
+            --accent-red: #ef4444;
+            --accent-orange: #f97316;
+            --accent-purple: #a855f7;
+            --accent-green: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Sarabun', -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(14, 165, 233, 0.12) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(239, 68, 68, 0.12) 0px, transparent 50%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Navigation Header */
+        header {
+            height: 65px;
+            background: rgba(10, 15, 29, 0.9);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .badge-system {
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 6px;
+            letter-spacing: 1px;
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+        }
+        .brand-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+        .brand-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-left: 8px;
+        }
+
+        /* Metrics Bar */
+        .metrics-strip {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .metric-pill {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--border-glass);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .metric-val {
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .red { color: var(--accent-red); }
+        .cyan { color: var(--accent-cyan); }
+        .orange { color: var(--accent-orange); }
+
+        /* Toolbar Controls */
+        .toolbar {
+            height: 48px;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 90;
+        }
+        .filters {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-filter {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--border-glass);
+            color: var(--text-muted);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-filter:hover, .btn-filter.active {
+            background: var(--accent-cyan);
+            color: #000;
+            font-weight: 700;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+        }
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--border-glass);
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+        .search-box input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 13px;
+            width: 220px;
+        }
+
+        /* Workspace Layout */
+        .workspace {
+            flex: 1;
+            position: relative;
+            display: flex;
+            overflow: hidden;
+        }
+
+        #network-canvas {
+            flex: 1;
+            height: 100%;
+            outline: none;
+        }
+
+        /* Forensic Inspector Drawer (Right Panel) */
+        .inspector {
+            width: 480px;
+            background: rgba(11, 17, 33, 0.95);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid var(--border-glass);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 100;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .inspector.collapsed {
+            transform: translateX(100%);
+        }
+        .inspector-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .inspector-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .inspector-role {
+            font-size: 12px;
+            color: var(--accent-orange);
+            margin-top: 4px;
+        }
+        .close-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            color: var(--text-muted);
+            border-radius: 6px;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+        .close-btn:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+        .inspector-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .inspector-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        .inspector-body::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+        }
+
+        /* Info Card */
+        .info-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid var(--border-glass);
+            border-radius: 10px;
+            padding: 14px;
+        }
+        .card-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .card-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .amount-hero {
+            font-size: 26px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-red);
+            text-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Image Gallery Grid */
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .badge-count {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .evidence-thumb-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .evidence-thumb-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 6px 16px rgba(6, 182, 212, 0.3);
+        }
+        .evidence-thumb-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            display: block;
+            background: #1e293b;
+        }
+        .evidence-meta {
+            padding: 8px;
+            font-size: 11px;
+        }
+        .evidence-amt {
+            font-weight: 800;
+            color: var(--accent-cyan);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .evidence-date {
+            color: var(--text-muted);
+            font-size: 10px;
+            margin-top: 2px;
+        }
+
+        /* Lightbox Modal */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 30px;
+        }
+        .lightbox-modal.active {
+            display: flex;
+        }
+        .lightbox-content {
+            max-width: 90vw;
+            max-height: 82vh;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            object-fit: contain;
+        }
+        .lightbox-caption {
+            color: #fff;
+            margin-top: 15px;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            font-size: 32px;
+            color: #fff;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* Legend Footer */
+        .legend-bar {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            border-radius: 10px;
+            padding: 10px 16px;
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">
+            <span class="badge-system">POLICE FORENSIC</span>
+            <div class="brand-title">ระบบวิเคราะห์พยานหลักฐานเครือข่ายคนโกงและเส้นทางการเงิน</div>
+            <div class="brand-subtitle">คดีอาญา: ส.ต. ณัฐชัย รักษาวงษ์ (ผู้เสียหาย) vs น.ส. จิณห์นิภา ประสาทเขตรการ (จำเลย)</div>
+        </div>
+        <div class="metrics-strip">
+            <div class="metric-pill">
+                <span>ยอดเงินโอนออกรวม:</span>
+                <span class="metric-val red">฿ 358,840.78</span>
+            </div>
+            <div class="metric-pill">
+                <span>ยอดโอนตรงเข้าคนโกง:</span>
+                <span class="metric-val red">฿ 208,480.50 (61%)</span>
+            </div>
+            <div class="metric-pill">
+                <span>สลิปหลักฐาน:</span>
+                <span class="metric-val cyan">212 สลิป</span>
+            </div>
+            <div class="metric-pill">
+                <span>ฉากแชทยืมเงิน:</span>
+                <span class="metric-val orange">90 ฉาก</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="toolbar">
+        <div class="filters">
+            <button class="btn-filter active" onclick="filterNetwork('all')">🌐 ทั้งหมด (All)</button>
+            <button class="btn-filter" onclick="filterNetwork('suspect')">🔴 คนโกง/จำเลยหลัก (Suspect)</button>
+            <button class="btn-filter" onclick="filterNetwork('proxy')">🟠 บัญชีรับโอนแทน/เจ้าหนี้ (Proxies)</button>
+            <button class="btn-filter" onclick="filterNetwork('legal')">⚖️ ฐานความผิดกฎหมาย (Legal)</button>
+            <button class="btn-filter" onclick="resetZoom()">🎯 จัดกึ่งกลาง (Center)</button>
+            <button class="btn-filter" onclick="togglePhysics()" id="btn-physics">⚡ ปิดระบบสปริง (Freeze)</button>
+        </div>
+        <div class="search-box">
+            <span>🔍</span>
+            <input type="text" id="searchInput" placeholder="ค้นหาชื่อตัวละคร, บัญชี, ยอดเงิน..." oninput="searchNodes(this.value)">
+        </div>
+    </div>
+
+    <div class="workspace">
+        <div id="network-canvas"></div>
+
+        <div class="legend-bar">
+            <div class="legend-item"><div class="legend-dot" style="background:#0284c7"></div> ผู้เสียหาย (Victim)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div> ตัวการหลัก/คนโกง (Suspect)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#f97316"></div> บัญชีรับโอนแทน (Proxy Creditor)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#a855f7"></div> ฐานความผิดกฎหมาย (Legal Charge)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div> บัญชีย่อยอื่นๆ (Minor Slips)</div>
+        </div>
+
+        <!-- Inspector Drawer -->
+        <div class="inspector" id="inspector">
+            <div class="inspector-header">
+                <div>
+                    <div class="inspector-title" id="ins-title">รายละเอียดตัวละคร</div>
+                    <div class="inspector-role" id="ins-role">บทบาททางคดี</div>
+                </div>
+                <button class="close-btn" onclick="closeInspector()">✕ ปิด</button>
+            </div>
+            <div class="inspector-body" id="ins-body">
+                <!-- Dynamic Content Filled by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close">&times;</button>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="หลักฐานขนาดใหญ่">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
+    <script>
+        // Injected Data
+        const NETWORK_TARGETS = {"jinnipha": {"id": "jinnipha", "name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "role": "เป้าหมายหลักแห่งคดี (จำเลย / ผู้กู้ยืม / หลอกลวง)", "type": "suspect", "bank": "ttb, ธ.กรุงไทย (KTB)", "accounts": ["XXX-X-XX996-5", "XXX-X-XX385-0", "2025080822042"], "color": "#ef4444", "slips": [{"file": "IMG_0481.JPG", "date_time": "18 พ.ค. 68, 20:01 น.", "amount": "200.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "2025051820030", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": "202505182003077448", "raw_snippet": "©\nโอนเงินสําเร็จ\n18 พ.ค. 68, 20:01 น.\n200.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nยะ๐           ว\nXXX-X-XX558-9\nttb\nน.ส. จิณห์นิภา ประสาทเขตรการ\nยะ๒๐\nXXX-X-XX996-5"}, {"file": "IMG_0497.JPG", "date_time": null, "amount": "1,500.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "2025051917025", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n19 W.A. 68, 17:22 น.\n1,500.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nยะ๐           ว\nXXX-X-XX558-9\nttb\nน.ส. จิณห์นิภา ประสาทเขตรการ\nยะ๒๐\nXXX-X-XX996-5"}, {"file": "IMG_0795.JPG", "date_time": "วันที่ทํารายการ                    31 พ.ค. 2568 - 20:04", "amount": "26,400.00", "recipient_name": "น.ส. วิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "Ad376c9bab2034e41", "raw_snippet": "Krungthai\n“7 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง Ad376c9bab2034e41\nจาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho        ๑\nน.ส. วิณห์นิภา ประสาทเขตรการ\nทีเอ็มบีธนชาต"}, {"file": "IMG_0824.JPG", "date_time": "วันที่ทํารายการ                     03 มิ.ย. 2568 - 15:17", "amount": "80.00", "recipient_name": "น.ส. วิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "Aabe2bb04fd7e41a4", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง Aabe2bb04fd7e41a4\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho        ๑\nน.ส. วิณห์นิภา ประสาทเขตรการ\nทีเอ็มบีธนชาต"}, {"file": "IMG_0855.JPG", "date_time": "วันที่ทํารายการ                     04 มิ.ย. 2568 - 12:41", "amount": "100.00", "recipient_name": "น.ส. วิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "Al1f0445bc3ce48ab", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง Al1f0445bc3ce48ab\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho        ๑\nน.ส. วิณห์นิภา ประสาทเขตรการ\nทีเอ็มบีธนชาต"}, {"file": "IMG_1136.JPG", "date_time": "18 มิ.ย. 68, 16:27 น.", "amount": "2,100.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "2025061816023", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": "202506181602395662", "raw_snippet": "©\nโอนเงินสําเร็จ\n18 มิ.ย. 68, 16:27 น.\n2,100.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nยะ๒\nน.ส. จิณห์นิภา ประสาทเขตรการ\nXXX-X-XX996-5\nttb"}, {"file": "IMG_1149.JPG", "date_time": "วันที่ทํารายการ                    19 มิ.ย. 2568 - 20:04", "amount": "5,000.00", "recipient_name": "น.ส. วิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "A807378ad33074d28", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง A807378ad33074d28\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho        ๑\nน.ส. วิณห์นิภา ประสาทเขตรการ\nทีเอ็มบีธนชาต"}, {"file": "IMG_1266.JPG", "date_time": "26 มิ.ย. 68, 19:06 น.", "amount": "1,800.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "2025062619034", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n26 มิ.ย. 68, 19:06 น.\n1,800.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nยะ๐           ว\nXXX-X-XX558-9\nttb\nน.ส. จิณห์นิภา ประสาทเขตรการ\nยะ๒๐\nXXX-X-XX996-5"}, {"file": "IMG_1270.JPG", "date_time": "วันที่ทํารายการ                     27 มิ.ย. 2568 - 10:20", "amount": "1,000.00", "recipient_name": "น.ส. วิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "A459600976b4942fe", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง A459600976b4942fe\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho        ๑\nน.ส. วิณห์นิภา ประสาทเขตรการ\nทีเอ็มบีธนชาต"}, {"file": "IMG_1855.JPG", "date_time": "5 ส.ค. 68, 13:33 น.", "amount": "300.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "2025080513020", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": "202508051302070781", "raw_snippet": "©\nโอนเงินสําเร็จ\n5 ส.ค. 68, 13:33 น.\n300.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nยะ๐           ว\nXXX-X-XX558-9\nttb\nน.ส. จิณห์นิภา ประสาทเขตรการ\nยะ๒๐\nXXX-X-XX996-5"}, {"file": "IMG_1883.JPG", "date_time": "7 ส.ค. 68, 20:02 น.", "amount": "300.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "2025080720035", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": "202508072003564183", "raw_snippet": "©\nโอนเงินสําเร็จ\n7 ส.ค. 68, 20:02 น.\n300.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nยะ๐           %\nXXX-X-XX558-9\nttb\nน.ส. จิณห์นิภา ประสาทเขตรการ\nยะ๒๐\nXXX-X-XX996-5"}, {"file": "IMG_1897.JPG", "date_time": "8 ส.ค. 68, 22:52 น.", "amount": "100.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "2025080822042", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n8 ส.ค. 68, 22:52 น.\n100.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nยะ๐           ว\nXXX-X-XX558-9\nttb\nน.ส. จิณห์นิภา ประสาทเขตรการ\nยะ๒๐\nXXX-X-XX996-5"}, {"file": "IMG_1929.JPG", "date_time": "วันที่ทํารายการ                    12 ส.ค. 2568 - 09:17", "amount": "5,000.00", "recipient_name": "น.ส. วิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n27 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง Aa810152dd3a343a6\nอาก\n-      สืบตรีณัฐชัยร”””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho        SS\nน.ส. วิณห์นิภา ประสาทเขตรการ\nทีเอ็มบีธนชาต"}, {"file": "IMG_2015.jpg", "date_time": "16 ส.ค. 68, 19:18 น.", "amount": "10,000.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "2025081619035", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": "202508161903564508", "raw_snippet": "©\nโอนเงินสําเร็จ\n16 ส.ค. 68, 19:18 น.\n10,000.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nหนี ยอด 20,000 (1)\nน.ส. จิณห์นิภา ประสาทเขตรการ\nXXX-X-XX996-5\nttb\ntho"}, {"file": "IMG_2025.JPG", "date_time": "17 ส.ค. 68, 17:15 น.", "amount": "9,800.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "2025081717025", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": "202508171702519442", "raw_snippet": "©\nโอนเงินสําเร็จ\n17 ส.ค. 68, 17:15 น.\n9,800.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nยะ๒\nน.ส. จิณห์นิภา ประสาทเขตรการ\nXXX-X-XX996-5\nttb"}, {"file": "IMG_2041.JPG", "date_time": "18 ส.ค. 68, 21:02 น.", "amount": "4,500.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "2025081821036", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": "202508182103646526", "raw_snippet": "©\nโอนเงินสําเร็จ\n18 ส.ค. 68, 21:02 น.\n4,500.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nยะ๒\nน.ส. จิณห์นิภา ประสาทเขตรการ\nยะ๒\nXXX-X-XX996-5"}, {"file": "IMG_2619(1).PNG", "date_time": "17 มิ.ย. 2568 15:52 >", "amount": "7,200.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "22:20               @ @ 55%6# )\nNuttachai\n17 มิ.ย. 2568 15:52 >\nโอนเงินสําเร็จ\n17 U.8. 68, 15:51 u\n7,200.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\ntho           i\nXXX-X-XX558-9\nttb\nน.ส. จิณห์นิภา ประสาทเขตรการ"}, {"file": "IMG_2620(1).PNG", "date_time": "18 มิ.ย. 2568 16:28 >", "amount": "2,100.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "22:20                    @ 56% ๒\nNuttachai\n18 มิ.ย. 2568 16:28 >\nโอนเงินสําเร็จ\n2,100.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nthio      eat\nXXX-X-XX558-9\nttb\nน.ส. จิณห์นิภา ประสาทเขตรการ\nXXX-X-XX996-5"}, {"file": "IMG_2622.PNG", "date_time": "19 มิ.ย. 2568 20:08 >", "amount": "5,000.00", "recipient_name": "ยะ๒  น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "2025061920032", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": "202506192003264397", "raw_snippet": "๑ @ 56% ๕#\n19 มิ.ย. 2568 20:08 >\nโอนเงจินสําเร็จ\n19 มี.ย. 68, 20:08 น.\n5,000.00\nค่าธรรมเนียม 0.00\nยะ๒  น.ส. จิณห์นิภา ประสาทเขตรการ\n%%%-%-%%996-5\nttb\nน.ส. ปรียชาติ Guwa\nXXX-X-XX455-1\nKBANK"}, {"file": "IMG_2627(1).PNG", "date_time": null, "amount": "0.25", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "tb\ntio\n22:23\nNuttachai\n2. 1.0.2568 12:57 >\nโอนเงินสําเร็จ\n10,000.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nน.ส. จิณห์นิภา ประสาทเขตรการ"}, {"file": "IMG_2627.PNG", "date_time": null, "amount": "0.25", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "tb\ntio\n22:23\nNuttachai\n2. 1.0.2568 12:57 >\nโอนเงินสําเร็จ\n10,000.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nน.ส. จิณห์นิภา ประสาทเขตรการ"}, {"file": "IMG_2631(1).PNG", "date_time": null, "amount": "1,500.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "22:24                ๑ @ 57% 6#\nNuttachai\n8 ก.ุค. 2568 19:46 >\nโอนเงินสําเร็จ\n1,500.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\ntio\nttb\nน.ส. จิณห์นิภา ประสาทเขตรการ\nXXX-X-XX996-5"}, {"file": "IMG_2631.PNG", "date_time": null, "amount": "1,500.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "22:24                ๑ @ 57% 6#\nNuttachai\n8 ก.ุค. 2568 19:46 >\nโอนเงินสําเร็จ\n1,500.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\ntio\nttb\nน.ส. จิณห์นิภา ประสาทเขตรการ\nXXX-X-XX996-5"}, {"file": "IMG_2800.PNG", "date_time": "2 ก.ค. 2568 21:09 >", "amount": "15,000.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "2025070221045", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "ร\n2 ก.ค. 2568 21:09 >\nโอนเงินสําเร็จ\n2 A.A. 68, 21:04 น.\n15,000.00\nค่าธรรมเนียม 0.00\nน.ส. จิณห์นิภา ประสาทเขตรการ\nwb\nXXX-X-XX996-5\nttb\nนางสาว กัญญาภัค จฉิมพลี\nXXXXXXXX2926"}, {"file": "IMG_3826(1).PNG", "date_time": "วันที่ทํารายการ                   31 พ.ค. 2568 - 20:04", "amount": "26,400.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "Ad376c9bab2034e41", "raw_snippet": "ยะ๒\nรหัสอ้างอิง Ad376c9bab2034e41   rege are\na\nms\nสืบตรีณัฐชัยร” **\nกรุงไทย\nXXX-X-XX526-6\nน.ส. จิณห์นิภา ประสาทเขตรการ\nทีเอ็มบีธนชาต\nXXX-X-XX996-5\nจํานวนเงิน                       26,400.00 บาท\nค่าธรรมเนียม                              0.00 บาท"}, {"file": "IMG_3826.PNG", "date_time": "วันที่ทํารายการ                   31 พ.ค. 2568 - 20:04", "amount": "26,400.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "Ad376c9bab2034e41", "raw_snippet": "ยะ๒\nรหัสอ้างอิง Ad376c9bab2034e41   rege are\na\nms\nสืบตรีณัฐชัยร” **\nกรุงไทย\nXXX-X-XX526-6\nน.ส. จิณห์นิภา ประสาทเขตรการ\nทีเอ็มบีธนชาต\nXXX-X-XX996-5\nจํานวนเงิน                       26,400.00 บาท\nค่าธรรมเนียม                              0.00 บาท"}, {"file": "IMG_3828.PNG", "date_time": "วันที่ทํารายการ                   11 มิ.ย. 2568 - 22:40", "amount": "10,000.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "1885", "raw_snippet": "รหัสอ้างอิง 1885๒๒ส่ล๒3๒674862      ไรง\n[ๆ\nสิบตรีณัฐชัยร” **\nกรุงไทย\nXXX-X-XX526-6\nขยะ๒        ESS\nน.ส. จิณห์นิภา ประสาทเขตรการ\nทีเอ็มบีธนชาต\nXXX-X-XX996-5\nจํานวนเงน                       10,000.00 บาท\nค่าธรรมเนียม                              0.00 บาท\nวันที่ทํารายการ                   11 มิ.ย. 2568 - 22:40"}, {"file": "IMG_8927(2).PNG", "date_time": "วันที่ทํารายการ                    23 ม.ค. 2568 - 14:42", "amount": "2,000.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX385-0", "banks": ["ธนาคารกรุงศรีอยุธยา (BAY)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "๕@, Krungthai\n7 ( กรุงไทย\nอนเงินสําเร็จ\nรหัสอ้างอิง /เ8ง16ล4สสฝ่ล81๒4300\note    จาก\n“ wysas***\nกรุงไทย\nXXX-X-XX452-9\naN)   ไปยัง\nน.ส. จิณห์นิภา ประสาทเขตรการ\nกรุงศรี\nXXX-X-XX385-0"}, {"file": "IMG_8936(1).PNG", "date_time": "วันที่ทํารายการ                    24 ม.ค. 2568 - 12:00", "amount": "4,000.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX385-0", "banks": ["ธนาคารกรุงศรีอยุธยา (BAY)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "A7a4105b22b2340df", "raw_snippet": "๕@, Krungthai\n7 ( กรุงไทย\nอนเงินสําเร็จ\nรหัสอ้างอิง A7a4105b22b2340df\note    จาก\n“ wysas***\nกรุงไทย\nXXX-X-XX452-9\naN)   ไปยัง\nน.ส. จิณห์นิภา ประสาทเขตรการ\nกรุงศรี\nXXX-X-XX385-0"}, {"file": "IMG_8936(2).PNG", "date_time": "วันที่ทํารายการ                    24 ม.ค. 2568 - 12:00", "amount": "4,000.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX385-0", "banks": ["ธนาคารกรุงศรีอยุธยา (BAY)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "A7a4105b22b2340df", "raw_snippet": "๕@, Krungthai\n7 ( กรุงไทย\nอนเงินสําเร็จ\nรหัสอ้างอิง A7a4105b22b2340df\note    จาก\n“ wysas***\nกรุงไทย\nXXX-X-XX452-9\naN)   ไปยัง\nน.ส. จิณห์นิภา ประสาทเขตรการ\nกรุงศรี\nXXX-X-XX385-0"}, {"file": "IMG_9074(1).PNG", "date_time": null, "amount": "6,800.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX385-0", "banks": ["ธนาคารกรุงศรีอยุธยา (BAY)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "A82cb6118f8674ab0", "raw_snippet": "๕@, Krungthai\n7 ( กรุงไทย\nอนเงินสําเร็จ\nรหัสอ้างอิง A82cb6118f8674ab0\note           pin\nSi\nสืบตรีณัฐชัย s* **\nกรุงไทย\nXXX-X-XX526-6\naN)   ไปยัง\nน.ส. จิณห์นิภา ประสาทเขตรการ\nกรุงศรี"}, {"file": "IMG_9074.PNG", "date_time": null, "amount": "6,800.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX385-0", "banks": ["ธนาคารกรุงศรีอยุธยา (BAY)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "A82cb6118f8674ab0", "raw_snippet": "๕@, Krungthai\n7 ( กรุงไทย\nอนเงินสําเร็จ\nรหัสอ้างอิง A82cb6118f8674ab0\note           pin\nSi\nสืบตรีณัฐชัย s* **\nกรุงไทย\nXXX-X-XX526-6\naN)   ไปยัง\nน.ส. จิณห์นิภา ประสาทเขตรการ\nกรุงศรี"}, {"file": "IMG_9098.PNG", "date_time": null, "amount": "4,100.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX385-0", "banks": ["ธนาคารกรุงศรีอยุธยา (BAY)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "A9d28a58eb7814957", "raw_snippet": "๕@, Krungthai\n7 ( กรุงไทย\nอนเงินสําเร็จ\nรหัสอ้างอิง A9d28a58eb7814957\note    จาก\n“ wysas***\nกรุงไทย\nXXX-X-XX452-9\naN)   ไปยัง\nน.ส. จิณห์นิภา ประสาทเขตรการ\nกรุงศรี\nXXX-X-XX385-0"}, {"file": "IMG_9119.PNG", "date_time": null, "amount": "2,500.00", "recipient_name": "น.ส. จิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX385-0", "banks": ["ธนาคารกรุงศรีอยุธยา (BAY)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "A809e0652fcd342df", "raw_snippet": "๕@, Krungthai\n7 ( กรุงไทย\nอนเงินสําเร็จ\nรหัสอ้างอิง A809e0652fcd342df\note    จาก\n“ wysas***\nกรุงไทย\nXXX-X-XX452-9\naN)   ไปยัง\nน.ส. จิณห์นิภา ประสาทเขตรการ\nกรุงศรี\nXXX-X-XX385-0"}, {"file": "IMG_9808.PNG", "date_time": "วันที่ทํารายการ                   04 เม.ย. 2568 - 16:06", "amount": "15,000.00", "recipient_name": "น.ส. วจิณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX385-0", "banks": ["ธนาคารกรุงศรีอยุธยา (BAY)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\nHi   กทรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอฮิง A785efee8358b4e89\nอาก\nสืบตรีณัฐชัย s* **\nกรุงไทย\nXXX-X-XX526-6\n๑@   ไปยัง\nน.ส. วจิณห์นิภา ประสาทเขตรการ\nกรุงศรี\nXXX-X-XX385-0"}], "total_amount": 208480.5}, "benjamas": {"id": "benjamas", "name": "น.ส. เบญจมาศ ผุ่มกลิ่น", "role": "เจ้าหนี้/บุคคลที่จำเลยสั่งให้โอนจ่ายแทน", "type": "proxy", "bank": "ธ.กรุงไทย (KTB), กสิกรไทย", "accounts": ["XXX-X-XX526-6"], "color": "#f97316", "slips": [{"file": "IMG_0654.JPG", "date_time": "วันที่ทํารายการ                    26 พ.ค. 2568 - 14:25", "amount": "21,000.00", "recipient_name": "น.ส. เบญจมาศ ผู่มกลื่น", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "Krungthai\n“7 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง A2fe2b8af74a742aa\nจาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\nน.ส. เบญจมาศ ผู่มกลื่น\nกสิกรไทย\n%%%-%-%%117-0"}], "total_amount": 21000.0}, "thitinat": {"id": "thitinat", "name": "นาย ธิติณัฏฐ์ เหมือนขวัญ", "role": "บุคคลรับโอนยอดใหญ่ (ตามคำสั่งจำเลย)", "type": "proxy", "bank": "ธ.กรุงไทย (KTB), ttb, กสิกร", "accounts": ["XXX-X-XX790-8", "2026041208005"], "color": "#a855f7", "slips": [{"file": "IMG_1394.JPG", "date_time": "4 ก.ค. 68, 09:28 น.", "amount": "500.00", "recipient_name": "นาย ธิติณัฏฐ์ เหมือนขวัญ", "recipient_account": "2025070409009", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n4 ก.ค. 68, 09:28 น.\n500.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nยะ๐           ว\nXXX-X-XX558-9\nttb\nนาย ธิติณัฏฐ์ เหมือนขวัญ\nขะ๒           ei\nXXX-X-XX790-8"}], "total_amount": 500.0}, "sutheerat": {"id": "sutheerat", "name": "นาย สุธีรัตน์ โตสกุณี", "role": "บุคคลรับโอนตามคำสั่งจำเลย", "type": "proxy", "bank": "ธ.กรุงไทย (KTB), กสิกรไทย", "accounts": ["XXX-X-XX754-3"], "color": "#f97316", "slips": [{"file": "IMG_0660.JPG", "date_time": null, "amount": "13,700.00", "recipient_name": "นาย สุธีรัตน์ โตสกุณี", "recipient_account": "XXX-X-XX754-3", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": "A6c743ac5fd754032", "raw_snippet": "Krungthai\n“7 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง A6c743ac5fd754032\nจาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\nนาย สุธีรัตน์ โตสกุณี\nกสิกรไทย\nXXX-X-XX754-3"}, {"file": "IMG_0986.JPG", "date_time": "วันที่ทํารายการ                    11 มิ.ย. 2568 - 10:04", "amount": "1.80", "recipient_name": "นาย สุธีรัตน์ โตสกุณี", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": "Aff173dd787d74969", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง Aff173dd787d74969\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\nนาย สุธีรัตน์ โตสกุณี\nกสิกรไทย\n%%%-%-%%754-3"}], "total_amount": 13701.8}, "chananchida": {"id": "chananchida", "name": "น.ส. ชนัญชิดามนต์ วงค์เขียว", "role": "บุคคลรับโอนถี่ 13 ครั้ง (ตามคำสั่งจำเลย)", "type": "proxy", "bank": "ธ.กรุงไทย, พร้อมเพย์", "accounts": ["XXX-X-XX452-9"], "color": "#f97316", "slips": [{"file": "IMG_0856.JPG", "date_time": "วันที่ทํารายการ                    04 มิ.ย. 2568 - 13:29", "amount": "10.00", "recipient_name": "นางสาว ชนัญชิดามนต์ วงศ์เขียว", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "A221e73f523244e84", "raw_snippet": "oe Krungthai\n/ กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง A221e73f523244e84\n๐   อาก\nสิบตรีณัฐชัยร” **\nกรุงไทย\nXXX-X-XX526-6\n|    ไปยัง\nนางสาว ชนัญชิดามนต์ วงศ์เขียว\nพร้อมเพย์\nXXX XXX 9582"}, {"file": "IMG_0919.JPG", "date_time": "วันที่ทํารายการ                    08 มิ.ย. 2568 - 14:52", "amount": "600.00", "recipient_name": "นางสาว ชนัญชิดามนต์ วงศ์เขียว", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "A67b2a58184184de8", "raw_snippet": "oe Krungthai\n/ กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง A67b2a58184184de8\n๐   อาก\nสิบตรีณัฐชัยร” **\nกรุงไทย\nXXX-X-XX526-6\n|    ไปยัง\nนางสาว ชนัญชิดามนต์ วงศ์เขียว\nพร้อมเพย์\nXXX XXX 9582"}, {"file": "IMG_0993.JPG", "date_time": "วันที่ทํารายการ                      11 มิ.ย. 2568 - 14:43", "amount": "1,000.00", "recipient_name": "นางสาว ชนัญชิดามนต์ วงค์เขียว", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "21099663", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง 21099663ว5ิ63814682\n๐   อาก\nสืบตรีณัฐชัย s* **\nกรุงไทย\nXXX-X-XX526-6\n|    ไปยัง\nนางสาว ชนัญชิดามนต์ วงค์เขียว\nพร้อมเพย์\nXXX XXX 9582"}, {"file": "IMG_1019.JPG", "date_time": null, "amount": "1,200.00", "recipient_name": "นางสาว ชนัญชิดามนต์ วงค์เขียว", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "AbOab195e46af4bf6", "raw_snippet": "oe Krungthai\n/ กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง AbOab195e46af4bf6\n๐   อาก\nสืบตรีณัฐชัย s* **\nกรุงไทย\nXXX-X-XX526-6\n|    ไปยัง\nนางสาว ชนัญชิดามนต์ วงค์เขียว\nพร้อมเพย์\nXXX XXX 9582"}, {"file": "IMG_4108(1).PNG", "date_time": null, "amount": "3,000.00", "recipient_name": "|    นางสาว ชนัญชิดามนต์ วงค์เขียว", "recipient_account": "XXX-X-XX452-9", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n[ กรุงไทย\n/๊่ง  อ\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง A80669ccb964d4c5d\nณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX452-9\n|    นางสาว ชนัญชิดามนต์ วงค์เขียว\nพร้อมเพย์\nXXX XXX 9582\nจํานวนเงิน                           3,000.00 บาท"}, {"file": "IMG_4108.PNG", "date_time": null, "amount": "3,000.00", "recipient_name": "|    นางสาว ชนัญชิดามนต์ วงค์เขียว", "recipient_account": "XXX-X-XX452-9", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n[ กรุงไทย\n/๊่ง  อ\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง A80669ccb964d4c5d\nณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX452-9\n|    นางสาว ชนัญชิดามนต์ วงค์เขียว\nพร้อมเพย์\nXXX XXX 9582\nจํานวนเงิน                           3,000.00 บาท"}, {"file": "IMG_4644(1).PNG", "date_time": "วันที่ทํารายการ                    02 มี.ค. 2567 - 21:10", "amount": "500.00", "recipient_name": "|    นางสาว ชนัญชิดามนต์ วงค์เขียว", "recipient_account": "XXX-X-XX452-9", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง เม628680044ไ1ล4196\nณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX452-9\nVv\n|    นางสาว ชนัญชิดามนต์ วงค์เขียว\nพร้อมเพย์\nXXX XXX 9582\nจํานวนเงิน                            500.00 บาท"}, {"file": "IMG_4667(1).PNG", "date_time": "วันที่ทํารายการ                    04 มี.ค. 2567 - 08:29", "amount": "2,500.00", "recipient_name": "|    นางสาว ชนัญชิดามนต์ วงค์เขียว", "recipient_account": "XXX-X-XX452-9", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n“37 กรุงไทย\nvn\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง A6e224bb88efedch5b\n๐   ณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX452-9\n|    นางสาว ชนัญชิดามนต์ วงค์เขียว\nพร้อมเพย์\nXXX XXX 9582\nบขํานวนเงน                          2,500.00 บาท"}, {"file": "IMG_4700.PNG", "date_time": "วันที่ทํารายการ                    05 มี.ค. 2567 - 16:10", "amount": "1,000.00", "recipient_name": "|    นางสาว ชนัญชิดามนต์ วงค์เขียว", "recipient_account": "XXX-X-XX452-9", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง AQalb01f6bcc142b3\nณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX452-9\nVv\n|    นางสาว ชนัญชิดามนต์ วงค์เขียว\nพร้อมเพย์\nXXX XXX 9582\nบขํานวนเงน                          1,000.00 บาท"}, {"file": "IMG_4729(1).PNG", "date_time": "วันที่ทํารายการ                     09 มี.ค. 2567 - 13:11", "amount": "200.00", "recipient_name": "|    นางสาว ชนัญชิดามนต์ วงค์เขียว", "recipient_account": "XXX-X-XX452-9", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง Af97dc62b5122474b\nณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX452-9\nVv\n|    นางสาว ชนัญชิดามนต์ วงค์เขียว\nพร้อมเพย์\nXXX XXX 9582\nจํานวนเงิน                            200.00 บาท"}, {"file": "IMG_4729.PNG", "date_time": "วันที่ทํารายการ                     09 มี.ค. 2567 - 13:11", "amount": "200.00", "recipient_name": "|    นางสาว ชนัญชิดามนต์ วงค์เขียว", "recipient_account": "XXX-X-XX452-9", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง Af97dc62b5122474b\nณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX452-9\nVv\n|    นางสาว ชนัญชิดามนต์ วงค์เขียว\nพร้อมเพย์\nXXX XXX 9582\nจํานวนเงิน                            200.00 บาท"}, {"file": "IMG_4874.PNG", "date_time": "วันที่ทํารายการ                   20 มี.ค. 2567 - 22:35", "amount": "100.00", "recipient_name": "|    นางสาว ชนัญชิดามนต์ วงค์เขียว", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 / กรุงไทย\nvn\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง Adf23e85b83614cf9\nสิบตรีณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX526-6\n|    นางสาว ชนัญชิดามนต์ วงค์เขียว\nพร้อมเพย์\nXXX XXX 9582\nจํานวนเงิน                            100.00 บาท"}, {"file": "IMG_4898.PNG", "date_time": "วันที่ทํารายการ                    23 มี.ค. 2567 - 13:30", "amount": "150.00", "recipient_name": "|    นางสาว ชนัญชิดามนต์ วงค์เขียว", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสอข้างอิง 10677ไล๕๓654169\nสิบตรีณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX526-6\n|    นางสาว ชนัญชิดามนต์ วงค์เขียว\nพร้อมเพย์\nXXX XXX 9582\nจํานวนเงิน                             150.00 บาท\nค่าธรรมเนียม                               0.00 บาท"}, {"file": "IMG_4910.PNG", "date_time": "วันที่ทํารายการ                      24 มี.ค. 2567 - 12:35", "amount": "100.00", "recipient_name": "|    นางสาว ชนัญชิดามนต์ วงค์เขียว", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอิง Aa6e429ecb41f4b65\nสิบตรีณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX526-6\n|    นางสาว ชนัญชิดามนต์ วงค์เขียว\nพร้อมเพย์\nXXX XXX 9582\nจํานวนเงิน                            100.00 บาท\nค่าธรรมเนียม                               0.00 บาท"}, {"file": "IMG_5691.PNG", "date_time": "วันที่ทํารายการ                      07 พ.ค. 2567 - 23:09", "amount": "300.00", "recipient_name": "|    นางสาว ชนัญชิดามนต์ วงค์เขียว", "recipient_account": "XXX-X-XX452-9", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสอข้างอิง 12383303เ0ส่มล4466ล\nณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX452-9\nVv\n|    นางสาว ชนัญชิดามนต์ วงค์เขียว\nพร้อมเพย์\nXXX XXX 9582\nจํานวนเงิน                            300.00 บาท"}], "total_amount": 13860.0}, "jureeporn": {"id": "jureeporn", "name": "น.ส. จูรีพร วัฒนใย", "role": "บุคคลรับโอนตามคำสั่งจำเลย", "type": "proxy", "bank": "ธ.กรุงไทย, พร้อมเพย์", "accounts": ["พร้อมเพย์"], "color": "#f97316", "slips": [{"file": "IMG_9750.PNG", "date_time": "วันที่ทํารายการ                   29 มี.ค. 2568 - 08:55", "amount": "7,020.00", "recipient_name": "น.ส.จูรีพร วัฒนใย", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n09 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอิง A76c9cac09a934fd4\nจาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\n|     ไปยัง\nน.ส.จูรีพร วัฒนใย\nพร้อมเพย์\nXXX XXX 8885"}], "total_amount": 7020.0}, "alongkorn": {"id": "alongkorn", "name": "นางสาว อลงกรณ์ แจ่มเมือง", "role": "บุคคลรับโอนตามคำสั่งจำเลย", "type": "proxy", "bank": "ธ.กรุงไทย", "accounts": ["XXX-X-XX526-6"], "color": "#f97316", "slips": [{"file": "IMG_0665.jpg", "date_time": "วันที่ทํารายการ                     26 พ.ค. 2568 - 16:52", "amount": "5,600.00", "recipient_name": "นางสาว อลงกรณ์ แจ่มเมือง", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n“27 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง Aa7e0058a52854e5c\nจาก\nauasnigsa s*** ต้นเกรซ 7,000\nกรุงไทย             หกดอก 20%\nXXX-X-XX526-6\n©  ไปยัง\nนางสาว อลงกรณ์ แจ่มเมือง\nเกียรตินาคินภัทร\n%%%-%-%%259-1"}], "total_amount": 5600.0}, "ritthichai": {"id": "ritthichai", "name": "นาย ฤทธิชัย หาญวัฒนา", "role": "บุคคลรับโอนตามคำสั่งจำเลย", "type": "proxy", "bank": "ttb, ธ.กรุงไทย", "accounts": ["2026022820048"], "color": "#f97316", "slips": [{"file": "IMG_0963.JPG", "date_time": "วันที่ทํารายการ                    10 มิ.ย. 2568 - 18:35", "amount": "500.00", "recipient_name": "นาย ฤทธิชัย หาญวัฒนา", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": "A46c42becb581463d", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง A46c42becb581463d\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\nนาย ฤทธิชัย หาญวัฒนา\nกสิกรไทย\n%%%-%-%%579-7"}, {"file": "IMG_1325.JPG", "date_time": null, "amount": "1,000.00", "recipient_name": "นาย ฤทธิชัย หาญวัฒนา", "recipient_account": "XXX-X-XX579-7", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": "21903659", "raw_snippet": "Krungthai\n[ กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง 21903659๕6384ล34ล6\nจาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\nนาย ฤทธิชัย หาญวัฒนา\nกสิกรไทย\nXXX-X-XX579-7"}, {"file": "IMG_3239.JPG", "date_time": null, "amount": "900.00", "recipient_name": "นาย ฤทธิชัย หาญวัฒนา", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "โอนเงินสําเร็จ\nรหัสอฮ้างอิง /เส่01630ลร9904ส6ล\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\n©  ไปยัง\nนาย ฤทธิชัย หาญวัฒนา\nกสิกรไทย\n%%%-%-%%579-7\nจํานวนเงิน                             900.00 บาท\nค่าธรรมเนียม                                 0.00 บาท"}, {"file": "IMG_5846.JPG", "date_time": "28 ก.พ. 69, 20:10 น.", "amount": "1,000.00", "recipient_name": "© นาย ฤทธิชัย หาญวัฒนา", "recipient_account": "2026022820048", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n28 ก.พ. 69, 20:10 น.\n1,000.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© นาย ฤทธิชัย หาญวัฒนา\nWa XXX-X-XX579-7\nKBANK\nธหัสอ้างอิง: 202602282004866959"}, {"file": "IMG_5921.JPG", "date_time": "วันที่ทํารายการ                   09 มี.ค. 2569 - 18:40", "amount": "2.00", "recipient_name": "นาย ฤทธิชัย หาญวัฒนา", "recipient_account": "XXX-X-XX579-7", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "Krungthai\n’ ทรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง Ae6764f948cf54891\nอจาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\nนาย ฤทธิชัย หาญวัฒนา\nกสิกรไทย\nXXX-X-XX579-7"}], "total_amount": 3402.0}, "samart": {"id": "samart", "name": "นาย สามารถ ทวีทา", "role": "บุคคลรับโอนตามคำสั่งจำเลย", "type": "proxy", "bank": "ธ.ไทยพาณิชย์ (SCB)", "accounts": ["XXX-X-XX526-6"], "color": "#f97316", "slips": [{"file": "IMG_0662.JPG", "date_time": "วันที่ทํารายการ                     26 พ.ค. 2568 - 15:08", "amount": "1,500.00", "recipient_name": "นาย สามารถ ทวีทา", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารไทยพาณิชย์ (SCB)"], "ref_id": "Af40d89296c5640fc", "raw_snippet": "Krungthai\n[ กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง Af40d89296c5640fc\n- สิบตรีณัฐชัยร\"*”\nกรุงไทย\nXXX-X-XX526-6\n©  ไปยัง\nนาย สามารถ ทวีทา\nไทยพาณิชย์\n%%%-%-%%058-1\nจํานวนเงิน                           1,500.00 บาท"}], "total_amount": 1500.0}, "jinnipha_boon": {"id": "jinnipha_boon", "name": "น.ส. จิณห์นิภา บุญประเสริฐ", "role": "บัญชีสาขา/ชื่อพ้องของเป้าหมายหลัก", "type": "suspect_alias", "bank": "ธ.กรุงไทย, ttb", "accounts": ["XXX-X-XX764-0"], "color": "#ec4899", "slips": [{"file": "IMG_3022.JPG", "date_time": "16 ต.ค. 68, 22:49 น.", "amount": "50.00", "recipient_name": "© Ua. จิณห์นิภา บุญประเสริฐ", "recipient_account": "2025101622044", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n16 ต.ค. 68, 22:49 น.\n50.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© Ua. จิณห์นิภา บุญประเสริฐ\nจ7 XXX-X-XX764-0\nเธ\nธหัสอ้างอิง: 202510162204449398"}, {"file": "IMG_9692.JPG", "date_time": "22 มี.ค. 68, 20:23 น.", "amount": "700.00", "recipient_name": "© Ua. จิณห์นิภา บุญประเสริฐ", "recipient_account": "2025032220031", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n22 มี.ค. 68, 20:23 น.\n700.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© Ua. จิณห์นิภา บุญประเสริฐ\nจ7 XXX-X-XX764-0\nเธ\nธหัสอ้างอิง: 202503222003109209"}, {"file": "IMG_9775.JPG", "date_time": "1เม.ย. 68, 07:02 น.", "amount": "5,000.00", "recipient_name": "© Ua. จิณห์นิภา บุญประเสริฐ", "recipient_account": "2025040107004", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n1เม.ย. 68, 07:02 น.\n5,000.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© Ua. จิณห์นิภา บุญประเสริฐ\nจ7 XXX-X-XX764-0\nเธ\nธหัสอ้างอิง: 202504010700463400"}], "total_amount": 5750.0}, "victim_self": {"id": "victim_self", "name": "ส.ต. ณัฐชัย รักษาวงษ์ (บัญชีตนเอง)", "role": "โยกย้ายเงินเตรียมจ่ายตามคำสั่ง / เติมเงินเข้า 526-6", "type": "victim_internal", "bank": "ธ.กรุงไทย, ttb", "accounts": ["XXX-X-XX526-6", "XXX-X-XX558-9"], "color": "#06b6d4", "slips": [{"file": "IMG_0668.JPG", "date_time": "วันที่ทํารายการ                     26 พ.ค. 2568 - 17:03", "amount": "1,000.00", "recipient_name": "นาย ณชบุชย รถษาวงษ", "recipient_account": "XXX-X-XX558-9", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n“7 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง Ae4a2472e5a21479c\nอาก\nco:      สืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho          KS        อ\nนาย ณชบุชย รถษาวงษ\nทีเอ็มบีธนชาต"}, {"file": "IMG_0785.JPG", "date_time": "วันที่ทํารายการ                  31 พ.ค. 2568 - 05:28", "amount": "100.00", "recipient_name": "นาย ณรชูชย รถกษาวงษ", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "Aea033bdad914409b", "raw_snippet": "Krungthai\n7 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง Aea033bdad914409b\nจาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho         SOS       A\nนาย ณรชูชย รถกษาวงษ\nทีเอ็มบีธนชาต"}, {"file": "IMG_0802.JPG", "date_time": "วันที่ทํารายการ                    02 มิ.ย. 2568 - 16:36", "amount": "1.00", "recipient_name": "สิบตรีณัฐชัย รักษาวงษ์", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n“7 กรุงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง\nN006735859790100304923096\nจาก\nนาย ณัฐชัย ร\nกรุงไทย\nXXX-X-XX452-9\n* * *+\nไปยัง\nสิบตรีณัฐชัย รักษาวงษ์"}, {"file": "IMG_0805.JPG", "date_time": "วันที่ทํารายการ                    02 มิ.ย. 2568 - 16:55", "amount": "800.00", "recipient_name": "สิบตรีณัฐชัย รักษาวงษ์", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n“7 กรุงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง\nN006735860931100298070228\nจาก\nนาย ณัฐชัย ร\nกรุงไทย\nXXX-X-XX452-9\n* * *+\nไปยัง\nสิบตรีณัฐชัย รักษาวงษ์"}, {"file": "IMG_0834.JPG", "date_time": "วันที่ทํารายการ                    03 มิ.ย. 2568 - 19:24", "amount": "1,000.00", "recipient_name": "นาย ณชบุชย รถษาวงษ", "recipient_account": "XXX-X-XX558-9", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "A2b752e4a69ee4b60", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง A2b752e4a69ee4b60\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\n|\nif\nmeee\nไปยัง"}, {"file": "IMG_0880.JPG", "date_time": "วันที่ทํารายการ                    05 มิ.ย. 2568 - 19:54", "amount": "2.00", "recipient_name": "นาย ญัฐขชัย รักษาวงษ์", "recipient_account": "XXX-X-XX452-9", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n“7 กรุงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง\nN006736171673084909182585\nจาก\nสืบตรีณัฐชัย ร\nกรุงไทย\nXXX-X-XX526-6\n* * *+\nไปยัง\nนาย ญัฐขชัย รักษาวงษ์"}, {"file": "IMG_0960.JPG", "date_time": "วันที่ทํารายการ                    10 มิ.ย. 2568 - 18:25", "amount": "3,000.00", "recipient_name": "นาย ญัฐขชัย รักษาวงษ์", "recipient_account": "XXX-X-XX452-9", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n“7 กรุงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง\nN006736666331067240141150\nจาก\nสืบตรีณัฐชัย ร\nกรุงไทย\nXXX-X-XX526-6\n* * *+\nไปยัง\nนาย ญัฐขชัย รักษาวงษ์"}, {"file": "IMG_0961.JPG", "date_time": "วันที่ทํารายการ                    10 มิ.ย. 2568 - 18:25", "amount": "8,000.00", "recipient_name": "นาย ณชบุชย รถษาวงษ", "recipient_account": "XXX-X-XX558-9", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "204", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง 204๕ล759ล4๕124599\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho         ลกร       1\nนาย ณชบุชย รถษาวงษ\nทีเอ็มบีธนชาต"}, {"file": "IMG_0962.JPG", "date_time": "วันที่ทํารายการ                    10 มิ.ย. 2568 - 18:32", "amount": "17,000.00", "recipient_name": "นาย ญัฐขชัย รักษาวงษ์", "recipient_account": "XXX-X-XX452-9", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n“7 กรุงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง\nN006736666744075403889296\nจ      สืบตรีณัฐชัย s* **\nกรุงไทย\nXXX-X-XX526-6\n๐  ไปยัง\nนาย ญัฐขชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX452-9"}, {"file": "IMG_1119.JPG", "date_time": "วันที่ทํารายการ                    17 มิ.ย. 2568 - 19:00", "amount": null, "recipient_name": "นาย ญัฐขชัย รักษาวงษ์", "recipient_account": "XXX-X-XX452-9", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n“7 กรุงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง\nN006737368450040217715635\nสืบตรีณัฐชัย s* **\nกรุงไทย\nXXX-X-XX526-6\n๐  ไปยัง\nนาย ญัฐขชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX452-9"}, {"file": "IMG_1259.JPG", "date_time": "วันที่ทํารายการ                    26 มิ.ย. 2568 - 15:03", "amount": "200.00", "recipient_name": "นาย ณรชูชย รถกษาวงษ", "recipient_account": "XXX-X-XX558-9", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "A8a346c46d3e24fa8", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง A8a346c46d3e24fa8\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho         SOS       A\nนาย ณรชูชย รถกษาวงษ\nทีเอ็มบีธนชาต"}, {"file": "IMG_1360.JPG", "date_time": null, "amount": "4,000.00", "recipient_name": "นาย ณชบุชย รถษาวงษ", "recipient_account": "XXX-X-XX452-9", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n[ กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง A5721e5fe4e244370\n-” บาย ณัฐชัยร\"\"**\nกรุงไทย\nXXX-X-XX452-9\nไปยัง\ntho         คร       1\nนาย ณชบุชย รถษาวงษ\nทีเอ็มบีธนชาต\n%%%-%-%%558-9"}, {"file": "IMG_1401.JPG", "date_time": "วันที่ทํารายการ                     04 ก.ค. 2568 - 18:16", "amount": "700.00", "recipient_name": "นาย ณรชูชย รถกษาวงษ", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "A53192f05ad094789", "raw_snippet": "Krungthai\n[ กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง A53192f05ad094789\n- สิบตรีณัฐชัยร\"*”\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho         SOS       A\nนาย ณรชูชย รถกษาวงษ\nทีเอ็มบีธนชาต\n%%%-%-%%558-9"}, {"file": "IMG_2866.JPG", "date_time": "วันที่ทํารายการ                    05 ต.ค. 2568 - 05:24", "amount": "2.00", "recipient_name": "นาย ณชบุชย รถษาวงษ", "recipient_account": "XXX-X-XX558-9", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n. 7 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสฮ้างอิง /เลวิล66930ส่ส่004360\n- สิบตรีณัฐชัยร\"*”\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho         ค       -\nนาย ณชบุชย รถษาวงษ\nทีเอ็มบีธนชาต\nXXX-X-XX558-9"}, {"file": "IMG_6302.JPG", "date_time": "วันที่ทํารายการ                     31 มี.ค. 2569 - 10:25", "amount": "1,770.00", "recipient_name": "นาย ณชบุชย รถษาวงษ", "recipient_account": "XXX-X-XX558-9", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "41114", "raw_snippet": "Krungthai\n. 2 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง 41114ส่52080164507\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho         อคั       1\nนาย ณชบุชย รถษาวงษ\nทีเอ็มบีธนชาต"}, {"file": "IMG_8985(1).PNG", "date_time": "วันที่ทํารายการ                   28 ม.ค. 2568 - 06:42", "amount": null, "recipient_name": "สืบตรีณัฐชัย รักษาวงษ์", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "yee, Krungthai\n7 ( กรุงไทย\nอนเงินสําเร็จ\nรหัสอ้างอิง\nN006723324143035963652224\nอาก\nณัฐชัย ร\nกรุงไทย\n%%%-%-%%452-9\n* * *\nไปยัง\nสืบตรีณัฐชัย รักษาวงษ์"}, {"file": "IMG_8985.PNG", "date_time": "วันที่ทํารายการ                   28 ม.ค. 2568 - 06:42", "amount": null, "recipient_name": "สืบตรีณัฐชัย รักษาวงษ์", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "yee, Krungthai\n7 ( กรุงไทย\nอนเงินสําเร็จ\nรหัสอ้างอิง\nN006723324143035963652224\nอาก\nณัฐชัย ร\nกรุงไทย\n%%%-%-%%452-9\n* * *\nไปยัง\nสืบตรีณัฐชัย รักษาวงษ์"}], "total_amount": 37575.0}, "others": {"id": "others", "name": "บัญชีรายย่อยอื่นๆ กว่า 40 บัญชี", "role": "ยอดโอนย่อยตามคำสั่งแชท (25 - 1,000 บ.)", "type": "minor", "bank": "กรุงไทย, กสิกร, ttb", "accounts": ["หลากหลาย"], "color": "#64748b", "slips": [{"file": "IMG_0457.JPG", "date_time": null, "amount": "40.00", "recipient_name": null, "recipient_account": "2025051618034", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": "202505161803449485", "raw_snippet": "SB.\nจ่ายบิลสําเร็จ\n16 W.A. 68, 18:13 น.\n40.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nยะ๐           ว\nXXX-X-XX558-9\nttb\nร้านถุงเงิน (รัตนา กายดคี)\n(010753700088205)\n1836006037022605006"}, {"file": "IMG_0464.JPG", "date_time": "17 พ.ค. 68, 08:50 น.", "amount": "40.00", "recipient_name": null, "recipient_account": "2025051708006", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "SB.\nจ่ายบิลสําเร็จ\n17 พ.ค. 68, 08:50 น.\n40.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nขยะ๒\nปล โลพอ๑\n(010753600031508)\n6<8000001990433"}, {"file": "IMG_0499.JPG", "date_time": null, "amount": "50.00", "recipient_name": null, "recipient_account": "1716099056018", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n7! กรุงไทย\n๕   จ่ายบิลสําเร็ง\nรหัสอ้างอิง (20250519513918746529\nสิบตรีณัฐชัย ร***\nie      กรุงไทย\n:  XXX-X-XX526-6\n“พ\nถุงเงิน (ปริญญาขนมเบื้องไทย)\n4สฮิบ\nรหัสร้านค้า                     1716099056018516419\nรหัสธุรกรรมถุงเงิน                           PARINYA"}, {"file": "IMG_0604.JPG", "date_time": "23 พ.ค. 68, 07:59 น.", "amount": "37.00", "recipient_name": null, "recipient_account": "2025052307006", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "SB.\nจ่ายบิลสําเร็จ\n23 พ.ค. 68, 07:59 น.\n37.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nยะ๐           ว\nXXX-X-XX558-9\nttb\nTUNGNGERN (เนาวรัตน์)\n(010753700088205)\nRY360010G10625150VF"}, {"file": "IMG_0611.JPG", "date_time": null, "amount": "300.00", "recipient_name": null, "recipient_account": "2025052317029", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "202505231702989914", "raw_snippet": "©\nโอนเงินสําเร็จ\n23 W.A. 68, 17:35 น.\n300.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nณัฐชัย รักษาวงษ์\nXXX-X-XX452-9\nKTB\nธรหัสอ้างอิง: 202505231702989914"}, {"file": "IMG_0612.JPG", "date_time": null, "amount": "100.00", "recipient_name": null, "recipient_account": "2025052317030", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "202505231703091180", "raw_snippet": "©\nโอนเงินสําเร็จ\n23 W.A. 68, 17:53 น.\n100.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© นาย ณัฐชัย รักษาวงษ์\nจ7 XXX-X-XX452-9\nKTB\nธรหัสอ้างอิง: 202505231703091180"}, {"file": "IMG_0656.JPG", "date_time": "วันที่ทํารายการ                     26 พ.ค. 2568 - 14:32", "amount": "14,400.00", "recipient_name": "นาย ธตณภษั เหมอนขวญ", "recipient_account": "XXX-X-XX790-8", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n[ กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง Aaa94cebbe7374b01\nจาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho        ๒๒     5\nนาย ธตณภษั เหมอนขวญ\nทีเอ็มบีธนชาต"}, {"file": "IMG_0690.JPG", "date_time": "วันที่ทํารายการ                      27 พ.ค. 2568 - 10:06", "amount": "10,000.00", "recipient_name": "=    นาย gw s***", "recipient_account": "XXX-X-XX996-5", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "2", "raw_snippet": "Krungthai\n“7 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง 2เ6๑77ล1์11041ส4070\nจาก\n=    นาย gw s***\nกรุงไทย\nXXX-X-XX452-9\nไปยัง\ntho         ESS\nน.ส. วิณห์นิภา ประสาทเขตรการ\nทีเอ็มบีธนชาต"}, {"file": "IMG_0693.JPG", "date_time": null, "amount": "700.00", "recipient_name": "สิบตรีณัชขช์       ทษาวงษ์", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n2ว กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง\nN006735237714020814072178\nจอาก\nนาย ณัฐชัย ร\nกรุงไทย\nXXX-X-XX452-9\n* * *+\nไปยัง\nสิบตรีณัชขช์       ทษาวงษ์"}, {"file": "IMG_0723.jpg", "date_time": "วันที่ทํารายการ                     27 พ.ค. 2568 - 21:34", "amount": "1,500.00", "recipient_name": "นาย พญัฐชัย s***", "recipient_account": "XXX-X-XX558-9", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "A93d95392b44545de", "raw_snippet": "Krungthai\n” ทรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง A93d95392b44545de\nจาก\nนาย พญัฐชัย s***\nกรุงไทย\nXXX-X-XX452-9        ดอกพีสาวนัย\nไปยัง\nนาย ณัซูชัย รักษาวงษ์\nทีเอ็มบีธนชาต\nXXX-X-XX558-9"}, {"file": "IMG_0732.JPG", "date_time": "วันที่ทํารายการ                    28 พ.ค. 2568 - 09:01", "amount": "15.00", "recipient_name": null, "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n7! กรุงไทย\n๕   จ่ายบิลสําเร็ง\nรหัสอ้างอิง (20250528514809377652\nสิบตรีณัฐชัย ร***\nie      กรุงไทย\n:  XXX-X-XX526-6\nv\nถุงเงิน (เนาวรัตน์)\n4สฮิบ\nรหัสร้านค้า                    RY360010G10625150VF\nรหัสธุรกรรมถุงเงิน     MRSNAOWARATPHUPRASRO"}, {"file": "IMG_0736.JPG", "date_time": "วันที่ทํารายการ                     28 พ.ค. 2568 - 11:04", "amount": "308.16", "recipient_name": null, "recipient_account": "8804209844", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "MKTB104173824", "raw_snippet": "Krungthai\n“7 กรุงไทย\nจ่ายบิลสําเร็จ\nรหัสอ้างอิง MKTB104173824\nสิบตรีณัฐชัย s* **\n= nsvina\nXXX-X-XX526-6\n+\n-     เอไอเอส รายเดือน / เอไอเอส ไฟเบอร์\nAIS\n(1143)\nหมายเลขโทรศัพทท์ /                       8804209844"}, {"file": "IMG_0739.JPG", "date_time": "วันที่ทํารายการ                     28 พ.ค. 2568 - 12:21", "amount": "67.00", "recipient_name": "นางสาว ขนิษฐา คล้ายทอง", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารไทยพาณิชย์ (SCB)"], "ref_id": "Ae0a394d8132b4875", "raw_snippet": "Krungthai\nShi กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง Ae0a394d8132b4875\n©  อาก\n- สิบตรีณัฐชัยร\"*”\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\nนางสาว ขนิษฐา คล้ายทอง\nไทยพาณิชย์\n%%%-%-%%566-2"}, {"file": "IMG_0742.JPG", "date_time": "วันที่ทํารายการ                    28 พ.ค. 2568 - 20:30", "amount": "50.00", "recipient_name": "น.ส. พิชรีนทร์ ทาระ", "recipient_account": "XXX-X-XX239-5", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "Krungthai\n7 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง A50a26a3bbad84792\nจาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\nน.ส. พิชรีนทร์ ทาระ\nกสิกรไทย\nXXX-X-XX239-5"}, {"file": "IMG_0743.JPG", "date_time": "วันที่ทํารายการ                    28 พ.ค. 2568 - 21:09", "amount": "40.00", "recipient_name": "นาย โสภณ ขันกสิกรรม", "recipient_account": "XXX-X-XX472-8", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "Krungthai\n“7 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง\nN006735376178063493183619\nอาก\n“= สิบตรีณัฐชัย ร1”**\nกรุงไทย\nXXX-X-XX526-6\n๐  ไปยัง\nนาย โสภณ ขันกสิกรรม\nกรุงไทย"}, {"file": "IMG_0749.JPG", "date_time": "วันที่ทํารายการ                   30 พ.ค. 2568 - 00:20", "amount": "50.00", "recipient_name": "นาย ยุทธนา มาล", "recipient_account": "XXX-X-XX203-1", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "A3d01d375b5394b75", "raw_snippet": "Krungthai\n7 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง A3d01d375b5394b75\nจาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\ntho                   Mh\nนาย ยุทธนา มาล\nทีเอ็มบีธนชาต"}, {"file": "IMG_0808.JPG", "date_time": null, "amount": "300.00", "recipient_name": "สืบตรีณัชชซั       ทษาวงษ์", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n“7 กรุงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง\nN006735866338102670462555\n๑๐  อาก\nนาย ณัฐชัย ร**”\nกรุงไทย\nXXX-X-XX452-9\n๐  ไปยัง\nสืบตรีณัชชซั       ทษาวงษ์\nเคย"}, {"file": "IMG_0814.JPG", "date_time": "วันที่ทํารายการ                     03 มิ.ย. 2568 - 12:29", "amount": "500.00", "recipient_name": "นาย ศักดิ์สิทธิ์เพชรกังสดาล", "recipient_account": "XXX-X-XXXX6-5", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารออมสิน (GSB)"], "ref_id": "Ad946ffebb8344210", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง Ad946ffebb8344210\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\n©   ไปยัง\nนาย ศักดิ์สิทธิ์เพชรกังสดาล\nออมสิน\nXXX-X-XXXX6-558"}, {"file": "IMG_0835.JPG", "date_time": "3 มิ.ย. 68, 19:26 น.", "amount": "6,000.00", "recipient_name": null, "recipient_account": "2025060319034", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n3 มิ.ย. 68, 19:26 น.\n6,000.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© สิบตรีณัฐชัย รักษาวงษ์\nNW XXX-X-XX526-6\nKTB\nธหัสอ้างอิง: 202506031903439684"}, {"file": "IMG_0883.JPG", "date_time": "วันที่ทํารายการ                    05 มิ.ย. 2568 - 20:13", "amount": "50.00", "recipient_name": "นาง นิภา ภูนัสสูง", "recipient_account": "XXX-XXXXXXXX-4", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "Afcclfbebe1574276", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง Afcclfbebe1574276\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nFe |   ไปยัง\nนาง นิภา ภูนัสสูง\nพร้อมเพย์\nXXX-XXXXXXXX-4801"}, {"file": "IMG_0923.JPG", "date_time": "วันที่ทํารายการ                    08 มิ.ย. 2568 - 19:19", "amount": "100.00", "recipient_name": "ณัชฐพล เงกสูงเนิน", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "Al20ed4clbd4b846f2", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง Al20ed4clbd4b846f2\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\n|    ไปยัง\nณัชฐพล เงกสูงเนิน\nพร้อมเพย์\nXXX XXX 0453"}, {"file": "IMG_1065.JPG", "date_time": "วันที่ทํารายการ                     15 มิ.ย. 2568 - 16:42", "amount": "60.00", "recipient_name": "นางสาว รุ้งทิพย์ แผ้วสถาน", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "Ala7807786dfb43d9", "raw_snippet": "oe Krungthai\n/ กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง Ala7807786dfb43d9\nจาก\nสิบตรีณัฐชัย\nกรุงไทย\nXXX-X-XX526-6\n* * *\nไปยัง\nนางสาว รุ้งทิพย์ แผ้วสถาน\nพร้อมเพย์"}, {"file": "IMG_1076.JPG", "date_time": "วันที่ทํารายการ                     16 มิ.ย. 2568 - 10:30", "amount": "90.00", "recipient_name": "นาง อุษา จันทร์พายับ", "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารออมสิน (GSB)"], "ref_id": "A9a27f183a84048e8", "raw_snippet": "๑\n๐\noe Krungthai\n/ กรงไทย\nอนเจงินสําเร็จ\nรหัสอ้างอิง A9a27f183a84048e8\nDin\nสืิบตรีณัชชัย\n* * *\nn~\nกรุงไทย\nXXX-X-XX526-6"}, {"file": "IMG_1083.JPG", "date_time": null, "amount": "335.00", "recipient_name": null, "recipient_account": "0140000059288", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารไทยพาณิชย์ (SCB)"], "ref_id": null, "raw_snippet": "Krungthai\nAy กรุงไทย\nข่ายบิลสําเร็จ\nรหัสอฮ้างอิง 020250616516712997594\nศ์\n©   สิบตรีณัฐชัย s***\nกรุงไทย\nXXX-X-XX526-6\n๒   SCB มณี SHOP (แป้งกะเนย เบเทอรี่)\nรหัสร้านค้า                   014000005928809\nรหัสอ้างอิงร้านค้า                                                  SCB\nจํานวนเงิน                              335.00 บาท"}, {"file": "IMG_1109.JPG", "date_time": "วันที่ทํารายการ                      17 มิ.ย. 2568 - 14:07", "amount": "100.00", "recipient_name": "นาย ไตรรัตน์ โม่งวงษ์ษา", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "A8971168be6144759", "raw_snippet": "oe Krungthai\n/ กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง A8971168be6144759\nจาก\nสิบตรีณัฐชัย\nกรุงไทย\nXXX-X-XX526-6\n* * *\nไปยัง\nนาย ไตรรัตน์ โม่งวงษ์ษา\nพร้อมเพย์"}, {"file": "IMG_1121.JPG", "date_time": "วันที่ทํารายการ                     17 มิ.ย. 2568 - 19:46", "amount": "425.00", "recipient_name": "นาง ขวัญเรือน นันทะมาต", "recipient_account": "XXX-XXXXXXXX-0", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "A35d050f56dfe4317", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง A35d050f56dfe4317\n๐   อาก\nสืบตรีณัฐชัย s* **\nกรุงไทย\nXXX-X-XX526-6\nre |   ไปยัง\nนาง ขวัญเรือน นันทะมาต\nพร้อมเพย์\nXXX-XXXXXXXX-0509"}, {"file": "IMG_1137.JPG", "date_time": "18 มิ.ย. 68, 16:31 น.", "amount": "200.00", "recipient_name": null, "recipient_account": "2025061816024", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n18 มิ.ย. 68, 16:31 น.\n200.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© นาย ณัฐชัย รักษาวงษ์\nจ7 XXX-X-XX452-9\nเธ\nธหัสอ้างอิง: 202506181602410008"}, {"file": "IMG_1199.JPG", "date_time": null, "amount": "20.00", "recipient_name": "©  น.ส. นัฐกานต์ พงษ์ประสิทธิ์", "recipient_account": "2025062316026", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n23 มี.ย. 68, 16:58 น.\n20.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n©  น.ส. นัฐกานต์ พงษ์ประสิทธิ์\nXXX-XXX-7796\nพร้อมเพย์\nธหัสอ้างอิง: 202506231602617315"}, {"file": "IMG_1201.JPG", "date_time": null, "amount": "10.00", "recipient_name": null, "recipient_account": "2025062317026", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "SB.\nจ่ายบิลสําเร็จ\n23 0.8. 68, 17:05 u.\n10.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nขยะ๒\nปล โลพอ๑\n(010753600031508)\n6<8000001990433"}, {"file": "IMG_1213.JPG", "date_time": "24 มิ.ย. 68, 09:35 น.", "amount": "120.00", "recipient_name": "©  นาง อุษา จันทร์พายับ", "recipient_account": "2025062409008", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n24 มิ.ย. 68, 09:35 น.\n120.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n©  นาง อุษา จันทร์พายับ\nXXX-XXX-9735\nพร้อมเพย์\nธหัสอ้างอิง: 202506240900850469"}, {"file": "IMG_1217.JPG", "date_time": "24 มิ.ย. 68, 12:51 u.", "amount": "72.00", "recipient_name": "©  น.ส.ภควรรณ มาลัยมาตย์", "recipient_account": "2025062412016", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n24 มิ.ย. 68, 12:51 u.\n72.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n©  น.ส.ภควรรณ มาลัยมาตย์\nXXX-XXX-5100\nพร้อมเพย์\nธหัสอ้างอิง: 202506241201639591"}, {"file": "IMG_1223.JPG", "date_time": "24 มิ.ย. 68, 22:09 u.", "amount": "50.00", "recipient_name": "©  น.ส.ปวีณ์พร แหนบทอง", "recipient_account": "2025062422037", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n24 มิ.ย. 68, 22:09 u.\n50.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n©  น.ส.ปวีณ์พร แหนบทอง\nXXX-XXX-4446\nพร้อมเพย์\nธหัสอ้างอิง: 202506242203786444"}, {"file": "IMG_1232.JPG", "date_time": "วันที่ทํารายการ                    25 มิ.ย. 2568 - 07:53", "amount": "90.00", "recipient_name": "นาย ณรงค์ ผลารักษ์", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "A5deb33b12cae4f87", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง A5deb33b12cae4f87\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\n|   ไปยัง\nนาย ณรงค์ ผลารักษ์\nพร้อมเพย์\nXXX XXX 4225"}, {"file": "IMG_1233.JPG", "date_time": "25 มิ.ย. 68, 08:26 น.", "amount": "30.00", "recipient_name": "©  น.ส. จันทนา รองเนียม", "recipient_account": "2025062508009", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n25 มิ.ย. 68, 08:26 น.\n30.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n©  น.ส. จันทนา รองเนียม\nX-XXXX-XXXXB-33-2\nพร้อมเพย์\nธหัสอ้างอิง: 202506250800995939"}, {"file": "IMG_1242.JPG", "date_time": "25 มิ.ย. 68, 12:41 น.", "amount": "31.00", "recipient_name": null, "recipient_account": "2025062512023", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "SB.\nจ่ายบิลสําเร็จ\n25 มิ.ย. 68, 12:41 น.\n31.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nขยะ๒\nปล โลพอ๑\n(010753600031508)\n6<8000001990433"}, {"file": "IMG_1250.JPG", "date_time": "วันที่ทํารายการ                    26 มิ.ย. 2568 - 09:13", "amount": "69.00", "recipient_name": "นิร์ติศัย แจ้งจิตร", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "2187013586988", "raw_snippet": "Krungthai\n97 กรงไทย\nอนเงินสําเรอ\nรหัสอ้างอิง 2187013586988ส่4ส95\n๐   อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\n|     ไปยัง\nนิร์ติศัย แจ้งจิตร\nพร้อมเพย์\n%%% %%% 3318"}, {"file": "IMG_1251.JPG", "date_time": null, "amount": "40.00", "recipient_name": null, "recipient_account": "2025062609009", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "SB.\nจ่ายบิลสําเร็จ\n26 มี.ย. 68, 09:21 น.\n40.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nขยะ๒\nปล โลพอ๑\n(010753600031508)\n6<8000001990433"}, {"file": "IMG_1316.JPG", "date_time": "วันที่ทํารายการ                      01 ก.ค. 2568 - 11:35", "amount": "90.00", "recipient_name": "นาย เอกวทย สบสาย", "recipient_account": "XXX-X-XX542-1", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "Ad9cea692188d438c", "raw_snippet": "Krungthai\n( กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง Ad9cea692188d438c\n-” บาย ณัฐชัยร\"\"**\nกรุงไทย\nXXX-X-XX452-9\nไปยัง\ntho            SS\nนาย เอกวทย สบสาย\nทีเอ็มบีธนชาต\nXXX-X-XX542-1"}, {"file": "IMG_1354.JPG", "date_time": null, "amount": "40.00", "recipient_name": null, "recipient_account": "0700006030086", "banks": ["ธนาคารกรุงศรีอยุธยา (BAY)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n7 กรุงไทย\nจ่ายบิลสําเร็จ\nรหัสอฮ้างอิง 020250702518311731364\nนาย ณัฐชัย s* **\nกรุงไทย\nXXX-X-XX452-9\n} © กรุงศรีมั่งมีซ้อป(ร้านข้าวขาหมูอารัชช์)\nรหัสร้านค้า                           070000603008679\nสาขา                                        33010895\nจํานวนเงิน                                40.00 บาท\nSCS                                 0.00 บาท"}, {"file": "IMG_1367.JPG", "date_time": null, "amount": "50.00", "recipient_name": "นาย โสภณ ขันกสิกรรม", "recipient_account": "XXX-X-XX472-8", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "Krungthai\n7 ( กรุงไทย\n๕   โอนเงินสําเร็จ\nรหัสอ้างอิง\nN006738867359061174681552\n=“ นบายณัฐชัยร\"**\nกรุงไทย\nXXX-X-XX452-9\n๐  ไปยัง\nนาย โสภณ ขันกสิกรรม\nกรุงไทย\nXXX-X-XX472-8"}, {"file": "IMG_1375.JPG", "date_time": "3 ก.ค. 68, 09:06 น.", "amount": "60.00", "recipient_name": "©  นาง อุษา จันทร์พายับ", "recipient_account": "2025070309008", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n3 ก.ค. 68, 09:06 น.\n60.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n©  นาง อุษา จันทร์พายับ\nXXX-XXX-9735\nพร้อมเพย์\nธหัสอ้างอิง: 202507030900838667"}, {"file": "IMG_1376.JPG", "date_time": null, "amount": "35.00", "recipient_name": "© นาย Ss:wa เรืองอําพันธุ์", "recipient_account": "2025070309008", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n3 A.A. 68, 09:21 น.\n35.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© นาย Ss:wa เรืองอําพันธุ์\nXXX-XXX-7536\nพร้อมเพย์\nธหัสอ้างอิง: 202507030900897963"}, {"file": "IMG_1379.JPG", "date_time": null, "amount": "200.00", "recipient_name": null, "recipient_account": "2025070310010", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": "202507031001054262", "raw_snippet": "©\nโอนเงินสําเร็จ\n3 A.A. 68, 10:02 น.\n200.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nขยะ๒\nung ณรงค์ ผลารักษ์\nXXX-XXX-4225\nพร้อมเพย์"}, {"file": "IMG_1389.JPG", "date_time": "วันที่ทํารายการ                     03 ก.ค. 2568 - 19:42", "amount": "80.00", "recipient_name": "นาย มงคล เผยสร", "recipient_account": "XXX-XXXXXXXX-0", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "AIc3cecf246fe4699", "raw_snippet": "Krungthai\n[ กรุงไทย\nโอนเงินสําเรือ\nรหัสอ้างอิง AIc3cecf246fe4699\nจาก\nสิบตรีณัฐชัย ร\"”*\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\nนาย มงคล เผยสร\nพร้อมเพย์\nXXX-XXXXXXXX-0385"}, {"file": "IMG_1391.JPG", "date_time": null, "amount": "25.00", "recipient_name": "น.ส. จันทนา รองเนียม", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "21190122", "raw_snippet": "Krungthai\n7 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง 21190122ไลว197463ล\nจาก\nสิบตรีณัฐชัย ร\"”*\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\nน.ส. จันทนา รองเนียม\nพร้อมเพย์\nX XXXX XXXXB 33 2"}, {"file": "IMG_1398.JPG", "date_time": "4 ก.ค. 68, 15:20 น.", "amount": "30.00", "recipient_name": null, "recipient_account": "2025070415024", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n4 ก.ค. 68, 15:20 น.\n30.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© สิบตรีณัฐชัย รักษาวงษ์\nNW XXX-X-XX526-6\nKTB\nธหัสอ้างอิง: 202507041502409703"}, {"file": "IMG_1410.JPG", "date_time": "4 ก.ค. 68, 22:12 น.", "amount": "100.00", "recipient_name": null, "recipient_account": "2025070422043", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n4 ก.ค. 68, 22:12 น.\n100.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© สิบตรีณัฐชัย รักษาวงษ์\nNW XXX-X-XX526-6\nKTB\nธหัสอ้างอิง: 202507042204306589"}, {"file": "IMG_1858.JPG", "date_time": "วันที่ทํารายการ                     05 ส.ค. 2568 - 17:19", "amount": "70.00", "recipient_name": "นาย โสภณ ขันกสิกรรม", "recipient_account": "XXX-X-XX472-8", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "Krungthai\n7 ( กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง\nพ006742262388023294038417\nจาก\nสืบตรีณัฐชัย ร*”*”\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\nนาย โสภณ ขันกสิกรรม\nกรุงไทย"}, {"file": "IMG_1871.JPG", "date_time": "6 ส.ค. 68, 07:15 น.", "amount": "200.00", "recipient_name": "© น.ส.เกศริน เจริญลาภ", "recipient_account": "2025080607003", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n6 ส.ค. 68, 07:15 น.\n200.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© น.ส.เกศริน เจริญลาภ\nNM XXX-X-XX092-3\nKTB\nธหัสอ้างอิง: 202508060700393501"}, {"file": "IMG_1873.JPG", "date_time": "วันที่ทํารายการ                   06 ส.ค. 2568 - 08:20", "amount": "50.00", "recipient_name": null, "recipient_account": "6050046850000", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\nจ่ายบิลสําเร็จ\nรหัสอฮ้างอิง 020250806521808211614\nสิบตรีณัฐชัย ร\" **\neee\nกรุงไทย\nXXX-X-XX526-6\nข้าวเหนียวบรรเทิง\n010753600031501\nรหัสร้านค้า                    KB000002062620\nรหัสธุรกรรม            605004685000002062620\nจํานวนเงิน                                50.00 บาท"}, {"file": "IMG_2530.JPG", "date_time": null, "amount": "100.00", "recipient_name": null, "recipient_account": "2025092210008", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n22 ก.ุย. 68, 10:02 น.\n100.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nขยะ๒\nung ณรงค์ ผลารักษ์\nXXX-XXX-4225\nพร้อมเพย์"}, {"file": "IMG_2534.JPG", "date_time": null, "amount": "80.00", "recipient_name": null, "recipient_account": "2025092212015", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "SB.\nจ่ายบิลสําเร็จ\n22 A.€1. 68, 12:56 น.\n80.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nยะ๐           ว\nXXX-X-XX558-9\nttb\nPTTST.D SOLGOSOOM\n(010753600031501)\n401001119763001"}, {"file": "IMG_2540.JPG", "date_time": "22 ก.ย. 68, 18:53 น.", "amount": "40.00", "recipient_name": null, "recipient_account": "2025092218029", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n22 ก.ย. 68, 18:53 น.\n40.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n©  นางสายหยุด พิมพ์จันทร์\nX-XXXX-XXXX3-24-7\nพร้อมเพย์\nธหัสอ้างอิง: 202509221802948396"}, {"file": "IMG_2548.JPG", "date_time": null, "amount": "30.00", "recipient_name": null, "recipient_account": "2025092308005", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "SB.\nจ่ายบิลสําเร็จ\n23 กุย. 68, 08:12 น.\n30.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nยะ๐           ว\nXXX-X-XX558-9\nttb\nJaJa\n(010753600031501)\nKBO00002190861"}, {"file": "IMG_2549.JPG", "date_time": "23 ก.ย. 68, 09:00 น.", "amount": "150.00", "recipient_name": "©  นาง อุษา จันทร์พายับ", "recipient_account": "2025092308007", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n23 ก.ย. 68, 09:00 น.\n150.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n©  นาง อุษา จันทร์พายับ\nXXX-XXX-9735\nพร้อมเพย์\nธหัสอ้างอิง: 202509230800730166"}, {"file": "IMG_2591.JPG", "date_time": null, "amount": "47.00", "recipient_name": "© นาย Ss:wa เรืองอําพันธุ์", "recipient_account": "2025092413018", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": "202509241301832335", "raw_snippet": "©\nโอนเงินสําเร็จ\n24 ก.ุย. 68, 13:54 น.\n47.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© นาย Ss:wa เรืองอําพันธุ์\nXXX-XXX-7536\nพร้อมเพย์\nธรหัสอ้างอิง: 202509241301832335"}, {"file": "IMG_2617.PNG", "date_time": "10 มิ.ย. 2568 19:54 >", "amount": "8,100.00", "recipient_name": "น.ส. จิณห์นพิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX996-5", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "A7755e7adb0054140", "raw_snippet": "22:20                 ๑ @ 55% 6# )'\nNuttachai\n10 มิ.ย. 2568 19:54 >\nรหัสอ้างอิง A7755e7adb0054140\nสิบตรีณัฐชัยร\" ”*\nกรุงไทย\nXXX-X-XX526-6\ntio        5\nน.ส. จิณห์นพิภา ประสาทเขตรการ\nทีเอ็มบีธนชาต\nXXX-X-XX996-5\nขํานวนเงิน                         8,100.00 บาท"}, {"file": "IMG_2873.JPG", "date_time": "5 ต.ค. 68, 20:10 น", "amount": "50.00", "recipient_name": null, "recipient_account": "2025100520035", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "จ่ายบิลสําเร็จ\n5 ต.ค. 68, 20:10 น\n50.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\ntio       อ ฟัยต\nXXX-X-XX558-9\nttb\nJa Tawee\n(010753600031508)\nKB000001990433\nKPS004KB000001990433"}, {"file": "IMG_2897.JPG", "date_time": "8 ต.ค. 68, 14:36 น.", "amount": "50.00", "recipient_name": null, "recipient_account": "2025100814020", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": "202510081402028411", "raw_snippet": "©\nโอนเงินสําเร็จ\n8 ต.ค. 68, 14:36 น.\n50.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nขยะ๒\nung ณรงค์ ผลารักษ์\nXXX-XXX-4225\nพร้อมเพย์"}, {"file": "IMG_2899.JPG", "date_time": "8 ต.ค. 68, 18:22 น.", "amount": "78.00", "recipient_name": "©  นาง สารินี บุญบุตร", "recipient_account": "2025100818030", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n8 ต.ค. 68, 18:22 น.\n78.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n©  นาง สารินี บุญบุตร\nXXX-XXX-5576\nพร้อมเพย์\nธหัสอ้างอิง: 202510081803000442"}, {"file": "IMG_2920.JPG", "date_time": null, "amount": "22.00", "recipient_name": "uv สารินี บุญบุตร", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "Adc51000609374eb4", "raw_snippet": "Krungthai\n( กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง Adc51000609374eb4\n- สิบตรีณัฐชัยร\"*”\nกรุงไทย\nXXX-X-XX526-6\n|   ไปยัง\nuv สารินี บุญบุตร\nพร้อมเพย์\n%%% %%% 5576\nจํานวนเงิน                                22.00 บาท"}, {"file": "IMG_2921.JPG", "date_time": "วันที่ทํารายการ                     10 ต.ค. 2568 - 13:15", "amount": "15.00", "recipient_name": "uv สารินี บุญบุตร", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "A6a67c84dd1cb47fc", "raw_snippet": "Krungthai\n( กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง A6a67c84dd1cb47fc\n- สิบตรีณัฐชัยร\"*”\nกรุงไทย\nXXX-X-XX526-6\n|   ไปยัง\nuv สารินี บุญบุตร\nพร้อมเพย์\n%%% %%% 5576\nจํานวนเงิน                            15.00 บาท"}, {"file": "IMG_2955.JPG", "date_time": "13 ต.ค. 68, 08:50 น.", "amount": "13.00", "recipient_name": null, "recipient_account": "2025101308005", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n13 ต.ค. 68, 08:50 น.\n13.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© นายโสภณ ขขันกสิกรรม\nNE XXX-X-XX472-8\nKTB\nธหัสอ้างอิง: 202510130800506960"}, {"file": "IMG_2980.JPG", "date_time": "15 ต.ค. 68, 18:04 น.", "amount": "200.00", "recipient_name": null, "recipient_account": "2025101518031", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n15 ต.ค. 68, 18:04 น.\n200.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© สิบตรีณัฐชัย รักษาวงษ์\nNW XXX-X-XX526-6\nKTB\nธหัสอ้างอิง: 202510151803139303"}, {"file": "IMG_2981.JPG", "date_time": null, "amount": "500.00", "recipient_name": null, "recipient_account": "XXX-X-XX616-4", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "A4c53a0d7fbbf4ef5", "raw_snippet": "Krungthai\n[ กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง A4c53a0d7fbbf4ef5\nDin\nสิบตรีญัฐชัย s* * *\nกรุงไทย\nXXX-X-XX526-6\nnsvinw\nXXX-X-XX616-4\nจํานวนเงิน                              500.00 บาท\n๕๕๕”/ :                                 0.00 บาท"}, {"file": "IMG_3043.JPG", "date_time": "17 ต.ค. 68, 15:17 น.", "amount": "80.00", "recipient_name": "นาย เอกวิทย์ สืบสาย", "recipient_account": "2025101715022", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": "202510171502255648", "raw_snippet": "©\nโอนเงินสําเร็จ\n17 ต.ค. 68, 15:17 น.\n80.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nขยะ๒\nนาย เอกวิทย์ สืบสาย\nXXX-XXX-1749\nพร้อมเพย์"}, {"file": "IMG_3107.JPG", "date_time": "วันที่ทํารายการ                      21 ต.ค. 2568 - 11:55", "amount": "1.00", "recipient_name": "นายวิระชัย บุญทะจิตต์", "recipient_account": "XXX-X-XX217-4", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 ( กรุงไทย\nอนเงินสาเรจ\nรหัสอ้างอิง\nN006749942907026635721967\nจาก\nสืบตรีณัฐชัย ร\nกรุงไทย\nXXX-X-XX526-6\n* * *+\nไปยัง\nนายวิระชัย บุญทะจิตต์"}, {"file": "IMG_3109.JPG", "date_time": null, "amount": "50.00", "recipient_name": "นางวิไลลักษณ์ บุญทะวจิตต์", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "A96b1d5293875492b", "raw_snippet": "Krungthai\n9 ( กรุงไทย\nอนเงินสาเรจ\nรหัสอ้างอิง A96b1d5293875492b\nอาก\n-” สิบตรีณัฐชัย s***\nกรุงไทย\nXXX-X-XX526-6\n|    ไปยัง\nนางวิไลลักษณ์ บุญทะวจิตต์\nพร้อมเพย์\nXXX XXX 2364"}, {"file": "IMG_3134.JPG", "date_time": null, "amount": "30.00", "recipient_name": null, "recipient_account": "2025102215021", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "จ่ายบิลสําเร็จ\n22 ต๓.ค. 68, 15:16 น.\n30.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\ntio           ‘p\nXXX-X-XX558-9\nttb\nหอมจันทร์ มั่นใจ\n(010556106207600)\n200012307208020\n23072001"}, {"file": "IMG_3138.JPG", "date_time": "22 ต.ค. 68, 19:10 น.", "amount": "50.00", "recipient_name": null, "recipient_account": "2025102219031", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "จ่ายบิลสําเร็จ\n22 ต.ค. 68, 19:10 น.\n50.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\ntio           ‘p\nXXX-X-XX558-9\nttb\nPTTST.D SOLGOSOOM\n(010753600031501)\n401001119763001\nEDC17611349916967230"}, {"file": "IMG_3141.JPG", "date_time": "22 ต.ค. 68, 19:57 น.", "amount": "35.00", "recipient_name": null, "recipient_account": "2025102219033", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "จ่ายบิลสําเร็จ\n22 ต.ค. 68, 19:57 น.\n35.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\ntio           ‘p\nXXX-X-XX558-9\nttb\nJa Tawee\n(010753600031508)\nKBO000001990433\nKPS004KB000001990433"}, {"file": "IMG_3158.JPG", "date_time": "23 ต.ค. 68, 20:12 น.", "amount": "50.00", "recipient_name": null, "recipient_account": "2025102320031", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": "202510232003153405", "raw_snippet": "จ่ายบิลสําเร็จ\n23 ต.ค. 68, 20:12 น.\n50.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\ntio           ‘p\nXXX-X-XX558-9\nttb\nปริญญาขนมเบื้องไทย\n(010753600031508)\nKB000001794221\nKPS004KB000001794221"}, {"file": "IMG_3178.JPG", "date_time": null, "amount": "45.00", "recipient_name": null, "recipient_account": "2025102614017", "banks": [], "ref_id": null, "raw_snippet": "จ่ายบิลสําเร็จ\n45.00\nค่าธรรมเนียม 0.00\nbb   นาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nJa Tawee\n(010753600031508)\nKB000001990433\nKPSO04KB000001990433\nธหัสอ้างอิง: 202510261401760537"}, {"file": "IMG_3192.JPG", "date_time": "27 ต.ค. 68, 14:05 น", "amount": "50.00", "recipient_name": null, "recipient_account": "2025102714019", "banks": [], "ref_id": null, "raw_snippet": "จ่ายบิลสําเร็จ\n27 ต.ค. 68, 14:05 น\n50.00\nค่าธรรมเนียม 0.00\nbb   นาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nkao tom nong beer\n(010753600031508)\nKB000001967052\nKPSO004KB000001967052\nธหัสอ้างอิง: 202510271401958092"}, {"file": "IMG_3231.JPG", "date_time": null, "amount": "20.00", "recipient_name": "น.ส.สุรีย์ จันทนิช", "recipient_account": "XXXX-XXXX2-2", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n20.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nน.ส.สุรีย์ จันทนิช\nX-XXXX-XXXX2-28-8\nพร้อมเพย์"}, {"file": "IMG_3237.JPG", "date_time": "31 ต.ค. 68, 20:12 น", "amount": "69.00", "recipient_name": null, "recipient_account": "2025103120052", "banks": ["ttb (ทหารไทยธนชาต)", "พร้อมเพย์ (PromptPay)"], "ref_id": "202510312005262935", "raw_snippet": "โอนเงินสําเร็จ\n31 ต.ค. 68, 20:12 น\n69.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nนิรัติศัย แจ้งจิตร\nXXX-XXX-3318\nพร้อมเพย์\n[รอน\nPay"}, {"file": "IMG_3750.JPG", "date_time": "20 พ.ย. 68, 20:44 u", "amount": "2,000.00", "recipient_name": null, "recipient_account": "2025112020035", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "โอนเงินสําเร็จ\n20 พ.ย. 68, 20:44 u\n2,000.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nko           i\nXXX-X-XX558-9\nttb\nนายวีระชัย บุญทะจิตต์\nXXX-X-XX217-4\nKTB\nอง: 202511202003579587"}, {"file": "IMG_4077(1).PNG", "date_time": "วันที่ทํารายการ                    29 ม.ค. 2567 - 23:26", "amount": "500.00", "recipient_name": "นาย สุรีรัตน์ โตสกุณี", "recipient_account": "XXX-X-XX754-3", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "oe Krungthai\n\"7 | กรุงไทย\nFi ng       oo\nโอนเงินสําเร็จ\nรหัสฮ้างอิง 2024012985014606\nณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX452-9\nนาย สุรีรัตน์ โตสกุณี\nกสิกรไทย\nXXX-X-XX754-3\nจํานวนเงิน                            500.00 บาท"}, {"file": "IMG_4077.PNG", "date_time": "วันที่ทํารายการ                    29 ม.ค. 2567 - 23:26", "amount": "500.00", "recipient_name": "นาย สุรีรัตน์ โตสกุณี", "recipient_account": "XXX-X-XX754-3", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "oe Krungthai\n\"7 | กรุงไทย\nFi ng       oo\nโอนเงินสําเร็จ\nรหัสฮ้างอิง 2024012985014606\nณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX452-9\nนาย สุรีรัตน์ โตสกุณี\nกสิกรไทย\nXXX-X-XX754-3\nจํานวนเงิน                            500.00 บาท"}, {"file": "IMG_4419(1).PNG", "date_time": null, "amount": "200.00", "recipient_name": "|    นาย ณัชพล มีรัตน์", "recipient_account": "XXX-X-XX452-9", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\nHi   กทรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง Ab6d2e4bc321a4606\nณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX452-9\n|    นาย ณัชพล มีรัตน์\nพร้อมเพย์\nXXX XXX 4086\nจํานวนเงิน                            200.00 บาท\nค่าธรรมเนียม                                 0.00 บาท"}, {"file": "IMG_4580.PNG", "date_time": null, "amount": "200.00", "recipient_name": null, "recipient_account": "0653769582", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": "20240227034306674", "raw_snippet": "Krungthai\n9 / กรุงไทย\nเติมเงินสําเรือ\nรหัสอ้างอิง 20240227034306674\nสิบตรีณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX526-6\nns Jud วอลเล็ท\nWwW    7\n(1022)\nหมายเลขโทรศัพท์มือถือ 10หลัก             0653769582\nจํานวนเงิน                                   200.00 บาท"}, {"file": "IMG_4698.PNG", "date_time": "วันที่ทํารายการ                    05 มี.ค. 2567 - 14:03", "amount": "1,000.00", "recipient_name": "นาย ชง ศักดิ์เพืชร์", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 / กรุงไทย\nvn\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง A56c7001a8dda4a35\n๐    สิบตรีณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX526-6\nนาย ชง ศักดิ์เพืชร์\nพร้อมเพย์\nXXX XXX 6576\nจํานวนเงิน                          1,000.00 บาท"}, {"file": "IMG_4701.PNG", "date_time": "วันที่ทํารายการ                    05 มี.ค. 2567 - 19:57", "amount": "70.00", "recipient_name": null, "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n[ กรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอิง A46258557cb0d4b41\noe    สิบตรีณัฐชัย รักษาวงษ์\n- กรุงไทย\nXXX-X-XX526-6\nVv\nนางสุทัศน์ เสถียร\nพร้อมเพย์\nXXX XXX 3514\nจํานวนเงิน                                70.00 บาท"}, {"file": "IMG_4719(1).PNG", "date_time": "วันที่ทํารายการ                    08 มี.ค. 2567 - 09:11", "amount": "30.00", "recipient_name": "นาย สหรัฐ วงษ์อนุ", "recipient_account": "XXX-X-XXXX8-6", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอิง A176c92da35b44007\n%@     ณัฐชัย รักษาวงษ์\n(\nไซ\n%#\nกรุงไทย\nXXX-X-XX452-9\nนาย สหรัฐ วงษ์อนุ\nออมสน"}, {"file": "IMG_4719.PNG", "date_time": "วันที่ทํารายการ                    08 มี.ค. 2567 - 09:11", "amount": "30.00", "recipient_name": "นาย สหรัฐ วงษ์อนุ", "recipient_account": "XXX-X-XXXX8-6", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอิง A176c92da35b44007\n%@     ณัฐชัย รักษาวงษ์\n(\nไซ\n%#\nกรุงไทย\nXXX-X-XX452-9\nนาย สหรัฐ วงษ์อนุ\nออมสน"}, {"file": "IMG_4721(1).PNG", "date_time": "วันที่ทํารายการ                   08 มี.ค. 2567 - 11:58", "amount": "95.00", "recipient_name": null, "recipient_account": "0140000072817", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารไทยพาณิชย์ (SCB)"], "ref_id": null, "raw_snippet": "Krungthai\nผู ~ '/ กรุงไทย\nข่ายบิลสําเร็จ\nรหัสข้างอิง 876321151\n%@    ณัฐชัย รักษาวงษ์\n- กรงไทย\nXXX-X-XX452-9\n๒  SCB มณี SHOP (ร้านทํ๋วยเตี๋ยวริมน้้า บ้าน\nหนองแก่ง)\nรหัสร้านค้า                                        014000007281769\nรหัสอ้างอิงร้านค้า                                                  SCB\nจํานวนเงิน                                      95.00 บาท"}, {"file": "IMG_4721.PNG", "date_time": "วันที่ทํารายการ                   08 มี.ค. 2567 - 11:58", "amount": "95.00", "recipient_name": null, "recipient_account": "0140000072817", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารไทยพาณิชย์ (SCB)"], "ref_id": null, "raw_snippet": "Krungthai\nผู ~ '/ กรุงไทย\nข่ายบิลสําเร็จ\nรหัสข้างอิง 876321151\n%@    ณัฐชัย รักษาวงษ์\n- กรงไทย\nXXX-X-XX452-9\n๒  SCB มณี SHOP (ร้านทํ๋วยเตี๋ยวริมน้้า บ้าน\nหนองแก่ง)\nรหัสร้านค้า                                        014000007281769\nรหัสอ้างอิงร้านค้า                                                  SCB\nจํานวนเงิน                                      95.00 บาท"}, {"file": "IMG_4727(1).PNG", "date_time": "วันที่ทํารายการ                   08 มี.ค. 2567 - 20:46", "amount": "80.00", "recipient_name": "5   น.ส. กาญจนา แกท้ววรรณ์", "recipient_account": "XXX-XXXXXXXX-4", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n47 กรุงไทย\nvn\nโอนเงินสําเร็จ\nรหัสข้างอฮิง A2525b78a942edfee\nสิบตรีณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX526-6\n5   น.ส. กาญจนา แกท้ววรรณ์\nพร้อมเพย์\nXXX-XXXXXXXX-4398\nจํานวนเงิน                              80.00 บาท"}, {"file": "IMG_4728(1).PNG", "date_time": "วันที่ทํารายการ                   08 มี.ค. 2567 - 20:59", "amount": "56.00", "recipient_name": "|    นาง สารินี บุญบุตร", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n[ กรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอิง A727d1cf211424113\noe    สิบตรีณัฐชัย รักษาวงษ์\n-  nsvina\nXXX-X-XX526-6\nVv\n|    นาง สารินี บุญบุตร\nพร้อมเพย์\nXXX XXX 5576\nจํานวนเงิน                              56.00 บาท"}, {"file": "IMG_4728.PNG", "date_time": "วันที่ทํารายการ                   08 มี.ค. 2567 - 20:59", "amount": "56.00", "recipient_name": "|    นาง สารินี บุญบุตร", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n[ กรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอิง A727d1cf211424113\noe    สิบตรีณัฐชัย รักษาวงษ์\n-  nsvina\nXXX-X-XX526-6\nVv\n|    นาง สารินี บุญบุตร\nพร้อมเพย์\nXXX XXX 5576\nจํานวนเงิน                              56.00 บาท"}, {"file": "IMG_4731(1).PNG", "date_time": "วันที่ทํารายการ                     09 มี.ค. 2567 - 16:11", "amount": "300.00", "recipient_name": "นาย สุรีรัตน์ โตสกุญี", "recipient_account": "XXX-X-XX754-3", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n47 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง Ab03d1730ecbf4b2e\n%@    ณัฐชัย รักษาวงษ์\n” กรุงไทย\nXXX-X-XX452-9\nนาย สุรีรัตน์ โตสกุญี\nกสีกรไทย\nXXX-X-XX754-3\nจํานวนเงิน                            300.00 บาท\nค่าธรรมเนียม                                 0.00 บาท"}, {"file": "IMG_4736(1).PNG", "date_time": "วันที่ทํารายการ                   10 มี.ค. 2567 - 02:49", "amount": "100.00", "recipient_name": null, "recipient_account": "XXX-X-XX526-6", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n47 กรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอิง\nพ006690910148036676812591\nณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX452-9\nสิบตรีณัฐชัย รักษาวงษ์\na กรุงไทย\nXXX-X-XX526-6\nจํานวนเงิน                            100.00 บาท"}, {"file": "IMG_4892(1).PNG", "date_time": "วันที่ทํารายการ                     22 มี.ค. 2567 - 21:35", "amount": "300.00", "recipient_name": null, "recipient_account": "XXX-X-XX676-3", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n37 กรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอิง\nพ006692177759130387244119\nสิบตรีณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX526-6\nนายสิทธิกร ชํารวย\na กรุงไทย\nXXX-X-XX676-3\nจํานวนเงิน                            300.00 บาท"}, {"file": "IMG_4892.PNG", "date_time": "วันที่ทํารายการ                     22 มี.ค. 2567 - 21:35", "amount": "300.00", "recipient_name": null, "recipient_account": "XXX-X-XX676-3", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n37 กรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอิง\nพ006692177759130387244119\nสิบตรีณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX526-6\nนายสิทธิกร ชํารวย\na กรุงไทย\nXXX-X-XX676-3\nจํานวนเงิน                            300.00 บาท"}, {"file": "IMG_4908(1).PNG", "date_time": "วันที่ทํารายการ                   24 มี.ค. 2567 - 00:20", "amount": "150.00", "recipient_name": null, "recipient_account": "0140000036530", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารไทยพาณิชย์ (SCB)"], "ref_id": null, "raw_snippet": "Krungthai\nผู ~ '/ กรุงไทย\n๕  จ่ายบิลสําเรือ                   เชก\nณิ ay\nรหัสฮ้างอิง 420594221                    =           :\nZ               ;             inter\note    สิบตรีณัฐชัย รักษาวงษ์\n- กรงไทย\nป     XXX-X-XX526-6\n“ง”\n๒  SCB มณี SHOP (ข้าวต้มท่อไอเสีย)\nรหัสร้านค้า                      014000003653060"}, {"file": "IMG_4908.PNG", "date_time": "วันที่ทํารายการ                   24 มี.ค. 2567 - 00:20", "amount": "150.00", "recipient_name": null, "recipient_account": "0140000036530", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารไทยพาณิชย์ (SCB)"], "ref_id": null, "raw_snippet": "Krungthai\nผู ~ '/ กรุงไทย\n๕  จ่ายบิลสําเรือ                   เชก\nณิ ay\nรหัสฮ้างอิง 420594221                    =           :\nZ               ;             inter\note    สิบตรีณัฐชัย รักษาวงษ์\n- กรงไทย\nป     XXX-X-XX526-6\n“ง”\n๒  SCB มณี SHOP (ข้าวต้มท่อไอเสีย)\nรหัสร้านค้า                      014000003653060"}, {"file": "IMG_4914.PNG", "date_time": "วันที่ทํารายการ                     24 มี.ค. 2567 - 15:49", "amount": "25.00", "recipient_name": "5     น.ส. มัณฑนา อําไพ", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n37 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง 1081100๕6746984ล4ล\nสิบตรีณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX526-6\n5     น.ส. มัณฑนา อําไพ\nพร้อมเพย์\n%%%-%%%%%%%%-4817\nจํานวนเงิน                                25.00 บาท\nค่าธรรมเนียม                                       0.00 บาท"}, {"file": "IMG_4915(1).PNG", "date_time": "วันที่ทํารายการ                     24 มี.ค. 2567 - 16:15", "amount": "99.00", "recipient_name": null, "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n[ กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง Ac3bf85d391714f92\noe    สิบตรีณัฐชัย รักษาวงษ์\n-  nsvina\nXXX-X-XX526-6\nVv\n|    พระ จิรภัทร จิรธิติเมรี\nพร้อมเพย์\nXXX XXX 1788\nจํานวนเงิน                              99.00 บาท"}, {"file": "IMG_4915.PNG", "date_time": "วันที่ทํารายการ                     24 มี.ค. 2567 - 16:15", "amount": "99.00", "recipient_name": null, "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n[ กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง Ac3bf85d391714f92\noe    สิบตรีณัฐชัย รักษาวงษ์\n-  nsvina\nXXX-X-XX526-6\nVv\n|    พระ จิรภัทร จิรธิติเมรี\nพร้อมเพย์\nXXX XXX 1788\nจํานวนเงิน                              99.00 บาท"}, {"file": "IMG_4930(1).PNG", "date_time": "วันที่ทํารายการ                   26 มี.ค. 2567 - 09:10", "amount": "100.00", "recipient_name": "นาย วรนันท์ ศรีวารี", "recipient_account": "XXX-X-XX526-6", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n[ กรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอิง A71a679d12fb640f9\noe    สิบตรีณัฐชัย รักษาวงษ์\n- กรุงไทย\nXXX-X-XX526-6\nVv\nนาย วรนันท์ ศรีวารี\nพร้อมเพย์\nXXX XXX 5900\nจํานวนเงิน                              100.00 บาท"}, {"file": "IMG_4932(1).PNG", "date_time": "วันที่ทํารายการ                    26 มี.ค. 2567 - 09:44", "amount": "100.00", "recipient_name": "นาย สุรีรัตน์ โตสกุญี", "recipient_account": "XXX-X-XX754-3", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n47 กรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอิง A6db1007e2d624a87\noe    สิบตรีณัฐชัย รักษาวงษ์\n” กรุงไทย\nXXX-X-XX526-6\nนาย สุรีรัตน์ โตสกุญี\nกสีกรไทย\nXXX-X-XX754-3\nจํานวนเงิน                              100.00 บาท\nค่าธรรมเนียม                               0.00 บาท"}, {"file": "IMG_4935.PNG", "date_time": "วันที่ทํารายการ                      26 มี.ค. 2567 - 12:02", "amount": "372.00", "recipient_name": null, "recipient_account": "1803382461141", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "+\n=    “๑ Krungthai\nd            7 / กรุงไทย\n4\nจ่ายบิลสําเร็จ\nรหัสจอ้างอิง 20240326202078860\nสิืบตรีณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX526-6\nซ้อปปี๊เพย์ / sou\nธ\n(24184)"}, {"file": "IMG_4936(1).PNG", "date_time": "วันที่ทํารายการ                    26 มี.ค. 2567 - 13:22", "amount": "90.00", "recipient_name": "นาย ณัชพล ฉันทอภิชัย", "recipient_account": "XXX-X-XXXX2-7", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n“37 กรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอิง A62a41619bb984524\noe     สิบตรีณัฐชัย รักษาวงษ์\n(\na\nWY\nกรุงไทย\nXXX-X-XX526-6\nนาย ณัชพล ฉันทอภิชัย\nออมสัน"}, {"file": "IMG_4969(1).PNG", "date_time": "วันที่ทํารายการ                   29 มี.ค. 2567 - 10:05", "amount": "60.00", "recipient_name": "fe]   นาย พุฒิพงศ์ ศรีบวรธนวงศ์", "recipient_account": "XXX-XXXXXXXX-8", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n47 กรุงไทย\nvn\nโอนเงินสําเร็จ\nรหัสข้างอิง Af17b94be3cb24aic\nสิบตรีณัฐชัย รักษาวงษ์\nกรุงไทย\nXXX-X-XX526-6\nfe]   นาย พุฒิพงศ์ ศรีบวรธนวงศ์\nพร้อมเพย์\nXXX-XXXXXXXX-8776\nจํานวนเงิน                                60.00 บาท"}, {"file": "IMG_5828.JPG", "date_time": "25 ก.พ. 69, 18:04 น.", "amount": "134.00", "recipient_name": null, "recipient_account": "2026022518034", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "SB.\nจ่ายบิลสําเร็จ\n25 ก.พ. 69, 18:04 น.\n134.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nยะ๐           ว\nXXX-X-XX558-9\nttb\nTUNGNGERN (ภัทราวดคี)\n(010753700088205)\n1316698058000954203"}, {"file": "IMG_5879.JPG", "date_time": "2 มี.ค. 69, 21:30 น.", "amount": "532.00", "recipient_name": "© น.ส.ขวัญตา ดีเคน", "recipient_account": "2026030221047", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n2 มี.ค. 69, 21:30 น.\n532.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© น.ส.ขวัญตา ดีเคน\nจ7 )<(<--2%>%680-0\nKBANK\na"}, {"file": "IMG_5885.JPG", "date_time": "วันที่ทํารายการ                     03 มี.ค. 2569 - 15:12", "amount": "95.00", "recipient_name": "นาย ศักดิ์สิทธิ์เพชรกังสดาล", "recipient_account": "XXX-X-XXXX6-5", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารออมสิน (GSB)"], "ref_id": null, "raw_snippet": "Krungthai\n. 2 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง A8a6e2a9390c84506\n๐  อาก\nสืบตรีณัฐชัย ร*””\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\nนาย ศักดิ์สิทธิ์เพชรกังสดาล\nออมสิน\nXXX-X-XXXX6-558"}, {"file": "IMG_5902.JPG", "date_time": "วันที่ทํารายการ                     05 มี.ค. 2569 - 13:47", "amount": "100.00", "recipient_name": "นาย โสภณ ขันกสิกรรม", "recipient_account": "XXX-X-XX472-8", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "Krungthai ©\n“37 กรุงไทย\nโอนเงินสําเร็จ\nรหัสข้างอิง\nพ006763449656041827401841\nสืบตรีณัฐชัย ร*”*”\nกรุงไทย\nXXX-X-XX526-6\n๐  ไปยัง\nนาย โสภณ ขันกสิกรรม\nกรุงไทย\nXXX-X-XX472-8"}, {"file": "IMG_5912.JPG", "date_time": "7 มี.ค. 69, 17:52 น.", "amount": "40.00", "recipient_name": null, "recipient_account": "2026030717028", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n7 มี.ค. 69, 17:52 น.\n40.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© นางวิไลลักษณ์ บุญทะจิตต์\nจ XXX-X-XX457-0\nKTB\nธหัสอ้างอิง: 202603071702813621"}, {"file": "IMG_5913.JPG", "date_time": "7 มี.ค. 69, 17:59 น.", "amount": "55.00", "recipient_name": null, "recipient_account": "2026030717028", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "SB.\nจ่ายบิลสําเร็จ\n7 มี.ค. 69, 17:59 น.\n55.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nขยะ๒\nปล โลพอ๑\n(010753600031508)\n6<8000001990433"}, {"file": "IMG_5914.JPG", "date_time": "7มี.ค.69, 22:24 u.", "amount": "72.00", "recipient_name": null, "recipient_account": "2026030722039", "banks": ["ttb (ทหารไทยธนชาต)"], "ref_id": null, "raw_snippet": "SB.\nจ่ายบิลสําเร็จ\n7มี.ค.69, 22:24 u.\n72.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\nขยะ๒\nCJ 2044 Nong Pling Ruam Chai, Nakhon Sawan\n(010753600031501)\nKBO000002264689"}, {"file": "IMG_5918.JPG", "date_time": "8 มี.ค. 69, 20:53 น.", "amount": "190.00", "recipient_name": "© น.ส. นพวรรณ นาไทย", "recipient_account": "2026030820034", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n8 มี.ค. 69, 20:53 น.\n190.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© น.ส. นพวรรณ นาไทย\nจ7 XXX-X-XX8II-8\nKBANK\nธหัสอ้างอิง: 202603082003490437"}, {"file": "IMG_5922.JPG", "date_time": "อมี.ค. 69, 19:35 น.", "amount": "50.00", "recipient_name": null, "recipient_account": "2026030919034", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)", "ธนาคารกสิกรไทย (KBANK)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\nอมี.ค. 69, 19:35 น.\n50.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© นายโสภณ ขขันกสิกรรม\nNE XXX-X-XX472-8\nKTB\nธหัสอ้างอิง: 202603091903465772"}, {"file": "IMG_5925.JPG", "date_time": "วันที่ทํารายการ                    10 มี.ค. 2569 - 13:44", "amount": "40.00", "recipient_name": "u.a. วจิรปรียา ปาจิตต์", "recipient_account": "XXX-XXXXXXXX-7", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "(หนทตู่าล1\n\\ 2 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง Ae66ebbf50283481a\n๐   อาก\nauasnigse s* * *\nกรุงไทย\nXXX-X-XX526-6\nFe |   ไปยัง\nu.a. วจิรปรียา ปาจิตต์\nพร้อมเพย์\nXXX-XXXXXXXX-7259"}, {"file": "IMG_5928.JPG", "date_time": "วันที่ทํารายการ                   11 มี.ค. 2569 - 05:51", "amount": "50.00", "recipient_name": "dq เนียมเมืองปัก", "recipient_account": "XXX-XXXXXXXX-4", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": "2", "raw_snippet": "(หนทตู่าล1\n\\ 2 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสอ้างอิง 2เฝ่824๕6ล516ธ๐84143\n๐   อาก\nauasnigse s* * *\nกรุงไทย\nXXX-X-XX526-6\nFe |   ไปยัง\ndq เนียมเมืองปัก\nพร้อมเพย์\nXXX-XXXXXXXX-4368"}, {"file": "IMG_5979.JPG", "date_time": "วันที่ทํารายการ                     11 มี.ค. 2569 - 21:19", "amount": "6.00", "recipient_name": null, "recipient_account": "๐000000000000", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai oy ®\n27 กรุงไทย\nจ่ายบิลสําเร็จ\nรหัสอฮ้างอิง 020260311607021859104\nสิบตรีณัฐชัย ร\"**\nกรุงไทย\nXXX-X-XX526-6\nTrueMoney Shop (กองทัพมาร์เก็ต)\nรหัสร้านค้า             '10000000000568769568\nรหัสสาขา              ๐0000000000000148396\nจํานวนเงิน                                  6.00 บาท\nค่าธรรมเนียม                                 0.00 บาท"}, {"file": "IMG_6191.JPG", "date_time": "28 มี.ค. 69, 11:12 น.", "amount": "80.00", "recipient_name": null, "recipient_account": "2026032811012", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n28 มี.ค. 69, 11:12 น.\n80.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© นางวิไลลักษณ์ บุญทะจิตต์\nจ XXX-X-XX457-0\nKTB\nธหัสอ้างอิง: 202603281101231321"}, {"file": "IMG_6192.JPG", "date_time": "28 มี.ค. 69, 11:31 น.", "amount": "50.00", "recipient_name": null, "recipient_account": "2026032811013", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n28 มี.ค. 69, 11:31 น.\n50.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© สิบตรีณัฐชัย รักษาวงษ์\nNW XXX-X-XX526-6\nKTB\nธหัสอ้างอิง: 202603281101315363"}, {"file": "IMG_6300.JPG", "date_time": "31มี.ค.69, 02:10 u.", "amount": "150.00", "recipient_name": null, "recipient_account": "2026033102001", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n31มี.ค.69, 02:10 u.\n150.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© สิบตรีณัฐชัย รักษาวงษ์\nNW XXX-X-XX526-6\nKTB\nธหัสอ้างอิง: 202603310200110513                     [ๆ]"}, {"file": "IMG_6329.JPG", "date_time": "2 เม.ย. 69, 01:25 น.", "amount": "650.00", "recipient_name": null, "recipient_account": "2026040201001", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "©\nโอนเงินสําเร็จ\n2 เม.ย. 69, 01:25 น.\n650.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nXXX-X-XX558-9\nttb\n© สิบตรีณัฐชัย รักษาวงษ์\nNW XXX-X-XX526-6\nKTB\nธหัสอ้างอิง: 202604020100112490"}, {"file": "IMG_6447.JPG", "date_time": "12 เม.ย. 69, 08:31 น.", "amount": "1,000.00", "recipient_name": "นาย ธิติณัฏชฐ์ แหมือนขวัญ", "recipient_account": "2026041208005", "banks": ["ttb (ทหารไทยธนชาต)", "ธนาคารกรุงเทพ (BBL)"], "ref_id": null, "raw_snippet": "โอนเงินสําเร็จ\n12 เม.ย. 69, 08:31 น.\n1,000.00\nค่าธรรมเนียม 0.00\nนาย ณัฐชัย รักษาวงษ์\nยะ๐           ว\nXXX-X-XX558-9\nttb\nนาย ธิติณัฏชฐ์ แหมือนขวัญ\nXXX-X-XX616-4\nBBL\nธหัสอ้างอิง: 202604120800538783"}, {"file": "IMG_8982(1).PNG", "date_time": "วันที่ทํารายการ                  28 ม.ค. 2568 - 06:36", "amount": "308.16", "recipient_name": null, "recipient_account": "8804209844", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "๕@, Krungthai\n“D7 กรุงไทย\nจ่ายบิลสําเร็จ\nรหัสฮ้างอิง MKTB636487638\noe     สิบตรีณัฐชัย s* **\n” กรุงไทย\nXXX-X-XX526-6\n-    เอไอเอส รายเดือน / เอไอเอส ไฟเบอร์\nAls\n(1143)\nหมายเลขโทรศัพทท์ /                     8804209844\nหมายเลขอินเตอร์เน็ต"}, {"file": "IMG_8982.PNG", "date_time": "วันที่ทํารายการ                  28 ม.ค. 2568 - 06:36", "amount": "308.16", "recipient_name": null, "recipient_account": "8804209844", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "๕@, Krungthai\n“D7 กรุงไทย\nจ่ายบิลสําเร็จ\nรหัสฮ้างอิง MKTB636487638\noe     สิบตรีณัฐชัย s* **\n” กรุงไทย\nXXX-X-XX526-6\n-    เอไอเอส รายเดือน / เอไอเอส ไฟเบอร์\nAls\n(1143)\nหมายเลขโทรศัพทท์ /                     8804209844\nหมายเลขอินเตอร์เน็ต"}, {"file": "IMG_9045.PNG", "date_time": "วันที่ทํารายการ                    31 ม.ค. 2568 - 13:51", "amount": "256.00", "recipient_name": null, "recipient_account": "0000015816730", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "๕@, Krungthai\n“D7 กรุงไทย\nจ่ายบิลสําเร็จ\nรหัสฮ้างอิง 2025013121164169\n* * *\nฟ|      ณัฐชัย ร\n= nsvina\nร     XXX-X-XX452-9\nVv\n... K+ Shop (S.L WHOLESALE)\nรหัสร้านค้า                         KB000001581673\nรหัสธุรกรรม               EMPKB000001581673005"}, {"file": "IMG_9089(1).PNG", "date_time": null, "amount": "30.00", "recipient_name": "นาง อุษา จันทร์พายับ", "recipient_account": "XXX-X-XX452-9", "banks": ["ธนาคารกรุงไทย (KTB)", "ธนาคารออมสิน (GSB)"], "ref_id": "A6820b0acdf47464c", "raw_snippet": "๕@, Krungthai\n7 ( กรุงไทย\nอนเงินสําเร็จ\nรหัสอ้างอิง A6820b0acdf47464c\nเอ    จาก\n“ wysas***\nกรุงไทย\nXXX-X-XX452-9\nไปยัง\nนาง อุษา จันทร์พายับ\nออมสิน\n%%%-%-%%%%9-253"}, {"file": "IMG_9127(1).PNG", "date_time": null, "amount": "500.00", "recipient_name": "น.ส. วิัณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX385-0", "banks": ["ธนาคารกรุงศรีอยุธยา (BAY)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": ". Krungthai\n‘77 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง 1830186666352481ส่\nอาก\nณัฐชัย ร\nกรุงไทย\nXXX-X-XX452-9\n๑@  ไปยัง\nน.ส. วิัณห์นิภา ประสาทเขตรการ\nกรุงศรี\nXXX-X-XX385-0"}, {"file": "IMG_9127.PNG", "date_time": null, "amount": "500.00", "recipient_name": "น.ส. วิัณห์นิภา ประสาทเขตรการ", "recipient_account": "XXX-X-XX385-0", "banks": ["ธนาคารกรุงศรีอยุธยา (BAY)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": ". Krungthai\n‘77 กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง 1830186666352481ส่\nอาก\nณัฐชัย ร\nกรุงไทย\nXXX-X-XX452-9\n๑@  ไปยัง\nน.ส. วิัณห์นิภา ประสาทเขตรการ\nกรุงศรี\nXXX-X-XX385-0"}, {"file": "IMG_9532.PNG", "date_time": "วันที่ทํารายการ                     07 มี.ค. 2568 - 16:22", "amount": "2.00", "recipient_name": "น.ส. ขิณห์นิภา บุญประเสริช", "recipient_account": "XXX-X-XX764-0", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง\nN006727158979038411756907\nอาก\nณัฐชัย s***\nกรุงไทย\n%%%-%-%%452-9\nไปยัง\nน.ส. ขิณห์นิภา บุญประเสริช\nกรุงไทย"}, {"file": "IMG_9615.PNG", "date_time": "วันที่ทํารายการ                   18 มี.ค. 2568 - 08:21", "amount": "1,500.00", "recipient_name": "น.ส. ขิณห์นิภา บุญประเสริช", "recipient_account": "XXX-X-XX764-0", "banks": ["ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง\nN006728230107019953913698\nจาก\nสืบตรีณัฐชัย ร*\"*”\nกรุงไทย\nXXX-X-XX526-6\nไปยัง\nน.ส. ขิณห์นิภา บุญประเสริช\nกรุงไทย"}, {"file": "IMG_9717.PNG", "date_time": "วันที่ทํารายการ                    25 มี.ค. 2568 - 10:40", "amount": "25.00", "recipient_name": "น.ส. สมฤทัย พายพัด", "recipient_account": "XXX-XXXXXXXX-8", "banks": ["พร้อมเพย์ (PromptPay)", "ธนาคารกรุงไทย (KTB)"], "ref_id": null, "raw_snippet": "Krungthai\n9 / กรุงไทย\nโอนเงินสําเร็จ\nรหัสอฮ้างอิง A6ce92570a0834650\nอาก\nณัฐชัย ร\nกรุงไทย\nXXX-X-XX452-9\nfe |   ไปยัง\nน.ส. สมฤทัย พายพัด\nพร้อมเพย์\nXXX-XXXXXXXX-8801"}], "total_amount": 61254.48}, "kanyaphak": {"id": "kanyaphak", "name": "นางสาว กัญญาภัค ฉิมพลี", "role": "ผู้รับโอนปลายทางจากบัญชีจำเลย (จิณห์นิภาโอนต่อ)", "type": "suspect_outflow", "bank": "พร้อมเพย์ / กสิกรไทย", "accounts": ["XXXXXXXX2926"], "color": "#f43f5e", "slips": [{"file": "IMG_2800.PNG", "amount": "15,000.00", "recipient_name": "นางสาว กัญญาภัค ฉิมพลี", "recipient_account": "XXXXXXXX2926", "banks": ["กสิกรไทย/พร้อมเพย์"], "date_time": "2 ก.ค. 2568, 21:04 น."}], "total_amount": 15000.0}, "preeyachat": {"id": "preeyachat", "name": "น.ส. ปรียชาติ", "role": "ผู้รับโอนปลายทางจากบัญชีจำเลย (จิณห์นิภาโอนต่อ)", "type": "suspect_outflow", "bank": "ธนาคารกสิกรไทย (KBANK)", "accounts": ["XXX-X-XX455-1"], "color": "#f43f5e", "slips": [{"file": "IMG_2622.PNG", "amount": "5,000.00", "recipient_name": "น.ส. ปรียชาติ", "recipient_account": "XXX-X-XX455-1", "banks": ["ธนาคารกสิกรไทย (KBANK)"], "date_time": "19 มิ.ย. 2568, 20:08 น."}], "total_amount": 5000.0}, "sittikorn": {"id": "sittikorn", "name": "นายสิทธิกร ชำรวย", "role": "บุคคลรับโอนตามคำสั่งจำเลย", "type": "proxy", "bank": "ธนาคารกรุงไทย (KTB)", "accounts": ["XXX-X-XX676-3"], "color": "#f97316", "slips": [{"file": "IMG_4892.PNG", "amount": "300.00", "recipient_name": "นายสิทธิกร ชำรวย", "recipient_account": "XXX-X-XX676-3", "banks": ["ธนาคารกรุงไทย (KTB)"], "date_time": "สลิปโอนเงิน"}], "total_amount": 300.0}, "weerachai": {"id": "weerachai", "name": "นายวีระชัย บุญทะจิตต์", "role": "บุคคลรับโอนตามคำสั่งจำเลย", "type": "proxy", "bank": "ธนาคารกรุงไทย (KTB)", "accounts": ["XXX-X-XX217-4"], "color": "#f97316", "slips": [{"file": "IMG_3750.JPG", "amount": "2,000.00", "recipient_name": "นายวีระชัย บุญทะจิตต์", "recipient_account": "XXX-X-XX217-4", "banks": ["ธนาคารกรุงไทย (KTB)"], "date_time": "สลิปโอนเงิน"}], "total_amount": 2000.0}, "wanwisa": {"id": "wanwisa", "name": "นางสาว วันวิศา ประสาทเขตรการ", "role": "น้องสาวจำเลย (แชท 27.5.68 ส่งออมสิน 020333988630 ยอด 21,000 บ. + สลิป 2,000 บ.)", "type": "family_sister_younger", "bank": "ธนาคารออมสิน (GSB), KTB", "accounts": ["020-3-33988-630", "XXX-X-XX083-0"], "color": "#e11d48", "slips": [], "total_amount": 23000.0}, "tatsaneekan": {"id": "tatsaneekan", "name": "ทัศนีการ ประสาทเขตรการ", "role": "พี่สาวจำเลย (แชท 27.5.68 ส่งพร้อมเพย์ 0912634123 ยอด 5,000 บ.)", "type": "family_sister_elder", "bank": "พร้อมเพย์ (PromptPay)", "accounts": ["091-263-4123 (0912634123)"], "color": "#f43f5e", "slips": [], "total_amount": 5000.0}, "preeyachat_chimplee": {"id": "preeyachat_chimplee", "name": "ปรียชาติ ฉิมพลี / กัญญาภัค ฉิมพลี", "role": "รุ่นพี่ตัวการ (ฉายา พี่แมว ในแชท) รับโอนตรง 4 สลิป รวม ฿42,500", "type": "senior_mastermind", "bank": "ธนาคารกสิกรไทย (KBANK), พร้อมเพย์", "accounts": ["XXX-X-XX455-1", "พร้อมเพย์ XXXXXXXX2926"], "color": "#991b1b", "slips": [{"file": "IMG_2800.PNG", "amount": "15,000.00", "recipient_name": "นางสาว กัญญาภัค ฉิมพลี", "recipient_account": "XXXXXXXX2926", "banks": ["กสิกรไทย/พร้อมเพย์"], "date_time": "2 ก.ค. 2568, 21:04 น."}, {"file": "IMG_2622.PNG", "amount": "5,000.00", "recipient_name": "น.ส. ปรียชาติ", "recipient_account": "XXX-X-XX455-1", "banks": ["ธนาคารกสิกรไทย (KBANK)"], "date_time": "19 มิ.ย. 2568, 20:08 น."}], "total_amount": 42500.0}};
+        const SCENES_DATA = [{"num": 1, "file": "SCENE_001.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (13:46 น.)", "bubble": "@ เค้าสั่งครีมไปไง เงินมันขาด2000", "amount": "**2000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 2, "file": "SCENE_002.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (13:46 น.)", "bubble": "แฟนเค้ามันไปในที่อัปสัญญานโอนให้", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 3, "file": "SCENE_003.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (13:46 น.)", "bubble": "เค้าได้ก็คําๆ แค่ทักไปยืมมัน คําๆ", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 4, "file": "SCENE_004.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (13:55 น.)", "bubble": "เค้าเคยโอนให้น้องฝห้หลาน", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 5, "file": "SCENE_005.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (13:56 น.)", "bubble": "เค้าก็โอนค่าเทอม", "amount": "-", "case": "`อาญา`", "law": "ประมวลกฎหมายอาญา มาตรา 341, 343 (ความผิดฐานฉ้อโกง / ฉ้อโกงปร...", "targets": ["jinnipha"]}, {"num": 6, "file": "SCENE_006.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (3:59 น.)", "bubble": "@     แล้วครีมเค้าก็ต้องโอนให้เค้าปิดงาน 4.0,", "amount": "-", "case": "`อาญา / แพ่ง`", "law": "ประมวลกฎหมายอาญา มาตรา 341, 343 (ความผิดฐานฉ้อโกง / ฉ้อโกงปร...", "targets": ["jinnipha"]}, {"num": 7, "file": "SCENE_007.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (11:00 น.)", "bubble": "เกิน1ทุ่ม เค้าจะโอนคืนให้หมดเลย ที่", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 8, "file": "SCENE_008.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (13:46 น.)", "bubble": "ตัว ขอยืมเงิน500 สิ ขอหรือขอยืม", "amount": "**500 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 9, "file": "SCENE_009.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (16:04 น.)", "bubble": "ตัว ตัวถามกู้เงินให้เค้า2000สิ เดี๋ยว", "amount": "**2000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 10, "file": "SCENE_010.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (16:04 น.)", "bubble": "เลิกงานเค้าโอนให้เลยอันนี้ เดินชน", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 11, "file": "SCENE_011.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (16:04 น.)", "bubble": "น้าหอมแตก จะมาจ่ายร้าน ครึ่งราคา", "amount": "-", "case": "`อาญา / แพ่ง`", "law": "ประมวลกฎหมายอาญา มาตรา 341, 343 (ความผิดฐานฉ้อโกง / ฉ้อโกงปร...", "targets": ["jinnipha"]}, {"num": 12, "file": "SCENE_012.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (16:36 น.)", "bubble": "ต้องเคลียร์วันนี", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 193/14 (1) (การรับสภาพหนี้อ...", "targets": ["jinnipha"]}, {"num": 13, "file": "SCENE_013.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (17:06 น.)", "bubble": "หยุด เจนไปถอดเหล็กมาเมื่อวาน4000", "amount": "**4000 บาท**", "case": "`อาญา`", "law": "ประมวลกฎหมายอาญา มาตรา 341, 343 (ความผิดฐานฉ้อโกง / ฉ้อโกงปร...", "targets": ["jinnipha"]}, {"num": 14, "file": "SCENE_014.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (17:24 น.)", "bubble": "จะขแยืมเงิน2000กลัวโดนบ่น เมื่อ", "amount": "**2000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 15, "file": "SCENE_015.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (17:24 น.)", "bubble": "อาบนําพึ่งเสร็จง่วงนอนยืมตังค์แค้าก็", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 16, "file": "SCENE_016.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (6:29 น.)", "bubble": "อีแค่ไม่กี่วันยืมใครไม่ได้เลย", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 17, "file": "SCENE_017.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (6:29 น.)", "bubble": "อีกแค่3วันเงินก็ออกไม่มีใครมีเลย ยืม", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 18, "file": "SCENE_018.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (6:29 น.)", "bubble": "ท้อแล้วไม่ยืมใครแล้ว", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 19, "file": "SCENE_019.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (6:29 น.)", "bubble": "ที่เค้าจะยืมตัวเห็นว่าเงินตัวน่าจะออก", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 20, "file": "SCENE_020.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (6:29 น.)", "bubble": "เค้าต้องโอนให้พี่สาวเค้า 90,000", "amount": "**000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 21, "file": "SCENE_021.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (6:29 น.)", "bubble": "@     โทรไปยืมแม่มันก็ไม่มีแล้วคือมันคงสุด", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 22, "file": "SCENE_022.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (17:53 น.)", "bubble": "@ มีคนอืนที่ปล่อยกู้อีกปะ นึกไรไม่ออก", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 23, "file": "SCENE_023.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (17:53 น.)", "bubble": "มีคนอื่นที่ปล่อยกู้อีกปะ นึกไรไม่ออก", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 24, "file": "SCENE_024.png", "date": "ช่วงเริ่มสนทนา (ต้นปี 2568) (4:11 น.)", "bubble": "ออกก็โอนเลย", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 193/14 (1) (การรับสภาพหนี้อ...", "targets": ["jinnipha"]}, {"num": 25, "file": "SCENE_025.png", "date": "2 กุมภาพันธ์ 2568 (19:33 น.)", "bubble": "ขอกู้เงิน 7,000 บาทไม่เคยมีใครที่เขา", "amount": "**000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 26, "file": "SCENE_026.png", "date": "2 กุมภาพันธ์ 2568 (21:46 น.)", "bubble": "เค้าจะเคลียร์ให้จบแล้วบ่ายตัวมารับ", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 193/14 (1) (การรับสภาพหนี้อ...", "targets": ["jinnipha"]}, {"num": 27, "file": "SCENE_027.png", "date": "2 กุมภาพันธ์ 2568 (21:46 น.)", "bubble": "ต้องเคลียร์ทุกอย่าง มันบอกแล้ว", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 193/14 (1) (การรับสภาพหนี้อ...", "targets": ["jinnipha"]}, {"num": 28, "file": "SCENE_028.png", "date": "2 กุมภาพันธ์ 2568 (04:57 น.)", "bubble": "เงินตัวเงินว่างงานออก3000เค้ายืม", "amount": "**3000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 29, "file": "SCENE_029.png", "date": "2 กุมภาพันธ์ 2568 (05:01 น.)", "bubble": "ต้องส่งก่อนเที่ยง 2000วันละ100 เอา", "amount": "**2000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 30, "file": "SCENE_030.png", "date": "2 กุมภาพันธ์ 2568 (05:06 น.)", "bubble": "เงินเดือนไปโอนให้ใครแล้วทั้งไอ้เรก็ไม่", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 31, "file": "SCENE_031.png", "date": "2 กุมภาพันธ์ 2568 (05:19 น.)", "bubble": "เค้าก็ต้องเคลียร์ เพราะเค้าบอกมันเงิน", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 193/14 (1) (การรับสภาพหนี้อ...", "targets": ["jinnipha"]}, {"num": 32, "file": "SCENE_032.png", "date": "2 กุมภาพันธ์ 2568 (05:19 น.)", "bubble": "เข้าแล้ว เดี๋ยวเช้าจัดการโอนรายจ่าย", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 33, "file": "SCENE_033.png", "date": "2 กุมภาพันธ์ 2568 (08:20 น.)", "bubble": "ตัวมีเงินใน บ.ถึง 4100 ปะ ยืมแปปนึง", "amount": "**4100 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 34, "file": "SCENE_034.png", "date": "2 กุมภาพันธ์ 2568 (16:26 น.)", "bubble": "ยืมแปปเดียว ไม่ถึง ชม.", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 35, "file": "SCENE_035.png", "date": "2 กุมภาพันธ์ 2568 (16:28 น.)", "bubble": "แกล้งยืมมันมา จะเอามาส่งบัตร", "amount": "-", "case": "`อาญา / แพ่ง`", "law": "ประมวลกฎหมายอาญา มาตรา 341, 343 (ความผิดฐานฉ้อโกง / ฉ้อโกงปร...", "targets": ["jinnipha"]}, {"num": 36, "file": "SCENE_036.png", "date": "2 กุมภาพันธ์ 2568 (07:57 น.)", "bubble": "วันนี้เค้าโอนให้ตัว ,,.,", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 37, "file": "SCENE_037.png", "date": "2 กุมภาพันธ์ 2568 (14:58 น.)", "bubble": "ตัว หาตังโอนให้เค้าหน่อยได้ไหม", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 38, "file": "SCENE_038.png", "date": "2 กุมภาพันธ์ 2568 (14:58 น.)", "bubble": "คนเก่าโน้น เค้าต้องโอนจ่ายอีก2500", "amount": "**2500 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 39, "file": "SCENE_039.png", "date": "2 กุมภาพันธ์ 2568 (15:11 น.)", "bubble": "กู้ทุกแอปไม่เคยผ่านไม่รู้เพราะอะไร", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 40, "file": "SCENE_040.png", "date": "2 กุมภาพันธ์ 2568 (13:12 น.)", "bubble": "เงินกู้ 20000 ดอก 6000", "amount": "**20000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 41, "file": "SCENE_041.png", "date": "2 กุมภาพันธ์ 2568 (13:12 น.)", "bubble": "เงินกู้ 20000 ดอก 6000 เงินเค้า", "amount": "**20000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 42, "file": "SCENE_042.png", "date": "2 กุมภาพันธ์ 2568 (13:38 น.)", "bubble": "@    ก็ยังหน้าด้านไปยืมเค้า", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 43, "file": "SCENE_043.png", "date": "2 กุมภาพันธ์ 2568 (13:38 น.)", "bubble": "คนที่เตงยืมๆ มีเยอะกว่าเค้าอีกนะ", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 44, "file": "SCENE_044.png", "date": "10 ก.พ. 2568 (16:18 น.)", "bubble": "ก่อนหน้าที่เขาจะทักไปยืมเงินพี่สาวเขา", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 45, "file": "SCENE_045.png", "date": "10 ก.พ. 2568 (16:18 น.)", "bubble": "50 บาทเขาทักไปขอให้มันกู้เงินคนที่", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 46, "file": "SCENE_046.png", "date": "15 ก.พ. 2568 (16:53 น.)", "bubble": "ที่เขายืมตังค์มันมาพันนึงอ่ะ", "amount": "**...**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 47, "file": "SCENE_047.png", "date": "15 ก.พ. 2568 (22:36 น.)", "bubble": "พรุ่งนี้ให้โอนคืนเท่าไร", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 48, "file": "SCENE_048.png", "date": "15 ก.พ. 2568 (22:38 น.)", "bubble": "คืน15000ทุกอย่างคือจย", "amount": "**15000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 49, "file": "SCENE_049.png", "date": "15 ก.พ. 2568 (22:39 น.)", "bubble": "ส่วนเงินจะโอนคืนให้10000ก่อน ,, ,.", "amount": "**10000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 50, "file": "SCENE_050.png", "date": "15 ก.พ. 2568 (22:41 น.)", "bubble": "เค้าไม่รู้ว่ามันให้โอนให้คืนนี่เลยไหม ,, ,,", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 51, "file": "SCENE_051.png", "date": "15 ก.พ. 2568 (22:46 น.)", "bubble": "เค้าจะโอนคืนให้", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 52, "file": "SCENE_052.png", "date": "15 ก.พ. 2568 (18:38 น.)", "bubble": "แม๊กฝากถามว่าขอกู้เงิน2000มีไหม", "amount": "**2000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 53, "file": "SCENE_053.png", "date": "15 ก.พ. 2568 (00:04 น.)", "bubble": ":   คนที่ยืมมาอะเหรอ", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 54, "file": "SCENE_054.png", "date": "15 ก.พ. 2568 (13:17 น.)", "bubble": "9 กหาให้ยืมสัก500", "amount": "**500 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 55, "file": "SCENE_055.png", "date": "15 ก.พ. 2568 (14:26 น.)", "bubble": "@ ยืมแม๊กมาอีก300 ที่คืนหลานไป ที่", "amount": "**300 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 56, "file": "SCENE_056.png", "date": "13 มี.ค. 2568 (16:59 น.)", "bubble": "แล้วเขาก็ถามแกกลับไปนะว่ามีให้กู้สัก", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 57, "file": "SCENE_057.png", "date": "13 มี.ค. 2568 (17:07 น.)", "bubble": "ค่อยให้ตัวโอนกลับมาให้เขาจ่ายค่าใช้", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 58, "file": "SCENE_058.png", "date": "13 มี.ค. 2568 (17:07 น.)", "bubble": "วันศุกร์บอกให้โอนให้ด้วย ไม่มีเงินจะ", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 59, "file": "SCENE_059.png", "date": "18 มี.ค. 2568 (11:11 น.)", "bubble": "87 หน้ายืมคนอื่นจนอายไปหมดแล้ว", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 60, "file": "SCENE_060.png", "date": "18 มี.ค. 2568 (12:06 น.)", "bubble": "กลัวโดนไล่ไปกู้แอป ,.,", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 61, "file": "SCENE_061.png", "date": "18 มี.ค. 2568 (15:56 น.)", "bubble": "จริงๆพ่อบอกให้หาเงินกู้ให้พ่อบ้าง", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 62, "file": "SCENE_062.png", "date": "18 มี.ค. 2568 (15:56 น.)", "bubble": "เค้าเลยบอกพ่อจะกู้ทําไม ,. .", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 63, "file": "SCENE_063.png", "date": "18 มี.ค. 2568 (12:44 น.)", "bubble": "รอ 31 โอนให้", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 64, "file": "SCENE_064.png", "date": "18 มี.ค. 2568 (12:44 น.)", "bubble": "ครับ 31 โอนให้", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 65, "file": "SCENE_065.png", "date": "18 มี.ค. 2568 (6:45 น.)", "bubble": "เย็นๆไปหาหมอเค้าโอนให้นะ ว่างโทร", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 66, "file": "SCENE_066.png", "date": "18 มี.ค. 2568 (15:22 น.)", "bubble": "ช่วยให้ขอยืมเงินพ่อให้หน่อย", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 67, "file": "SCENE_067.png", "date": "18 มี.ค. 2568 (19:13 น.)", "bubble": "แต่สุดท้ายคงต้องหากู้ เครียดอีกแล้ว .,.,.", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 68, "file": "SCENE_068.png", "date": "18 มี.ค. 2568 (19:19 น.)", "bubble": "ก็จ่ายพร้อมกับโอนให้ตัว ,...", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 69, "file": "SCENE_069.png", "date": "18 มี.ค. 2568 (19:21 น.)", "bubble": "ออกจากงานซะไม่ต้องหากู้ไม่", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 70, "file": "SCENE_070.png", "date": "18 มี.ค. 2568 (07:01 น.)", "bubble": "มันมีทางเดียวที่เค้าจะรอดถ้าเค้ากู้มา", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 71, "file": "SCENE_071.png", "date": "18 มี.ค. 2568 (07:23 น.)", "bubble": "แล้วจะไปกู้อะไร 4,", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 72, "file": "SCENE_072.png", "date": "03 เม.ย. 2568 (11:20 น.)", "bubble": "เค้ารอมันมาค่อยโอนไม่ไให้ไลน์ไว้ ไม่", "amount": "-", "case": "`พยานหลักฐานดิจิทัล`", "law": "พ.ร.บ.ว่าด้วยธุรกรรมทางอิเล็กทรอนิกส์ พ.ศ. 2544 มาตรา 8 และ ...", "targets": ["jinnipha"]}, {"num": 73, "file": "SCENE_073.png", "date": "4 เมษายน 2568 (11:24 น.)", "bubble": "โทรมาผมโอนให้เลย , 2.", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 74, "file": "SCENE_074.png", "date": "4 เมษายน 2568 (12:34 น.)", "bubble": "จะเคลียร์วันไหนค่อยจ่ายยอด35000 ,, .,", "amount": "**35000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 75, "file": "SCENE_075.png", "date": "4 เมษายน 2568 (12:39 น.)", "bubble": "พวกเงินกู้พวกนี้มันจะไม่ลงเป็นเงินกู้", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 76, "file": "SCENE_076.png", "date": "4 เมษายน 2568 (12:39 น.)", "bubble": "ลงค#4แล้วเขียนว่าได้กู้ยืมเงินจํานวน", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 77, "file": "SCENE_077.png", "date": "4 เมษายน 2568 (13:05 น.)", "bubble": "“> พรุ่งนี้โอนคืน", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 78, "file": "SCENE_078.png", "date": "4 เมษายน 2568 (13:05 น.)", "bubble": "ou พรุ่งนี้โอนคืน", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 79, "file": "SCENE_079.png", "date": "4 เมษายน 2568 (6:24 น.)", "bubble": "> ซื้อให้ กลางเดือนโอนมา 1000", "amount": "**1000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 453 (สัญญาซื้อขายและการส่งม...", "targets": ["jinnipha"]}, {"num": 80, "file": "SCENE_080.png", "date": "4 เมษายน 2568 (16:45 น.)", "bubble": "กู้กรุงไทย 21000+15000", "amount": "**21000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha", "benjamas"]}, {"num": 81, "file": "SCENE_081.png", "date": "4 เมษายน 2568 (16:45 น.)", "bubble": "@   ที่ว่าตัวกู้มา 20,000 แล้วหักดอกไป", "amount": "**000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 82, "file": "SCENE_082.png", "date": "4 เมษายน 2568 (11:48 น.)", "bubble": "จ่ายเงินเดือน 31/3/25                              15000", "amount": "**15000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 83, "file": "SCENE_083.png", "date": "4 เมษายน 2568 (11:48 น.)", "bubble": "จ่ายค่าคอม 15/4/25                           4000", "amount": "**4000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 84, "file": "SCENE_084.png", "date": "4 เมษายน 2568 (19:27 น.)", "bubble": "โอนให้ไว อย่าให้ไปตาม", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 85, "file": "SCENE_085.png", "date": "19 เม.ย. 2568 (19:38 น.)", "bubble": "ก็โอนเกิน3คน ,....", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 406 (ลาภมิควรได้ (โอนเงินผิ...", "targets": ["jinnipha"]}, {"num": 86, "file": "SCENE_086.png", "date": "19 เม.ย. 2568 (10:39 น.)", "bubble": "เวรกู้เงินของกําลังพล ป.๕ พัน.๕", "amount": "-", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 87, "file": "SCENE_087.png", "date": "19 เม.ย. 2568 (5:49 น.)", "bubble": "ตัว มีเงิน5000ปะ มีคนจะกู้ด่วน", "amount": "**5000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 88, "file": "SCENE_088.png", "date": "19 เม.ย. 2568 (5:49 น.)", "bubble": "5000คืน 6000 วันนี้", "amount": "**5000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 89, "file": "SCENE_089.png", "date": "19 เม.ย. 2568 (4:34 น.)", "bubble": "@    น้องที่เค้าเคยยืมมัน1000อะ", "amount": "**1000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}, {"num": 90, "file": "SCENE_090.png", "date": "19 เม.ย. 2568 (14:39 น.)", "bubble": "มันบอกขาดประมาน4000 ,, ..", "amount": "**4000 บาท**", "case": "`แพ่ง`", "law": "ประมวลกฎหมายแพ่งและพาณิชย์ มาตรา 653 วรรคหนึ่ง (การกู้ยืมเงิ...", "targets": ["jinnipha"]}];
+
+                const rawNodes = [
+            // Mastermind & Syndicate
+            { id: 'preeyachat_chimplee', label: '🔥 ปรียชาติ ฉิมพลี / กัญญาภัค ฉิมพลี
+(รุ่นพี่ตัวการเบื้องหลัง)
+รับเงินโอนต่อ ฿20,000.00 (2 สลิป)', shape: 'box', size: 44, color: { background: '#7f1d1d', border: '#ef4444' }, font: { color: '#fff', size: 15, bold: true }, group: 'mastermind', margin: 14, shadow: { enabled: true, color: 'rgba(239,68,68,0.8)', size: 25 } },
+
+            // Prasatkhetkarn Sisters Cluster
+            { id: 'tatsaneekan', label: 'ทัศนีการ ประสาทเขตรการ
+(พี่สาวของจำเลย)
+เครือข่ายครอบครัว', shape: 'box', size: 28, color: { background: '#9f1239', border: '#fb7185' }, font: { color: '#fff', size: 13, bold: true }, group: 'family' },
+            { id: 'jinnipha', label: '🚨 น.ส. จิณห์นิภา ประสาทเขตรการ
+(จำเลยหลัก / คนกลาง)
+รับโอนตรง ฿208,480.50 (35 ครั้ง)', shape: 'box', size: 42, color: { background: '#b91c1c', border: '#ef4444' }, font: { color: '#fff', size: 15, bold: true }, group: 'suspect', margin: 14, shadow: { enabled: true, color: 'rgba(239,68,68,0.6)', size: 20 } },
+            { id: 'wanwisa', label: 'นางสาว วันวิศา ประสาทเขตรการ
+(น้องสาวของจำเลย)
+รับโอน ฿2,000 (สลิปจ่ายแม่ 083-0)', shape: 'box', size: 28, color: { background: '#9f1239', border: '#fb7185' }, font: { color: '#fff', size: 13, bold: true }, group: 'family' },
+
+            // Jinnipha Accounts & Aliases
+            { id: 'jinnipha_acc_ttb', label: 'ttb (ทหารไทยธนชาต)
+XXX-X-XX996-5
+(บัญชีรับโอนหลัก)', shape: 'ellipse', size: 26, color: { background: '#991b1b', border: '#f87171' }, font: { color: '#fee2e2', size: 12 }, group: 'suspect' },
+            { id: 'jinnipha_acc_ktb', label: 'ธ.กรุงไทย KTB
+XXX-X-XX385-0
+(บัญชีรับโอนรอง)', shape: 'ellipse', size: 24, color: { background: '#991b1b', border: '#f87171' }, font: { color: '#fee2e2', size: 12 }, group: 'suspect' },
+            { id: 'jinnipha_boon', label: 'น.ส. จิณห์นิภา บุญประเสริฐ
+(บัญชีชื่อพ้อง/สาขา)
+฿ 5,750.00 (3 ครั้ง)', shape: 'box', size: 26, color: { background: '#9d174d', border: '#f472b6' }, font: { color: '#fff', size: 12 }, group: 'suspect' },
+
+            // Center Victim
+            { id: 'victim', label: 'สิบตรี ณัฐชัย รักษาวงษ์
+(ผู้เสียหายหลัก)
+โอนออกรวม ฿358,840.78', shape: 'box', size: 36, color: { background: '#0284c7', border: '#38bdf8' }, font: { color: '#fff', size: 14, bold: true }, group: 'victim', margin: 12 },
+            { id: 'victim_acc_526', label: 'ธ.กรุงไทย KTB
+XXX-X-XX526-6
+(บัญชีผู้เสียหาย)', shape: 'ellipse', size: 28, color: { background: '#0369a1', border: '#0ea5e9' }, font: { color: '#e0f2fe', size: 12 }, group: 'victim' },
+
+            // Proxy Creditors
+            { id: 'benjamas', label: 'น.ส. เบญจมาศ ผุ่มกลิ่น
+(สั่งโอนจ่ายแทน)
+฿ 21,000.00', shape: 'dot', size: 30, color: { background: '#c2410c', border: '#fb923c' }, font: { color: '#ffedd5', size: 13, bold: true }, group: 'proxy' },
+            { id: 'thitinat', label: 'นาย ธิติณัฏฐ์ เหมือนขวัญ
+(สั่งโอนยอดใหญ่)
+฿ 15,900.00', shape: 'dot', size: 26, color: { background: '#7e22ce', border: '#c084fc' }, font: { color: '#f3e8ff', size: 13 }, group: 'proxy' },
+            { id: 'sutheerat', label: 'นาย สุธีรัตน์ โตสกุณี
+(สั่งโอนจ่ายแทน)
+฿ 13,701.80', shape: 'dot', size: 26, color: { background: '#c2410c', border: '#fb923c' }, font: { color: '#ffedd5', size: 13 }, group: 'proxy' },
+            { id: 'chananchida', label: 'น.ส. ชนัญชิดามนต์ วงค์เขียว
+(โอนถี่ 15 ครั้ง)
+฿ 13,860.00', shape: 'dot', size: 28, color: { background: '#c2410c', border: '#fb923c' }, font: { color: '#ffedd5', size: 13 }, group: 'proxy' },
+            { id: 'jureeporn', label: 'น.ส. จูรีพร วัฒนใย
+฿ 7,020.00', shape: 'dot', size: 22, color: { background: '#c2410c', border: '#fb923c' }, font: { color: '#ffedd5', size: 12 }, group: 'proxy' },
+            { id: 'alongkorn', label: 'นางสาว อลงกรณ์ แจ่มเมือง
+฿ 5,600.00', shape: 'dot', size: 20, color: { background: '#c2410c', border: '#fb923c' }, font: { color: '#ffedd5', size: 12 }, group: 'proxy' },
+            { id: 'ritthichai', label: 'นาย ฤทธิชัย หาญวัฒนา
+฿ 3,402.00 (5 ครั้ง)', shape: 'dot', size: 18, color: { background: '#c2410c', border: '#fb923c' }, font: { color: '#ffedd5', size: 12 }, group: 'proxy' },
+            { id: 'weerachai', label: 'นาย วีระชัย บุญทะจิตต์
+฿ 2,000.00', shape: 'dot', size: 18, color: { background: '#c2410c', border: '#fb923c' }, font: { color: '#ffedd5', size: 12 }, group: 'proxy' },
+            { id: 'samart', label: 'นาย สามารถ ทวีทา
+฿ 1,500.00', shape: 'dot', size: 16, color: { background: '#c2410c', border: '#fb923c' }, font: { color: '#ffedd5', size: 12 }, group: 'proxy' },
+            { id: 'others', label: 'บัญชีรายย่อยอื่นๆ กว่า 40 บัญชี
+(จ่ายย่อยตามคำสั่งแชท)
+฿ 61,254.48 (130 สลิป)', shape: 'dot', size: 24, color: { background: '#334155', border: '#64748b' }, font: { color: '#cbd5e1', size: 12 }, group: 'proxy' },
+
+            // Legal & Modus Operandi
+            { id: 'legal_fraud', label: '⚖️ ป.อ. มาตรา 341/343
+(ฉ้อโกงประชาชน / ร่วมกันหลอกลวง)
+เข้าข่ายคดีอาญา 5 จุด', shape: 'box', size: 28, color: { background: '#581c87', border: '#a855f7' }, font: { color: '#fff', size: 13, bold: true }, group: 'legal' },
+            { id: 'legal_loan', label: '📜 ป.พ.พ. มาตรา 653
+(สัญญากู้ยืมเงินผ่านแชท)
+สิทธิเรียกร้องแพ่ง 92 จุด', shape: 'box', size: 28, color: { background: '#1e3a8a', border: '#3b82f6' }, font: { color: '#fff', size: 13, bold: true }, group: 'legal' },
+            { id: 'modus_deceit', label: '🎭 แผนประทุษกรรม:
+1. สายตระกูลประสาทเขตรการ
+2. โอนต่อไปยังรุ่นพี่ตัวการ (ฉิมพลี)
+3. สั่งโอนจ่ายเจ้าหนี้แทนตนเอง', shape: 'box', size: 26, color: { background: '#701a75', border: '#d946ef' }, font: { color: '#fff', size: 12 }, group: 'legal' }
+        ];
+
+                const rawEdges = [
+            // Mastermind senior link
+            { from: 'preeyachat_chimplee', to: 'jinnipha', label: 'รุ่นพี่ตัวการ / บงการหมุนเงิน', color: '#ef4444', width: 5, dashes: [6, 4], arrows: 'to' },
+            { from: 'jinnipha_acc_ttb', to: 'preeyachat_chimplee', label: 'โอนต่อให้รุ่นพี่ ฿ 20,000 (สลิป 15k+5k)', color: '#ef4444', width: 6, arrows: 'to' },
+
+            // Family sisters links
+            { from: 'tatsaneekan', to: 'jinnipha', label: 'พี่สาว (สายเลือด)', color: '#fb7185', width: 3, dashes: true },
+            { from: 'jinnipha', to: 'wanwisa', label: 'น้องสาว (โอน 2,000 สลิปจ่ายแม่ 083-0)', color: '#fb7185', width: 4, arrows: 'to' },
+
+            // Victim Outflow
+            { from: 'victim', to: 'victim_acc_526', label: 'เจ้าของบัญชีต้นทาง', color: '#0ea5e9', width: 4 },
+            { from: 'victim_acc_526', to: 'jinnipha_acc_ttb', label: 'โอนตรง ฿ 150,900.50 (27 ครั้ง)', color: '#ef4444', width: 6, arrows: 'to' },
+            { from: 'victim_acc_526', to: 'jinnipha_acc_ktb', label: 'โอนตรง ฿ 57,580.00 (8 ครั้ง)', color: '#ef4444', width: 4, arrows: 'to' },
+            { from: 'jinnipha', to: 'jinnipha_acc_ttb', label: 'ผู้รับประโยชน์แท้จริง', color: '#f87171', width: 2, dashes: true },
+            { from: 'jinnipha', to: 'jinnipha_acc_ktb', label: 'ผู้รับประโยชน์แท้จริง', color: '#f87171', width: 2, dashes: true },
+            { from: 'victim_acc_526', to: 'jinnipha_boon', label: 'โอนเข้าชื่อพ้อง ฿ 5,750.00', color: '#ec4899', width: 3, arrows: 'to' },
+
+            // Suspect Commands to Proxies
+            { from: 'jinnipha', to: 'victim', label: '💬 แชทสั่งให้โอนจ่ายแทน / ขอเพิ่มเรื่อยๆ (90 ฉาก)', color: '#f43f5e', width: 4, dashes: [5, 5], arrows: 'to' },
+            { from: 'jinnipha', to: 'benjamas', label: 'สั่งให้ผู้เสียหายโอนแทน', color: '#f97316', width: 2, dashes: true, arrows: 'to' },
+            { from: 'victim_acc_526', to: 'benjamas', label: 'โอนจริง ฿ 21,000.00', color: '#f97316', width: 5, arrows: 'to' },
+            
+            { from: 'jinnipha', to: 'sutheerat', label: 'สั่งให้ผู้เสียหายโอนแทน', color: '#f97316', width: 2, dashes: true, arrows: 'to' },
+            { from: 'victim_acc_526', to: 'sutheerat', label: 'โอนจริง ฿ 13,701.80', color: '#f97316', width: 4, arrows: 'to' },
+
+            { from: 'jinnipha', to: 'chananchida', label: 'สั่งโอนถี่ 15 ครั้ง', color: '#f97316', width: 2, dashes: true, arrows: 'to' },
+            { from: 'victim_acc_526', to: 'chananchida', label: 'โอนจริง ฿ 13,860.00', color: '#f97316', width: 4, arrows: 'to' },
+
+            { from: 'victim_acc_526', to: 'thitinat', label: 'โอนจริง ฿ 15,900.00', color: '#a855f7', width: 4, arrows: 'to' },
+            { from: 'victim_acc_526', to: 'jureeporn', label: 'โอนจริง ฿ 7,020.00', color: '#f97316', width: 3, arrows: 'to' },
+            { from: 'victim_acc_526', to: 'alongkorn', label: 'โอนจริง ฿ 5,600.00', color: '#f97316', width: 3, arrows: 'to' },
+            { from: 'victim_acc_526', to: 'ritthichai', label: 'โอนจริง ฿ 3,402.00', color: '#f97316', width: 2, arrows: 'to' },
+            { from: 'victim_acc_526', to: 'weerachai', label: 'โอนจริง ฿ 2,000.00', color: '#f97316', width: 2, arrows: 'to' },
+            { from: 'victim_acc_526', to: 'samart', label: 'โอนจริง ฿ 1,500.00', color: '#f97316', width: 2, arrows: 'to' },
+            { from: 'victim_acc_526', to: 'others', label: 'โอนย่อย 130 สลิป ฿ 61,254.48', color: '#64748b', width: 4, arrows: 'to' },
+
+            // Legal mappings
+            { from: 'jinnipha', to: 'legal_fraud', label: 'พฤติการณ์ฉ้อโกง', color: '#c084fc', width: 3, arrows: 'to' },
+            { from: 'jinnipha', to: 'legal_loan', label: 'นิติกรรมกู้ยืม', color: '#60a5fa', width: 3, arrows: 'to' },
+            { from: 'jinnipha', to: 'modus_deceit', label: 'แผนประทุษกรรม', color: '#e879f9', width: 3, arrows: 'to' }
+        ];
+
+        let nodesDataSet = new vis.DataSet(rawNodes);
+        let edgesDataSet = new vis.DataSet(rawEdges);
+        let network = null;
+        let physicsEnabled = true;
+
+        function initNetwork() {
+            const container = document.getElementById('network-canvas');
+            const data = { nodes: nodesDataSet, edges: edgesDataSet };
+            const options = {
+                nodes: {
+                    borderWidth: 2,
+                    shadow: true
+                },
+                edges: {
+                    smooth: {
+                        type: 'cubicBezier',
+                        forceDirection: 'none',
+                        roundness: 0.35
+                    },
+                    font: {
+                        size: 11,
+                        face: 'Sarabun',
+                        color: '#94a3b8',
+                        strokeWidth: 3,
+                        strokeColor: '#090d16'
+                    }
+                },
+                physics: {
+                    barnesHut: {
+                        gravitationalConstant: -7000,
+                        centralGravity: 0.25,
+                        springLength: 170,
+                        springConstant: 0.04
+                    },
+                    stabilization: { iterations: 120 }
+                },
+                interaction: {
+                    hover: true,
+                    tooltipDelay: 100,
+                    zoomView: true
+                }
+            };
+
+            network = new vis.Network(container, data, options);
+
+            network.on('click', function(params) {
+                if (params.nodes.length > 0) {
+                    showNodeDetails(params.nodes[0]);
+                } else if (params.edges.length > 0) {
+                    showEdgeDetails(params.edges[0]);
+                }
+            });
+        }
+
+        function showNodeDetails(nodeId) {
+            const drawer = document.getElementById('inspector');
+            const title = document.getElementById('ins-title');
+            const role = document.getElementById('ins-role');
+            const body = document.getElementById('ins-body');
+
+            drawer.classList.remove('collapsed');
+
+            const targetInfo = NETWORK_TARGETS[nodeId];
+
+            if (targetInfo) {
+                title.innerText = targetInfo.name;
+                role.innerText = targetInfo.role;
+
+                let slipsHtml = '';
+                if (targetInfo.slips && targetInfo.slips.length > 0) {
+                    slipsHtml = `
+                        <div>
+                            <div class="section-title">
+                                <span>📸 สลิปหลักฐานการโอนเงิน</span>
+                                <span class="badge-count">${targetInfo.slips.length} ใบ</span>
+                            </div>
+                            <div class="evidence-grid">
+                    `;
+                    targetInfo.slips.forEach(s => {
+                        const webpName = s.file.replace(/\.[^/.]+$/, "") + ".webp";
+                        const thumbUrl = 'SLIP_THUMBS/' + webpName;
+                        slipsHtml += `
+                            <div class="evidence-thumb-card" onclick="openLightbox('${thumbUrl}', '${targetInfo.name} - ฿${s.amount || '0'} (${s.file})')">
+                                <img src="${thumbUrl}" alt="สลิป" onerror="this.src='SLIP_THUMBS/IMG_0457.webp'">
+                                <div class="evidence-meta">
+                                    <div class="evidence-amt">฿ ${s.amount || '0.00'}</div>
+                                    <div class="evidence-date">${s.banks ? s.banks[0] : 'สลิปโอน'} • ${s.file}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    slipsHtml += `</div></div>`;
+                }
+
+                const matchingScenes = SCENES_DATA.filter(sc => sc.targets && sc.targets.includes(nodeId));
+                let scenesHtml = '';
+                if (matchingScenes.length > 0) {
+                    scenesHtml = `
+                        <div>
+                            <div class="section-title">
+                                <span>💬 ฉากแชทพยานหลักฐานที่เกี่ยวข้อง</span>
+                                <span class="badge-count">${matchingScenes.length} ฉาก</span>
+                            </div>
+                            <div class="evidence-grid">
+                    `;
+                    matchingScenes.slice(0, 12).forEach(sc => {
+                        const sceneUrl = 'STORY_CHAT_SCENES/' + sc.file;
+                        scenesHtml += `
+                            <div class="evidence-thumb-card" onclick="openLightbox('${sceneUrl}', 'ฉากที่ ${sc.num}: ${sc.date} (${sc.amount})')">
+                                <img src="${sceneUrl}" alt="ฉากแชท">
+                                <div class="evidence-meta">
+                                    <div class="evidence-amt">ฉากที่ ${sc.num}</div>
+                                    <div class="evidence-date">${sc.bubble.substring(0, 35)}...</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    scenesHtml += `</div></div>`;
+                }
+
+                body.innerHTML = `
+                    <div class="info-card">
+                        <div class="card-label">ยอดเงินโอนรวม</div>
+                        <div class="amount-hero">฿ ${targetInfo.total_amount ? targetInfo.total_amount.toLocaleString('th-TH', {minimumFractionDigits: 2}) : '0.00'}</div>
+                        <div style="margin-top:10px; font-size:12px; color:var(--text-muted);">
+                            ธนาคาร: <span style="color:#fff">${targetInfo.bank}</span><br>
+                            เลขที่บัญชี: <span style="color:#fff; font-family:'JetBrains Mono'">${targetInfo.accounts.join(', ')}</span>
+                        </div>
+                    </div>
+
+                    ${slipsHtml}
+                    ${scenesHtml}
+                `;
+            } else if (nodeId === 'victim') {
+                title.innerText = 'สิบตรี ณัฐชัย รักษาวงษ์';
+                role.innerText = 'ผู้เสียหายหลักแห่งคดี (ผู้ให้กู้ยืม / ผู้ถูกหลอกลวง)';
+                body.innerHTML = `
+                    <div class="info-card">
+                        <div class="card-label">ความเสียหายทางการเงินสุทธิ</div>
+                        <div class="amount-hero">฿ 358,840.78</div>
+                        <div style="margin-top:10px; font-size:12px; color:var(--text-muted);">
+                            สถานะ: รับราชการทหาร / ถูกหลอกยืมเงินต่อเนื่อง 212 ครั้ง<br>
+                            บัญชีหลักที่ถูกใช้เป็นทางผ่าน: <span style="color:#38bdf8; font-family:'JetBrains Mono'">ธ.กรุงไทย KTB XXX-X-XX526-6</span>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-label">สรุปพฤติการณ์ทางคดี</div>
+                        <div style="font-size:13px; color:#cbd5e1; line-height:1.6;">
+                            ผู้เสียหายถูก น.ส. จิณห์นิภา ประสาทเขตรการ ใช้อุบายหลอกลวงอ้างเหตุจำเป็นต่างๆ เช่น ค่ารักษาพยาบาล ค่าสั่งสินค้า สัญญาว่าจะคืนทันทีแต่ไม่เคยคืน และยังถูกสั่งให้โอนเงินต่อให้บุคคลภายนอก/เจ้าหนี้ของฝ่ายผู้ต้องหา เพื่อให้ผู้เสียหายรับภาระหนี้แทน
+                        </div>
+                    </div>
+                `;
+            } else if (nodeId.startsWith('legal_')) {
+                title.innerText = 'ฐานความผิดทางกฎหมาย';
+                role.innerText = 'ประมวลกฎหมายแพ่งและอาญา';
+                body.innerHTML = `
+                    <div class="info-card">
+                        <div class="card-label">ข้อหาความผิด</div>
+                        <div style="font-size:16px; font-weight:700; color:#c084fc; margin-bottom:8px;">
+                            ${nodeId === 'legal_fraud' ? 'ข้อหาฉ้อโกง (ป.อ. มาตรา 341/343)' : 'สัญญากู้ยืมเงิน (ป.พ.พ. มาตรา 653)'}
+                        </div>
+                        <div style="font-size:13px; color:#cbd5e1; line-height:1.6;">
+                            ${nodeId === 'legal_fraud' 
+                                ? 'การหลอกลวงด้วยการแสดงข้อความอันเป็นเท็จ หรือปกปิดข้อความจริงซึ่งควรบอกให้แจ้ง และโดยการหลอกลวงดังว่านั้นได้ไปซึ่งทรัพย์สินจากผู้ถูกหลอกลวง โดยไม่มีเจตนาคืนเงินตั้งแต่แรก' 
+                                : 'การกู้ยืมเงินกว่าสองพันบาทขึ้นไป มีหลักฐานแห่งการกู้ยืมเป็นหนังสือลงลายมือชื่อผู้ยืม โดยการส่งข้อความทางแชท Line และสลิปการโอนเงินถือเป็นหลักฐานการกู้ยืมตาม พ.ร.บ.ธุรกรรมทางอิเล็กทรอนิกส์'}
+                        </div>
+                    </div>
+                `;
+            } else {
+                title.innerText = 'รายละเอียดโหนด';
+                role.innerText = nodeId;
+                body.innerHTML = `<div class="info-card"><div class="card-value">${nodeId}</div></div>`;
+            }
+        }
+
+        function showEdgeDetails(edgeId) {
+            const edge = edgesDataSet.get(edgeId);
+            if (!edge) return;
+            const drawer = document.getElementById('inspector');
+            const title = document.getElementById('ins-title');
+            const role = document.getElementById('ins-role');
+            const body = document.getElementById('ins-body');
+
+            drawer.classList.remove('collapsed');
+            title.innerText = 'เส้นทางธุรกรรม / การเชื่อมโยง';
+            role.innerText = `${edge.from} ➔ ${edge.to}`;
+            body.innerHTML = `
+                <div class="info-card">
+                    <div class="card-label">รายละเอียดความสัมพันธ์</div>
+                    <div style="font-size:16px; font-weight:700; color:var(--accent-cyan);">${edge.label || 'การเชื่อมต่อ'}</div>
+                </div>
+            `;
+        }
+
+        function closeInspector() {
+            document.getElementById('inspector').classList.add('collapsed');
+        }
+
+        function openLightbox(src, caption) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-caption').innerText = caption;
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        function filterNetwork(category) {
+            document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (category === 'all') {
+                nodesDataSet.clear();
+                nodesDataSet.add(rawNodes);
+                edgesDataSet.clear();
+                edgesDataSet.add(rawEdges);
+            } else if (category === 'suspect') {
+                const filteredNodes = rawNodes.filter(n => n.group === 'suspect' || n.id === 'victim' || n.id === 'victim_acc_526');
+                const nodeIds = filteredNodes.map(n => n.id);
+                nodesDataSet.clear();
+                nodesDataSet.add(filteredNodes);
+                edgesDataSet.clear();
+                edgesDataSet.add(rawEdges.filter(e => nodeIds.includes(e.from) && nodeIds.includes(e.to)));
+            } else if (category === 'proxy') {
+                const filteredNodes = rawNodes.filter(n => n.group === 'proxy' || n.id === 'victim_acc_526' || n.id === 'jinnipha');
+                const nodeIds = filteredNodes.map(n => n.id);
+                nodesDataSet.clear();
+                nodesDataSet.add(filteredNodes);
+                edgesDataSet.clear();
+                edgesDataSet.add(rawEdges.filter(e => nodeIds.includes(e.from) && nodeIds.includes(e.to)));
+            } else if (category === 'legal') {
+                const filteredNodes = rawNodes.filter(n => n.group === 'legal' || n.id === 'jinnipha' || n.id === 'victim');
+                const nodeIds = filteredNodes.map(n => n.id);
+                nodesDataSet.clear();
+                nodesDataSet.add(filteredNodes);
+                edgesDataSet.clear();
+                edgesDataSet.add(rawEdges.filter(e => nodeIds.includes(e.from) && nodeIds.includes(e.to)));
+            }
+            if (network) network.fit();
+        }
+
+        function resetZoom() {
+            if (network) network.fit({ animation: { duration: 600, easingFunction: 'easeInOutQuad' } });
+        }
+
+        function togglePhysics() {
+            physicsEnabled = !physicsEnabled;
+            network.setOptions({ physics: { enabled: physicsEnabled } });
+            document.getElementById('btn-physics').innerText = physicsEnabled ? '⚡ ปิดระบบสปริง (Freeze)' : '▶️ เปิดระบบสปริง (Live)';
+        }
+
+        function searchNodes(query) {
+            if (!query) {
+                if (network) network.fit();
+                return;
+            }
+            const q = query.toLowerCase();
+            const found = rawNodes.find(n => n.label.toLowerCase().includes(q) || n.id.toLowerCase().includes(q));
+            if (found && network) {
+                network.focus(found.id, {
+                    scale: 1.4,
+                    animation: { duration: 500, easingFunction: 'easeInOutQuad' }
+                });
+                showNodeDetails(found.id);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initNetwork();
+            setTimeout(() => { showNodeDetails('jinnipha'); }, 800);
+        });
+    </script>
+</body>
+</html>

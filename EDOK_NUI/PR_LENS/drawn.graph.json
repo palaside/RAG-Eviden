@@ -1,0 +1,604 @@
+{
+  "schemaVersion": "0.3.1",
+  "kind": "graph",
+  "generatedAt": "2026-11-17T16:40:00.000Z",
+  "title": "Chawakom-2 Digital Evidence & Forensic Architecture",
+  "summary": "End-to-end criminal forensic pipeline reconstructing 6,319 chat lines, auditing 288 bank slips (฿358k), tracing beneficiary networks, and compiling court-grade dossiers.",
+  "lenses": [
+    "architecture",
+    "data-flow"
+  ],
+  "provenance": {
+    "repo": {
+      "owner": "natthachai-team",
+      "name": "chawakom-evidence-suite",
+      "host": "github.com"
+    },
+    "base": {
+      "sha": "0000000000000000000000000000000000000001",
+      "ref": "main"
+    },
+    "head": {
+      "sha": "78d3d281d3fb283215329c470946aca1e8d144b9",
+      "ref": "forensic-pipeline"
+    },
+    "generator": {
+      "name": "pr-lens-forensic",
+      "version": "0.15.2"
+    }
+  },
+  "lanes": [
+    {
+      "id": "evidence-intake",
+      "label": "Evidence Intake",
+      "subtitle": "Raw Immutable Files",
+      "order": 0
+    },
+    {
+      "id": "processing-engine",
+      "label": "Forensic Engine",
+      "subtitle": "Dual OCR & Vectors",
+      "order": 1
+    },
+    {
+      "id": "intelligence-vault",
+      "label": "Audit & Intelligence",
+      "subtitle": "Legal & Money Trail",
+      "order": 2
+    },
+    {
+      "id": "court-deliverables",
+      "label": "Court Deliverables",
+      "subtitle": "Court-Grade Output",
+      "order": 3
+    }
+  ],
+  "nodes": [
+    {
+      "id": "raw-chat-logs",
+      "label": "Line Chat Exports",
+      "kind": "datastore",
+      "delta": "unchanged",
+      "lane": "evidence-intake",
+      "subtitle": "137 Screenshot Pages",
+      "summary": "Continuous unedited chat logs capturing 90 evidentiary loan transactions.",
+      "files": [],
+      "badges": []
+    },
+    {
+      "id": "raw-bank-slips",
+      "label": "Bank Transfer Slips",
+      "kind": "datastore",
+      "delta": "unchanged",
+      "lane": "evidence-intake",
+      "subtitle": "288 Slip Images",
+      "summary": "Bank transaction receipts containing timestamps, amounts, and account numbers.",
+      "files": [],
+      "badges": []
+    },
+    {
+      "id": "detect-classifier",
+      "label": "Detect Gateway",
+      "kind": "module",
+      "delta": "added",
+      "lane": "processing-engine",
+      "subtitle": "TYPE_CHAT & TYPE_SLIP",
+      "summary": "Classifies input images and routes to specialized forensic workers.",
+      "files": [],
+      "badges": []
+    },
+    {
+      "id": "dicut-quiet-zone",
+      "label": "Dicut Quiet Slicer",
+      "kind": "function",
+      "delta": "added",
+      "lane": "processing-engine",
+      "subtitle": "807x1115 A4 Fit",
+      "summary": "Slices continuous chat without cutting bubbles or text lines.",
+      "files": [],
+      "badges": []
+    },
+    {
+      "id": "dual-ocr-engine",
+      "label": "Typhoon & OpenThai OCR",
+      "kind": "service",
+      "delta": "added",
+      "lane": "processing-engine",
+      "subtitle": "Thai Diacritic Engine",
+      "summary": "Dual-pass OCR with SHA-256 caching for Thai fonts and military ranks.",
+      "files": [],
+      "badges": []
+    },
+    {
+      "id": "tahoma-vector-engine",
+      "label": "Tahoma Vector Engine",
+      "kind": "service",
+      "delta": "added",
+      "lane": "processing-engine",
+      "subtitle": "Invisible PDF/A Layer",
+      "summary": "Inscribes searchable Tahoma glyphs at exact pixel coordinates behind images.",
+      "files": [],
+      "badges": []
+    },
+    {
+      "id": "legal-triage-engine",
+      "label": "Legal Triage Engine",
+      "kind": "module",
+      "delta": "added",
+      "lane": "intelligence-vault",
+      "subtitle": "CCC 653 & CPC 341",
+      "summary": "Maps 90 events: 92 civil loan obligations and 5 criminal fraud offenses.",
+      "files": [],
+      "badges": []
+    },
+    {
+      "id": "beneficiary-tracer",
+      "label": "Beneficiary & Trail Tracer",
+      "kind": "module",
+      "delta": "added",
+      "lane": "intelligence-vault",
+      "subtitle": "Audits 212 Slips (฿358k)",
+      "summary": "Traces user KTB 526-6 to suspect Jinnipha (฿217k) and 9 proxy creditors.",
+      "files": [],
+      "badges": []
+    },
+    {
+      "id": "court-vector-dossier",
+      "label": "Continuous Vector Dossier",
+      "kind": "app",
+      "delta": "added",
+      "lane": "court-deliverables",
+      "subtitle": "Endless Strip & 18p A4",
+      "summary": "High-resolution PDF combining visual evidence slices with selectable vector text.",
+      "files": [],
+      "badges": []
+    },
+    {
+      "id": "story-chat-gallery",
+      "label": "90 Story Chat Cards",
+      "kind": "ui",
+      "delta": "added",
+      "lane": "court-deliverables",
+      "subtitle": "Visual Bubble Cards",
+      "summary": "90 standalone conversation cards highlighting borrower admissions.",
+      "files": [],
+      "badges": []
+    },
+    {
+      "id": "rag-ai-search",
+      "label": "1-Click Ask AI RAG",
+      "kind": "job",
+      "delta": "added",
+      "lane": "court-deliverables",
+      "subtitle": "172 Vector Nodes",
+      "summary": "Hybrid vector & keyword search CLI providing instant verified citations.",
+      "files": [],
+      "badges": []
+    },
+    {
+      "id": "visual-flow-network",
+      "label": "Money Flow Network Map",
+      "kind": "ui",
+      "delta": "added",
+      "lane": "court-deliverables",
+      "subtitle": "Interactive PR Lens & G6",
+      "summary": "Visual graph illustrating fund dispersion for attorneys and investigators.",
+      "files": [],
+      "badges": []
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-chat-to-detect",
+      "from": "raw-chat-logs",
+      "to": "detect-classifier",
+      "kind": "data",
+      "delta": "unchanged",
+      "label": "Intake 137 Pages",
+      "emphasis": "normal",
+      "animated": false,
+      "files": []
+    },
+    {
+      "id": "edge-slips-to-detect",
+      "from": "raw-bank-slips",
+      "to": "detect-classifier",
+      "kind": "data",
+      "delta": "unchanged",
+      "label": "Intake 288 Slips",
+      "emphasis": "normal",
+      "animated": false,
+      "files": []
+    },
+    {
+      "id": "edge-detect-to-dicut",
+      "from": "detect-classifier",
+      "to": "dicut-quiet-zone",
+      "kind": "call",
+      "delta": "added",
+      "label": "TYPE_CHAT stream",
+      "emphasis": "normal",
+      "animated": false,
+      "files": []
+    },
+    {
+      "id": "edge-detect-to-ocr",
+      "from": "detect-classifier",
+      "to": "dual-ocr-engine",
+      "kind": "call",
+      "delta": "added",
+      "label": "TYPE_SLIP stream",
+      "emphasis": "normal",
+      "animated": false,
+      "files": []
+    },
+    {
+      "id": "edge-dicut-to-ocr",
+      "from": "dicut-quiet-zone",
+      "to": "dual-ocr-engine",
+      "kind": "call",
+      "delta": "added",
+      "label": "Sliced Blocks",
+      "emphasis": "normal",
+      "animated": false,
+      "files": []
+    },
+    {
+      "id": "edge-ocr-to-tahoma",
+      "from": "dual-ocr-engine",
+      "to": "tahoma-vector-engine",
+      "kind": "data",
+      "delta": "added",
+      "label": "Coordinate Matrix",
+      "emphasis": "normal",
+      "animated": false,
+      "files": []
+    },
+    {
+      "id": "edge-tahoma-to-triage",
+      "from": "tahoma-vector-engine",
+      "to": "legal-triage-engine",
+      "kind": "data",
+      "delta": "added",
+      "label": "Textual Evidence",
+      "emphasis": "normal",
+      "animated": false,
+      "files": []
+    },
+    {
+      "id": "edge-ocr-to-beneficiary",
+      "from": "dual-ocr-engine",
+      "to": "beneficiary-tracer",
+      "kind": "data",
+      "delta": "added",
+      "label": "Slip Transaction JSON",
+      "emphasis": "normal",
+      "animated": false,
+      "files": []
+    },
+    {
+      "id": "edge-triage-to-dossier",
+      "from": "legal-triage-engine",
+      "to": "court-vector-dossier",
+      "kind": "dependency",
+      "delta": "added",
+      "label": "Chronological Dossier",
+      "emphasis": "hero",
+      "animated": false,
+      "files": []
+    },
+    {
+      "id": "edge-triage-to-story",
+      "from": "legal-triage-engine",
+      "to": "story-chat-gallery",
+      "kind": "dependency",
+      "delta": "added",
+      "label": "90 Scene Manifests",
+      "emphasis": "normal",
+      "animated": false,
+      "files": []
+    },
+    {
+      "id": "edge-triage-to-rag",
+      "from": "legal-triage-engine",
+      "to": "rag-ai-search",
+      "kind": "data",
+      "delta": "added",
+      "label": "Embeddings Index",
+      "emphasis": "normal",
+      "animated": false,
+      "files": []
+    },
+    {
+      "id": "edge-tracer-to-money-map",
+      "from": "beneficiary-tracer",
+      "to": "visual-flow-network",
+      "kind": "dependency",
+      "delta": "added",
+      "label": "Audit Graph Data",
+      "emphasis": "hero",
+      "animated": false,
+      "files": []
+    }
+  ],
+  "flows": [
+    {
+      "id": "forensic-pipeline-flow",
+      "title": "Evidence Intake to Legal Deliverables Flow",
+      "delta": "added",
+      "participants": [
+        {
+          "node": "raw-chat-logs"
+        },
+        {
+          "node": "detect-classifier"
+        },
+        {
+          "node": "dual-ocr-engine"
+        },
+        {
+          "node": "tahoma-vector-engine"
+        },
+        {
+          "node": "legal-triage-engine"
+        },
+        {
+          "node": "beneficiary-tracer"
+        },
+        {
+          "node": "court-vector-dossier"
+        }
+      ],
+      "messages": [
+        {
+          "id": "step-1-intake",
+          "from": "raw-chat-logs",
+          "to": "detect-classifier",
+          "label": "Dispatch chat & slip images",
+          "kind": "sync",
+          "delta": "unchanged",
+          "animated": true,
+          "files": []
+        },
+        {
+          "id": "step-2-ocr",
+          "from": "detect-classifier",
+          "to": "dual-ocr-engine",
+          "label": "Execute dual OCR recognition",
+          "kind": "sync",
+          "delta": "added",
+          "animated": true,
+          "files": []
+        },
+        {
+          "id": "step-3-vectorize",
+          "from": "dual-ocr-engine",
+          "to": "tahoma-vector-engine",
+          "label": "Inscribe Tahoma vector text layer",
+          "kind": "sync",
+          "delta": "added",
+          "animated": true,
+          "files": []
+        },
+        {
+          "id": "step-4-audit-slips",
+          "from": "dual-ocr-engine",
+          "to": "beneficiary-tracer",
+          "label": "Extract beneficiary & amount (฿358k)",
+          "kind": "async",
+          "delta": "added",
+          "animated": true,
+          "files": []
+        },
+        {
+          "id": "step-5-triage-legal",
+          "from": "tahoma-vector-engine",
+          "to": "legal-triage-engine",
+          "label": "Match 92 civil & 5 criminal breaches",
+          "kind": "sync",
+          "delta": "added",
+          "animated": true,
+          "files": []
+        },
+        {
+          "id": "step-6-deliver-dossier",
+          "from": "legal-triage-engine",
+          "to": "court-vector-dossier",
+          "label": "Compile court-grade continuous strip PDF",
+          "kind": "return",
+          "delta": "added",
+          "animated": true,
+          "files": []
+        }
+      ]
+    }
+  ],
+  "stats": {
+    "filesChanged": 90,
+    "additions": 6319,
+    "deletions": 0,
+    "chips": [
+      {
+        "label": "Evidence Scenes",
+        "value": "90 Cards",
+        "tone": "hero"
+      },
+      {
+        "label": "Money Traced",
+        "value": "฿358,840.78",
+        "tone": "hero"
+      },
+      {
+        "label": "Suspect Share",
+        "value": "฿217,580.50 (61%)",
+        "tone": "hero"
+      },
+      {
+        "label": "Legal Violations",
+        "value": "92 Civil / 5 Criminal",
+        "tone": "neutral"
+      }
+    ]
+  },
+  "views": [
+    {
+      "id": "system-architecture",
+      "title": "Forensic Engine Architecture",
+      "lens": "architecture",
+      "summary": "Full end-to-end evidence processing, legal triage, and court deliverables pipeline.",
+      "scope": {
+        "kind": "all"
+      },
+      "defaultOpen": true,
+      "children": []
+    },
+    {
+      "id": "processing-core",
+      "title": "OCR & Vector Inscription Core",
+      "lens": "architecture",
+      "summary": "Image slicing, dual-pass OCR, and pixel-aligned vector rendering.",
+      "scope": {
+        "kind": "selection",
+        "lanes": [],
+        "nodes": [
+          "detect-classifier",
+          "dicut-quiet-zone",
+          "dual-ocr-engine",
+          "tahoma-vector-engine"
+        ],
+        "edges": [],
+        "flows": [],
+        "tables": []
+      },
+      "defaultOpen": false,
+      "children": []
+    },
+    {
+      "id": "financial-audit",
+      "title": "Beneficiary & Legal Intelligence",
+      "lens": "architecture",
+      "summary": "Money trail audit, suspect isolation, and legal cause matching.",
+      "scope": {
+        "kind": "selection",
+        "lanes": [],
+        "nodes": [
+          "dual-ocr-engine",
+          "legal-triage-engine",
+          "beneficiary-tracer",
+          "visual-flow-network",
+          "court-vector-dossier"
+        ],
+        "edges": [],
+        "flows": [],
+        "tables": []
+      },
+      "defaultOpen": false,
+      "children": []
+    }
+  ],
+  "walkthrough": {
+    "steps": [
+      {
+        "id": "step-intake",
+        "heading": "Forensic image intake and classification",
+        "body": "Raw chat screenshots and bank slips are sorted into specialized pipelines.",
+        "stage": {
+          "kind": "view",
+          "view": "system-architecture"
+        },
+        "focus": {
+          "kind": "selection",
+          "lanes": [],
+          "nodes": [
+            "raw-chat-logs",
+            "raw-bank-slips",
+            "detect-classifier"
+          ],
+          "edges": [],
+          "messages": [],
+          "tables": []
+        }
+      },
+      {
+        "id": "step-dual-ocr",
+        "heading": "Dual OCR and invisible Tahoma vectorization",
+        "body": "Thai diacritics are parsed and layered behind high-res images with zero text collision.",
+        "stage": {
+          "kind": "view",
+          "view": "processing-core"
+        },
+        "focus": {
+          "kind": "selection",
+          "lanes": [],
+          "nodes": [
+            "dual-ocr-engine",
+            "tahoma-vector-engine"
+          ],
+          "edges": [],
+          "messages": [],
+          "tables": []
+        }
+      },
+      {
+        "id": "step-triage",
+        "heading": "Legal triage maps 90 debt events",
+        "body": "Civil loan claims and criminal fraud elements are systematically identified.",
+        "stage": {
+          "kind": "view",
+          "view": "system-architecture"
+        },
+        "focus": {
+          "kind": "selection",
+          "lanes": [],
+          "nodes": [
+            "legal-triage-engine"
+          ],
+          "edges": [],
+          "messages": [],
+          "tables": []
+        }
+      },
+      {
+        "id": "step-money-trail",
+        "heading": "Traced ฿358k across 212 bank slips",
+        "body": "Jinnipha received ฿217k directly while ฿36k went to 9 third-party creditors.",
+        "stage": {
+          "kind": "view",
+          "view": "financial-audit"
+        },
+        "focus": {
+          "kind": "selection",
+          "lanes": [],
+          "nodes": [
+            "beneficiary-tracer",
+            "visual-flow-network"
+          ],
+          "edges": [],
+          "messages": [],
+          "tables": []
+        }
+      },
+      {
+        "id": "step-deliverables",
+        "heading": "Continuous court dossier and 1-Click RAG",
+        "body": "Court-grade PDF, 90 story cards, and offline AI search are compiled for litigation.",
+        "stage": {
+          "kind": "view",
+          "view": "system-architecture"
+        },
+        "focus": {
+          "kind": "selection",
+          "lanes": [],
+          "nodes": [
+            "court-vector-dossier",
+            "story-chat-gallery",
+            "rag-ai-search"
+          ],
+          "edges": [],
+          "messages": [],
+          "tables": []
+        }
+      }
+    ]
+  }
+}

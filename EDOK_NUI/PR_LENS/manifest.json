@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "0.3.1",
+  "kind": "render-manifest",
+  "graph": {
+    "headSha": "78d3d281d3fb283215329c470946aca1e8d144b9",
+    "contentHash": "7c8da2c410a2316926fffe8637acb7c2"
+  },
+  "renderer": {
+    "name": "@coldtea/pr-lens-renderer",
+    "version": "0.6.3"
+  },
+  "assets": [
+    {
+      "id": "system-architecture-light",
+      "lens": "architecture",
+      "theme": "light",
+      "view": "system-architecture",
+      "mediaType": "image/svg+xml",
+      "contentHash": "27444e44edbbcef5affc1686c263baf5",
+      "bytes": 22440,
+      "width": 1708,
+      "height": 988,
+      "animated": false,
+      "path": "system-architecture-light-27444e44edbbcef5affc1686c263baf5.svg"
+    },
+    {
+      "id": "system-architecture-dark",
+      "lens": "architecture",
+      "theme": "dark",
+      "view": "system-architecture",
+      "mediaType": "image/svg+xml",
+      "contentHash": "7dd98acdd24a52857c40dd272f18dec6",
+      "bytes": 22683,
+      "width": 1708,
+      "height": 988,
+      "animated": false,
+      "path": "system-architecture-dark-7dd98acdd24a52857c40dd272f18dec6.svg"
+    },
+    {
+      "id": "processing-core-light",
+      "lens": "architecture",
+      "theme": "light",
+      "view": "processing-core",
+      "mediaType": "image/svg+xml",
+      "contentHash": "f69b21fd1577f850da4f78c5ee4f3db0",
+      "bytes": 8764,
+      "width": 446,
+      "height": 532,
+      "animated": false,
+      "path": "processing-core-light-f69b21fd1577f850da4f78c5ee4f3db0.svg"
+    },
+    {
+      "id": "processing-core-dark",
+      "lens": "architecture",
+      "theme": "dark",
+      "view": "processing-core",
+      "mediaType": "image/svg+xml",
+      "contentHash": "166c0a7982bd7fd632aca813920ace9e",
+      "bytes": 8853,
+      "width": 446,
+      "height": 532,
+      "animated": false,
+      "path": "processing-core-dark-166c0a7982bd7fd632aca813920ace9e.svg"
+    },
+    {
+      "id": "financial-audit-light",
+      "lens": "architecture",
+      "theme": "light",
+      "view": "financial-audit",
+      "mediaType": "image/svg+xml",
+      "contentHash": "bdf3c26ed03b3447a1c545be7b17b563",
+      "bytes": 10622,
+      "width": 1284,
+      "height": 418,
+      "animated": false,
+      "path": "financial-audit-light-bdf3c26ed03b3447a1c545be7b17b563.svg"
+    },
+    {
+      "id": "financial-audit-dark",
+      "lens": "architecture",
+      "theme": "dark",
+      "view": "financial-audit",
+      "mediaType": "image/svg+xml",
+      "contentHash": "02b0d941dbd44fb906973ccd5003cf68",
+      "bytes": 10733,
+      "width": 1284,
+      "height": 418,
+      "animated": false,
+      "path": "financial-audit-dark-02b0d941dbd44fb906973ccd5003cf68.svg"
+    }
+  ],
+  "walkthrough": [
+    {
+      "id": "walkthrough-light",
+      "theme": "light",
+      "mediaType": "image/svg+xml",
+      "contentHash": "03a98f06d465a8cf54ccc5b6984ca447",
+      "bytes": 55559,
+      "width": 870,
+      "height": 417,
+      "steps": 5,
+      "path": "walkthrough-light-03a98f06d465a8cf54ccc5b6984ca447.svg"
+    },
+    {
+      "id": "walkthrough-dark",
+      "theme": "dark",
+      "mediaType": "image/svg+xml",
+      "contentHash": "3e2e52856a35336a0071d7d7d0422a6e",
+      "bytes": 55706,
+      "width": 870,
+      "height": 417,
+      "steps": 5,
+      "path": "walkthrough-dark-3e2e52856a35336a0071d7d7d0422a6e.svg"
+    }
+  ]
+}

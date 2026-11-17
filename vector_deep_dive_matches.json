@@ -1,0 +1,418 @@
+{
+  "ทัศนีการ ประสาทเขตรการ (พี่สาว)": [
+    {
+      "event_id": 8,
+      "timestamp": "ช่วงเริ่มสนทนา (ต้นปี 2568) (09:21 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "3,000 บาท ต้น 50000",
+      "amount": "**000 บาท**",
+      "reference_image": "`LINE_capture_800252921.297142.jpg`",
+      "page_number": 1,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 45,
+      "timestamp": "2 กุมภาพันธ์ 2568 (04:57 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "เจ้าของบ้านไว้2000 เป็น5000",
+      "amount": "**2000 บาท**",
+      "reference_image": "`LINE_capture_800253553.588898.jpg`",
+      "page_number": 5,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 46,
+      "timestamp": "2 กุมภาพันธ์ 2568 (04:58 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "เค้าจะเอาให้5000ก่อน ,,...",
+      "amount": "**5000 บาท**",
+      "reference_image": "`LINE_capture_800253553.588898.jpg`",
+      "page_number": 5,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 78,
+      "timestamp": "15 ก.พ. 2568 (22:38 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "10000-15000",
+      "amount": "**10000 บาท**",
+      "reference_image": "`LINE_capture_800254609.409543.jpg`",
+      "page_number": 8,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 79,
+      "timestamp": "15 ก.พ. 2568 (22:38 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "คืน15000ทุกอย่างคือจย",
+      "amount": "**15000 บาท**",
+      "reference_image": "`LINE_capture_800254609.409543.jpg`",
+      "page_number": 8,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 81,
+      "timestamp": "15 ก.พ. 2568 (22:39 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "ถ้าไม่ได้ใช้อีก5000จะโอนตามไป ,, ,,",
+      "amount": "**5000 บาท**",
+      "reference_image": "`LINE_capture_800254609.409543.jpg`",
+      "page_number": 9,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 83,
+      "timestamp": "15 ก.พ. 2568 (22:44 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "ถ้าเค้าโอรให้มัน5000ส่วรทีเหลือ ถ้า",
+      "amount": "**5000 บาท**",
+      "reference_image": "`LINE_capture_800254609.409543.jpg`",
+      "page_number": 9,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 96,
+      "timestamp": "13 มี.ค. 2568 (17:07 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "และแน่นอน เค้าต้องหาเงิน 5000 ถูก",
+      "amount": "**5000 บาท**",
+      "reference_image": "`LINE_capture_800254811.816358.jpg`",
+      "page_number": 10,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 107,
+      "timestamp": "18 มี.ค. 2568 (22:15 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "ชําระหนี้ 5000 สบายใจไปละ",
+      "amount": "**5000 บาท**",
+      "reference_image": "`LINE_capture_800255009.353198.jpg`",
+      "page_number": 11,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 116,
+      "timestamp": "18 มี.ค. 2568 (15:16 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "เค้าบอก15000มันน้อย ,. .",
+      "amount": "**15000 บาท**",
+      "reference_image": "`LINE_capture_800255449.565491.jpg`",
+      "page_number": 12,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 123,
+      "timestamp": "18 มี.ค. 2568 (06:53 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "ก็ถ้าได้ถึง25000ก็จะเอา",
+      "amount": "**25000 บาท**",
+      "reference_image": "`LINE_capture_800255656.125265.jpg`",
+      "page_number": 13,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 124,
+      "timestamp": "18 มี.ค. 2568 (06:54 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "ดอกตกเดือนละ15000 ,....",
+      "amount": "**15000 บาท**",
+      "reference_image": "`LINE_capture_800255656.125265.jpg`",
+      "page_number": 13,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 131,
+      "timestamp": "4 เมษายน 2568 (07:02 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "ยอดไอ้นี่เยอะสุด 35000 แต่เค้าขอ",
+      "amount": "**35000 บาท**",
+      "reference_image": "`LINE_capture_800255691.313429.jpg`",
+      "page_number": 14,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 134,
+      "timestamp": "4 เมษายน 2568 (12:34 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "จะเคลียร์วันไหนค่อยจ่ายยอด35000 ,, .,",
+      "amount": "**35000 บาท**",
+      "reference_image": "`LINE_capture_800255692.736445.jpg`",
+      "page_number": 14,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 141,
+      "timestamp": "4 เมษายน 2568 (16:45 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "กู้กรุงไทย 21000+15000",
+      "amount": "**21000 บาท**",
+      "reference_image": "`LINE_capture_800255812.521633.jpg`",
+      "page_number": 15,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 144,
+      "timestamp": "4 เมษายน 2568 (16:45 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "+7000+10000(เห่ห์)+3000(เวรมี.ค.)+5000+2000(ชื่อป",
+      "amount": "**7000 บาท**",
+      "reference_image": "`LINE_capture_800255812.521633.jpg`",
+      "page_number": 15,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 148,
+      "timestamp": "4 เมษายน 2568 (11:48 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "เงินเดือน                                            15000",
+      "amount": "**15000 บาท**",
+      "reference_image": "`LINE_capture_800255853.254536.jpg`",
+      "page_number": 15,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 149,
+      "timestamp": "4 เมษายน 2568 (11:48 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "จ่ายเงินเดือน 31/3/25                              15000",
+      "amount": "**15000 บาท**",
+      "reference_image": "`LINE_capture_800255853.254536.jpg`",
+      "page_number": 15,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 157,
+      "timestamp": "19 เม.ย. 2568 (20:52 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "ปิดยอด 200% คอม 5% +5000บาท",
+      "amount": "**200 บาท**",
+      "reference_image": "`LINE_capture_800256071.446219.jpg`",
+      "page_number": 16,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 163,
+      "timestamp": "19 เม.ย. 2568 (14:12 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "15000+17000",
+      "amount": "**15000 บาท**",
+      "reference_image": "`LINE_capture_800256206.180307.jpg`",
+      "page_number": 17,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 165,
+      "timestamp": "19 เม.ย. 2568 (5:49 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "ตัว มีเงิน5000ปะ มีคนจะกู้ด่วน",
+      "amount": "**5000 บาท**",
+      "reference_image": "`LINE_capture_800256208.667848.jpg`",
+      "page_number": 17,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 166,
+      "timestamp": "19 เม.ย. 2568 (5:49 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "5000คืน 6000 วันนี้",
+      "amount": "**5000 บาท**",
+      "reference_image": "`LINE_capture_800256208.667848.jpg`",
+      "page_number": 17,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 173,
+      "timestamp": "27 พ.ค. 2568",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "ส่งเลขบัญชี 2 พี่น้อง: วันวิศา ประสาทเขตรการ ออมสิน 020333988630 ยอด 21,000 บาท และ ทัศนีการ ประสาทเขตรการ พร้อมเพย์ 0912634123 ยอด 5,000 บาท",
+      "amount": "**26,000 บาท (21k + 5k)**",
+      "reference_image": "`A4_Full_27.5.68 พี่น้อง_IMG_6243.PNG`",
+      "page_number": 173,
+      "is_monetary_event": true,
+      "target_entities": [
+        "tatsaneekan",
+        "wanwisa",
+        "jinnipha"
+      ]
+    },
+    {
+      "event_id": 176,
+      "timestamp": "08 มิ.ย. 2568 (19:41 น.)",
+      "speaker": "ส.ต. ณัฐชัย ➔ ปรียชาติ ฉิมพลี",
+      "content": "สลิปโอนเงินเข้าบัญชี น.ส. ปรียชาติ ฉิมพลี ธ.กสิกรไทย 455-1 ยอด 13,500 บาท โดยมีบันทึกช่วยจำระบุสัญญาชัดเจนว่า คืน 9/6 ยอด 15000",
+      "amount": "**13,500 บาท (สัญญาคืน 15,000)**",
+      "reference_image": "`08.6.68 พี่แมว_LINE_capture_796547198.800971.JPG`",
+      "page_number": 176,
+      "is_monetary_event": true,
+      "target_entities": [
+        "preeyachat_chimplee"
+      ]
+    },
+    {
+      "event_id": 177,
+      "timestamp": "19 มิ.ย. 2568 (20:08 น.)",
+      "speaker": "จิณห์นิภา ➔ ปรียชาติ ฉิมพลี",
+      "content": "สลิปจิณห์นิภาโอนเงินต่อจากบัญชี ttb 996-5 ไปยัง น.ส. ปรียชาติ ธ.กสิกรไทย 455-1 ยอด 5,000 บาท แล้วส่งให้ผู้เสียหายดู",
+      "amount": "**5,000 บาท**",
+      "reference_image": "`IMG_2622.PNG`",
+      "page_number": 177,
+      "is_monetary_event": true,
+      "target_entities": [
+        "preeyachat_chimplee",
+        "jinnipha"
+      ]
+    },
+    {
+      "event_id": 178,
+      "timestamp": "02 ก.ค. 2568 (21:04 น.)",
+      "speaker": "จิณห์นิภา ➔ กัญญาภัค ฉิมพลี",
+      "content": "สลิปจิณห์นิภาโอนเงินต่อจากบัญชี ttb 996-5 ไปยัง นางสาว กัญญาภัค ฉิมพลี พร้อมเพย์ 2926 ยอด 15,000 บาท แล้วส่งให้ผู้เสียหายดู",
+      "amount": "**15,000 บาท**",
+      "reference_image": "`IMG_2800.PNG`",
+      "page_number": 178,
+      "is_monetary_event": true,
+      "target_entities": [
+        "preeyachat_chimplee",
+        "jinnipha"
+      ]
+    }
+  ],
+  "วันวิศา ประสาทเขตรการ (น้องสาว)": [
+    {
+      "event_id": 141,
+      "timestamp": "4 เมษายน 2568 (16:45 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "กู้กรุงไทย 21000+15000",
+      "amount": "**21000 บาท**",
+      "reference_image": "`LINE_capture_800255812.521633.jpg`",
+      "page_number": 15,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 173,
+      "timestamp": "27 พ.ค. 2568",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "ส่งเลขบัญชี 2 พี่น้อง: วันวิศา ประสาทเขตรการ ออมสิน 020333988630 ยอด 21,000 บาท และ ทัศนีการ ประสาทเขตรการ พร้อมเพย์ 0912634123 ยอด 5,000 บาท",
+      "amount": "**26,000 บาท (21k + 5k)**",
+      "reference_image": "`A4_Full_27.5.68 พี่น้อง_IMG_6243.PNG`",
+      "page_number": 173,
+      "is_monetary_event": true,
+      "target_entities": [
+        "tatsaneekan",
+        "wanwisa",
+        "jinnipha"
+      ]
+    },
+    {
+      "event_id": 179,
+      "timestamp": "08 ก.พ. 2568 (13:22 น.)",
+      "speaker": "จิณห์นิภา ➔ วันวิศา ประสาทเขตรการ",
+      "content": "สลิปจิณห์นิภาโอนเงินให้ วันวิศา ประสาทเขตรการ บัญชีกรุงไทย 083-0 ยอด 2,000 บาท และมีแชทกำกับใต้สลิปชัดเจนว่า สรุปจ่ายแม่",
+      "amount": "**2,000 บาท**",
+      "reference_image": "`LINE_capture_800256213.882803.jpg`",
+      "page_number": 179,
+      "is_monetary_event": true,
+      "target_entities": [
+        "wanwisa",
+        "jinnipha"
+      ]
+    }
+  ],
+  "เบญจมาศ ผุ่มกลิ่น (ยอดใหญ่สั่งโอนแทน 21,000 บ.)": [
+    {
+      "event_id": 141,
+      "timestamp": "4 เมษายน 2568 (16:45 น.)",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "กู้กรุงไทย 21000+15000",
+      "amount": "**21000 บาท**",
+      "reference_image": "`LINE_capture_800255812.521633.jpg`",
+      "page_number": 15,
+      "is_monetary_event": true
+    },
+    {
+      "event_id": 173,
+      "timestamp": "27 พ.ค. 2568",
+      "speaker": "จิณห์นิภา (ฝ่ายขอยืม/จำเลย)",
+      "content": "ส่งเลขบัญชี 2 พี่น้อง: วันวิศา ประสาทเขตรการ ออมสิน 020333988630 ยอด 21,000 บาท และ ทัศนีการ ประสาทเขตรการ พร้อมเพย์ 0912634123 ยอด 5,000 บาท",
+      "amount": "**26,000 บาท (21k + 5k)**",
+      "reference_image": "`A4_Full_27.5.68 พี่น้อง_IMG_6243.PNG`",
+      "page_number": 173,
+      "is_monetary_event": true,
+      "target_entities": [
+        "tatsaneekan",
+        "wanwisa",
+        "jinnipha"
+      ]
+    }
+  ],
+  "ปรียชาติ / ฉิมพลี / พี่แมว (รุ่นพี่ตัวการ)": [
+    {
+      "event_id": 174,
+      "timestamp": "26 พ.ค. 2568 (16:54 น.)",
+      "speaker": "พี่แมว (ปรียชาติ ฉิมพลี / รุ่นพี่ตัวการ)",
+      "content": "แชทกับพี่แมว: เงินน่าจะได้วันนี้ จัดการภาระเค้าก่อน เค้าจะโอนเงินให้ พร้อมส่งเลขบัญชี กสิกร 28125484551 (ปรียชาติ ฉิมพลี)",
+      "amount": "**ประสานโอนเงิน**",
+      "reference_image": "`26.5.68 พี่แมว_IMG_6242 (2).PNG`",
+      "page_number": 174,
+      "is_monetary_event": true,
+      "target_entities": [
+        "preeyachat_chimplee",
+        "jinnipha"
+      ]
+    },
+    {
+      "event_id": 175,
+      "timestamp": "02 มิ.ย. 2568 (16:45 น.)",
+      "speaker": "ส.ต. ณัฐชัย ➔ ปรียชาติ ฉิมพลี",
+      "content": "สลิปโอนเงินเข้าบัญชี น.ส. ปรียชาติ จฉิมพลี ธ.กสิกรไทย 455-1 ยอด 9,000 บาท โดยมีบันทึกช่วยจำระบุสัญญาชัดเจนว่า คืน 10000 วันที่ 3 มิ.ย.",
+      "amount": "**9,000 บาท (สัญญาคืน 10,000)**",
+      "reference_image": "`03.6.68 พี่แมว_IMG_6246.PNG`",
+      "page_number": 175,
+      "is_monetary_event": true,
+      "target_entities": [
+        "preeyachat_chimplee"
+      ]
+    },
+    {
+      "event_id": 176,
+      "timestamp": "08 มิ.ย. 2568 (19:41 น.)",
+      "speaker": "ส.ต. ณัฐชัย ➔ ปรียชาติ ฉิมพลี",
+      "content": "สลิปโอนเงินเข้าบัญชี น.ส. ปรียชาติ ฉิมพลี ธ.กสิกรไทย 455-1 ยอด 13,500 บาท โดยมีบันทึกช่วยจำระบุสัญญาชัดเจนว่า คืน 9/6 ยอด 15000",
+      "amount": "**13,500 บาท (สัญญาคืน 15,000)**",
+      "reference_image": "`08.6.68 พี่แมว_LINE_capture_796547198.800971.JPG`",
+      "page_number": 176,
+      "is_monetary_event": true,
+      "target_entities": [
+        "preeyachat_chimplee"
+      ]
+    },
+    {
+      "event_id": 177,
+      "timestamp": "19 มิ.ย. 2568 (20:08 น.)",
+      "speaker": "จิณห์นิภา ➔ ปรียชาติ ฉิมพลี",
+      "content": "สลิปจิณห์นิภาโอนเงินต่อจากบัญชี ttb 996-5 ไปยัง น.ส. ปรียชาติ ธ.กสิกรไทย 455-1 ยอด 5,000 บาท แล้วส่งให้ผู้เสียหายดู",
+      "amount": "**5,000 บาท**",
+      "reference_image": "`IMG_2622.PNG`",
+      "page_number": 177,
+      "is_monetary_event": true,
+      "target_entities": [
+        "preeyachat_chimplee",
+        "jinnipha"
+      ]
+    },
+    {
+      "event_id": 178,
+      "timestamp": "02 ก.ค. 2568 (21:04 น.)",
+      "speaker": "จิณห์นิภา ➔ กัญญาภัค ฉิมพลี",
+      "content": "สลิปจิณห์นิภาโอนเงินต่อจากบัญชี ttb 996-5 ไปยัง นางสาว กัญญาภัค ฉิมพลี พร้อมเพย์ 2926 ยอด 15,000 บาท แล้วส่งให้ผู้เสียหายดู",
+      "amount": "**15,000 บาท**",
+      "reference_image": "`IMG_2800.PNG`",
+      "page_number": 178,
+      "is_monetary_event": true,
+      "target_entities": [
+        "preeyachat_chimplee",
+        "jinnipha"
+      ]
+    }
+  ]
+}
