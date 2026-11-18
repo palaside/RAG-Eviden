@@ -60,7 +60,7 @@
       background: #f1f5f9;
       color: #0f172a;
       font-family: 'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif;
-      padding: 20px;
+      padding: 16px;
       display: flex;
       justify-content: center;
     }
@@ -84,7 +84,7 @@
       color: #0f172a;
     }
     .court-sub {
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 300;
       color: #64748b;
       margin-top: 2px;
@@ -112,12 +112,23 @@
       display: flex;
       gap: 8px;
       align-items: center;
+      flex-wrap: wrap;
     }
     .pill-count {
       background: #fee2e2;
       color: #b91c1c;
       border: 1px solid #fca5a5;
-      font-size: 13px;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .pill-next {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fcd34d;
+      font-size: 12.5px;
       font-weight: 700;
       padding: 3px 10px;
       border-radius: 4px;
@@ -127,13 +138,12 @@
       background: #eff6ff;
       color: #1e40af;
       border: 1px solid #bfdbfe;
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 700;
       padding: 3px 10px;
       border-radius: 4px;
       white-space: nowrap;
     }
-    /* TABLE 1-11 STANDARD: TH SARABUN 16PX */
     .topics-table {
       width: 100%;
       border-collapse: collapse;
@@ -181,7 +191,6 @@
       color: #b91c1c;
       font-weight: 700;
     }
-    /* RESPONSIVE EVIDENCE BOX - ADAPTS TO ANY IMAGE HEIGHT */
     .evidence-card {
       margin-top: 20px;
       border: 1.5px solid #0f172a;
@@ -198,22 +207,21 @@
       flex-wrap: wrap;
       gap: 6px;
     }
-    .p2-header {
-      background: #0369a1;
-    }
     .ev-title {
-      font-size: 13.5px;
+      font-size: 14.5px;
       font-weight: 700;
       color: #ffffff;
+      white-space: nowrap;
     }
     .ev-badge {
       background: #dc2626;
       color: #ffffff;
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 800;
       padding: 3px 8px;
       border-radius: 3px;
       letter-spacing: 0.5px;
+      white-space: nowrap;
     }
     .evidence-body {
       background: #090d16;
@@ -238,10 +246,6 @@
       color: #64748b;
       line-height: 1.4;
     }
-    @media (max-width: 768px) {
-      .th-col { width: 140px; }
-      .topics-table { font-size: 14.5px; }
-    }
   </style>
 </head>
 <body>
@@ -258,6 +262,7 @@
         </div>
         <div class="meta-right">
           <span class="pill-count">กรรมที่ ๒๐</span>
+          
           <span class="pill-amt">ความเสียหาย: 5,000.00 บาท</span>
         </div>
       </div>
@@ -324,11 +329,9 @@
       </div>
     </div>
 
-    
-
     <!-- FOOTER -->
     <div class="court-footer">
-      <div>สารบบคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ (ป.อ. มาตรา ๓๔๑, ๙๑) | แผ่นเวกเตอร์ที่ 20 จาก ๓๐ รายการ</div>
+      <div>สารบบคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ (ป.อ. มาตรา ๓๔๑, ๙๑) | แผ่นเวกเตอร์ที่ 23 จาก ๓๕ แผ่น</div>
       <div style="color: #94a3b8; font-size: 12px; margin-top: 2px;">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex V2) • ISO/IEC 27037 Standard</div>
     </div>
   </div>

@@ -75,19 +75,19 @@
       flex-wrap: wrap;
       gap: 10px;
     }
-    .h-title { font-size: 19px; font-weight: 800; color: #38bdf8; display: flex; align-items: center; gap: 8px; }
-    .h-sub { font-size: 13px; font-weight: 300; color: #94a3b8; margin-top: 2px; }
+    .h-title { font-size: 20px; font-weight: 800; color: #38bdf8; display: flex; align-items: center; gap: 8px; }
+    .h-sub { font-size: 14px; font-weight: 300; color: #94a3b8; margin-top: 2px; }
     .badge-vector {
       background: #15803d;
       color: #ffffff;
       padding: 4px 12px;
       border-radius: 4px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 800;
       letter-spacing: 0.5px;
     }
     .container {
-      max-width: 1080px;
+      max-width: 1040px;
       margin: 25px auto;
       padding: 0 16px;
     }
@@ -95,7 +95,7 @@
       background: #1e293b;
       border: 1px solid #334155;
       border-radius: 8px;
-      padding: 12px 16px;
+      padding: 14px 18px;
       margin-bottom: 25px;
       display: flex;
       flex-wrap: wrap;
@@ -103,10 +103,12 @@
       align-items: center;
     }
     .nav-label {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       color: #38bdf8;
       margin-right: 6px;
+      width: 100%;
+      margin-bottom: 4px;
     }
     .nav-btn {
       background: #0f172a;
@@ -114,14 +116,23 @@
       color: #e2e8f0;
       padding: 4px 10px;
       border-radius: 4px;
-      font-size: 12px;
-      font-weight: 500;
+      font-size: 13px;
+      font-weight: 600;
       text-decoration: none;
       transition: all 0.2s;
     }
     .nav-btn:hover {
       background: #2563eb;
       border-color: #3b82f6;
+      color: #ffffff;
+    }
+    .nav-btn.p2-btn {
+      background: #082f49;
+      border-color: #0284c7;
+      color: #7dd3fc;
+    }
+    .nav-btn.p2-btn:hover {
+      background: #0284c7;
       color: #ffffff;
     }
     .card-shell {
@@ -143,7 +154,7 @@
       gap: 8px;
     }
     .shell-label {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
       color: #f8fafc;
     }
@@ -152,8 +163,8 @@
       gap: 8px;
     }
     .act-btn {
-      font-size: 12px;
-      padding: 4px 10px;
+      font-size: 13px;
+      padding: 4px 12px;
       border-radius: 4px;
       text-decoration: none;
       font-weight: 600;
@@ -169,385 +180,465 @@
     }
     .shell-frame {
       width: 100%;
-      height: 980px;
+      min-height: 850px;
       border: none;
       background: #f8fafc;
       display: block;
     }
   </style>
+  <script>
+    function resizeIframe(obj) {
+      try {
+        if (obj.contentWindow && obj.contentWindow.document.body) {
+          var h = obj.contentWindow.document.documentElement.scrollHeight || obj.contentWindow.document.body.scrollHeight;
+          if (h > 200) {
+            obj.style.height = (h + 35) + 'px';
+          }
+        }
+      } catch(e) {}
+    }
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.querySelectorAll('.shell-frame').forEach(resizeIframe);
+      }, 600);
+      setTimeout(function() {
+        document.querySelectorAll('.shell-frame').forEach(resizeIframe);
+      }, 1500);
+    });
+  </script>
 </head>
 <body>
   <header>
     <div>
-      <div class="h-title">⚡ แฟ้มสารบบพยานหลักฐานคดีอาญา (ระบบ Responsive Vector ๑๐๐%)</div>
-      <div class="h-sub">รองรับภาพทุกความสูง • ตาราง ๑–๑๑ ฟอนต์ TH Sarabun 16 • แยกกล่องข้อมูลชัดเจน ปราศจากตัวอักษรทับซ้อน 100%</div>
+      <div class="h-title">⚡ แฟ้มสารบบพยานหลักฐานคดีอาญา (ระบบ Responsive Master Dashboard - CODEX CERTIFIED)</div>
+      <div class="h-sub">สารบบพยานหลักฐาน ๓๕ แผ่น • บังคับใช้ฟอนต์ TH Sarabun PSK 16 • แยก Part 2 เป็นหน้าถัดไปชัดเจน ๑๐๐%</div>
     </div>
-    <div class="badge-vector">RESPONSIVE &amp; VECTOR ENGINE • ZERO OVERLAP</div>
+    <div class="badge-vector">TOTAL 35 COURT PAGES • ZERO COLLISION</div>
   </header>
 
   <div class="container">
     <div class="quick-nav">
-      <span class="nav-label">⚡ สารบัญทางลัดกระทง:</span>
-<a href="#COUNT_01_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑</a>
-<a href="#COUNT_02_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒</a>
-<a href="#COUNT_03_RESPONSIVE.html" class="nav-btn">กรรมที่ ๓</a>
-<a href="#COUNT_04_RESPONSIVE.html" class="nav-btn">กรรมที่ ๔</a>
-<a href="#COUNT_05_RESPONSIVE.html" class="nav-btn">กรรมที่ ๕</a>
-<a href="#COUNT_06_RESPONSIVE.html" class="nav-btn">กรรมที่ ๖</a>
-<a href="#COUNT_07_RESPONSIVE.html" class="nav-btn">กรรมที่ ๗</a>
-<a href="#COUNT_08_RESPONSIVE.html" class="nav-btn">กรรมที่ ๘</a>
-<a href="#COUNT_09_RESPONSIVE.html" class="nav-btn">กรรมที่ ๙</a>
-<a href="#COUNT_10_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๐</a>
-<a href="#COUNT_11_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๑</a>
-<a href="#COUNT_12_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๒</a>
-<a href="#COUNT_13_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๓</a>
-<a href="#COUNT_14_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๔</a>
-<a href="#COUNT_15_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๕</a>
-<a href="#COUNT_16_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๖</a>
-<a href="#COUNT_17_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๗</a>
-<a href="#COUNT_18_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๘</a>
-<a href="#COUNT_19_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๙</a>
-<a href="#COUNT_20_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒๐</a>
-<a href="#COUNT_21_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒๑</a>
-<a href="#COUNT_22_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒๒</a>
-<a href="#COUNT_23_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒๓</a>
-<a href="#COUNT_24_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒๔</a>
-<a href="#COUNT_25_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒๕</a>
-<a href="#COUNT_26_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒๖</a>
-<a href="#COUNT_27_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑ (ปรียาฉัตร)</a>
-<a href="#COUNT_28_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒ (ปรียาฉัตร)</a>
-<a href="#COUNT_29_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑ (วันวิสาข์)</a>
-<a href="#COUNT_30_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑ (ทัศนีย์)</a>
+      <span class="nav-label">⚡ สารบัญทางลัดพยานหลักฐาน (รวม ๓๕ แผ่น):</span>
+      <a href="#COUNT_01_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑</a>
+      <a href="#COUNT_02_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒</a>
+      <a href="#COUNT_03_RESPONSIVE.html" class="nav-btn">กรรมที่ ๓</a>
+      <a href="#COUNT_04_P1_RESPONSIVE.html" class="nav-btn">กรรมที่ ๔ (หน้า ๑/๒)</a>
+      <a href="#COUNT_04_P2_RESPONSIVE.html" class="nav-btn p2-btn">กรรมที่ ๔ (หน้า ๒/๒)</a>
+      <a href="#COUNT_05_RESPONSIVE.html" class="nav-btn">กรรมที่ ๕</a>
+      <a href="#COUNT_06_P1_RESPONSIVE.html" class="nav-btn">กรรมที่ ๖ (หน้า ๑/๒)</a>
+      <a href="#COUNT_06_P2_RESPONSIVE.html" class="nav-btn p2-btn">กรรมที่ ๖ (หน้า ๒/๒)</a>
+      <a href="#COUNT_07_RESPONSIVE.html" class="nav-btn">กรรมที่ ๗</a>
+      <a href="#COUNT_08_RESPONSIVE.html" class="nav-btn">กรรมที่ ๘</a>
+      <a href="#COUNT_09_RESPONSIVE.html" class="nav-btn">กรรมที่ ๙</a>
+      <a href="#COUNT_10_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๐</a>
+      <a href="#COUNT_11_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๑</a>
+      <a href="#COUNT_12_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๒</a>
+      <a href="#COUNT_13_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๓</a>
+      <a href="#COUNT_14_P1_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๔ (หน้า ๑/๒)</a>
+      <a href="#COUNT_14_P2_RESPONSIVE.html" class="nav-btn p2-btn">กรรมที่ ๑๔ (หน้า ๒/๒)</a>
+      <a href="#COUNT_15_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๕</a>
+      <a href="#COUNT_16_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๖</a>
+      <a href="#COUNT_17_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๗</a>
+      <a href="#COUNT_18_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๘</a>
+      <a href="#COUNT_19_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑๙</a>
+      <a href="#COUNT_20_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒๐</a>
+      <a href="#COUNT_21_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒๑</a>
+      <a href="#COUNT_22_P1_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒๒ (หน้า ๑/๒)</a>
+      <a href="#COUNT_22_P2_RESPONSIVE.html" class="nav-btn p2-btn">กรรมที่ ๒๒ (หน้า ๒/๒)</a>
+      <a href="#COUNT_23_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒๓</a>
+      <a href="#COUNT_24_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒๔</a>
+      <a href="#COUNT_25_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒๕</a>
+      <a href="#COUNT_26_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒๖</a>
+      <a href="#COUNT_27_P1_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑ (ปรียาฉัตร) (หน้า ๑/๒)</a>
+      <a href="#COUNT_27_P2_RESPONSIVE.html" class="nav-btn p2-btn">กรรมที่ ๑ (ปรียาฉัตร) (หน้า ๒/๒)</a>
+      <a href="#COUNT_28_RESPONSIVE.html" class="nav-btn">กรรมที่ ๒ (ปรียาฉัตร)</a>
+      <a href="#COUNT_29_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑ (วันวิสาข์)</a>
+      <a href="#COUNT_30_RESPONSIVE.html" class="nav-btn">กรรมที่ ๑ (ทัศนีย์)</a>
     </div>
 
     <div class="card-shell" id="COUNT_01_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๑: กรรมที่ ๑ (ขอยืมเงิน 2,000 บาท - ค่าครีมและแฟนอับสัญญาณ) (2,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 1: กรรมที่ ๑: กรรมที่ ๑ (ขอยืมเงิน 2,000 บาท - ค่าครีมและแฟนอับสัญญาณ) (2,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_01_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_01_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_01.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_01_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑"></iframe>
+      <iframe src="COUNT_01_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_02_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๒: กรรมที่ ๒ (ขอยืมเงิน 3,000 บาท - อ้างยอดต้น 50,000 บาท สัญญาคืนก่อน 1 ทุ่ม) (3,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 2: กรรมที่ ๒: กรรมที่ ๒ (ขอยืมเงิน 3,000 บาท - อ้างยอดต้น 50,000 บาท สัญญาคืนก่อน 1 ทุ่ม) (3,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_02_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_02_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_02.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_02_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒"></iframe>
+      <iframe src="COUNT_02_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_03_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๓: กรรมที่ ๓ (ขอยืมเงิน 500 บาท) (500.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 3: กรรมที่ ๓: กรรมที่ ๓ (ขอยืมเงิน 500 บาท) (500.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_03_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_03_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_03.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_03_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๓"></iframe>
+      <iframe src="COUNT_03_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๓" onload="resizeIframe(this)"></iframe>
     </div>
 
-    <div class="card-shell" id="COUNT_04_RESPONSIVE.html">
+    <div class="card-shell" id="COUNT_04_P1_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๔: กรรมที่ ๔ (ขอกู้ยืม 2,000 บาท - อ้างเดินชนน้ำหอมแตก ต้องเคลียร์เรื่องถึงสำนักงาน) (2,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 4: กรรมที่ ๔ (หน้า ๑/๒): กรรมที่ ๔ (ขอกู้ยืม 2,000 บาท - อ้างเดินชนน้ำหอมแตก ต้องเคลียร์เรื่องถึงสำนักงาน) - [แชทสั่งโอน] (2,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_04_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
-          <a href="VECTOR_COUNT_04.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
+          <a href="COUNT_04_P1_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
+          <a href="VECTOR_COUNT_04_P1.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_04_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๔"></iframe>
+      <iframe src="COUNT_04_P1_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๔ (หน้า ๑/๒)" onload="resizeIframe(this)"></iframe>
+    </div>
+
+    <div class="card-shell" id="COUNT_04_P2_RESPONSIVE.html">
+      <div class="shell-bar">
+        <span class="shell-label">📁 แผ่นที่ 5: กรรมที่ ๔ (หน้า ๒/๒): หลักฐานต่อเนื่อง / สลิปโอนเงิน (Part 2) (2,000.00 บาท บาท)</span>
+        <div class="shell-actions">
+          <a href="COUNT_04_P2_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
+          <a href="VECTOR_COUNT_04_P2.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
+        </div>
+      </div>
+      <iframe src="COUNT_04_P2_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๔ (หน้า ๒/๒)" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_05_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๕: กรรมที่ ๕ (ขอยืม 4,000 บาท - อ้างไปถอดเหล็กมาเมื่อวาน) (4,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 6: กรรมที่ ๕: กรรมที่ ๕ (ขอยืม 4,000 บาท - อ้างไปถอดเหล็กมาเมื่อวาน) (4,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_05_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_05_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_05.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_05_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๕"></iframe>
+      <iframe src="COUNT_05_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๕" onload="resizeIframe(this)"></iframe>
     </div>
 
-    <div class="card-shell" id="COUNT_06_RESPONSIVE.html">
+    <div class="card-shell" id="COUNT_06_P1_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๖: กรรมที่ ๖ (ขอยืมเงิน 2,000 บาท - ตัดพ้อเรื่องเงินสองแสน และอ้างโอนให้พี่สาว 90,000) (2,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 7: กรรมที่ ๖ (หน้า ๑/๒): กรรมที่ ๖ (ขอยืมเงิน 2,000 บาท - ตัดพ้อเรื่องเงินสองแสน และอ้างโอนให้พี่สาว 90,000) - [แชทสั่งโอน] (2,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_06_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
-          <a href="VECTOR_COUNT_06.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
+          <a href="COUNT_06_P1_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
+          <a href="VECTOR_COUNT_06_P1.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_06_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๖"></iframe>
+      <iframe src="COUNT_06_P1_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๖ (หน้า ๑/๒)" onload="resizeIframe(this)"></iframe>
+    </div>
+
+    <div class="card-shell" id="COUNT_06_P2_RESPONSIVE.html">
+      <div class="shell-bar">
+        <span class="shell-label">📁 แผ่นที่ 8: กรรมที่ ๖ (หน้า ๒/๒): หลักฐานต่อเนื่อง / สลิปโอนเงิน (Part 2) (2,000.00 บาท บาท)</span>
+        <div class="shell-actions">
+          <a href="COUNT_06_P2_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
+          <a href="VECTOR_COUNT_06_P2.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
+        </div>
+      </div>
+      <iframe src="COUNT_06_P2_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๖ (หน้า ๒/๒)" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_07_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๗: กรรมที่ ๗ (ขอยืม 7,000 บาท - อ้างค่าใช้จ่ายที่พัทยา) (7,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 9: กรรมที่ ๗: กรรมที่ ๗ (ขอยืม 7,000 บาท - อ้างค่าใช้จ่ายที่พัทยา) (7,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_07_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_07_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_07.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_07_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๗"></iframe>
+      <iframe src="COUNT_07_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๗" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_08_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๘: กรรมที่ ๘ (ขอยืม 8,000 บาท - อ้างเคลียร์หนี้รายวัน) (8,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 10: กรรมที่ ๘: กรรมที่ ๘ (ขอยืม 8,000 บาท - อ้างเคลียร์หนี้รายวัน) (8,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_08_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_08_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_08.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_08_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๘"></iframe>
+      <iframe src="COUNT_08_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๘" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_09_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๙: กรรมที่ ๙ (ขอยืมรวม 5,000 บาท - ตกงาน 3,000 + ค่าบ้าน 2,000) (5,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 11: กรรมที่ ๙: กรรมที่ ๙ (ขอยืมรวม 5,000 บาท - ตกงาน 3,000 + ค่าบ้าน 2,000) (5,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_09_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_09_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_09.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_09_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๙"></iframe>
+      <iframe src="COUNT_09_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๙" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_10_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๑๐: กรรมที่ ๑๐ (ขอยืม 2,000 บาท - เสนอให้คืนวันละ 100 บาท) (2,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 12: กรรมที่ ๑๐: กรรมที่ ๑๐ (ขอยืม 2,000 บาท - เสนอให้คืนวันละ 100 บาท) (2,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_10_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_10_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_10.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_10_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๐"></iframe>
+      <iframe src="COUNT_10_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๐" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_11_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๑๑: กรรมที่ ๑๑ (ขอยืมระยะสั้น 4,100 บาท) (4,100.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 13: กรรมที่ ๑๑: กรรมที่ ๑๑ (ขอยืมระยะสั้น 4,100 บาท) (4,100.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_11_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_11_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_11.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_11_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๑"></iframe>
+      <iframe src="COUNT_11_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๑" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_12_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๑๒: กรรมที่ ๑๒ (ขอยืม 2,500 บาท - อ้างจ่ายลุง) (2,500.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 14: กรรมที่ ๑๒: กรรมที่ ๑๒ (ขอยืม 2,500 บาท - อ้างจ่ายลุง) (2,500.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_12_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_12_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_12.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_12_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๒"></iframe>
+      <iframe src="COUNT_12_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๒" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_13_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๑๓: กรรมที่ ๑๓ (เงินกู้ 20,000 บาท และยอด Shopee 5,500 บาท) (25,500.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 15: กรรมที่ ๑๓: กรรมที่ ๑๓ (เงินกู้ 20,000 บาท และยอด Shopee 5,500 บาท) (25,500.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_13_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_13_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_13.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_13_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๓"></iframe>
+      <iframe src="COUNT_13_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๓" onload="resizeIframe(this)"></iframe>
     </div>
 
-    <div class="card-shell" id="COUNT_14_RESPONSIVE.html">
+    <div class="card-shell" id="COUNT_14_P1_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๑๔: กรรมที่ ๑๔ (หลอกลวงเบิกเงินก้อนรวมมิตร 23,700 บาท) (23,700.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 16: กรรมที่ ๑๔ (หน้า ๑/๒): กรรมที่ ๑๔ (หลอกลวงเบิกเงินก้อนรวมมิตร 23,700 บาท) - [แชทสั่งโอน] (23,700.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_14_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
-          <a href="VECTOR_COUNT_14.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
+          <a href="COUNT_14_P1_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
+          <a href="VECTOR_COUNT_14_P1.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_14_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๔"></iframe>
+      <iframe src="COUNT_14_P1_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๔ (หน้า ๑/๒)" onload="resizeIframe(this)"></iframe>
+    </div>
+
+    <div class="card-shell" id="COUNT_14_P2_RESPONSIVE.html">
+      <div class="shell-bar">
+        <span class="shell-label">📁 แผ่นที่ 17: กรรมที่ ๑๔ (หน้า ๒/๒): หลักฐานต่อเนื่อง / สลิปโอนเงิน (Part 2) (23,700.00 บาท บาท)</span>
+        <div class="shell-actions">
+          <a href="COUNT_14_P2_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
+          <a href="VECTOR_COUNT_14_P2.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
+        </div>
+      </div>
+      <iframe src="COUNT_14_P2_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๔ (หน้า ๒/๒)" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_15_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๑๕: กรรมที่ ๑๕ (ขอยืม 15,000 บาท - อ้างจบทุกเรื่องจริง) (15,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 18: กรรมที่ ๑๕: กรรมที่ ๑๕ (ขอยืม 15,000 บาท - อ้างจบทุกเรื่องจริง) (15,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_15_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_15_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_15.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_15_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๕"></iframe>
+      <iframe src="COUNT_15_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๕" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_16_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๑๖: กรรมที่ ๑๖ (อ้างบุคคลภายนอก &apos;แม็ก&apos; ขอให้ช่วยยืม 2,000 บาท) (2,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 19: กรรมที่ ๑๖: กรรมที่ ๑๖ (อ้างบุคคลภายนอก &apos;แม็ก&apos; ขอให้ช่วยยืม 2,000 บาท) (2,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_16_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_16_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_16.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_16_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๖"></iframe>
+      <iframe src="COUNT_16_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๖" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_17_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๑๗: กรรมที่ ๑๗ (ขอยืม 5,000 บาท - อ้างเคลียร์หนี้หลุดพ้น) (5,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 20: กรรมที่ ๑๗: กรรมที่ ๑๗ (ขอยืม 5,000 บาท - อ้างเคลียร์หนี้หลุดพ้น) (5,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_17_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_17_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_17.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_17_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๗"></iframe>
+      <iframe src="COUNT_17_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๗" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_18_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๑๘: กรรมที่ ๑๘ (อ้างหนี้ 25,000 บาท และดอกเบี้ยมหาโหดเดือนละ 15,000 บาท) (25,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 21: กรรมที่ ๑๘: กรรมที่ ๑๘ (อ้างหนี้ 25,000 บาท และดอกเบี้ยมหาโหดเดือนละ 15,000 บาท) (25,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_18_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_18_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_18.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_18_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๘"></iframe>
+      <iframe src="COUNT_18_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๘" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_19_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๑๙: กรรมที่ ๑๙ (ส่งภาพสลิปเท็จ 35,000 บาท สร้างหลักฐานลวงตา) (35,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 22: กรรมที่ ๑๙: กรรมที่ ๑๙ (ส่งภาพสลิปเท็จ 35,000 บาท สร้างหลักฐานลวงตา) (35,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_19_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_19_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_19.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_19_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๙"></iframe>
+      <iframe src="COUNT_19_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑๙" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_20_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๒๐: กรรมที่ ๒๐ (ขอยืม 5,000 บาท สัญญาคืน 6,000 บาทในวันเดียวกัน พร้อมแนบสลิปกรุงไทย) (5,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 23: กรรมที่ ๒๐: กรรมที่ ๒๐ (ขอยืม 5,000 บาท สัญญาคืน 6,000 บาทในวันเดียวกัน พร้อมแนบสลิปกรุงไทย) (5,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_20_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_20_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_20.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_20_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๐"></iframe>
+      <iframe src="COUNT_20_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๐" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_21_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๒๑: กรรมที่ ๒๑ (อ้างเงินไม่พอขาด 4,000 บาท และโอนเงินสด 2,000 บาท เข้าบัญชี จิณห์นิภา) (2,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 24: กรรมที่ ๒๑: กรรมที่ ๒๑ (อ้างเงินไม่พอขาด 4,000 บาท และโอนเงินสด 2,000 บาท เข้าบัญชี จิณห์นิภา) (2,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_21_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_21_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_21.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_21_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๑"></iframe>
+      <iframe src="COUNT_21_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๑" onload="resizeIframe(this)"></iframe>
     </div>
 
-    <div class="card-shell" id="COUNT_22_RESPONSIVE.html">
+    <div class="card-shell" id="COUNT_22_P1_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๒๒: กรรมที่ ๒๒ (โอนเงินสำเร็จเข้าบัญชี จิณห์นิภา ttb 996-5 ยอด 3,000 บาท) (3,000.00 บาท)</span>
+        <span class="shell-label">📁 แผ่นที่ 25: กรรมที่ ๒๒ (หน้า ๑/๒): กรรมที่ ๒๒ (โอนเงินสำเร็จเข้าบัญชี จิณห์นิภา ttb 996-5 ยอด 3,000 บาท) - [แชทสั่งโอน] (3,000.00 บาท บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_22_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
-          <a href="VECTOR_COUNT_22.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
+          <a href="COUNT_22_P1_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
+          <a href="VECTOR_COUNT_22_P1.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_22_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๒"></iframe>
+      <iframe src="COUNT_22_P1_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๒ (หน้า ๑/๒)" onload="resizeIframe(this)"></iframe>
+    </div>
+
+    <div class="card-shell" id="COUNT_22_P2_RESPONSIVE.html">
+      <div class="shell-bar">
+        <span class="shell-label">📁 แผ่นที่ 26: กรรมที่ ๒๒ (หน้า ๒/๒): หลักฐานต่อเนื่อง / สลิปโอนเงิน (Part 2) (3,000.00 บาท บาท)</span>
+        <div class="shell-actions">
+          <a href="COUNT_22_P2_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
+          <a href="VECTOR_COUNT_22_P2.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
+        </div>
+      </div>
+      <iframe src="COUNT_22_P2_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๒ (หน้า ๒/๒)" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_23_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๒๓: กรรมที่ ๒๓ (สลิปโอนเงินเข้าบัญชี จิณห์นิภา 5 ก.พ. 68) (ตามยอดสลิป (หลักฐานการโอน))</span>
+        <span class="shell-label">📁 แผ่นที่ 27: กรรมที่ ๒๓: กรรมที่ ๒๓ (สลิปโอนเงินเข้าบัญชี จิณห์นิภา 5 ก.พ. 68) (ตามยอดสลิป (หลักฐานการโอน) บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_23_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_23_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_23.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_23_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๓"></iframe>
+      <iframe src="COUNT_23_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๓" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_24_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๒๔: กรรมที่ ๒๔ (สลิปโอนเงินเข้าบัญชี จิณห์นิภา 17 ก.พ. 68) (ตามยอดสลิป (หลักฐานการโอน))</span>
+        <span class="shell-label">📁 แผ่นที่ 28: กรรมที่ ๒๔: กรรมที่ ๒๔ (สลิปโอนเงินเข้าบัญชี จิณห์นิภา 17 ก.พ. 68) (ตามยอดสลิป (หลักฐานการโอน) บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_24_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_24_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_24.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_24_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๔"></iframe>
+      <iframe src="COUNT_24_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๔" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_25_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๒๕: กรรมที่ ๒๕ (สลิปโอนเงินเข้าบัญชี จิณห์นิภา 7 มี.ค. 68) (ตามยอดสลิป (หลักฐานการโอน))</span>
+        <span class="shell-label">📁 แผ่นที่ 29: กรรมที่ ๒๕: กรรมที่ ๒๕ (สลิปโอนเงินเข้าบัญชี จิณห์นิภา 7 มี.ค. 68) (ตามยอดสลิป (หลักฐานการโอน) บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_25_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_25_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_25.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_25_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๕"></iframe>
+      <iframe src="COUNT_25_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๕" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_26_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๒๖: กรรมที่ ๒๖ (สลิปโอนเงินเข้าบัญชี จิณห์นิภา 20 ส.ค. 68) (ตามยอดสลิป (หลักฐานการโอน))</span>
+        <span class="shell-label">📁 แผ่นที่ 30: กรรมที่ ๒๖: กรรมที่ ๒๖ (สลิปโอนเงินเข้าบัญชี จิณห์นิภา 20 ส.ค. 68) (ตามยอดสลิป (หลักฐานการโอน) บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_26_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_26_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_26.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_26_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๖"></iframe>
+      <iframe src="COUNT_26_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒๖" onload="resizeIframe(this)"></iframe>
     </div>
 
-    <div class="card-shell" id="COUNT_27_RESPONSIVE.html">
+    <div class="card-shell" id="COUNT_27_P1_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๑ (ปรียาฉัตร): กรรมที่ ๑ ของ ปรียาฉัตร (รับโอนเงินตรง 9,000 บาท - บันทึกช่วยจำยืมปิดกสิกร สัญญาคืน 10,000 บาท) (9,000.00 บาท (สัญญาคืน 10,000.00 บาท))</span>
+        <span class="shell-label">📁 แผ่นที่ 31: กรรมที่ ๑ (ปรียาฉัตร) (หน้า ๑/๒): กรรมที่ ๑ ของ ปรียาฉัตร (รับโอนเงินตรง 9,000 บาท - บันทึกช่วยจำยืมปิดกสิกร สัญญาคืน 10,000 บาท) - [แชทสั่งโอน] (9,000.00 บาท (สัญญาคืน 10,000.00 บาท) บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_27_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
-          <a href="VECTOR_COUNT_27.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
+          <a href="COUNT_27_P1_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
+          <a href="VECTOR_COUNT_27_P1.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_27_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑ (ปรียาฉัตร)"></iframe>
+      <iframe src="COUNT_27_P1_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑ (ปรียาฉัตร) (หน้า ๑/๒)" onload="resizeIframe(this)"></iframe>
+    </div>
+
+    <div class="card-shell" id="COUNT_27_P2_RESPONSIVE.html">
+      <div class="shell-bar">
+        <span class="shell-label">📁 แผ่นที่ 32: กรรมที่ ๑ (ปรียาฉัตร) (หน้า ๒/๒): หลักฐานต่อเนื่อง / สลิปโอนเงิน (Part 2) (9,000.00 บาท (สัญญาคืน 10,000.00 บาท) บาท)</span>
+        <div class="shell-actions">
+          <a href="COUNT_27_P2_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
+          <a href="VECTOR_COUNT_27_P2.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
+        </div>
+      </div>
+      <iframe src="COUNT_27_P2_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑ (ปรียาฉัตร) (หน้า ๒/๒)" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_28_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๒ (ปรียาฉัตร): กรรมที่ ๒ ของ ปรียาฉัตร (การรับโอนเงินต่อเนื่อง 8 มิ.ย. 68) (ตามยอดสลิป (หลักฐานการโอน))</span>
+        <span class="shell-label">📁 แผ่นที่ 33: กรรมที่ ๒ (ปรียาฉัตร): กรรมที่ ๒ ของ ปรียาฉัตร (การรับโอนเงินต่อเนื่อง 8 มิ.ย. 68) (ตามยอดสลิป (หลักฐานการโอน) บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_28_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_28_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_28.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_28_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒ (ปรียาฉัตร)"></iframe>
+      <iframe src="COUNT_28_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๒ (ปรียาฉัตร)" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_29_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๑ (วันวิสาข์): กรรมที่ ๑ ของ วันวิสาข์ (รับโอนเงินเข้าบัญชี 27 พ.ค. 68) (ตามยอดสลิป (หลักฐานการโอน))</span>
+        <span class="shell-label">📁 แผ่นที่ 34: กรรมที่ ๑ (วันวิสาข์): กรรมที่ ๑ ของ วันวิสาข์ (รับโอนเงินเข้าบัญชี 27 พ.ค. 68) (ตามยอดสลิป (หลักฐานการโอน) บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_29_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_29_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_29.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_29_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑ (วันวิสาข์)"></iframe>
+      <iframe src="COUNT_29_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑ (วันวิสาข์)" onload="resizeIframe(this)"></iframe>
     </div>
 
     <div class="card-shell" id="COUNT_30_RESPONSIVE.html">
       <div class="shell-bar">
-        <span class="shell-label">📁 กรรมที่ ๑ (ทัศนีย์): กรรมที่ ๑ ของ ทัศนีย์ (รับโอนเงินเข้าบัญชี 27 พ.ค. 68) (ตามยอดสลิป (หลักฐานการโอน))</span>
+        <span class="shell-label">📁 แผ่นที่ 35: กรรมที่ ๑ (ทัศนีย์): กรรมที่ ๑ ของ ทัศนีย์ (รับโอนเงินเข้าบัญชี 27 พ.ค. 68) (ตามยอดสลิป (หลักฐานการโอน) บาท)</span>
         <div class="shell-actions">
-          <a href="COUNT_30_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดการ์ดเต็มจอ (Responsive)</a>
+          <a href="COUNT_30_RESPONSIVE.html" target="_blank" class="act-btn act-html">🖥️ เปิดแผ่นเต็มจอ</a>
           <a href="VECTOR_COUNT_30.svg" target="_blank" class="act-btn act-svg">🔍 เปิดไฟล์ SVG เวกเตอร์</a>
         </div>
       </div>
-      <iframe src="COUNT_30_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑ (ทัศนีย์)"></iframe>
+      <iframe src="COUNT_30_RESPONSIVE.html" class="shell-frame" title="กรรมที่ ๑ (ทัศนีย์)" onload="resizeIframe(this)"></iframe>
     </div>
 
   </div>
