@@ -166,16 +166,13 @@ def generate_hardened_svg_p1(ev, page_index_str, total_pages=1):
     table_h = sum(r[5] for r in table_rows_data)
 
     header_y = 25
-    meta_y = header_y + 55
+    meta_y = header_y + 36
     meta_h = 42
     table_y = meta_y + meta_h + 16
     ev1_y = table_y + table_h + 22
-    footer_y = ev1_y + ev1_h + 22
-    footer_h = 55
-    TOTAL_H = footer_y + footer_h + 25
+    TOTAL_H = ev1_y + ev1_h + 25
 
     count_label = f"{ev['count_no']} (หน้า ๑/๒)" if is_two_page else ev['count_no']
-    footer_label = f"สารบบคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ (ป.อ. มาตรา ๓๔๑, ๙๑) | แผ่นที่ {page_index_str} (หน้า ๑ จาก ๒ หน้า ของ {ev['count_no']})" if is_two_page else f"สารบบคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ (ป.อ. มาตรา ๓๔๑, ๙๑) | แผ่นเวกเตอร์ที่ {page_index_str} จาก ๓๕ แผ่น"
 
     svg = []
     svg.append(f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {CARD_W} {TOTAL_H}" width="{CARD_W}" height="{TOTAL_H}">
@@ -184,15 +181,12 @@ def generate_hardened_svg_p1(ev, page_index_str, total_pages=1):
       {SARABUN_FONT_FACE_CSS}
       text {{ font-family: 'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif; }}
       .title {{ font-size: 20px; font-weight: 800; fill: #0f172a; }}
-      .sub {{ font-size: 14px; font-weight: 300; fill: #64748b; }}
       .meta-label {{ font-size: 15px; font-weight: 300; fill: #0f172a; }}
       .th-txt {{ font-size: 16px; font-weight: 700; fill: #1e293b; }}
       .td-txt {{ font-size: 16px; font-weight: 300; fill: #0f172a; }}
       .td-bold {{ font-size: 16px; font-weight: 700; fill: #0f172a; }}
       .ev-title {{ font-size: 14.5px; font-weight: 700; fill: #ffffff; }}
       .stamp-txt {{ font-size: 10.5px; font-weight: 800; fill: #ffffff; letter-spacing: 0.5px; }}
-      .footer-txt {{ font-size: 13.5px; font-weight: 300; fill: #64748b; }}
-      .footer-sub {{ font-size: 12px; font-weight: 300; fill: #94a3b8; }}
     </style>
   </defs>
 
@@ -204,8 +198,7 @@ def generate_hardened_svg_p1(ev, page_index_str, total_pages=1):
 
   <!-- HEADER -->
   <g transform="translate({MARGIN_X + 20}, {header_y})">
-    <text x="0" y="22" fill="#0f172a" font-size="20px" font-weight="800" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">⚖️ แฟ้มสำนวนคดีอาญา (มาตรฐานศาลยุติธรรม - CODEX VECTOR STREAM)</text>
-    <text x="0" y="44" fill="#64748b" font-size="14px" font-weight="300" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรมต่างวาระ (ป.อ. มาตรา ๙๑)</text>
+    <text x="0" y="22" fill="#0f172a" font-size="20px" font-weight="800" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">แฟ้มสำนวน</text>
   </g>
 
   <!-- METADATA BAR -->
@@ -214,7 +207,7 @@ def generate_hardened_svg_p1(ev, page_index_str, total_pages=1):
     
     <!-- Left Person Info -->
     <text x="14" y="26" fill="#0f172a" font-size="15px" font-weight="300" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">
-      <tspan font-weight="700">บุคคลเป้าหมาย:</tspan> {esc(ev['person'])} ({esc(ev['person_role'])})
+      <tspan font-weight="700">บุคคลเป้าหมาย:</tspan> {esc(ev['person'])}
     </text>
 ''')
 
@@ -296,16 +289,6 @@ def generate_hardened_svg_p1(ev, page_index_str, total_pages=1):
       <image href="{p1_uri}" width="{disp1_w}" height="{disp1_h}" preserveAspectRatio="xMidYMid meet" />
     </g>
   </g>
-''')
-
-    # Footer
-    svg.append(f'''  <!-- FOOTER -->
-  <g transform="translate({MARGIN_X + 20}, {footer_y})">
-    <line x1="0" y1="0" x2="{CONTENT_W - 40}" y2="0" stroke="#cbd5e1" stroke-width="1" />
-    <text x="0" y="22" fill="#475569" font-size="13px" font-weight="400" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">{esc(footer_label)}</text>
-    <text x="0" y="42" fill="#64748b" font-size="12px" font-weight="400" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex V2) • ISO/IEC 27037 Standard</text>
-  </g>
-
 </svg>''')
 
     return "\n".join(svg)
@@ -342,16 +325,13 @@ def generate_hardened_svg_p2(ev, page_index_str):
     link_table_h = sum(r[2] for r in link_rows_data)
 
     header_y = 25
-    meta_y = header_y + 55
+    meta_y = header_y + 36
     meta_h = 42
     table_y = meta_y + meta_h + 16
     ev2_y = table_y + link_table_h + 22
-    footer_y = ev2_y + ev2_h + 22
-    footer_h = 55
-    TOTAL_H = footer_y + footer_h + 25
+    TOTAL_H = ev2_y + ev2_h + 25
 
     count_label = f"{ev['count_no']} (หน้า ๒/๒)"
-    footer_label = f"สารบบคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ (ป.อ. มาตรา ๓๔๑, ๙๑) | แผ่นที่ {page_index_str} (หน้า ๒ จาก ๒ หน้า - สลิปโอนเงิน/หลักฐานต่อเนื่อง ของ {ev['count_no']})"
 
     svg = []
     svg.append(f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {CARD_W} {TOTAL_H}" width="{CARD_W}" height="{TOTAL_H}">
@@ -360,15 +340,12 @@ def generate_hardened_svg_p2(ev, page_index_str):
       {SARABUN_FONT_FACE_CSS}
       text {{ font-family: 'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif; }}
       .title {{ font-size: 20px; font-weight: 800; fill: #0f172a; }}
-      .sub {{ font-size: 14px; font-weight: 300; fill: #64748b; }}
       .meta-label {{ font-size: 15px; font-weight: 300; fill: #0f172a; }}
       .th-txt {{ font-size: 16px; font-weight: 700; fill: #1e293b; }}
       .td-txt {{ font-size: 16px; font-weight: 300; fill: #0f172a; }}
       .td-bold {{ font-size: 16px; font-weight: 700; fill: #0f172a; }}
       .ev-title {{ font-size: 14.5px; font-weight: 700; fill: #ffffff; }}
       .stamp-txt {{ font-size: 10.5px; font-weight: 800; fill: #ffffff; letter-spacing: 0.5px; }}
-      .footer-txt {{ font-size: 13.5px; font-weight: 300; fill: #64748b; }}
-      .footer-sub {{ font-size: 12px; font-weight: 300; fill: #94a3b8; }}
     </style>
   </defs>
 
@@ -380,8 +357,7 @@ def generate_hardened_svg_p2(ev, page_index_str):
 
   <!-- HEADER -->
   <g transform="translate({MARGIN_X + 20}, {header_y})">
-    <text x="0" y="22" fill="#0f172a" font-size="20px" font-weight="800" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">⚖️ แฟ้มสำนวนคดีอาญา (มาตรฐานศาลยุติธรรม - CODEX VECTOR STREAM)</text>
-    <text x="0" y="44" fill="#64748b" font-size="14px" font-weight="300" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรมต่างวาระ (ป.อ. มาตรา ๙๑)</text>
+    <text x="0" y="22" fill="#0f172a" font-size="20px" font-weight="800" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">แฟ้มสำนวน</text>
   </g>
 
   <!-- METADATA BAR -->
@@ -390,7 +366,7 @@ def generate_hardened_svg_p2(ev, page_index_str):
     
     <!-- Left Person Info -->
     <text x="14" y="26" fill="#0f172a" font-size="15px" font-weight="300" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">
-      <tspan font-weight="700">บุคคลเป้าหมาย:</tspan> {esc(ev['person'])} ({esc(ev['person_role'])})
+      <tspan font-weight="700">บุคคลเป้าหมาย:</tspan> {esc(ev['person'])}
     </text>
     
     <!-- Badges -->
@@ -440,16 +416,6 @@ def generate_hardened_svg_p2(ev, page_index_str):
       <image href="{p2_uri}" width="{disp2_w}" height="{disp2_h}" preserveAspectRatio="xMidYMid meet" />
     </g>
   </g>
-''')
-
-    # Footer
-    svg.append(f'''  <!-- FOOTER -->
-  <g transform="translate({MARGIN_X + 20}, {footer_y})">
-    <line x1="0" y1="0" x2="{CONTENT_W - 40}" y2="0" stroke="#cbd5e1" stroke-width="1" />
-    <text x="0" y="22" fill="#475569" font-size="13px" font-weight="400" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">{esc(footer_label)}</text>
-    <text x="0" y="42" fill="#64748b" font-size="12px" font-weight="400" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex V2) • ISO/IEC 27037 Standard</text>
-  </g>
-
 </svg>''')
 
     return "\n".join(svg)
@@ -465,7 +431,6 @@ def generate_responsive_html_p1(ev, page_index_str, total_pages=1):
 
     laws_html = "".join([f'<div class="law-row">{esc(law)}</div>' for law in ev["codex_laws"]])
     count_label = f"{ev['count_no']} (หน้า ๑/๒)" if is_two_page else ev['count_no']
-    footer_label = f"สารบบคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ (ป.อ. มาตรา ๓๔๑, ๙๑) | แผ่นที่ {page_index_str} (หน้า ๑ จาก ๒ หน้า ของ {ev['count_no']})" if is_two_page else f"สารบบคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ (ป.อ. มาตรา ๓๔๑, ๙๑) | แผ่นเวกเตอร์ที่ {page_index_str} จาก ๓๕ แผ่น"
 
     next_page_badge = '<span class="pill-next">📄 มีต่อหน้า ๒ (หลักฐานต่อเนื่อง) ➔</span>' if is_two_page else ''
 
@@ -674,13 +639,12 @@ def generate_responsive_html_p1(ev, page_index_str, total_pages=1):
   <div class="dossier-card">
     <!-- HEADER -->
     <div class="court-header">
-      <div class="court-title">⚖️ แฟ้มสำนวนคดีอาญา (มาตรฐานศาลยุติธรรม - CODEX RESPONSIVE STREAM)</div>
-      <div class="court-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรมต่างวาระ (ป.อ. มาตรา ๙๑)</div>
+      <div class="court-title">แฟ้มสำนวน</div>
       
       <!-- METADATA BAR -->
       <div class="meta-bar">
         <div class="meta-left">
-          <strong>บุคคลเป้าหมาย:</strong> {esc(ev['person'])} ({esc(ev['person_role'])})
+          <strong>บุคคลเป้าหมาย:</strong> {esc(ev['person'])}
         </div>
         <div class="meta-right">
           <span class="pill-count">{esc(count_label)}</span>
@@ -750,12 +714,6 @@ def generate_responsive_html_p1(ev, page_index_str, total_pages=1):
         <img src="{p1_uri}" class="ev-img" alt="Evidence {esc(ev['count_no'])}" />
       </div>
     </div>
-
-    <!-- FOOTER -->
-    <div class="court-footer">
-      <div>{esc(footer_label)}</div>
-      <div style="color: #94a3b8; font-size: 12px; margin-top: 2px;">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex V2) • ISO/IEC 27037 Standard</div>
-    </div>
   </div>
 </body>
 </html>'''
@@ -767,7 +725,6 @@ def generate_responsive_html_p2(ev, page_index_str):
     p2_uri = image_to_base64_data_uri(img_p2_path)
 
     count_label = f"{ev['count_no']} (หน้า ๒/๒)"
-    footer_label = f"สารบบคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ (ป.อ. มาตรา ๓๔๑, ๙๑) | แผ่นที่ {page_index_str} (หน้า ๒ จาก ๒ หน้า - สลิปโอนเงิน/หลักฐานต่อเนื่อง ของ {ev['count_no']})"
 
     html = f'''<!DOCTYPE html>
 <html lang="th">
@@ -950,13 +907,12 @@ def generate_responsive_html_p2(ev, page_index_str):
   <div class="dossier-card">
     <!-- HEADER -->
     <div class="court-header">
-      <div class="court-title">⚖️ แฟ้มสำนวนคดีอาญา (มาตรฐานศาลยุติธรรม - CODEX RESPONSIVE STREAM)</div>
-      <div class="court-sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรมต่างวาระ (ป.อ. มาตรา ๙๑)</div>
+      <div class="court-title">แฟ้มสำนวน</div>
       
       <!-- METADATA BAR -->
       <div class="meta-bar">
         <div class="meta-left">
-          <strong>บุคคลเป้าหมาย:</strong> {esc(ev['person'])} ({esc(ev['person_role'])})
+          <strong>บุคคลเป้าหมาย:</strong> {esc(ev['person'])}
         </div>
         <div class="meta-right">
           <span class="pill-count">{esc(count_label)}</span>
@@ -991,12 +947,6 @@ def generate_responsive_html_p2(ev, page_index_str):
       <div class="evidence-body">
         <img src="{p2_uri}" class="ev-img" alt="Evidence Part 2 ({esc(ev['count_no'])})" />
       </div>
-    </div>
-
-    <!-- FOOTER -->
-    <div class="court-footer">
-      <div>{esc(footer_label)}</div>
-      <div style="color: #94a3b8; font-size: 12px; margin-top: 2px;">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex V2) • ISO/IEC 27037 Standard</div>
     </div>
   </div>
 </body>
