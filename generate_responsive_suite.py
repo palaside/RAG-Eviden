@@ -26,6 +26,66 @@ def image_to_base64_data_uri(img_path):
         encoded = base64.b64encode(f.read()).decode("ascii")
     return f"data:{mime};base64,{encoded}"
 
+# Load authentic government TH Sarabun PSK fonts
+ttf_reg = r'C:\Users\EVE\AppData\Local\Microsoft\Windows\Fonts\THSarabun.ttf'
+ttf_bold = r'C:\Users\EVE\AppData\Local\Microsoft\Windows\Fonts\THSarabun Bold.ttf'
+
+with open(ttf_reg, 'rb') as f:
+    b64_sarabun_reg = base64.b64encode(f.read()).decode('ascii')
+with open(ttf_bold, 'rb') as f:
+    b64_sarabun_bold = base64.b64encode(f.read()).decode('ascii')
+
+SARABUN_FONT_FACE_CSS = f'''
+@font-face {{
+  font-family: 'TH Sarabun PSK';
+  src: url('data:font/truetype;charset=utf-8;base64,{b64_sarabun_reg}') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}}
+@font-face {{
+  font-family: 'TH Sarabun PSK';
+  src: url('data:font/truetype;charset=utf-8;base64,{b64_sarabun_reg}') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}}
+@font-face {{
+  font-family: 'TH Sarabun PSK';
+  src: url('data:font/truetype;charset=utf-8;base64,{b64_sarabun_bold}') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}}
+@font-face {{
+  font-family: 'TH Sarabun PSK';
+  src: url('data:font/truetype;charset=utf-8;base64,{b64_sarabun_bold}') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}}
+@font-face {{
+  font-family: 'THSarabunPSK';
+  src: url('data:font/truetype;charset=utf-8;base64,{b64_sarabun_reg}') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}}
+@font-face {{
+  font-family: 'THSarabunPSK';
+  src: url('data:font/truetype;charset=utf-8;base64,{b64_sarabun_reg}') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}}
+@font-face {{
+  font-family: 'THSarabunPSK';
+  src: url('data:font/truetype;charset=utf-8;base64,{b64_sarabun_bold}') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}}
+@font-face {{
+  font-family: 'THSarabunPSK';
+  src: url('data:font/truetype;charset=utf-8;base64,{b64_sarabun_bold}') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}}
+'''
+
 # Helper to wrap text for SVG
 def wrap_text(text, max_chars=66):
     lines = []
@@ -121,16 +181,16 @@ def generate_hardened_svg(ev, seq_num):
     svg.append(f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {CARD_W} {TOTAL_H}" width="{CARD_W}" height="{TOTAL_H}">
   <defs>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&amp;display=swap');
-      text {{ font-family: 'Sarabun', 'TH Sarabun New', 'TH Sarabun PSK', sans-serif; }}
+      {SARABUN_FONT_FACE_CSS}
+      text {{ font-family: 'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif; }}
       .title {{ font-size: 20px; font-weight: 800; fill: #0f172a; }}
-      .sub {{ font-size: 13.5px; font-weight: 300; fill: #64748b; }}
-      .meta-label {{ font-size: 14.5px; font-weight: 300; fill: #0f172a; }}
+      .sub {{ font-size: 14px; font-weight: 300; fill: #64748b; }}
+      .meta-label {{ font-size: 15px; font-weight: 300; fill: #0f172a; }}
       .th-txt {{ font-size: 16px; font-weight: 700; fill: #1e293b; }}
       .td-txt {{ font-size: 16px; font-weight: 300; fill: #0f172a; }}
       .td-bold {{ font-size: 16px; font-weight: 700; fill: #0f172a; }}
-      .ev-title {{ font-size: 13.5px; font-weight: 700; fill: #ffffff; }}
-      .stamp-txt {{ font-size: 10px; font-weight: 800; fill: #ffffff; letter-spacing: 0.5px; }}
+      .ev-title {{ font-size: 14.5px; font-weight: 700; fill: #ffffff; }}
+      .stamp-txt {{ font-size: 10.5px; font-weight: 800; fill: #ffffff; letter-spacing: 0.5px; }}
       .footer-txt {{ font-size: 13.5px; font-weight: 300; fill: #64748b; }}
       .footer-sub {{ font-size: 12px; font-weight: 300; fill: #94a3b8; }}
     </style>
@@ -144,8 +204,8 @@ def generate_hardened_svg(ev, seq_num):
 
   <!-- HEADER -->
   <g transform="translate({MARGIN_X + 20}, {header_y})">
-    <text x="0" y="22" fill="#0f172a" font-size="20px" font-weight="800" font-family="'Sarabun', 'TH Sarabun New', sans-serif">⚖️ แฟ้มสำนวนคดีอาญา (มาตรฐานศาลยุติธรรม - CODEX VECTOR STREAM)</text>
-    <text x="0" y="44" fill="#64748b" font-size="13.5px" font-weight="300" font-family="'Sarabun', 'TH Sarabun New', sans-serif">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรมต่างวาระ (ป.อ. มาตรา ๙๑)</text>
+    <text x="0" y="22" fill="#0f172a" font-size="20px" font-weight="800" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">⚖️ แฟ้มสำนวนคดีอาญา (มาตรฐานศาลยุติธรรม - CODEX VECTOR STREAM)</text>
+    <text x="0" y="44" fill="#64748b" font-size="14px" font-weight="300" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรมต่างวาระ (ป.อ. มาตรา ๙๑)</text>
   </g>
 
   <!-- METADATA BAR (FIXED: SEPARATE BADGES - ZERO COLLISION!) -->
@@ -153,18 +213,18 @@ def generate_hardened_svg(ev, seq_num):
     <rect x="0" y="0" width="{CONTENT_W - 40}" height="{meta_h}" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" />
     
     <!-- Left Person Info -->
-    <text x="14" y="26" fill="#0f172a" font-size="14.5px" font-weight="300" font-family="'Sarabun', 'TH Sarabun New', sans-serif">
+    <text x="14" y="26" fill="#0f172a" font-size="15px" font-weight="300" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">
       <tspan font-weight="700">บุคคลเป้าหมาย:</tspan> {esc(ev['person'])} ({esc(ev['person_role'])})
     </text>
     
     <!-- Right Badges (NO TSPAN OVERLAP - PLACED AS EXPLICIT BADGES) -->
     <!-- Count Badge (Red) -->
     <rect x="{CONTENT_W - 40 - 280}" y="8" width="100" height="26" rx="4" fill="#fee2e2" stroke="#fca5a5" stroke-width="1" />
-    <text x="{CONTENT_W - 40 - 230}" y="25" text-anchor="middle" font-size="13px" font-weight="700" fill="#b91c1c" font-family="'Sarabun', 'TH Sarabun New', sans-serif">{esc(ev['count_no'])}</text>
+    <text x="{CONTENT_W - 40 - 230}" y="25" text-anchor="middle" font-size="13px" font-weight="700" fill="#b91c1c" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">{esc(ev['count_no'])}</text>
     
     <!-- Amount Badge (Blue) -->
     <rect x="{CONTENT_W - 40 - 172}" y="8" width="160" height="26" rx="4" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1" />
-    <text x="{CONTENT_W - 40 - 92}" y="25" text-anchor="middle" font-size="13px" font-weight="700" fill="#1e40af" font-family="'Sarabun', 'TH Sarabun New', sans-serif">ความเสียหาย: {esc(ev['amount'])}</text>
+    <text x="{CONTENT_W - 40 - 92}" y="25" text-anchor="middle" font-size="13px" font-weight="700" fill="#1e40af" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">ความเสียหาย: {esc(ev['amount'])}</text>
   </g>
 
   <!-- 11 TOPICS TABLE (FONT 16PX - TH SARABUN) -->
@@ -191,13 +251,13 @@ def generate_hardened_svg(ev, seq_num):
         svg.append(f'    <rect x="{COL1_W}" y="{accum_y}" width="{COL2_W - 40}" height="{rh}" fill="{bg_td}" stroke="{stroke_c}" stroke-width="1" />')
         
     # Title (Bold 16px)
-        svg.append(f'    <text x="14" y="{accum_y + 26}" fill="#0f172a" font-size="16px" font-weight="700" font-family="\'Sarabun\', \'TH Sarabun New\', sans-serif">{esc(title)}</text>')
+        svg.append(f'    <text x="14" y="{accum_y + 26}" fill="#0f172a" font-size="16px" font-weight="700" font-family="\'TH Sarabun PSK\', \'THSarabunPSK\', \'TH Sarabun New\', sans-serif">{esc(title)}</text>')
         
         # Lines (Thin 16px)
         line_y = accum_y + 26
         for l in lines:
             weight = "700" if is_bold else "300"
-            font_fam = "monospace" if is_mono else "'Sarabun', 'TH Sarabun New', sans-serif"
+            font_fam = "monospace" if is_mono else "'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif"
             font_sz = "14px" if is_mono else "16px"
             svg.append(f'    <text x="{COL1_W + 14}" y="{line_y}" fill="{color}" font-size="{font_sz}" font-weight="{weight}" font-family="{font_fam}">{esc(l)}</text>')
             line_y += LINE_H
@@ -212,10 +272,10 @@ def generate_hardened_svg(ev, seq_num):
     <rect x="0" y="0" width="{CONTENT_W - 40}" height="{ev1_h}" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.5" />
     
     <rect x="0" y="0" width="{CONTENT_W - 40}" height="36" rx="6" fill="#1e293b" />
-    <text x="16" y="23" fill="#ffffff" font-size="14.5px" font-weight="700" font-family="'Sarabun', 'TH Sarabun New', sans-serif">📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง</text>
+    <text x="16" y="23" fill="#ffffff" font-size="14.5px" font-weight="700" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง</text>
     
     <rect x="{CONTENT_W - 40 - 240}" y="7" width="226" height="22" rx="3" fill="#dc2626" />
-    <text x="{CONTENT_W - 40 - 127}" y="22" text-anchor="middle" fill="#ffffff" font-size="10.5px" font-weight="800" font-family="'Sarabun', 'TH Sarabun New', sans-serif" letter-spacing="0.5px">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</text>
+    <text x="{CONTENT_W - 40 - 127}" y="22" text-anchor="middle" fill="#ffffff" font-size="10.5px" font-weight="800" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif" letter-spacing="0.5px">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</text>
     
     <g transform="translate({(CONTENT_W - 40 - disp1_w)/2}, 44)">
       <image href="{p1_uri}" width="{disp1_w}" height="{disp1_h}" preserveAspectRatio="xMidYMid meet" />
@@ -230,10 +290,10 @@ def generate_hardened_svg(ev, seq_num):
     <rect x="0" y="0" width="{CONTENT_W - 40}" height="{ev2_h}" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.5" />
     
     <rect x="0" y="0" width="{CONTENT_W - 40}" height="36" rx="6" fill="#0369a1" />
-    <text x="16" y="23" fill="#ffffff" font-size="14.5px" font-weight="700" font-family="'Sarabun', 'TH Sarabun New', sans-serif">📑 หลักฐานต่อเนื่อง / สลิปโอนเงิน (Part 2)</text>
+    <text x="16" y="23" fill="#ffffff" font-size="14.5px" font-weight="700" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">📑 หลักฐานต่อเนื่อง / สลิปโอนเงิน (Part 2)</text>
     
     <rect x="{CONTENT_W - 40 - 220}" y="7" width="206" height="22" rx="3" fill="#0284c7" />
-    <text x="{CONTENT_W - 40 - 117}" y="22" text-anchor="middle" fill="#ffffff" font-size="10.5px" font-weight="800" font-family="'Sarabun', 'TH Sarabun New', sans-serif" letter-spacing="0.5px">ADDITIONAL EVIDENCE</text>
+    <text x="{CONTENT_W - 40 - 117}" y="22" text-anchor="middle" fill="#ffffff" font-size="10.5px" font-weight="800" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif" letter-spacing="0.5px">ADDITIONAL EVIDENCE</text>
     
     <g transform="translate({(CONTENT_W - 40 - disp2_w)/2}, 44)">
       <image href="{p2_uri}" width="{disp2_w}" height="{disp2_h}" preserveAspectRatio="xMidYMid meet" />
@@ -245,8 +305,8 @@ def generate_hardened_svg(ev, seq_num):
     svg.append(f'''  <!-- FOOTER -->
   <g transform="translate({MARGIN_X + 20}, {footer_y})">
     <line x1="0" y1="0" x2="{CONTENT_W - 40}" y2="0" stroke="#cbd5e1" stroke-width="1" />
-    <text x="0" y="22" fill="#475569" font-size="13px" font-weight="400" font-family="'Sarabun', 'TH Sarabun New', sans-serif">สารบบคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ (ป.อ. มาตรา ๓๔๑, ๙๑) | แผ่นเวกเตอร์ที่ {seq_num} จาก ๓๐ รายการ</text>
-    <text x="0" y="42" fill="#64748b" font-size="12px" font-weight="400" font-family="'Sarabun', 'TH Sarabun New', sans-serif">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex V2) • ISO/IEC 27037 Standard</text>
+    <text x="0" y="22" fill="#475569" font-size="13px" font-weight="400" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">สารบบคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ (ป.อ. มาตรา ๓๔๑, ๙๑) | แผ่นเวกเตอร์ที่ {seq_num} จาก ๓๐ รายการ</text>
+    <text x="0" y="42" fill="#64748b" font-size="12px" font-weight="400" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex V2) • ISO/IEC 27037 Standard</text>
   </g>
 
 </svg>''')
@@ -288,13 +348,13 @@ def generate_responsive_html_card(ev, seq_num):
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{esc(ev['count_no'])}: {esc(ev['count_title'])}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    {SARABUN_FONT_FACE_CSS}
+    * {{ box-sizing: border-box; margin: 0; padding: 0; font-family: 'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif; }}
     body {{
       background: #f1f5f9;
       color: #0f172a;
-      font-family: 'Sarabun', 'TH Sarabun New', sans-serif;
+      font-family: 'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif;
       padding: 20px;
       display: flex;
       justify-content: center;
@@ -604,13 +664,13 @@ master_dash = f'''<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>แฟ้มสารบบคดีอาญาเวกเตอร์แท้ 100% (Responsive Master Dashboard - CODEX CERTIFIED)</title>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    {SARABUN_FONT_FACE_CSS}
+    * {{ box-sizing: border-box; margin: 0; padding: 0; font-family: 'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif; }}
     body {{
       background: #090d16;
       color: #f8fafc;
-      font-family: 'Sarabun', 'TH Sarabun New', sans-serif;
+      font-family: 'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif;
     }}
     header {{
       background: #0f172a;
