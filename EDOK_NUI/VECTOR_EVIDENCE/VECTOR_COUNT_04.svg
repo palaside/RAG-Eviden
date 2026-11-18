@@ -126,7 +126,7 @@
     <rect x="0" y="248" width="230" height="44" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
     <rect x="230" y="248" width="650" height="44" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
     <text x="14" y="274" fill="#0f172a" font-size="16px" font-weight="700" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">๕. ช่วงวันเวลาเกิดเหตุ</text>
-    <text x="244" y="274" fill="#0f172a" font-size="16px" font-weight="300" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">๑๙ มกราคม ๒๕๖๘ เวลา ๑๕:๓๑ น. - ๑๕:๓๓ น.</text>
+    <text x="244" y="274" fill="#0f172a" font-size="16px" font-weight="300" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">เวลา ๑๕:๓๑ น. - ๑๕:๓๓ น.</text>
     <!-- Row: ๖. ยอดเงิน (บาท) -->
     <rect x="0" y="292" width="230" height="44" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
     <rect x="230" y="292" width="650" height="44" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />

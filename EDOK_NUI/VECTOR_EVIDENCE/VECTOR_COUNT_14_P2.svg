@@ -106,7 +106,7 @@
     <rect x="0" y="68" width="230" height="44" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1" />
     <rect x="230" y="68" width="650" height="44" fill="#ffffff" stroke="#bae6fd" stroke-width="1" />
     <text x="14" y="93" fill="#0369a1" font-size="16px" font-weight="700" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">วันเวลาเกิดเหตุ / ยอดเงิน</text>
-    <text x="244" y="93" fill="#0f172a" font-size="16px" font-weight="500" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">๑๙ มกราคม ๒๕๖๘ เวลา ๑๙:๕๒ น. | จำนวนเงิน 23,700.00 บาท บาท</text>
+    <text x="244" y="93" fill="#0f172a" font-size="16px" font-weight="500" font-family="'TH Sarabun PSK', 'THSarabunPSK', 'TH Sarabun New', sans-serif">เวลา ๑๙:๕๒ น. | จำนวนเงิน 23,700.00 บาท บาท</text>
     <!-- Row: สาระสำคัญหลักฐาน Part 2 -->
     <rect x="0" y="112" width="230" height="68" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1" />
     <rect x="230" y="112" width="650" height="68" fill="#ffffff" stroke="#bae6fd" stroke-width="1" />
