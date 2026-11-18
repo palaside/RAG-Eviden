@@ -144,8 +144,8 @@ def generate_hardened_svg(ev, seq_num):
 
   <!-- HEADER -->
   <g transform="translate({MARGIN_X + 20}, {header_y})">
-    <text x="0" y="22" class="title">⚖️ แฟ้มสำนวนคดีอาญา (มาตรฐานศาลยุติธรรม - CODEX VECTOR STREAM)</text>
-    <text x="0" y="44" class="sub">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรมต่างวาระ (ป.อ. มาตรา ๙๑)</text>
+    <text x="0" y="22" fill="#0f172a" font-size="20px" font-weight="800" font-family="'Sarabun', 'TH Sarabun New', sans-serif">⚖️ แฟ้มสำนวนคดีอาญา (มาตรฐานศาลยุติธรรม - CODEX VECTOR STREAM)</text>
+    <text x="0" y="44" fill="#64748b" font-size="13.5px" font-weight="300" font-family="'Sarabun', 'TH Sarabun New', sans-serif">เอกสารบัญชีพยานหลักฐานประกอบคำฟ้อง / คำร้องทุกข์ แยกตามกรรมต่างวาระ (ป.อ. มาตรา ๙๑)</text>
   </g>
 
   <!-- METADATA BAR (FIXED: SEPARATE BADGES - ZERO COLLISION!) -->
@@ -153,18 +153,18 @@ def generate_hardened_svg(ev, seq_num):
     <rect x="0" y="0" width="{CONTENT_W - 40}" height="{meta_h}" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" />
     
     <!-- Left Person Info -->
-    <text x="14" y="26" class="meta-label">
+    <text x="14" y="26" fill="#0f172a" font-size="14.5px" font-weight="300" font-family="'Sarabun', 'TH Sarabun New', sans-serif">
       <tspan font-weight="700">บุคคลเป้าหมาย:</tspan> {esc(ev['person'])} ({esc(ev['person_role'])})
     </text>
     
     <!-- Right Badges (NO TSPAN OVERLAP - PLACED AS EXPLICIT BADGES) -->
     <!-- Count Badge (Red) -->
     <rect x="{CONTENT_W - 40 - 280}" y="8" width="100" height="26" rx="4" fill="#fee2e2" stroke="#fca5a5" stroke-width="1" />
-    <text x="{CONTENT_W - 40 - 230}" y="25" text-anchor="middle" font-size="13px" font-weight="700" fill="#b91c1c">{esc(ev['count_no'])}</text>
+    <text x="{CONTENT_W - 40 - 230}" y="25" text-anchor="middle" font-size="13px" font-weight="700" fill="#b91c1c" font-family="'Sarabun', 'TH Sarabun New', sans-serif">{esc(ev['count_no'])}</text>
     
     <!-- Amount Badge (Blue) -->
     <rect x="{CONTENT_W - 40 - 172}" y="8" width="160" height="26" rx="4" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1" />
-    <text x="{CONTENT_W - 40 - 92}" y="25" text-anchor="middle" font-size="13px" font-weight="700" fill="#1e40af">ความเสียหาย: {esc(ev['amount'])}</text>
+    <text x="{CONTENT_W - 40 - 92}" y="25" text-anchor="middle" font-size="13px" font-weight="700" fill="#1e40af" font-family="'Sarabun', 'TH Sarabun New', sans-serif">ความเสียหาย: {esc(ev['amount'])}</text>
   </g>
 
   <!-- 11 TOPICS TABLE (FONT 16PX - TH SARABUN) -->
@@ -190,15 +190,16 @@ def generate_hardened_svg(ev, seq_num):
         svg.append(f'    <rect x="0" y="{accum_y}" width="{COL1_W}" height="{rh}" fill="{bg_th}" stroke="{stroke_c}" stroke-width="1" />')
         svg.append(f'    <rect x="{COL1_W}" y="{accum_y}" width="{COL2_W - 40}" height="{rh}" fill="{bg_td}" stroke="{stroke_c}" stroke-width="1" />')
         
-        # Title (Bold 16px)
-        svg.append(f'    <text x="14" y="{accum_y + 25}" class="th-txt">{esc(title)}</text>')
+    # Title (Bold 16px)
+        svg.append(f'    <text x="14" y="{accum_y + 26}" fill="#0f172a" font-size="16px" font-weight="700" font-family="\'Sarabun\', \'TH Sarabun New\', sans-serif">{esc(title)}</text>')
         
         # Lines (Thin 16px)
-        line_y = accum_y + 25
+        line_y = accum_y + 26
         for l in lines:
-            weight_cls = "td-bold" if is_bold else "td-txt"
-            font_family = "font-family: monospace; font-size: 14px;" if is_mono else ""
-            svg.append(f'    <text x="{COL1_W + 14}" y="{line_y}" class="{weight_cls}" fill="{color}" style="{font_family}">{esc(l)}</text>')
+            weight = "700" if is_bold else "300"
+            font_fam = "monospace" if is_mono else "'Sarabun', 'TH Sarabun New', sans-serif"
+            font_sz = "14px" if is_mono else "16px"
+            svg.append(f'    <text x="{COL1_W + 14}" y="{line_y}" fill="{color}" font-size="{font_sz}" font-weight="{weight}" font-family="{font_fam}">{esc(l)}</text>')
             line_y += LINE_H
             
         accum_y += rh
@@ -211,10 +212,10 @@ def generate_hardened_svg(ev, seq_num):
     <rect x="0" y="0" width="{CONTENT_W - 40}" height="{ev1_h}" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.5" />
     
     <rect x="0" y="0" width="{CONTENT_W - 40}" height="36" rx="6" fill="#1e293b" />
-    <text x="14" y="23" class="ev-title">📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</text>
+    <text x="16" y="23" fill="#ffffff" font-size="14.5px" font-weight="700" font-family="'Sarabun', 'TH Sarabun New', sans-serif">📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง</text>
     
     <rect x="{CONTENT_W - 40 - 240}" y="7" width="226" height="22" rx="3" fill="#dc2626" />
-    <text x="{CONTENT_W - 40 - 127}" y="22" text-anchor="middle" class="stamp-txt">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</text>
+    <text x="{CONTENT_W - 40 - 127}" y="22" text-anchor="middle" fill="#ffffff" font-size="10.5px" font-weight="800" font-family="'Sarabun', 'TH Sarabun New', sans-serif" letter-spacing="0.5px">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</text>
     
     <g transform="translate({(CONTENT_W - 40 - disp1_w)/2}, 44)">
       <image href="{p1_uri}" width="{disp1_w}" height="{disp1_h}" preserveAspectRatio="xMidYMid meet" />
@@ -229,7 +230,10 @@ def generate_hardened_svg(ev, seq_num):
     <rect x="0" y="0" width="{CONTENT_W - 40}" height="{ev2_h}" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.5" />
     
     <rect x="0" y="0" width="{CONTENT_W - 40}" height="36" rx="6" fill="#0369a1" />
-    <text x="14" y="23" class="ev-title">📑 หลักฐานต่อเนื่อง / สลิปโอนเงินขยายใหญ่ (Part 2): {esc(ev.get("p2_desc", ""))}</text>
+    <text x="16" y="23" fill="#ffffff" font-size="14.5px" font-weight="700" font-family="'Sarabun', 'TH Sarabun New', sans-serif">📑 หลักฐานต่อเนื่อง / สลิปโอนเงิน (Part 2)</text>
+    
+    <rect x="{CONTENT_W - 40 - 220}" y="7" width="206" height="22" rx="3" fill="#0284c7" />
+    <text x="{CONTENT_W - 40 - 117}" y="22" text-anchor="middle" fill="#ffffff" font-size="10.5px" font-weight="800" font-family="'Sarabun', 'TH Sarabun New', sans-serif" letter-spacing="0.5px">ADDITIONAL EVIDENCE</text>
     
     <g transform="translate({(CONTENT_W - 40 - disp2_w)/2}, 44)">
       <image href="{p2_uri}" width="{disp2_w}" height="{disp2_h}" preserveAspectRatio="xMidYMid meet" />
@@ -241,8 +245,8 @@ def generate_hardened_svg(ev, seq_num):
     svg.append(f'''  <!-- FOOTER -->
   <g transform="translate({MARGIN_X + 20}, {footer_y})">
     <line x1="0" y1="0" x2="{CONTENT_W - 40}" y2="0" stroke="#cbd5e1" stroke-width="1" />
-    <text x="0" y="22" class="footer-txt">สารบบคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ (ป.อ. มาตรา ๓๔๑, ๙๑) | แผ่นเวกเตอร์ที่ {seq_num} จาก ๓๐ รายการ</text>
-    <text x="0" y="42" class="footer-sub">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex V2) • ISO/IEC 27037 Standard</text>
+    <text x="0" y="22" fill="#475569" font-size="13px" font-weight="400" font-family="'Sarabun', 'TH Sarabun New', sans-serif">สารบบคดีอาญา: ขบวนการฉ้อโกงเป็นปกติธุระ (ป.อ. มาตรา ๓๔๑, ๙๑) | แผ่นเวกเตอร์ที่ {seq_num} จาก ๓๐ รายการ</text>
+    <text x="0" y="42" fill="#64748b" font-size="12px" font-weight="400" font-family="'Sarabun', 'TH Sarabun New', sans-serif">รับรองสำเนาถูกต้องโดยระบบนิติวิทยาศาสตร์ดิจิทัล (Digital Evi Codex V2) • ISO/IEC 27037 Standard</text>
   </g>
 
 </svg>''')
@@ -269,7 +273,8 @@ def generate_responsive_html_card(ev, seq_num):
         p2_section_html = f'''
         <div class="evidence-card p2-card">
           <div class="evidence-header p2-header">
-            <span class="ev-title">📑 หลักฐานต่อเนื่อง / สลิปโอนเงินขยายใหญ่ (Part 2): {esc(ev.get("p2_desc", ""))}</span>
+            <span class="ev-title">📑 หลักฐานต่อเนื่อง / สลิปโอนเงิน (Part 2)</span>
+            <span class="ev-badge" style="background: #0284c7;">ADDITIONAL EVIDENCE</span>
           </div>
           <div class="evidence-body">
             <img src="{p2_uri}" class="ev-img" alt="Evidence Part 2" />
@@ -546,7 +551,7 @@ def generate_responsive_html_card(ev, seq_num):
     <!-- EVIDENCE BOX 1 (100% RESPONSIVE) -->
     <div class="evidence-card">
       <div class="evidence-header">
-        <span class="ev-title">📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง (ครอปเฉพาะกรอบบริบทชัดเจน 100% - มาตรฐานศาล)</span>
+        <span class="ev-title">📸 พยานหลักฐานภาพเหตุการณ์อ้างอิงจริง</span>
         <span class="ev-badge">CERTIFIED COURT EVIDENCE • ISO/IEC 27037</span>
       </div>
       <div class="evidence-body">
