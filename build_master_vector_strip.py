@@ -41,17 +41,18 @@ total_h = current_y + 40
 master_svg = f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {strip_w} {total_h}" width="{strip_w}" height="{total_h}">
   <defs>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&amp;display=swap');
-      text {{ font-family: 'Sarabun', 'TH Sarabun New', sans-serif; }}
-      .title {{ font-size: 19px; font-weight: 800; fill: #0f172a; }}
-      .sub {{ font-size: 12px; font-weight: 500; fill: #64748b; }}
-      .badge-txt {{ font-size: 13px; font-weight: 700; fill: #ffffff; }}
-      .th-col {{ font-size: 13px; font-weight: 700; fill: #1e293b; }}
-      .td-col {{ font-size: 13px; font-weight: 400; fill: #0f172a; }}
-      .amt-txt {{ font-size: 14px; font-weight: 800; fill: #15803d; }}
-      .ev-title {{ font-size: 12.5px; font-weight: 700; fill: #ffffff; }}
+      @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&amp;display=swap');
+      text {{ font-family: 'Sarabun', 'TH Sarabun New', 'TH Sarabun PSK', sans-serif; }}
+      .title {{ font-size: 20px; font-weight: 800; fill: #0f172a; }}
+      .sub {{ font-size: 13.5px; font-weight: 300; fill: #64748b; }}
+      .meta-label {{ font-size: 14.5px; font-weight: 300; fill: #0f172a; }}
+      .th-txt {{ font-size: 16px; font-weight: 700; fill: #1e293b; }}
+      .td-txt {{ font-size: 16px; font-weight: 300; fill: #0f172a; }}
+      .td-bold {{ font-size: 16px; font-weight: 700; fill: #0f172a; }}
+      .ev-title {{ font-size: 13.5px; font-weight: 700; fill: #ffffff; }}
       .stamp-txt {{ font-size: 10px; font-weight: 800; fill: #ffffff; letter-spacing: 0.5px; }}
-      .footer-txt {{ font-size: 11px; fill: #64748b; }}
+      .footer-txt {{ font-size: 13.5px; font-weight: 300; fill: #64748b; }}
+      .footer-sub {{ font-size: 12px; font-weight: 300; fill: #94a3b8; }}
     </style>
   </defs>
 
