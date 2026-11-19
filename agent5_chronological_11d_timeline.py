@@ -1342,11 +1342,11 @@ root_suite_nav = '''
       <a href="MASTER_SSOT_STITCH_VIEWER.html" class="suite-link" title="Agent 1: เส้นเวลาแชท 577 ภาพต่อเนื่อง">
         📜 Agent 1: SSOT Chat Timeline
       </a>
-      <a href="TARGET_FOCUS_SELECTOR.html" class="suite-link" title="Agent 2: กรองเฉพาะบุคคลเป้าหมาย">
-        🎯 Agent 2: Target Focus
+      <a href="TARGET_FOCUS_SELECTOR.html" class="suite-link" title="Agent 2 หน้าที่ ๑: คลังสารบบรายชื่อบุคคลทั้งหมดแห่งคดี (หลัก)">
+        🎯 Agent 2 (หน้าที่ ๑ หลัก): สารบบรายชื่อบุคคล
       </a>
-      <a href="BENEFICIARY_NETWORK_DASHBOARD.html" class="suite-link" title="Agent 2: ผังเครือข่ายเส้นทางเงิน 10 บัญชี">
-        🕸️ Agent 2: Beneficiary Network
+      <a href="BENEFICIARY_NETWORK_DASHBOARD.html" class="suite-link" title="Agent 2 หน้าที่ ๒: สารบบบัญชีผู้รับโอนเงินและแผนผังเครือข่ายทางการเงิน (ขยายผล)">
+        🕸️ Agent 2 (หน้าที่ ๒ ขยายผล): ผังเครือข่ายเส้นทางเงิน
       </a>
       <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="suite-link" title="Agent 3: นิติวิทยาศาสตร์ทางภาษา & จุดตายสลิป 300 DPI">
         🔬 Agent 3: Forensic Linguistics & Vectors
@@ -1370,11 +1370,11 @@ subdir_suite_nav = '''
       <a href="../MASTER_SSOT_STITCH_VIEWER.html" class="suite-link" title="Agent 1: เส้นเวลาแชท 577 ภาพต่อเนื่อง">
         📜 Agent 1: SSOT Chat Timeline
       </a>
-      <a href="../TARGET_FOCUS_SELECTOR.html" class="suite-link" title="Agent 2: กรองเฉพาะบุคคลเป้าหมาย">
-        🎯 Agent 2: Target Focus
+      <a href="../TARGET_FOCUS_SELECTOR.html" class="suite-link" title="Agent 2 หน้าที่ ๑: คลังสารบบรายชื่อบุคคลทั้งหมดแห่งคดี (หลัก)">
+        🎯 Agent 2 (หน้าที่ ๑ หลัก): สารบบรายชื่อบุคคล
       </a>
-      <a href="../BENEFICIARY_NETWORK_DASHBOARD.html" class="suite-link" title="Agent 2: ผังเครือข่ายเส้นทางเงิน 10 บัญชี">
-        🕸️ Agent 2: Beneficiary Network
+      <a href="../BENEFICIARY_NETWORK_DASHBOARD.html" class="suite-link" title="Agent 2 หน้าที่ ๒: สารบบบัญชีผู้รับโอนเงินและแผนผังเครือข่ายทางการเงิน (ขยายผล)">
+        🕸️ Agent 2 (หน้าที่ ๒ ขยายผล): ผังเครือข่ายเส้นทางเงิน
       </a>
       <a href="../CHAT_FORENSIC_VECTOR_EXPLORER.html" class="suite-link" title="Agent 3: นิติวิทยาศาสตร์ทางภาษา & จุดตายสลิป 300 DPI">
         🔬 Agent 3: Forensic Linguistics & Vectors
@@ -1426,8 +1426,11 @@ nav_bar_6agents = '''
       <a href="../MASTER_SSOT_STITCH_VIEWER.html" target="_blank" style="background: rgba(255,255,255,0.05); border: 1px solid #1e3052; color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; display: inline-flex; align-items: center; gap: 5px;">
         📜 SSOT Chat (Agent 1)
       </a>
+      <a href="../TARGET_FOCUS_SELECTOR.html" target="_blank" style="background: rgba(255,255,255,0.05); border: 1px solid #1e3052; color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; display: inline-flex; align-items: center; gap: 5px;">
+        🎯 สารบบบุคคล (Agent 2 หน้าที่ ๑ หลัก)
+      </a>
       <a href="../BENEFICIARY_NETWORK_DASHBOARD.html" target="_blank" style="background: rgba(255,255,255,0.05); border: 1px solid #1e3052; color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; display: inline-flex; align-items: center; gap: 5px;">
-        🕸️ เส้นทางเงิน (Agent 2)
+        🕸️ ผังเส้นทางเงิน (Agent 2 หน้าที่ ๒ ขยายผล)
       </a>
       <a href="../CHAT_FORENSIC_VECTOR_EXPLORER.html" target="_blank" style="background: rgba(255,255,255,0.05); border: 1px solid #1e3052; color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; display: inline-flex; align-items: center; gap: 5px;">
         🔬 แชท & สลิป 300 DPI (Agent 3)

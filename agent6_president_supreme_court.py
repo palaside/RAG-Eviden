@@ -566,9 +566,9 @@ boss_html_template = """<!DOCTYPE html>
         <span class="ac-title">📜 Agent 1</span>
         <span class="ac-desc">SSOT Chat 577 ภาพต่อเนื่อง</span>
       </a>
-      <a href="__AGENT2_HREF__" class="agent-card-nav" target="_blank" data-target="BENEFICIARY_NETWORK_DASHBOARD.html">
-        <span class="ac-title">🕸️ Agent 2</span>
-        <span class="ac-desc">ผังเส้นทางเงิน 10 บัญชีผู้รับ</span>
+      <a href="__AGENT2_HREF__" class="agent-card-nav" target="_blank" data-target="TARGET_FOCUS_SELECTOR.html">
+        <span class="ac-title">🎯 Agent 2 (หน้าที่ ๑ หลัก)</span>
+        <span class="ac-desc">คลังสารบบบุคคล ➔ ผังเส้นทางเงิน</span>
       </a>
       <a href="__AGENT3_HREF__" class="agent-card-nav" target="_blank" data-target="CHAT_FORENSIC_VECTOR_EXPLORER.html">
         <span class="ac-title">🔬 Agent 3</span>
@@ -866,7 +866,7 @@ boss_html_template = """<!DOCTYPE html>
       const isSubdir = window.location.pathname.replace(/\\/g, '/').toLowerCase().includes('/vector_evidence/');
       const linkMap = {
         'Agent 1': 'MASTER_SSOT_STITCH_VIEWER.html',
-        'Agent 2': 'BENEFICIARY_NETWORK_DASHBOARD.html',
+        'Agent 2': 'TARGET_FOCUS_SELECTOR.html',
         'Agent 3': 'CHAT_FORENSIC_VECTOR_EXPLORER.html',
         'Agent 4': 'INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html',
         'Agent 5': 'TIMELINE_11D_DASHBOARD.html',
@@ -949,7 +949,7 @@ for xc in timeline_11d["cross_examination_matrix"]:
 
 # 1. Generate Root Dashboard (d:\Project\ชวกม.2\EDOK_NUI\AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html)
 root_html = boss_html_template.replace("__AGENT1_HREF__", "MASTER_SSOT_STITCH_VIEWER.html")
-root_html = root_html.replace("__AGENT2_HREF__", "BENEFICIARY_NETWORK_DASHBOARD.html")
+root_html = root_html.replace("__AGENT2_HREF__", "TARGET_FOCUS_SELECTOR.html")
 root_html = root_html.replace("__AGENT3_HREF__", "CHAT_FORENSIC_VECTOR_EXPLORER.html")
 root_html = root_html.replace("__AGENT4_HREF__", "INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html")
 root_html = root_html.replace("__AGENT5_HREF__", "TIMELINE_11D_DASHBOARD.html")
@@ -964,7 +964,7 @@ print(f"Generated Root Boss Dashboard: {boss_dashboard_path}")
 
 # 2. Generate Subdir Dashboard (d:\Project\ชวกม.2\EDOK_NUI\VECTOR_EVIDENCE\AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html)
 subdir_html = boss_html_template.replace("__AGENT1_HREF__", "../MASTER_SSOT_STITCH_VIEWER.html")
-subdir_html = subdir_html.replace("__AGENT2_HREF__", "../BENEFICIARY_NETWORK_DASHBOARD.html")
+subdir_html = subdir_html.replace("__AGENT2_HREF__", "../TARGET_FOCUS_SELECTOR.html")
 subdir_html = subdir_html.replace("__AGENT3_HREF__", "../CHAT_FORENSIC_VECTOR_EXPLORER.html")
 subdir_html = subdir_html.replace("__AGENT4_HREF__", "../INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html")
 subdir_html = subdir_html.replace("__AGENT5_HREF__", "TIMELINE_11D_DASHBOARD.html")
