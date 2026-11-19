@@ -15,6 +15,7 @@ import os
 import re
 import json
 import hashlib
+import shutil
 from PIL import Image
 
 # 1. รวบรวมแหล่งข้อมูลทั้งหมด
@@ -129,7 +130,53 @@ print(f"Total raw files scanned: {total_raw_count}")
 print(f"Unique Master Nodes: {len(master_nodes)}")
 print(f"Duplicates filtered out: {len(duplicate_records)}")
 
-# 3. แมปปิ้งข้อมูล Transcript & In-App Date Pills จาก MASTER_TRANSCRIPT_CHRONOLOGICAL.md
+# 3. เตรียม Web Assets สัมพัทธ์ (Relative Web Assets) เพื่อแก้ปัญหา Broken Image ในเบราว์เซอร์
+asset_dir = r'd:\Project\ชวกม.2\EDOK_NUI\SSOT_STREAM_ASSETS'
+art_asset_dir = r'C:\Users\EVE\.gemini\antigravity\brain\c8211d09-030e-4b24-8837-3ce9589aa4a6\SSOT_STREAM_ASSETS'
+os.makedirs(asset_dir, exist_ok=True)
+os.makedirs(art_asset_dir, exist_ok=True)
+
+print(f"Exporting web-ready assets for {len(master_nodes)} unique nodes...")
+for node in master_nodes:
+    target_fn = f"node_{node['id']:03d}.jpg"
+    target_fp = os.path.join(asset_dir, target_fn)
+    art_target_fp = os.path.join(art_asset_dir, target_fn)
+    
+    node['web_asset'] = f"SSOT_STREAM_ASSETS/{target_fn}"
+    
+    # ถ้ามีไฟล์อยู่แล้วข้ามไปเพื่อความรวดเร็ว
+    if not os.path.exists(target_fp) or os.path.getsize(target_fp) == 0:
+        src_fp = node['path']
+        try:
+            with Image.open(src_fp) as im:
+                # แปลงเป็น RGB ถ้าเป็น RGBA
+                if im.mode in ('RGBA', 'P'):
+                    im = im.convert('RGB')
+                
+                # Resize ปรับขนาดให้อ่านง่าย คมชัด และประหยัด Bandwidth/Memory (กว้างสูงสุด 900px)
+                if im.width > 900:
+                    scale = 900.0 / im.width
+                    new_h = int(im.height * scale)
+                    im_resized = im.resize((900, new_h), Image.Resampling.LANCZOS)
+                    im_resized.save(target_fp, 'JPEG', quality=82, optimize=True)
+                else:
+                    im.save(target_fp, 'JPEG', quality=85, optimize=True)
+        except Exception as e:
+            # Fallback copy
+            try:
+                shutil.copy2(src_fp, target_fp)
+            except Exception:
+                pass
+                
+    if not os.path.exists(art_target_fp) and os.path.exists(target_fp):
+        try:
+            shutil.copy2(target_fp, art_target_fp)
+        except Exception:
+            pass
+
+print("Web assets generated successfully.")
+
+# 4. แมปปิ้งข้อมูล Transcript & In-App Date Pills จาก MASTER_TRANSCRIPT_CHRONOLOGICAL.md
 transcript_map = {}
 transcript_path = r'd:\Project\ชวกม.2\MASTER_TRANSCRIPT_CHRONOLOGICAL.md'
 if os.path.exists(transcript_path):
@@ -168,9 +215,7 @@ for node in master_nodes:
         # มีวันที่จากชื่อโฟลเดอร์/ชื่อสลิป
         node['date_in_app'] = f"หมุดสลิป/โฟลเดอร์ {node['date_hint']}"
 
-# 4. วิเคราะห์การร้อยเรียงตามกฎ Knowledge 3 เสาหลัก
-# ลำดับการประติดประต่อ:
-# เปรียบเทียบ Node ปัจจุบัน (i) กับ Node ก่อนหน้า (i-1)
+# 5. วิเคราะห์การร้อยเรียงตามกฎ Knowledge 3 เสาหลัก
 connect_ok_count = 0
 new_day_count = 0
 gap_count = 0
@@ -198,7 +243,7 @@ for i in range(len(master_nodes)):
             connect_ok_count += 1
         else:
             node['link_status'] = 'GAP_DISCONTINUOUS'
-            node['link_reason'] = f"เวลาไม่ต่อเนื่อง (Time Rollover/Rewind): {prev['t_end']} ➔ {node['t_start']} (ปล่อยช่องว่างไว้)"
+            node['link_reason'] = f"เวลาไม่ต่อเนื่อง (Time Rollover/Rewind): {prev['t_end']} ➔ {node['t_start']} (ปล่อยช่องว่างไว้ตามกฎ)"
             gap_count += 1
     elif node['source'] == prev['source'] and 'แชทที่' in node['source']:
         # ลำดับไฟล์ต่อเนื่องจากชุดเดียวกัน
@@ -216,7 +261,7 @@ print(f"  - 🟢 เชื่อมต่อได้ต่อเนื่อง
 print(f"  - 🔴 จุดขึ้นวันใหม่: {new_day_count} จุด")
 print(f"  - 🟡 ขาดตอน / ปล่อยช่องว่างไว้: {gap_count} จุด")
 
-# 5. สร้าง Interactive Web Application: MASTER_SSOT_STITCH_VIEWER.html
+# 6. สร้าง Interactive Web Application: MASTER_SSOT_STITCH_VIEWER.html
 html_out = f'''<!DOCTYPE html>
 <html lang="th">
 <head>
@@ -280,27 +325,27 @@ html_out = f'''<!DOCTYPE html>
     }}
     .stat-label {{
       font-size: 13.5px;
-      color: #64748b;
+      color: #94a3b8;
       margin-top: 2px;
     }}
     
     /* CONTROLS */
     .controls-bar {{
+      margin-top: 18px;
       display: flex;
       gap: 10px;
-      align-items: center;
       flex-wrap: wrap;
-      margin-top: 16px;
+      align-items: center;
     }}
     .btn-filter {{
       background: #1e293b;
       color: #cbd5e1;
       border: 1px solid #334155;
-      padding: 6px 14px;
+      padding: 7px 14px;
       border-radius: 6px;
-      cursor: pointer;
       font-size: 14.5px;
-      font-weight: 600;
+      font-weight: 700;
+      cursor: pointer;
       transition: all 0.2s;
     }}
     .btn-filter:hover, .btn-filter.active {{
@@ -310,23 +355,21 @@ html_out = f'''<!DOCTYPE html>
     }}
     .search-input {{
       flex: 1;
-      min-width: 240px;
+      min-width: 260px;
       background: #0f172a;
       border: 1px solid #334155;
-      padding: 8px 14px;
       border-radius: 6px;
-      color: #ffffff;
+      padding: 7px 14px;
+      color: #f1f5f9;
       font-size: 15px;
     }}
     
     /* STREAM CONTAINER */
     .stream-container {{
-      max-width: 1300px;
+      max-width: 1100px;
       margin: 30px auto;
       padding: 0 20px;
     }}
-    
-    /* TIMELINE SPINE */
     .timeline-stream {{
       position: relative;
       border-left: 3px solid #1e293b;
@@ -434,13 +477,58 @@ html_out = f'''<!DOCTYPE html>
       border-radius: 6px;
       padding: 10px;
       text-align: center;
-      max-height: 400px;
+      max-height: 480px;
       overflow-y: auto;
     }}
     .img-thumb {{
       max-width: 100%;
       height: auto;
       border-radius: 4px;
+      cursor: zoom-in;
+      transition: transform 0.2s;
+    }}
+    .img-thumb:hover {{
+      transform: scale(1.01);
+    }}
+    
+    /* MODAL POPUP */
+    .img-modal {{
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }}
+    .img-modal.open {{
+      display: flex;
+    }}
+    .modal-img {{
+      max-width: 92vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }}
+    .modal-caption {{
+      color: #94a3b8;
+      margin-top: 12px;
+      font-size: 16px;
+      font-weight: 600;
+    }}
+    .modal-close {{
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 32px;
+      color: #ffffff;
       cursor: pointer;
     }}
   </style>
@@ -518,9 +606,9 @@ for node in master_nodes:
           <br><small style="color: #a5b4fc;">➔ ระบบตัดสำเนาซ้ำทิ้งและเลือกไฟล์นี้เป็น Master เพียงหนึ่งเดียวตามกฎข้อ ๑</small>
         </div>'''
         
-    # Relative path for image preview
-    rel_path = node['path'].replace('\\', '/')
     has_dup_attr = "true" if node['duplicates'] else "false"
+    web_asset_src = node['web_asset']
+    raw_file_uri = node['path'].replace('\\', '/')
     
     html_out += f'''
       <div class="node-card {status_cls}" data-status="{node['link_status']}" data-has-dup="{has_dup_attr}">
@@ -530,34 +618,39 @@ for node in master_nodes:
         </div>
         
         <div class="node-details">
-          <div class="detail-item">
-            <strong>📁 แหล่งโฟลเดอร์ต้นทาง:</strong> <span class="detail-val">{node['source']}</span>
-          </div>
-          <div class="detail-item">
-            <strong>📐 มิติขนาดพิกเซล:</strong> <span class="detail-val">{node['width']} × {node['height']} px ({node['type']})</span>
-          </div>
-          <div class="detail-item">
-            <strong>📅 หมุดวันที่ในแอป (Date Pill):</strong> <span class="detail-val">{date_display}</span>
-          </div>
-          <div class="detail-item">
-            <strong>⏰ ช่วงเวลาในภาพ (Time Span):</strong> <span class="detail-val">{time_display}</span>
-          </div>
+          <div class="detail-item"><strong>📂 แหล่งที่มา (Master Source):</strong> <span class="detail-val">{node['source']}</span></div>
+          <div class="detail-item"><strong>📑 ประเภทไฟล์:</strong> <span class="detail-val">{node['type']}</span> ({node['width']}x{node['height']} px, AR: {node['aspect_ratio']})</div>
+          <div class="detail-item"><strong>📅 หมุดวันที่ในแอป:</strong> <span class="detail-val">{date_display}</span></div>
+          <div class="detail-item"><strong>⏰ ไทม์แสตมป์เวลา:</strong> <span class="detail-val">{time_display}</span></div>
         </div>
         
         <div class="link-box">
-          <strong>🔍 การวิเคราะห์รอยต่อ (Link Analysis):</strong> {node['link_reason']}
+          <strong>🔗 ความต่อเนื่องกับภาพก่อนหน้า:</strong> {node['link_reason']}
         </div>
         
         {dup_html}
         
         <div class="img-preview-box">
-          <img src="file:///{rel_path}" class="img-thumb" loading="lazy" alt="{node['filename']}" title="คลิกเพื่อดูภาพเต็ม">
+          <img src="{web_asset_src}" 
+               onerror="this.onerror=null; this.src='file:///{raw_file_uri}';" 
+               class="img-thumb" 
+               loading="lazy" 
+               alt="{node['filename']}" 
+               title="คลิกเพื่อขยายดูภาพขนาดใหญ่"
+               onclick="openModal('{web_asset_src}', '{node['filename']}', '{node['source']}')">
         </div>
       </div>
 '''
 
 html_out += '''
     </div>
+  </div>
+
+  <!-- MODAL VIEWER -->
+  <div id="imgModal" class="img-modal" onclick="closeModal()">
+    <span class="modal-close">&times;</span>
+    <img id="modalImg" class="modal-img" src="" alt="Full View">
+    <div id="modalCaption" class="modal-caption"></div>
   </div>
 
   <script>
@@ -585,12 +678,25 @@ html_out += '''
         card.style.display = text.includes(q) ? 'block' : 'none';
       });
     }
+
+    function openModal(src, filename, source) {
+      const modal = document.getElementById('imgModal');
+      const img = document.getElementById('modalImg');
+      const cap = document.getElementById('modalCaption');
+      img.src = src;
+      cap.innerText = filename + ' (' + source + ')';
+      modal.classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('imgModal').classList.remove('open');
+    }
   </script>
 </body>
 </html>
 '''
 
-# 6. บันทึกผลลัพธ์
+# 7. บันทึกผลลัพธ์
 viewer_path = r'd:\Project\ชวกม.2\EDOK_NUI\MASTER_SSOT_STITCH_VIEWER.html'
 art_viewer_path = r'C:\Users\EVE\.gemini\antigravity\brain\c8211d09-030e-4b24-8837-3ce9589aa4a6\MASTER_SSOT_STITCH_VIEWER.html'
 
