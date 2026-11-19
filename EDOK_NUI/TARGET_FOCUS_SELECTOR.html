@@ -17,7 +17,6 @@
       line-height: 1.5;
     }
     
-    /* STICKY TOP BAR */
     .top-bar {
       background: rgba(15, 23, 42, 0.95);
       border-bottom: 1px solid #1e293b;
@@ -65,7 +64,6 @@
       transform: translateY(-1px);
     }
     
-    /* CONTROLS STRIP */
     .controls-strip {
       max-width: 1400px;
       margin: 20px auto 0;
@@ -77,29 +75,31 @@
       gap: 15px;
     }
     .search-box {
-      flex: 1;
-      min-width: 300px;
       background: #0f172a;
       border: 1px solid #334155;
-      border-radius: 8px;
-      padding: 10px 16px;
       color: #f8fafc;
-      font-size: 15px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 16px;
+      width: 380px;
+      max-width: 100%;
+      outline: none;
     }
     .search-box:focus {
-      outline: none;
       border-color: #38bdf8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
     }
     
     .sort-btn {
       background: #1e293b;
-      color: #cbd5e1;
+      color: #94a3b8;
       border: 1px solid #334155;
-      padding: 8px 14px;
+      padding: 6px 14px;
       border-radius: 6px;
+      cursor: pointer;
       font-size: 14px;
       font-weight: 600;
-      cursor: pointer;
+      transition: all 0.15s;
     }
     .sort-btn.active {
       background: #0284c7;
@@ -107,114 +107,151 @@
       border-color: #38bdf8;
     }
     
-    /* CARDS GRID */
     .container {
       max-width: 1400px;
-      margin: 20px auto 60px;
+      margin: 25px auto;
       padding: 0 25px;
     }
+    
+    .info-banner {
+      background: rgba(14, 165, 233, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 8px;
+      padding: 12px 20px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    /* CARDS GRID */
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px;
+    }
+    
+    /* INDIVIDUAL CARD (IMAGE 2 STANDARD) */
+    .target-card {
+      background: #0b1329;
+      border: 1.5px solid #1e293b;
+      border-radius: 12px;
+      padding: 18px 20px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
       gap: 14px;
     }
-    
-    /* COMPACT KPI CARD (EXACTLY AS IMAGE 2) */
-    .entity-card {
-      background: #0b1329;
-      border: 2px solid #1e293b;
-      border-radius: 10px;
-      padding: 14px 16px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .entity-card:hover {
+    .target-card:hover {
       border-color: #38bdf8;
       transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     }
-    .entity-card.selected {
-      border-color: #0284c7;
-      background: #0e1d3e;
-      box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
+    .target-card.selected {
+      border-color: #38bdf8;
+      background: #0e1a38;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.3), 0 8px 24px rgba(2, 132, 199, 0.2);
     }
     
-    .card-top {
+    .card-head {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
+      align-items: flex-start;
+      gap: 12px;
     }
-    .entity-name {
-      font-size: 17px;
+    .card-name {
+      font-size: 20px;
       font-weight: 800;
-      color: #f8fafc;
-      line-height: 1.25;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .checkbox-custom {
-      width: 20px;
-      height: 20px;
-      accent-color: #0284c7;
-      cursor: pointer;
-      flex-shrink: 0;
+      color: #ffffff;
+      line-height: 1.3;
     }
     
-    /* KPI METRICS BOX */
-    .metrics-box {
-      background: #040814;
+    .custom-checkbox {
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      border-radius: 4px;
+      border: 2px solid #64748b;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .target-card.selected .custom-checkbox {
+      background: #0284c7;
+      border-color: #38bdf8;
+    }
+    .custom-checkbox::after {
+      content: '✔';
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 900;
+      display: none;
+    }
+    .target-card.selected .custom-checkbox::after {
+      display: block;
+    }
+    
+    /* KPI INNER BOX */
+    .kpi-box {
+      background: #060b18;
       border: 1px solid #162036;
       border-radius: 8px;
-      padding: 10px 14px;
+      padding: 12px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .kpi-col {
-      display: flex;
-      flex-direction: column;
-    }
-    .kpi-lbl {
-      font-size: 13px;
+    .kpi-label {
+      font-size: 14px;
       color: #94a3b8;
-      margin-bottom: 2px;
     }
-    .kpi-val-amt {
-      font-size: 16px;
+    .kpi-amount {
+      font-size: 20px;
       font-weight: 800;
       color: #22c55e;
+      margin-top: 2px;
     }
-    .kpi-val-cnt {
-      font-size: 16px;
+    .kpi-slips {
+      font-size: 20px;
       font-weight: 800;
       color: #38bdf8;
+      margin-top: 2px;
       text-align: right;
+    }
+    
+    .footer-bar {
+      position: sticky;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.95);
+      border-top: 1px solid #1e293b;
+      padding: 16px 30px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 90;
     }
   </style>
 </head>
 <body>
+
   <div class="top-bar">
     <div>
       <div class="bar-title">
-        <span>🎯 คลังสารบบรายชื่อบุคคลทั้งหมดแห่งคดี (Target Focus Discovery Gateway)</span>
+        <span>🎯 ประตูกรองและเลือกโฟกัสเป้าหมายแห่งคดี</span>
+        <span style="font-size: 14px; background: #0284c7; color: #ffffff; padding: 2px 10px; border-radius: 12px; font-weight: normal;">Target Focus Selector</span>
       </div>
-      <div class="bar-sub">
-        แสดงบุคคลทุกคน 59 คนแยกเป็นรายบุคคลเดี่ยว — คลิกเลือกบุคคลที่ต้องการเพื่อส่งต่อให้แดชบอร์ดเครือข่าย
-      </div>
+      <div class="bar-sub">ระบบตรวจพบผู้รับโอนและตัวละครทั้งหมด 59 รายการ — กรุณาเลือกบุคคลที่ต้องการเจาะลึกเพื่อเปิดแดชบอร์ดเครือข่าย</div>
     </div>
-    
-    <div style="display: flex; align-items: center; gap: 15px;">
-      <div style="text-align: right;">
-        <div style="font-size: 13.5px; color: #94a3b8;">เป้าหมายที่เลือก: <strong id="selectedCountText" style="color:#38bdf8; font-size:16px;">0</strong> คน</div>
-        <div style="font-size: 14px; color: #f43f5e; font-weight: 700;">ยอดเงินรวมเป้าหมาย: <span id="selectedSumText">0.00 บาท</span></div>
-      </div>
+    <div>
       <button class="btn-proceed" onclick="proceedToDashboard()">
-        <span>🚀 ยืนยันเป้าหมายและเปิดแดชบอร์ดเครือข่าย</span>
+        <span>🚀 ยืนยันเป้าหมายและเปิดแดชบอร์ด</span>
       </button>
     </div>
   </div>
@@ -236,8 +273,30 @@
   </div>
 
   <div class="container">
-    <div class="cards-grid" id="cardsGrid">
-      <!-- Populated by JS -->
+    <div class="info-banner">
+      <div>
+        <strong style="color: #38bdf8;">💡 คำแนะนำการใช้งาน:</strong>
+        <span style="color: #cbd5e1; margin-left: 5px;">คลิกที่การ์ดเพื่อเลือกบุคคลที่ต้องการตรวจสอบ (สามารถเลือก 1 คนหรือหลายคนได้) ข้อมูลเลขที่บัญชีจะถูกเก็บทำงานเบื้องหลัง</span>
+      </div>
+      <div>
+        <span style="color: #94a3b8;">เลือกแล้ว:</span>
+        <strong id="selectedCountText" style="color: #38bdf8; font-size: 18px; margin: 0 4px;">0</strong>
+        <span style="color: #94a3b8;">คน | ยอดเงินรวม:</span>
+        <strong id="selectedSumText" style="color: #22c55e; font-size: 18px; margin-left: 4px;">0.00 บาท</strong>
+      </div>
+    </div>
+
+    <div class="cards-grid" id="cardsGrid"></div>
+  </div>
+
+  <div class="footer-bar">
+    <div>
+      <span style="color: #94a3b8; font-size: 14.5px;">ระบบโฟกัสเฉพาะบุคคล มาตรฐานศาลยุติธรรม (ป.วิ.อ. ๒๒๖ & ISO/IEC 27037)</span>
+    </div>
+    <div>
+      <button class="btn-proceed" onclick="proceedToDashboard()">
+        <span>🚀 ยืนยันเป้าหมายและเปิดแดชบอร์ด</span>
+      </button>
     </div>
   </div>
 
@@ -247,55 +306,60 @@
     let currentSort = 'amount';
     let searchQuery = '';
 
-    const saved = localStorage.getItem('SELECTED_FOCUS_TARGETS');
-    if (saved) {
+    // อ่านค่าที่เคยเลือกไว้ ถ้ามี
+    const savedSelected = localStorage.getItem('SELECTED_FOCUS_TARGETS');
+    if (savedSelected) {
       try {
-        selectedIds = new Set(JSON.parse(saved));
+        const arr = JSON.parse(savedSelected);
+        arr.forEach(id => selectedIds.add(id));
       } catch(e) {}
+    }
+    // ค่าเริ่มต้นถ้ายังไม่มี ให้เลือกจิณห์นิภา ประสาทเขตรการ
+    if (selectedIds.size === 0) {
+      const jin = allIndividuals.find(x => x.name.includes('จิณห์นิภา'));
+      if (jin) selectedIds.add(jin.id);
     }
 
     function renderCards() {
       const grid = document.getElementById('cardsGrid');
       grid.innerHTML = '';
 
-      let list = allIndividuals.filter(p => {
+      let filtered = allIndividuals.filter(item => {
         if (!searchQuery) return true;
         const q = searchQuery.toLowerCase();
-        const accs = p.accounts ? p.accounts.join(' ').toLowerCase() : '';
-        return p.name.toLowerCase().includes(q) || accs.includes(q);
+        const matchName = item.name.toLowerCase().includes(q);
+        const matchAcc = (item.accounts || []).some(acc => acc.toLowerCase().includes(q));
+        const matchBank = (item.banks || []).some(b => b.toLowerCase().includes(q));
+        return matchName || matchAcc || matchBank;
       });
 
-      if (currentSort === 'amount') {
-        list.sort((a, b) => b.total_amount - a.total_amount);
-      } else if (currentSort === 'count') {
-        list.sort((a, b) => b.slips_count - a.slips_count);
-      } else if (currentSort === 'name') {
-        list.sort((a, b) => a.name.localeCompare(b.name, 'th'));
-      }
+      filtered.sort((a, b) => {
+        if (currentSort === 'amount') return b.total_amount - a.total_amount;
+        if (currentSort === 'count') return b.slips_count - a.slips_count;
+        if (currentSort === 'name') return a.name.localeCompare(b.name, 'th');
+        return 0;
+      });
 
-      list.forEach(ent => {
-        const isSelected = selectedIds.has(ent.id);
+      filtered.forEach(item => {
+        const isSelected = selectedIds.has(item.id);
         const card = document.createElement('div');
-        card.className = 'entity-card' + (isSelected ? ' selected' : '');
-        card.onclick = (e) => {
-          if (e.target.type !== 'checkbox') {
-            toggleSelect(ent.id);
-          }
-        };
+        card.className = 'target-card' + (isSelected ? ' selected' : '');
+        card.onclick = () => toggleSelect(item.id);
 
         card.innerHTML = `
-          <div class="card-top">
-            <div class="entity-name" title="${ent.name}">${ent.name}</div>
-            <input type="checkbox" class="checkbox-custom" ${isSelected ? 'checked' : ''} onchange="toggleSelect('${ent.id}')">
+          <div class="card-head">
+            <div class="card-name">${item.name}</div>
+            <div class="custom-checkbox"></div>
           </div>
-          <div class="metrics-box">
-            <div class="kpi-col">
-              <span class="kpi-lbl">ยอดเงิน:</span>
-              <span class="kpi-val-amt">${ent.total_amount.toLocaleString('th-TH', {minimumFractionDigits: 2})} บ.</span>
+          
+          <div class="kpi-box">
+            <div>
+              <div class="kpi-label">ยอดเงิน:</div>
+              <div class="kpi-amount">${item.total_amount_formatted}</div>
             </div>
-            <div class="kpi-col" style="text-align: right;">
-              <span class="kpi-lbl">สลิป/หลักฐาน:</span>
-              <span class="kpi-val-cnt">${ent.slips_count} รายการ</span>
+            <div>
+              <div class="kpi-label" style="text-align: right;">สลิป/หลักฐาน:</div>
+              <div class="kpi-slips">${item.slips_count} รายการ</div>
             </div>
           </div>
         `;
@@ -311,17 +375,15 @@
       } else {
         selectedIds.add(id);
       }
-      localStorage.setItem('SELECTED_FOCUS_TARGETS', JSON.stringify(Array.from(selectedIds)));
       renderCards();
     }
 
-    function selectAll(state) {
-      if (state) {
+    function selectAll(flag) {
+      if (flag) {
         allIndividuals.forEach(e => selectedIds.add(e.id));
       } else {
         selectedIds.clear();
       }
-      localStorage.setItem('SELECTED_FOCUS_TARGETS', JSON.stringify(Array.from(selectedIds)));
       renderCards();
     }
 
@@ -355,8 +417,9 @@
         alert('กรุณาเลือกบุคคลที่ต้องการโฟกัสอย่างน้อย 1 คนครับ');
         return;
       }
-      localStorage.setItem('SELECTED_FOCUS_TARGETS', JSON.stringify(Array.from(selectedIds)));
-      window.location.href = 'BENEFICIARY_NETWORK_DASHBOARD.html';
+      const idList = Array.from(selectedIds);
+      localStorage.setItem('SELECTED_FOCUS_TARGETS', JSON.stringify(idList));
+      window.location.href = 'BENEFICIARY_NETWORK_DASHBOARD.html?targets=' + encodeURIComponent(idList.join(','));
     }
 
     renderCards();
