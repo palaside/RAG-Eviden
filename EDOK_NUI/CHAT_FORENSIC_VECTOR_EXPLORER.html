@@ -417,15 +417,118 @@
 
   <main class="container">
     <!-- FILTER TABS & SEARCH -->
-    <div class="filter-tabs">
-      <button class="tab-btn active" onclick="setTab('all')">🌟 แสดงทั้งหมด (42)</button>
-      <button class="tab-btn" onclick="setTab('smoking')">🎯 หลักฐานจุดตายคู่สลิป (8)</button>
-      <button class="tab-btn" onclick="setTab('debt')">⚖️ คำรับสภาพหนี้ (8)</button>
-      <button class="tab-btn" onclick="setTab('coercion')">🎭 อ้างบุคคลที่สาม (น้ำหอม/สำนักงาน) (22)</button>
-      <button class="tab-btn" onclick="setTab('foot')">🚪 Foot-in-the-door (4)</button>
+    
+    <!-- FORENSIC INTER-ENTITY RELATIONSHIP MATRIX (ผังความเชื่อมโยงบุคคลและความสัมพันธ์แห่งคดี) -->
+    <section class="entity-matrix-section" style="margin-bottom: 24px;">
+      <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95)); border: 1.5px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.4);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 24px;">🕸️</span>
+            <div>
+              <h2 style="font-size: 18px; font-weight: 700; color: #f8fafc; margin: 0;">ผังความเชื่อมโยงบุคคลและความสัมพันธ์แห่งคดี (Inter-Entity Forensic Relationship Matrix)</h2>
+              <p style="font-size: 13px; color: #94a3b8; margin: 2px 0 0 0;">วิเคราะห์สายพานการสั่งการโอนเงินและตัวละครที่ถูกนำมาใช้สร้างเรื่องล่อลวงในบทสนทนาแชท</p>
+            </div>
+          </div>
+          <span style="background: rgba(56, 189, 248, 0.15); border: 1px solid #38bdf8; color: #38bdf8; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px;">
+            SSOT LINGUISTIC GRAPH
+          </span>
+        </div>
+
+        <!-- MATRIX CARDS GRID -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+          
+          <!-- NODE 1: CENTRAL NEXUS -->
+          <div style="background: rgba(15, 23, 42, 0.85); border: 1.5px solid rgba(239, 68, 68, 0.5); border-radius: 8px; padding: 14px; position: relative;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span style="font-size: 20px;">👩‍💼</span>
+              <div>
+                <strong style="color: #f87171; font-size: 14.5px;">น.ส. จิณห์นิภา ประสาทเขตการ</strong>
+                <div style="font-size: 11.5px; color: #fda4af;">จำเลยที่ ๑ (ตัวการหลัก / ผู้หลอกลวง)</div>
+              </div>
+            </div>
+            <div style="font-size: 12.5px; color: #cbd5e1; line-height: 1.6;">
+              <div>• <strong>บทบาท:</strong> พิมพ์หลอกลวง, อ้างน้ำหอม, อ้างแฟน, สั่งโอนเงิน</div>
+              <div>• <strong>บัญชีรับเงิน:</strong> ttb <code>114-2-99996-5</code></div>
+              <div>• <strong>ยอดเงินสั่งการ:</strong> ๒๖ กรรม (๒๕๕,๙๕๐ บาท)</div>
+            </div>
+            <div style="margin-top: 10px; background: rgba(239, 68, 68, 0.15); border-radius: 4px; padding: 4px 8px; font-size: 11.5px; color: #fca5a5;">
+              ⚖️ เชื่อมโยงทุกกรรมและสั่งให้โอนต่อไปยังบัญชีอื่น
+            </div>
+          </div>
+
+          <!-- NODE 2: PREEYACHAT -->
+          <div style="background: rgba(15, 23, 42, 0.85); border: 1.5px solid rgba(245, 158, 11, 0.5); border-radius: 8px; padding: 14px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span style="font-size: 20px;">👤</span>
+              <div>
+                <strong style="color: #fbbf24; font-size: 14.5px;">น.ส. ปรียาฉัตร</strong>
+                <div style="font-size: 11.5px; color: #fde68a;">จำเลยที่ ๒ (บัญชีรับโอนตามสั่ง)</div>
+              </div>
+            </div>
+            <div style="font-size: 12.5px; color: #cbd5e1; line-height: 1.6;">
+              <div>• <strong>บทบาท:</strong> บัญชีรับโอนเงินตามคำสั่งตรงของจิณห์นิภา</div>
+              <div>• <strong>บัญชีรับเงิน:</strong> กสิกรไทย <code>068-3-46960-9</code></div>
+              <div>• <strong>ความเชื่อมโยง:</strong> จิณห์นิภาส่งเลขบัญชีสั่งให้โอนตรง ๒ กรรม</div>
+            </div>
+            <div style="margin-top: 10px; background: rgba(245, 158, 11, 0.15); border-radius: 4px; padding: 4px 8px; font-size: 11.5px; color: #fde68a;">
+              🔗 ตรวจพบคำสั่งโอนในแชท กรรมที่ ๑ และ กรรมที่ ๒
+            </div>
+          </div>
+
+          <!-- NODE 3: WANWISA & TASSANEE -->
+          <div style="background: rgba(15, 23, 42, 0.85); border: 1.5px solid rgba(168, 85, 247, 0.5); border-radius: 8px; padding: 14px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span style="font-size: 20px;">👥</span>
+              <div>
+                <strong style="color: #c084fc; font-size: 14.5px;">วันวิศา & ทัศนีการ ประสาทเขตรการ</strong>
+                <div style="font-size: 11.5px; color: #e9d5ff;">ผู้ร่วมขบวนการ (เครือญาติจำเลย)</div>
+              </div>
+            </div>
+            <div style="font-size: 12.5px; color: #cbd5e1; line-height: 1.6;">
+              <div>• <strong>บทบาท:</strong> บัญชีรับเงินก้อนใหญ่ตามคำสั่งใน SG-01</div>
+              <div>• <strong>บัญชีรับเงิน:</strong> ออมสิน <code>020-3-33988-630</code> / พร้อมเพย์ <code>091-263-4123</code></div>
+              <div>• <strong>ความเชื่อมโยง:</strong> คำสั่งโอน ๒ พี่น้อง ๒๖,๐๐๐ บาท</div>
+            </div>
+            <div style="margin-top: 10px; background: rgba(168, 85, 247, 0.15); border-radius: 4px; padding: 4px 8px; font-size: 11.5px; color: #e9d5ff;">
+              🎯 มัดตัวแบ่งหน้าที่กันทำในตระกูลประสาทเขตรการ
+            </div>
+          </div>
+
+          <!-- NODE 4: FABRICATED PERSONAS -->
+          <div style="background: rgba(15, 23, 42, 0.85); border: 1.5px solid rgba(56, 189, 248, 0.5); border-radius: 8px; padding: 14px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span style="font-size: 20px;">🎭</span>
+              <div>
+                <strong style="color: #38bdf8; font-size: 14.5px;">บุคคลอ้างอิงสร้างเรื่องล่อลวง</strong>
+                <div style="font-size: 11.5px; color: #bae6fd;">Fabricated Personas & Third Parties</div>
+              </div>
+            </div>
+            <div style="font-size: 12.5px; color: #cbd5e1; line-height: 1.6;">
+              <div>• <strong>"น้ำหอม":</strong> ถูกอ้าง ๒๒ ครั้ง อ้างรอเงินคืน / อ้างจะเคลียร์</div>
+              <div>• <strong>"แฟน / ออฟฟิศแฟน":</strong> อ้างอับสัญญาณ / รอโอนกลับ</div>
+              <div>• <strong>"ฝ่ายการเงิน":</strong> อ้างระบบปิดยอด 100% คอม 5%</div>
+            </div>
+            <div style="margin-top: 10px; background: rgba(56, 189, 248, 0.15); border-radius: 4px; padding: 4px 8px; font-size: 11.5px; color: #bae6fd;">
+              🧠 ใช้สร้างจิตวิทยากดดันเร่งเร้าให้ผู้เสียหายโอนเพิ่ม
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- UNIFIED INCIDENT SEARCH & CONTROLS -->
+    <div class="filter-tabs" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;">
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <span style="font-size: 14px; font-weight: 700; color: #f8fafc;">📑 แฟ้มชุดเหตุการณ์พยานหลักฐานแบบร้อยเรียงสมบูรณ์ (Consolidated Evidence Cards):</span>
+        <span id="incidentCountBadge" style="background: #0284c7; color: #ffffff; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 700;">24 ชุดเหตุการณ์</span>
+      </div>
       
-      <input type="text" id="searchInput" class="search-input" placeholder="🔍 ค้นหาคำพูด, บรรทัด, ชื่อไฟล์..." oninput="filterCards()">
+      <div style="flex: 1; max-width: 420px; min-width: 260px;">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 ค้นหาคำพูด, บรรทัด, ชื่อบุคคล, ยอดเงิน, ชื่อไฟล์..." oninput="filterCards()" style="width: 100%; margin: 0;">
+      </div>
     </div>
+
 
     <!-- EVIDENCE CARDS LIST -->
     <div class="evidence-list" id="evidenceList"></div>
@@ -470,246 +573,216 @@
     let currentTab = 'all';
     let searchQuery = '';
 
-    function getItems() {
-      let items = [];
-      if (currentTab === 'all' || currentTab === 'smoking') {
-        evidenceData.smoking_guns.forEach(x => items.push({...x, type: 'smoking'}));
+    // CONSOLIDATED INCIDENT CARDS ENGINE
+    function buildConsolidatedIncidents() {
+      const groups = {};
+      
+      // 1. Smoking Guns
+      if (evidenceData.smoking_guns) {
+        evidenceData.smoking_guns.forEach(sg => {
+          const f = sg.chat_file || 'EVIDENCE_FILE';
+          if (!groups[f]) {
+            groups[f] = { file: f, date: sg.chat_date || '', lines: sg.chat_line || '', smoking: [], debt: [], coercion: [], foot: [], entities: [] };
+          }
+          groups[f].smoking.push(sg);
+          if (sg.recipient && !groups[f].entities.includes(sg.recipient)) {
+            groups[f].entities.push(sg.recipient);
+          }
+        });
       }
-      if (currentTab === 'all' || currentTab === 'debt') {
-        evidenceData.debt_acknowledgement.forEach(x => items.push({...x, type: 'debt'}));
+
+      // 2. Debt Acknowledgement
+      if (evidenceData.debt_acknowledgement) {
+        evidenceData.debt_acknowledgement.forEach(d => {
+          const f = d.file || 'EVIDENCE_FILE';
+          if (!groups[f]) {
+            groups[f] = { file: f, date: '', lines: 'Line ' + d.line, smoking: [], debt: [], coercion: [], foot: [], entities: [] };
+          }
+          groups[f].debt.push(d);
+          if (d.sender && !groups[f].entities.includes(d.sender)) {
+            groups[f].entities.push(d.sender);
+          }
+        });
       }
-      if (currentTab === 'all' || currentTab === 'coercion') {
-        evidenceData.third_party_coercion.forEach(x => items.push({...x, type: 'coercion'}));
+
+      // 3. Third-Party Coercion
+      if (evidenceData.third_party_coercion) {
+        evidenceData.third_party_coercion.forEach(c => {
+          const f = c.file || 'EVIDENCE_FILE';
+          if (!groups[f]) {
+            groups[f] = { file: f, date: '', lines: 'Line ' + c.line, smoking: [], debt: [], coercion: [], foot: [], entities: [] };
+          }
+          groups[f].coercion.push(c);
+          if (c.text.includes('น้ำหอม') && !groups[f].entities.includes('น้ำหอม')) groups[f].entities.push('น้ำหอม');
+          if (c.text.includes('แฟน') && !groups[f].entities.includes('แฟน')) groups[f].entities.push('แฟน/ออฟฟิศ');
+          if (c.text.includes('ปรียาฉัตร') && !groups[f].entities.includes('ปรียาฉัตร')) groups[f].entities.push('ปรียาฉัตร');
+        });
       }
-      if (currentTab === 'all' || currentTab === 'foot') {
-        evidenceData.foot_in_the_door.forEach(x => items.push({...x, type: 'foot'}));
+
+      // 4. Foot-in-the-door
+      if (evidenceData.foot_in_the_door) {
+        evidenceData.foot_in_the_door.forEach(ft => {
+          const f = ft.file || 'EVIDENCE_FILE';
+          if (!groups[f]) {
+            groups[f] = { file: f, date: '', lines: 'Line ' + ft.line, smoking: [], debt: [], coercion: [], foot: [], entities: [] };
+          }
+          groups[f].foot.push(ft);
+          if (ft.text.includes('แฟน') && !groups[f].entities.includes('แฟน')) groups[f].entities.push('แฟน/ออฟฟิศ');
+        });
       }
-      return items;
+
+      return Object.values(groups);
     }
+
+    const consolidatedIncidents = buildConsolidatedIncidents();
 
     function renderCards() {
       const listEl = document.getElementById('evidenceList');
       listEl.innerHTML = '';
 
-      let items = getItems();
+      let items = consolidatedIncidents;
 
       if (searchQuery) {
         const q = searchQuery.toLowerCase();
-        items = items.filter(it => {
-          const t = (it.text || it.chat_bubble || '').toLowerCase();
-          const f = (it.file || it.chat_file || '').toLowerCase();
-          const a = (it.analysis || it.legal_impact || '').toLowerCase();
-          return t.includes(q) || f.includes(q) || a.includes(q);
+        items = items.filter(inc => {
+          const f = inc.file.toLowerCase();
+          const e = inc.entities.join(' ').toLowerCase();
+          const sm = inc.smoking.map(x => (x.chat_bubble + ' ' + x.title + ' ' + x.legal_impact)).join(' ').toLowerCase();
+          const db = inc.debt.map(x => (x.text + ' ' + x.analysis)).join(' ').toLowerCase();
+          const co = inc.coercion.map(x => (x.text + ' ' + x.analysis)).join(' ').toLowerCase();
+          const ft = inc.foot.map(x => (x.text + ' ' + x.analysis)).join(' ').toLowerCase();
+          return f.includes(q) || e.includes(q) || sm.includes(q) || db.includes(q) || co.includes(q) || ft.includes(q);
         });
       }
 
+      const countBadge = document.getElementById('incidentCountBadge');
+      if (countBadge) countBadge.innerText = items.length + ' ชุดเหตุการณ์';
+
       if (items.length === 0) {
-        listEl.innerHTML = '<div style="text-align:center; padding:40px; color:#94a3b8;">ไม่พบบันทึกตามเงื่อนไข</div>';
+        listEl.innerHTML = '<div style="text-align:center; padding:40px; color:#94a3b8; font-size:15px;">⚠️ ไม่พบบันทึกตามเงื่อนไขที่ค้นหา</div>';
         return;
       }
 
-      items.forEach(it => {
+      items.forEach((inc, idx) => {
         const card = document.createElement('div');
-        
-        if (it.type === 'smoking') {
-          card.className = 'evidence-card smoking-gun';
-          card.innerHTML = `
-            <div class="card-meta">
-              <div>
-                <span class="badge" style="background:#7f1d1d; color:#fca5a5; border:1px solid #ef4444;">🎯 ${it.id}: ${it.title}</span>
-                <span style="color:#94a3b8; font-size:13.5px; margin-left:8px;">${it.chat_date}</span>
-              </div>
-              <code style="color:#38bdf8; font-size:13px;">${it.chat_line} | ${it.chat_file}</code>
-            </div>
+        card.className = 'evidence-card consolidated-incident-card';
+        card.style.cssText = 'background: #0b1120; border: 1.5px solid #1e293b; border-radius: 10px; margin-bottom: 24px; padding: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);';
 
-            <div class="sg-grid">
-              <div>
-                <div style="font-size:13.5px; color:#94a3b8; margin-bottom:4px;">💬 คำพูดบับเบิ้ลจริงที่จำเลยสัญญา/หลอกลวง:</div>
-                <div class="bubble-quote">“${it.chat_bubble}”</div>
-                
-                <div style="background:#090d16; border:1px solid #1e293b; border-radius:6px; padding:10px 14px; margin-top:8px;">
-                  <div style="font-size:14px; color:#cbd5e1;"><strong>ผู้รับเงิน:</strong> ${it.recipient}</div>
-                  <div style="font-size:14px; color:#22c55e; margin-top:3px;"><strong>ยอดเงินโอนจริง:</strong> ${it.amount} ${it.memo ? ' | <strong>บันทึกช่วยจำ:</strong> ' + it.memo : ''}</div>
-                </div>
+        // Badges for detected dimensions
+        let badgesHtml = '';
+        if (inc.smoking.length > 0) badgesHtml += '<span class="badge" style="background:#7f1d1d; color:#fca5a5; border:1px solid #ef4444; margin-right:6px;">🎯 จุดตายคู่สลิป (' + inc.smoking.length + ')</span>';
+        if (inc.debt.length > 0) badgesHtml += '<span class="badge" style="background:#854d0e; color:#fde047; border:1px solid #eab308; margin-right:6px;">⚖️ รับสภาพหนี้ (' + inc.debt.length + ')</span>';
+        if (inc.coercion.length > 0) badgesHtml += '<span class="badge" style="background:#1e3a8a; color:#93c5fd; border:1px solid #3b82f6; margin-right:6px;">🎭 อ้างบุคคลที่สาม (' + inc.coercion.length + ')</span>';
+        if (inc.foot.length > 0) badgesHtml += '<span class="badge" style="background:#374151; color:#d1d5db; border:1px solid #6b7280; margin-right:6px;">🚪 Foot-in-the-door (' + inc.foot.length + ')</span>';
 
-                <div class="analysis-text" style="margin-top:10px;">
-                  <strong style="color:#ef4444;">⚖️ นัยสำคัญทางคดี:</strong> ${it.legal_impact}
-                </div>
-              </div>
-
-              <div class="evidence-img-container">
-                <div style="font-size:13.5px; color:#38bdf8; font-weight:700; margin-bottom:8px;">
-                  ⚡ พยานหลักฐานสลิปจริง 300 DPI (Vector SVG)
-                </div>
-                <img src="${it.cropped_img}" alt="สลิปพยานหลักฐาน" class="evidence-img" onclick="openLightbox('${it.cropped_img}', '${it.full_scroll || ''}', '${it.title}')" title="คลิกเพื่อขยายและซูมระดับเวกเตอร์">
-                <div style="margin-top:12px;">
-                  <button class="btn-action" onclick="openLightbox('${it.cropped_img}', '${it.full_scroll || ''}', '${it.title}')" style="font-size:14px; padding:6px 16px;">
-                    🔍 ดูภาพหลักฐาน
-                  </button>
-                </div>
-              </div>
-            </div>
-          `;
+        // Entities linkage pills
+        let entitiesHtml = '<span style="color:#64748b; font-size:12px;">บุคคลที่เชื่อมโยง:</span> ';
+        if (inc.entities.length > 0) {
+          inc.entities.forEach(ent => {
+            entitiesHtml += '<span style="background:rgba(56,189,248,0.15); color:#38bdf8; border:1px solid rgba(56,189,248,0.3); font-size:11px; padding:2px 8px; border-radius:12px; margin-right:4px;">👤 ' + ent + '</span>';
+          });
         } else {
-          let bClass = 'foot-door';
-          let bTitle = '🚪 กลอุบาย Foot-in-the-door';
-          let bColor = '#38bdf8';
-          let bBg = 'rgba(56, 189, 248, 0.1)';
-
-          if (it.type === 'debt') {
-            bClass = 'debt-ack';
-            bTitle = '⚖️ คำรับสภาพหนี้ (ป.พ.พ. ม. ๑๙๓/๑๔)';
-            bColor = '#22c55e';
-            bBg = 'rgba(34, 197, 94, 0.1)';
-          } else if (it.type === 'coercion') {
-            bClass = 'coercion';
-            bTitle = '🎭 อ้างบุคคลที่สามบีบคั้น';
-            bColor = '#f59e0b';
-            bBg = 'rgba(245, 158, 11, 0.1)';
-          }
-
-          card.className = 'evidence-card ' + bClass;
-          card.innerHTML = `
-            <div class="card-meta">
-              <div>
-                <span class="badge" style="background:${bBg}; color:${bColor}; border:1px solid ${bColor};">${bTitle}</span>
-                <span style="color:#ffffff; font-weight:700; font-size:15px; margin-left:8px;">👤 ${it.sender}</span>
-                ${it.time ? `<span style="color:#94a3b8; font-size:13.5px; margin-left:6px;">[${it.time} น.]</span>` : ''}
-              </div>
-              <code style="color:#38bdf8; font-size:13px;">บรรทัดที่ ${it.line} | ${it.file}</code>
-            </div>
-
-            <div class="bubble-quote">“${it.text}”</div>
-
-            <div class="analysis-text">
-              <strong style="color:${bColor};">🔬 บทวิเคราะห์นิติวิทยาศาสตร์ทางภาษา:</strong> ${it.analysis}
-            </div>
-          `;
+          entitiesHtml += '<span style="background:rgba(239,68,68,0.15); color:#fca5a5; border:1px solid rgba(239,68,68,0.3); font-size:11px; padding:2px 8px; border-radius:12px;">👩‍💼 จิณห์นิภา (จำเลยที่ ๑)</span>';
         }
+
+        // Section 1: Smoking Gun (only if detected)
+        let smokingSection = '';
+        if (inc.smoking.length > 0) {
+          inc.smoking.forEach(sg => {
+            smokingSection += `
+              <div style="background: rgba(127, 29, 29, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 8px; padding: 14px; margin-top: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:8px;">
+                  <strong style="color: #fca5a5; font-size: 14.5px;">🎯 ${sg.id}: ${sg.title}</strong>
+                  <span style="font-size: 13.5px; color: #4ade80; font-weight:700;">ยอดเงิน: ${sg.amount}</span>
+                </div>
+                <div style="font-size: 13.5px; color: #cbd5e1; margin-bottom: 6px;">💬 <em>“${sg.chat_bubble}”</em></div>
+                <div style="font-size: 12.5px; color: #f87171; line-height:1.5;"><strong>⚖️ นัยสำคัญทางคดี:</strong> ${sg.legal_impact}</div>
+                <div style="margin-top: 10px; display:flex; gap:8px; flex-wrap:wrap;">
+                  <button class="btn-ctrl" onclick="openLightbox('${sg.cropped_img}', '${sg.full_scroll}', '${sg.title}')" style="font-size:12px; padding:4px 10px;">🔍 ดูหลักฐาน 300 DPI Vector (Lossless)</button>
+                </div>
+              </div>
+            `;
+          });
+        }
+
+        // Section 2: Debt Acknowledgement (only if detected)
+        let debtSection = '';
+        if (inc.debt.length > 0) {
+          debtSection += '<div style="background: rgba(133, 77, 14, 0.2); border: 1px solid rgba(234, 179, 8, 0.4); border-radius: 8px; padding: 14px; margin-top: 14px;">';
+          debtSection += '<strong style="color: #fde047; font-size: 14px; display:block; margin-bottom:8px;">⚖️ คำรับสภาพหนี้ / ข้อเท็จจริงที่จำเลยยอมรับด้วยตนเอง (ป.พ.พ. มาตรา ๑๙๓/๑๔):</strong>';
+          inc.debt.forEach(d => {
+            debtSection += `
+              <div style="margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed rgba(234, 179, 8, 0.2);">
+                <div style="font-size: 13px; color: #fef08a;">⏰ เวลา ${d.time} น. (บรรทัด ${d.line})</div>
+                <div style="font-size: 13.5px; color: #cbd5e1; margin: 3px 0;">${d.text}</div>
+                <div style="font-size: 12px; color: #94a3b8;"><em>${d.analysis}</em></div>
+              </div>
+            `;
+          });
+          debtSection += '</div>';
+        }
+
+        // Section 3: Third-Party Coercion (only if detected)
+        let coercionSection = '';
+        if (inc.coercion.length > 0) {
+          coercionSection += '<div style="background: rgba(30, 58, 138, 0.2); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 8px; padding: 14px; margin-top: 14px;">';
+          coercionSection += '<strong style="color: #93c5fd; font-size: 14px; display:block; margin-bottom:8px;">🎭 พฤติการณ์อ้างบุคคลที่สาม / สร้างเรื่องกดดันเร่งเร้า (Third-Party Coercion & Pressure):</strong>';
+          inc.coercion.forEach(c => {
+            coercionSection += `
+              <div style="margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed rgba(59, 130, 246, 0.2);">
+                <div style="font-size: 13px; color: #60a5fa;">⏰ เวลา ${c.time} น. (บรรทัด ${c.line})</div>
+                <div style="font-size: 13.5px; color: #cbd5e1; margin: 3px 0;">${c.text}</div>
+                <div style="font-size: 12px; color: #94a3b8;"><em>${c.analysis}</em></div>
+              </div>
+            `;
+          });
+          coercionSection += '</div>';
+        }
+
+        // Section 4: Foot-in-the-door (only if detected)
+        let footSection = '';
+        if (inc.foot.length > 0) {
+          footSection += '<div style="background: rgba(55, 65, 81, 0.25); border: 1px solid rgba(156, 163, 175, 0.4); border-radius: 8px; padding: 14px; margin-top: 14px;">';
+          footSection += '<strong style="color: #e5e7eb; font-size: 14px; display:block; margin-bottom:8px;">🚪 กลอุบายจิตวิทยาหยอดเงินก้อนเล็ก (Foot-in-the-Door Psychology):</strong>';
+          inc.foot.forEach(ft => {
+            footSection += `
+              <div style="margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed rgba(156, 163, 175, 0.2);">
+                <div style="font-size: 13px; color: #d1d5db;">⏰ เวลา ${ft.time} น. (บรรทัด ${ft.line})</div>
+                <div style="font-size: 13.5px; color: #cbd5e1; margin: 3px 0;">${ft.text}</div>
+                <div style="font-size: 12px; color: #94a3b8;"><em>${ft.analysis}</em></div>
+              </div>
+            `;
+          });
+          footSection += '</div>';
+        }
+
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; border-bottom:1px solid #1e293b; padding-bottom:12px;">
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <span style="font-weight:700; color:#38bdf8; font-size:15px;">#ชุดเหตุการณ์ที่ ${idx + 1}</span>
+                <span style="color:#64748b; font-size:12px;">|</span>
+                <code style="color:#f1f5f9; font-size:13px; background:#1e293b; padding:2px 6px; border-radius:4px;">${inc.file}</code>
+              </div>
+              <div style="margin-top:6px;">
+                ${entitiesHtml}
+              </div>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:4px;">
+              ${badgesHtml}
+            </div>
+          </div>
+
+          <div class="incident-body">
+            ${smokingSection}
+            ${debtSection}
+            ${coercionSection}
+            ${footSection}
+          </div>
+        `;
 
         listEl.appendChild(card);
       });
-    }
-
-    // ==========================================
-    // DEEP PAN & ZOOM VECTOR ENGINE (60 FPS)
-    // ==========================================
-    let currentVectorSrc = '';
-    let currentScrollSrc = '';
-    let currentZoom = 1.0;
-    let panX = 0;
-    let panY = 0;
-    let isDragging = false;
-    let startX = 0;
-    let startY = 0;
-
-    const modal = document.getElementById('lightboxModal');
-    const stage = document.getElementById('zoomStage');
-    const imgEl = document.getElementById('lightboxImg');
-    const viewport = document.getElementById('lbViewport');
-
-    function updateTransform() {
-      stage.style.transform = `translate(${panX}px, ${panY}px) scale(${currentZoom})`;
-    }
-
-    function openLightbox(vectorSrc, scrollSrc, title) {
-      currentVectorSrc = vectorSrc;
-      currentScrollSrc = scrollSrc || vectorSrc;
-      currentZoom = 1.0;
-      panX = 0;
-      panY = 0;
-
-      document.getElementById('lbTitleText').innerText = '🔍 ' + (title || 'ภาพพยานหลักฐานจุดตาย');
-      document.getElementById('btnDownloadSvg').href = vectorSrc;
-      
-      switchLbView('vector');
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      modal.classList.remove('open');
-      document.body.style.overflow = 'auto';
-    }
-
-    function switchLbView(mode) {
-      const btnVector = document.getElementById('btnModeVector');
-      const btnScroll = document.getElementById('btnModeScroll');
-
-      if (mode === 'vector') {
-        imgEl.src = currentVectorSrc;
-        btnVector.classList.add('active');
-        btnScroll.classList.remove('active');
-      } else {
-        imgEl.src = currentScrollSrc;
-        btnScroll.classList.add('active');
-        btnVector.classList.remove('active');
-      }
-      resetZoom();
-    }
-
-    function zoomIn() {
-      currentZoom = Math.min(5.0, currentZoom + 0.35);
-      updateTransform();
-    }
-
-    function zoomOut() {
-      currentZoom = Math.max(0.4, currentZoom - 0.35);
-      updateTransform();
-    }
-
-    function resetZoom() {
-      currentZoom = 1.0;
-      panX = 0;
-      panY = 0;
-      updateTransform();
-    }
-
-    function zoomActual() {
-      currentZoom = 1.8;
-      updateTransform();
-    }
-
-    // MOUSE WHEEL ZOOM
-    viewport.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      const zoomFactor = e.deltaY < 0 ? 1.18 : 0.85;
-      currentZoom = Math.min(Math.max(0.4, currentZoom * zoomFactor), 5.5);
-      updateTransform();
-    }, { passive: false });
-
-    // DRAG TO PAN
-    viewport.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.clientX - panX;
-      startY = e.clientY - panY;
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      panX = e.clientX - startX;
-      panY = e.clientY - startY;
-      updateTransform();
-    });
-
-    window.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
-
-    // KEYBOARD SHORTCUTS
-    window.addEventListener('keydown', (e) => {
-      if (!modal.classList.contains('open')) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === '+' || e.key === '=') zoomIn();
-      if (e.key === '-' || e.key === '_') zoomOut();
-      if (e.key === '0') resetZoom();
-    });
-
-    function setTab(tab) {
-      currentTab = tab;
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
-      renderCards();
     }
 
     function filterCards() {

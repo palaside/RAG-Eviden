@@ -18,14 +18,58 @@
     }
 
     .top-header {
-      background: rgba(15, 23, 42, 0.95);
-      border-bottom: 1px solid #1e293b;
-      padding: 16px 30px;
+      background: #070b14;
+      border-bottom: 2px solid #1e293b;
+      padding: 16px 28px;
       position: sticky;
       top: 0;
-      z-index: 100;
-      backdrop-filter: blur(12px);
+      z-index: 1000;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);
     }
+
+    /* UNIFIED AGENT NAV GRID */
+    .agent-nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 8px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #1e293b;
+    }
+    .agent-card-nav {
+      background: rgba(16, 26, 48, 0.7);
+      border: 1px solid #1e293b;
+      border-radius: 7px;
+      padding: 7px 11px;
+      text-decoration: none;
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: all 0.15s;
+    }
+    .agent-card-nav:hover {
+      background: rgba(56, 189, 248, 0.18);
+      border-color: #38bdf8;
+      color: #fff;
+    }
+    .agent-card-nav.active {
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.3) 0%, rgba(14, 165, 233, 0.2) 100%);
+      border-color: #38bdf8;
+      color: #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    }
+    .agent-card-nav.boss-nav {
+      border-color: #ca8a04;
+      background: rgba(30, 25, 10, 0.7);
+      color: #facc15;
+    }
+    .agent-card-nav.boss-nav:hover {
+      background: rgba(234, 179, 8, 0.2);
+      border-color: #facc15;
+    }
+    .ac-title { font-weight: 700; font-size: 13px; }
+    .ac-desc { font-size: 11px; color: #94a3b8; }
     .header-flex {
       display: flex;
       justify-content: space-between;
@@ -331,6 +375,42 @@
 
   <!-- TOP HEADER -->
   <header class="top-header">
+    <!-- MASTER 8-NODE NAVIGATION BAR -->
+    <div class="agent-nav-grid">
+      <a href="MASTER_SSOT_STITCH_VIEWER.html" class="agent-card-nav" data-target="MASTER_SSOT_STITCH_VIEWER.html">
+        <span class="ac-title">🏛️ [1] SSOT Stream</span>
+        <span class="ac-desc">แชท 577 ภาพ สู่แกนเวลาเดียว</span>
+      </a>
+      <a href="TARGET_FOCUS_SELECTOR.html" class="agent-card-nav" data-target="TARGET_FOCUS_SELECTOR.html">
+        <span class="ac-title">🎯 [2] Target Focus (หลัก)</span>
+        <span class="ac-desc">คลังสารบบ 59 รายชื่อบุคคล</span>
+      </a>
+      <a href="BENEFICIARY_NETWORK_DASHBOARD.html?targets=jinnipha%2Cpreeyachat%2C" class="agent-card-nav" data-target="BENEFICIARY_NETWORK_DASHBOARD.html">
+        <span class="ac-title">🕸️ [2.1] Money Network</span>
+        <span class="ac-desc">ผังเส้นทางเงิน 10 บัญชีผู้รับ</span>
+      </a>
+      <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="agent-card-nav" data-target="CHAT_FORENSIC_VECTOR_EXPLORER.html">
+        <span class="ac-title">🧠 [3] Forensic Vector</span>
+        <span class="ac-desc">นิติภาษาศาสตร์ & สลิป 300 DPI</span>
+      </a>
+      <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="agent-card-nav active" data-target="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html">
+        <span class="ac-title">⚖️ [4] Indictment Engine</span>
+        <span class="ac-desc">สำนวนฟ้อง 6 จำเลย 26+ กระทง</span>
+      </a>
+      <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="agent-card-nav" data-target="VECTOR_EVIDENCE_DASHBOARD.html">
+        <span class="ac-title">📑 [5] Master Dossier (หลัก)</span>
+        <span class="ac-desc">สารบบเวกเตอร์แท้ 35 แผ่น</span>
+      </a>
+      <a href="TIMELINE_11D_DASHBOARD.html" class="agent-card-nav" data-target="TIMELINE_11D_DASHBOARD.html">
+        <span class="ac-title">⏱️ [5.1] Timeline 11D</span>
+        <span class="ac-desc">ไทม์ไลน์ 11 มิติ & ซักค้าน Matrix</span>
+      </a>
+      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="agent-card-nav boss-nav" data-target="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html">
+        <span class="ac-title">👑 [6] Supreme President</span>
+        <span class="ac-desc">ศูนย์บัญชาการสูงสุด ๖ เอเจนต์</span>
+      </a>
+    </div>
+
     <div class="header-flex">
       <div>
         <div class="header-title">
@@ -345,17 +425,8 @@
       </div>
 
       <div class="nav-buttons">
-        <a href="TARGET_FOCUS_SELECTOR.html" class="btn-nav">
-          <span>🎯 Agent 2 (หน้าที่ ๑ หลัก): สารบบบุคคล</span>
-        </a>
-        <a href="BENEFICIARY_NETWORK_DASHBOARD.html" class="btn-nav">
-          <span>🕸️ Agent 2 (หน้าที่ ๒ ขยายผล): เครือข่ายการเงิน</span>
-        </a>
-        <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="btn-nav">
-          <span>🔬 Agent 3: เวกเตอร์แชท & 300 DPI</span>
-        </a>
-        <a href="MASTER_SSOT_STITCH_VIEWER.html" class="btn-nav">
-          <span>📜 Agent 1: ไทม์ไลน์ภาพแชท SSOT</span>
+        <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="btn-nav" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color:#fff; border-color:#38bdf8; font-weight:800; box-shadow:0 0 15px rgba(56,189,248,0.4);">
+          <span>👉 ไปต่อหน้าที่ ๕: แฟ้มสารบบเวกเตอร์แท้ 100% ➔</span>
         </a>
       </div>
     </div>
@@ -534,6 +605,23 @@
         </div>
       </div>
     </div>
+
+    <!-- BOTTOM FORWARD BANNER TO AGENT 5 -->
+    <div style="margin-top: 40px; padding: 24px 30px; background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(14, 165, 233, 0.2) 100%); border: 2px solid #0284c7; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+      <div>
+        <div style="font-size: 19px; font-weight: 800; color: #38bdf8;">
+          📑 ขั้นตอนถัดไป: ตรวจสารบบพยานหลักฐานเวกเตอร์แท้ ๑๐๐% (Agent 5)
+        </div>
+        <div style="font-size: 14.5px; color: #cbd5e1; margin-top: 4px;">
+          ส่งต่อสำนวนฟ้องและข้อเท็จจริงสู่แผงตรวจสารบบพยาน ๓๕ แผ่น พร้อมระบบไทม์ไลน์ ๑๑ มิติ & ซักค้าน
+        </div>
+      </div>
+      <div>
+        <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="btn-action" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #ffffff; padding: 12px 28px; border-radius: 8px; font-size: 16px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 20px rgba(2, 132, 199, 0.5);">
+          <span>👉 เข้าสู่หน้าที่ ๕: แฟ้มสารบบคดีอาญาเวกเตอร์แท้ 100% ➔</span>
+        </a>
+      </div>
+    </div>
   </main>
 
   <script>
@@ -647,6 +735,38 @@
 
     renderDefendants();
     renderCountsTable();
+
+    // Universal Smart Link Resolver
+    (function initSmartNav() {
+      const isSubdir = window.location.pathname.replace(/\\/g, '/').toLowerCase().includes('/vector_evidence/');
+      const linkMap = {
+        '[1]': 'MASTER_SSOT_STITCH_VIEWER.html',
+        '[2]': 'TARGET_FOCUS_SELECTOR.html',
+        '[2.1]': 'BENEFICIARY_NETWORK_DASHBOARD.html?targets=jinnipha%2Cpreeyachat%2C',
+        '[3]': 'CHAT_FORENSIC_VECTOR_EXPLORER.html',
+        '[4]': 'INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html',
+        '[5]': isSubdir ? 'VECTOR_EVIDENCE_DASHBOARD.html' : 'VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html',
+        '[5.1]': 'TIMELINE_11D_DASHBOARD.html',
+        '[6]': 'AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html'
+      };
+
+      document.querySelectorAll('.agent-card-nav').forEach(el => {
+        const titleEl = el.querySelector('.ac-title');
+        if (!titleEl) return;
+        const text = titleEl.innerText;
+        for (const [key, target] of Object.entries(linkMap)) {
+          if (text.includes(key)) {
+            const resolved = isSubdir ? ((key === '[5]' || key === '[5.1]' || key === '[6]') ? target : '../' + target) : target;
+            el.href = resolved;
+            el.onclick = function() {
+              const curSub = window.location.pathname.replace(/\\/g, '/').toLowerCase().includes('/vector_evidence/');
+              this.href = curSub ? ((key === '[5]' || key === '[5.1]' || key === '[6]') ? target : '../' + target) : target;
+            };
+            break;
+          }
+        }
+      });
+    })();
   </script>
 </body>
 </html>

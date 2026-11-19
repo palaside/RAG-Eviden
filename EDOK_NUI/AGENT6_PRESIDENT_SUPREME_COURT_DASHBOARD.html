@@ -131,28 +131,35 @@
       padding: 0 32px;
     }
 
-    /* Tab Controls */
+    /* Tab Controls - Fixed on One Screen */
     .boss-tabs {
-      display: flex;
-      gap: 12px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
       margin-bottom: 24px;
       border-bottom: 1px solid var(--border);
       padding-bottom: 14px;
-      overflow-x: auto;
+    }
+    @media (max-width: 1200px) {
+      .boss-tabs {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
     }
     .btab-btn {
       background: var(--bg-card);
       border: 1px solid var(--border);
       color: var(--text-muted);
-      padding: 10px 20px;
+      padding: 10px 12px;
       border-radius: 8px;
-      font-size: 14.5px;
+      font-size: 13.5px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
-      white-space: nowrap;
+      justify-content: center;
+      text-align: center;
+      gap: 6px;
+      white-space: normal;
       transition: all 0.2s;
     }
     .btab-btn:hover { border-color: var(--gold); color: #fff; }
@@ -485,22 +492,31 @@
           <span class="badge-gold">COURTROOM TRIAL READY</span>
         </div>
 
+        <!-- Interactive Step Selector Buttons -->
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin:18px 0; background:#070b14; padding:12px 16px; border-radius:8px; border:1px solid #1e293b; align-items:center;">
+          <span style="font-size:14px; font-weight:700; color:#eab308;">🕹️ ปุ่มกดทดลองซักค้านสด:</span>
+          <button class="btab-btn active" id="btnSim1" onclick="runSimStep(1)" style="padding:6px 14px; font-size:13px;">▶️ Step 1: ตรึงฐานราก</button>
+          <button class="btab-btn" id="btnSim2" onclick="runSimStep(2)" style="padding:6px 14px; font-size:13px;">▶️ Step 2: ดักจับคำรับรอง</button>
+          <button class="btab-btn" id="btnSim3" onclick="runSimStep(3)" style="padding:6px 14px; font-size:13px;">⚡ Step 3: เผด็จศึกสารภาพ</button>
+          <button class="btab-btn" id="btnSimAll" onclick="runSimStep('all')" style="background:#0284c7; color:#fff; border-color:#38bdf8; padding:6px 14px; font-size:13px;">📜 แสดงครบทั้ง ๓ สเต็ป</button>
+        </div>
+
         <div class="sim-steps">
-          <div class="sim-step-box active-step">
+          <div class="sim-step-box active-step" id="simStepBox1">
             <span class="step-badge">STEP 1</span>
             <div class="step-name">ตรึงฐานราก (Premise Lock)</div>
             <div class="step-detail">
               บังคับให้จำเลยยอมรับการเป็นเจ้าของบัญชีแชท LINE 'JiN', การพิมพ์ข้อความด้วยตนเอง, และการได้รับเงินเข้าบัญชีจริง
             </div>
           </div>
-          <div class="sim-step-box active-step">
+          <div class="sim-step-box" id="simStepBox2">
             <span class="step-badge">STEP 2</span>
             <div class="step-name">ดักจับคำรับรอง (Representation Capture)</div>
             <div class="step-detail">
               นำบับเบิ้ลแชทจริงมาวางตรงหน้า เช่น "เดินชนน้ำหอมแตกเรื่องถึง สนง." หรือ "ต้น 50,000 คืนก่อน 1 ทุ่ม" เพื่อให้พยานยืนยันข้อความ
             </div>
           </div>
-          <div class="sim-step-box active-step">
+          <div class="sim-step-box" id="simStepBox3">
             <span class="step-badge">STEP 3</span>
             <div class="step-name">เผด็จศึกสารภาพ (Checkmate & Vacuum)</div>
             <div class="step-detail">
@@ -510,35 +526,44 @@
         </div>
 
         <!-- Interactive Dialogue Simulation -->
-        <div class="court-dialogue-box">
-          <div class="dialogue-speaker speaker-lawyer">⚖️ ทนายโจทก์ / พนักงานอัยการ (ซักค้านชี้นำ):</div>
-          <div class="dialogue-bubble">
-            "ในวันที่ ๑๕ กุมภาพันธ์ พยานเป็นผู้พิมพ์ข้อความขอยืมเงิน ๒,๐๐๐ บาท โดยอ้างว่า 'ไปเดินชนน้ำหอมเค้าแตก เรื่องถึงสำนักงาน' เข้าไปในห้องแชทด้วยตนเอง ใช่หรือไม่?"
+        <div class="court-dialogue-box" id="courtDialogueBox">
+          <!-- Step 1 Pair -->
+          <div class="sim-dialogue-pair" id="simPair1">
+            <div class="dialogue-speaker speaker-lawyer">⚖️ ทนายโจทก์ / พนักงานอัยการ (ซักค้านชี้นำ - สเต็ป ๑ ตรึงฐานราก):</div>
+            <div class="dialogue-bubble">
+              "ในวันที่ ๑๕ กุมภาพันธ์ พยานเป็นผู้พิมพ์ข้อความขอยืมเงิน ๒,๐๐๐ บาท โดยอ้างว่า 'ไปเดินชนน้ำหอมเค้าแตก เรื่องถึงสำนักงาน' เข้าไปในห้องแชทด้วยตนเอง ใช่หรือไม่?"
+            </div>
+
+            <div class="dialogue-speaker speaker-witness">👤 จำเลย (น.ส. จิณห์นิภา ประสาทเขตต์การ ในคอกพยาน):</div>
+            <div class="dialogue-bubble" style="background:#1e1b18; border-left:3px solid #f87171;">
+              "...ใช่ค่ะ (ยอมรับเพราะจำนนต่อหลักฐานบันทึกแชท LINE 100%)"
+            </div>
           </div>
 
-          <div class="dialogue-speaker speaker-witness">👤 จำเลย (น.ส. จิณห์นิภา ประสาทเขตต์การ ในคอกพยาน):</div>
-          <div class="dialogue-bubble" style="background:#1e1b18; border-left:3px solid #f87171;">
-            "...ใช่ค่ะ (ยอมรับเพราะจำนนต่อหลักฐานบันทึกแชท LINE 100%)"
+          <!-- Step 2 Pair -->
+          <div class="sim-dialogue-pair" id="simPair2" style="display:none; margin-top:14px;">
+            <div class="dialogue-speaker speaker-lawyer">⚖️ ทนายโจทก์ / พนักงานอัยการ (ขุดรากถอนโคน - สเต็ป ๒ ดักจับคำรับรอง):</div>
+            <div class="dialogue-bubble">
+              "ในความเป็นจริง พยานไม่มีใบเสร็จรับเงินค่าเสียหายจากร้านค้า และไม่มีรายงานข้อเท็จจริงจากสำนักงานเลยแม้แต่แผ่นเดียว ใช่หรือไม่?"
+            </div>
+
+            <div class="dialogue-speaker speaker-witness">👤 จำเลย (ในคอกพยาน):</div>
+            <div class="dialogue-bubble" style="background:#1e1b18; border-left:3px solid #f87171;">
+              "...ไม่มีค่ะ"
+            </div>
           </div>
 
-          <div class="dialogue-speaker speaker-lawyer">⚖️ ทนายโจทก์ / พนักงานอัยการ (ขุดรากถอนโคน):</div>
-          <div class="dialogue-bubble">
-            "ในความเป็นจริง พยานไม่มีใบเสร็จรับเงินค่าเสียหายจากร้านค้า และไม่มีรายงานข้อเท็จจริงจากสำนักงานเลยแม้แต่แผ่นเดียว ใช่หรือไม่?"
-          </div>
+          <!-- Step 3 Pair -->
+          <div class="sim-dialogue-pair" id="simPair3" style="display:none; margin-top:14px;">
+            <div class="dialogue-speaker speaker-lawyer">⚖️ ทนายโจทก์ / พนักงานอัยการ (เผด็จศึกขั้นสุดท้าย - สเต็ป ๓ ปิดประตูหนี):</div>
+            <div class="dialogue-bubble">
+              "เหตุการณ์เดินชนน้ำหอมแตกที่พยานกุเรื่องบอกผู้เสียหาย ไม่เคยเกิดขึ้นจริง และเงิน ๒,๐๐๐ บาท พยานนำไปใช้จ่ายส่วนตัวทันที ใช่หรือไม่?"
+            </div>
 
-          <div class="dialogue-speaker speaker-witness">👤 จำเลย (ในคอกพยาน):</div>
-          <div class="dialogue-bubble" style="background:#1e1b18; border-left:3px solid #f87171;">
-            "...ไม่มีค่ะ"
-          </div>
-
-          <div class="dialogue-speaker speaker-lawyer">⚖️ ทนายโจทก์ / พนักงานอัยการ (เผด็จศึกขั้นสุดท้าย):</div>
-          <div class="dialogue-bubble">
-            "เหตุการณ์เดินชนน้ำหอมแตกที่พยานกุเรื่องบอกผู้เสียหาย ไม่เคยเกิดขึ้นจริง และเงิน ๒,๐๐๐ บาท พยานนำไปใช้จ่ายส่วนตัวทันที ใช่หรือไม่?"
-          </div>
-
-          <div class="dialogue-speaker speaker-judge">🏛️ ศาลบันทึกคำเบิกความพยาน:</div>
-          <div class="dialogue-bubble" style="background:rgba(234,179,8,0.1); border-left:3px solid var(--gold); color:#fef08a;">
-            "พยานเบิกความรับว่า ได้พิมพ์ข้อความอ้างเรื่องน้ำหอมแตกจริง และไม่มีเหตุการณ์ดังกล่าวเกิดขึ้นจริง ได้รับเงินโอน ๒,๐๐๐ บาทแล้วนำไปใช้สอยส่วนตัว (เข้าองค์ประกอบฉ้อโกงตาม ป.อ. ๓๔๑ โดยสมบูรณ์)"
+            <div class="dialogue-speaker speaker-judge">🏛️ ศาลบันทึกคำเบิกความพยาน:</div>
+            <div class="dialogue-bubble" style="background:rgba(234,179,8,0.1); border-left:3px solid var(--gold); color:#fef08a;">
+              "พยานเบิกความรับว่า ได้พิมพ์ข้อความอ้างเรื่องน้ำหอมแตกจริง และไม่มีเหตุการณ์ดังกล่าวเกิดขึ้นจริง ได้รับเงินโอน ๒,๐๐๐ บาทแล้วนำไปใช้สอยส่วนตัว (เข้าองค์ประกอบฉ้อโกงตาม ป.อ. ๓๔๑ โดยสมบูรณ์)"
+            </div>
           </div>
         </div>
       </div>
@@ -1369,9 +1394,47 @@
       if (btn) btn.classList.add('active');
     }
 
+    // Interactive Cross-Examination Simulator Stepper
+    function runSimStep(step) {
+      document.querySelectorAll('[id^="btnSim"]').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('[id^="simStepBox"]').forEach(b => b.classList.remove('active-step'));
+      
+      const p1 = document.getElementById('simPair1');
+      const p2 = document.getElementById('simPair2');
+      const p3 = document.getElementById('simPair3');
+
+      if (step === 1) {
+        document.getElementById('btnSim1').classList.add('active');
+        document.getElementById('simStepBox1').classList.add('active-step');
+        p1.style.display = 'block';
+        p2.style.display = 'none';
+        p3.style.display = 'none';
+      } else if (step === 2) {
+        document.getElementById('btnSim2').classList.add('active');
+        document.getElementById('simStepBox2').classList.add('active-step');
+        p1.style.display = 'block';
+        p2.style.display = 'block';
+        p3.style.display = 'none';
+      } else if (step === 3) {
+        document.getElementById('btnSim3').classList.add('active');
+        document.getElementById('simStepBox3').classList.add('active-step');
+        p1.style.display = 'block';
+        p2.style.display = 'block';
+        p3.style.display = 'block';
+      } else {
+        document.getElementById('btnSimAll').classList.add('active');
+        document.getElementById('simStepBox1').classList.add('active-step');
+        document.getElementById('simStepBox2').classList.add('active-step');
+        document.getElementById('simStepBox3').classList.add('active-step');
+        p1.style.display = 'block';
+        p2.style.display = 'block';
+        p3.style.display = 'block';
+      }
+    }
+
     // Universal Smart Link Resolver for Agent Navigation & Exhibits
     (function initSmartNav() {
-      const isSubdir = window.location.pathname.replace(/\/g, '/').toLowerCase().includes('/vector_evidence/');
+      const isSubdir = window.location.pathname.replace(/\\/g, '/').toLowerCase().includes('/vector_evidence/');
       const linkMap = {
         '[1]': 'MASTER_SSOT_STITCH_VIEWER.html',
         '[2]': 'TARGET_FOCUS_SELECTOR.html',
@@ -1392,7 +1455,7 @@
             const resolved = isSubdir ? ((key === '[5]' || key === '[5.1]' || key === '[6]') ? target : '../' + target) : target;
             el.href = resolved;
             el.onclick = function() {
-              const curSub = window.location.pathname.replace(/\/g, '/').toLowerCase().includes('/vector_evidence/');
+              const curSub = window.location.pathname.replace(/\\/g, '/').toLowerCase().includes('/vector_evidence/');
               this.href = curSub ? ((key === '[5]' || key === '[5.1]' || key === '[6]') ? target : '../' + target) : target;
             };
             break;
