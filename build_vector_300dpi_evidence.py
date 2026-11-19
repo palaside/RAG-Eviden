@@ -61,7 +61,7 @@ def save_image_and_vector(crop_img, base_name, title):
     svg_path_ws = os.path.join(SG_DIR_WS, svg_fn)
     svg_path_art = os.path.join(SG_DIR_ART, svg_fn)
 
-    svg_content = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h + 60}" width="100%" height="100%">
+    svg_content = f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {w} {h + 60}" width="{w}" height="{h + 60}">
   <defs>
     <style>
       .evidence-title {{ font-family: 'TH Sarabun PSK', sans-serif; font-size: 24px; font-weight: bold; fill: #38bdf8; }}
@@ -77,7 +77,7 @@ def save_image_and_vector(crop_img, base_name, title):
   <text x="{w - 20}" y="34" text-anchor="end" class="evidence-stamp">300 DPI VECTOR FORENSIC</text>
 
   <!-- 300 DPI High-Definition Evidence Image -->
-  <image href="data:image/jpeg;base64,{b64_str}" x="0" y="55" width="{w}" height="{h}" style="image-rendering: high-quality;"/>
+  <image href="data:image/jpeg;base64,{b64_str}" xlink:href="data:image/jpeg;base64,{b64_str}" x="0" y="55" width="{w}" height="{h}" style="image-rendering: high-quality;"/>
   
   <!-- Forensic Border -->
   <rect x="1" y="1" width="{w - 2}" height="{h + 58}" fill="none" stroke="#0284c7" stroke-width="2" rx="8"/>
