@@ -138,7 +138,8 @@ smoking_gun_catalog = [
         'chat_line': 'Transcript Line 5860-5865',
         'chat_file': 'A4_Full_27.5.68 พี่น้อง_IMG_6243.PNG',
         'slip_file': 'EVIDENCE_1_PRASATKHETKARN_SISTERS_ACCOUNTS.png',
-        'cropped_img': 'SMOKING_GUNS/EVIDENCE_1_PRASATKHETKARN_SISTERS_ACCOUNTS.png',
+        'cropped_img': 'SMOKING_GUNS/SG01_SISTERS_26K_VECTOR.svg',
+        'full_scroll': 'SMOKING_GUNS/EVIDENCE_1_PRASATKHETKARN_SISTERS_ACCOUNTS.png',
         'amount': '26,000.00 บาท',
         'recipient': 'วันวิศา (21k) + ทัศนีการ (5k)',
         'legal_impact': 'พยานหลักฐานมัดตัวระดับสูงสุด พิสูจน์ขบวนการฟอกเงินและแบ่งหน้าที่กันทำในตระกูลประสาทเขตรการ'
@@ -151,7 +152,8 @@ smoking_gun_catalog = [
         'chat_line': 'Transcript Line 2482 / Vector Node 174',
         'chat_file': 'IMG_6242 (2).PNG',
         'slip_file': 'EVIDENCE_2_PREEYACHAT_CHIMPLEE_SLIP_9000.png',
-        'cropped_img': 'SMOKING_GUNS/EVIDENCE_2_PREEYACHAT_CHIMPLEE_SLIP_9000.png',
+        'cropped_img': 'SMOKING_GUNS/SG02_PREEYACHAT_9000_VECTOR.svg',
+        'full_scroll': 'SMOKING_GUNS/EVIDENCE_2_PREEYACHAT_CHIMPLEE_SLIP_9000.png',
         'amount': '9,000.00 บาท',
         'recipient': 'น.ส. ปรียชาติ ฉิมพลี (กสิกรไทย 455-1)',
         'memo': 'คืน 10000 วันที่ 3 มิ.ย.',
@@ -165,7 +167,8 @@ smoking_gun_catalog = [
         'chat_line': 'Transcript Line 2599 / Vector Node 176',
         'chat_file': 'LINE_capture_796547198.800971.JPG',
         'slip_file': 'EVIDENCE_3_PREEYACHAT_CHIMPLEE_SLIP_13500.jpg',
-        'cropped_img': 'SMOKING_GUNS/EVIDENCE_3_PREEYACHAT_CHIMPLEE_SLIP_13500.jpg',
+        'cropped_img': 'SMOKING_GUNS/SG03_PREEYACHAT_13500_VECTOR.svg',
+        'full_scroll': 'SMOKING_GUNS/EVIDENCE_3_PREEYACHAT_CHIMPLEE_SLIP_13500.jpg',
         'amount': '13,500.00 บาท',
         'recipient': 'น.ส. ปรียชาติ ฉิมพลี (กสิกรไทย 455-1)',
         'memo': 'คืน 9/6 ยอด 15000',
@@ -179,7 +182,8 @@ smoking_gun_catalog = [
         'chat_line': 'Transcript Line 3602-3607',
         'chat_file': 'LINE_capture_800254816.874418.jpg',
         'slip_file': 'EVIDENCE_5_BOONPRASERT_WOUND_SLIP.jpg',
-        'cropped_img': 'SMOKING_GUNS/EVIDENCE_5_BOONPRASERT_WOUND_SLIP.jpg',
+        'cropped_img': 'SMOKING_GUNS/SG04_BOONPRASERT_WOUND_VECTOR.svg',
+        'full_scroll': 'SMOKING_GUNS/EVIDENCE_5_BOONPRASERT_WOUND_SLIP.jpg',
         'amount': '1,500.00 บาท',
         'recipient': 'น.ส. จิณห์นิภา บุญประเสริฐ (KTB)',
         'legal_impact': 'สบช่องใช้ชื่อหน้าเหมือนจำเลย อาศัยความเจ็บป่วยเร่งด่วนตัดความระมัดระวังของผู้เสียหาย'
@@ -192,7 +196,8 @@ smoking_gun_catalog = [
         'chat_line': 'Transcript Line 333-338',
         'chat_file': 'LINE_capture_800253185.789705.jpg',
         'slip_file': 'LINE_capture_800253185.789705.jpg',
-        'cropped_img': 'CROPPED_SLIPS/test_crop_01.jpg',
+        'cropped_img': 'SMOKING_GUNS/SG05_PERFUME_2000_VECTOR.svg',
+        'full_scroll': 'CROPPED_SLIPS/test_crop_01.jpg',
         'amount': '2,000.00 บาท',
         'recipient': 'น.ส. จิณห์นิภา ประสาทเขตต์การ',
         'legal_impact': 'การแสดงข้อความอันเป็นเท็จ กุเรื่องอุบัติเหตุฉุกเฉินเพื่อบีบให้โอนเงินทันทีโดยทุจริต'
@@ -205,7 +210,8 @@ smoking_gun_catalog = [
         'chat_line': 'Transcript Line 6006 / Vector Node 179',
         'chat_file': 'LINE_capture_800256213.882803.jpg',
         'slip_file': 'EVIDENCE_7_WANWISA_PAY_MOM_SLIP.jpg',
-        'cropped_img': 'SMOKING_GUNS/EVIDENCE_7_WANWISA_PAY_MOM_SLIP.jpg',
+        'cropped_img': 'SMOKING_GUNS/SG06_WANWISA_PAY_MOM_VECTOR.svg',
+        'full_scroll': 'SMOKING_GUNS/EVIDENCE_7_WANWISA_PAY_MOM_SLIP.jpg',
         'amount': '2,000.00 บาท',
         'recipient': 'นางสาว วันวิศา ประสาทเขตรการ',
         'legal_impact': 'โอนเงินต่อไปยังบัญชีบุคคลในครอบครัว ยืนยันการนำเงินที่ได้ไปใช้จ่ายส่วนตัว'
@@ -218,7 +224,8 @@ smoking_gun_catalog = [
         'chat_line': 'Transcript Line 4238-4240',
         'chat_file': 'LINE_capture_800255446.662076.jpg',
         'slip_file': 'EVIDENCE_6_BOONPRASERT_DIZZY_SLIP.jpg',
-        'cropped_img': 'SMOKING_GUNS/EVIDENCE_6_BOONPRASERT_DIZZY_SLIP.jpg',
+        'cropped_img': 'SMOKING_GUNS/SG07_BOONPRASERT_DIZZY_VECTOR.svg',
+        'full_scroll': 'SMOKING_GUNS/EVIDENCE_6_BOONPRASERT_DIZZY_SLIP.jpg',
         'amount': '3,000.00 บาท',
         'recipient': 'น.ส. จิณห์นิภา บุญประเสริฐ',
         'legal_impact': 'อ้างเหตุเจ็บป่วยวิกฤตซ้ำซาก เพื่อหลอกให้โอนเงินเข้าบัญชีนอมินี'
@@ -231,7 +238,8 @@ smoking_gun_catalog = [
         'chat_line': 'Vector Node 174',
         'chat_file': 'IMG_6242 (2).PNG',
         'slip_file': 'EVIDENCE_4_PREEYACHAT_DIRECT_CHAT_ACCOUNT.png',
-        'cropped_img': 'SMOKING_GUNS/EVIDENCE_4_PREEYACHAT_DIRECT_CHAT_ACCOUNT.png',
+        'cropped_img': 'SMOKING_GUNS/SG08_PREEYACHAT_DIRECT_ACCOUNT_VECTOR.svg',
+        'full_scroll': 'SMOKING_GUNS/EVIDENCE_4_PREEYACHAT_DIRECT_CHAT_ACCOUNT.png',
         'amount': 'ส่งเลขบัญชีรับเงิน',
         'recipient': 'น.ส. ปรียชาติ ฉิมพลี (พี่แมว)',
         'legal_impact': 'หลักฐานเชื่อมโยงตัวตน "พี่แมว" เข้ากับบัญชีธนาคารจริง ปฏิเสธไม่ได้ว่าไม่รู้เห็น'
@@ -499,37 +507,125 @@ html_content = f'''<!DOCTYPE html>
       max-width: 100%;
       max-height: 280px;
       border-radius: 6px;
-      border: 1.5px solid #ef4444;
+      border: 1.5px solid #0284c7;
       object-fit: contain;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }}
     .evidence-img:hover {{
-      transform: scale(1.03);
+      transform: scale(1.02);
+      box-shadow: 0 6px 25px rgba(2, 132, 199, 0.4);
     }}
 
-    /* LIGHTBOX MODAL */
+    /* HIGH-RESOLUTION VECTOR LIGHTBOX MODAL WITH PAN & ZOOM */
     .lightbox-modal {{
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(3, 7, 18, 0.96);
       z-index: 2000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      backdrop-filter: blur(8px);
+      flex-direction: column;
+      backdrop-filter: blur(12px);
     }}
     .lightbox-modal.open {{
       display: flex;
     }}
+    
+    .lb-header {{
+      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      z-index: 10;
+    }}
+    .lb-title {{
+      font-size: 18px;
+      font-weight: 800;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }}
+    .lb-controls {{
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }}
+    .btn-ctrl {{
+      background: #1e293b;
+      color: #e2e8f0;
+      border: 1px solid #334155;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.15s;
+    }}
+    .btn-ctrl:hover {{
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #38bdf8;
+    }}
+    .btn-ctrl.active {{
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #38bdf8;
+    }}
+
+    .lb-viewport {{
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle, #0b1329 0%, #030712 100%);
+      user-select: none;
+    }}
+    .lb-viewport:active {{
+      cursor: grabbing;
+    }}
+
+    .zoom-stage {{
+      transform-origin: center center;
+      will-change: transform;
+      transition: transform 0.05s ease-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }}
     .lightbox-img {{
-      max-width: 92vw;
-      max-height: 90vh;
-      border-radius: 8px;
-      border: 2px solid #38bdf8;
-      object-fit: contain;
-      box-shadow: 0 10px 50px rgba(0,0,0,0.9);
+      max-width: 90vw;
+      max-height: 82vh;
+      border-radius: 6px;
+      border: 1.5px solid #0284c7;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+      image-rendering: high-quality;
+      pointer-events: none;
+    }}
+    
+    .lb-footer-hint {{
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid #334155;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      color: #94a3b8;
+      backdrop-filter: blur(8px);
+      pointer-events: none;
     }}
   </style>
 </head>
@@ -597,9 +693,38 @@ html_content = f'''<!DOCTYPE html>
     <div class="evidence-list" id="evidenceList"></div>
   </main>
 
-  <!-- LIGHTBOX MODAL -->
-  <div id="lightboxModal" class="lightbox-modal" onclick="closeLightbox()">
-    <img id="lightboxImg" class="lightbox-img" src="" alt="ขยายภาพหลักฐาน">
+  <!-- HIGH-RESOLUTION VECTOR LIGHTBOX MODAL WITH PAN & ZOOM -->
+  <div id="lightboxModal" class="lightbox-modal">
+    <div class="lb-header">
+      <div class="lb-title">
+        <span id="lbTitleText">🔍 ภาพพยานหลักฐานจุดตาย 300 DPI Vector</span>
+        <span id="lbBadge" style="font-size: 12px; background: #0284c7; color: #ffffff; padding: 2px 8px; border-radius: 10px; font-weight: normal;">
+          300 DPI Vector Lossless
+        </span>
+      </div>
+
+      <div class="lb-controls">
+        <button class="btn-ctrl active" id="btnModeVector" onclick="switchLbView('vector')">🎯 หลักฐานคมชัด 300 DPI (Vector SVG)</button>
+        <button class="btn-ctrl" id="btnModeScroll" onclick="switchLbView('scroll')">📜 ภาพแชทเต็มต้นฉบับ</button>
+        <div style="width: 1px; height: 20px; background: #334155; margin: 0 4px;"></div>
+        <button class="btn-ctrl" onclick="zoomIn()" title="ซูมเข้า">➕ ซูมเข้า</button>
+        <button class="btn-ctrl" onclick="zoomOut()" title="ซูมออก">➖ ซูมออก</button>
+        <button class="btn-ctrl" onclick="resetZoom()" title="พอดีหน้าจอ">🔄 รีเซ็ต</button>
+        <button class="btn-ctrl" onclick="zoomActual()" title="ขนาดจริง 100%">1:1 ขนาดจริง</button>
+        <div style="width: 1px; height: 20px; background: #334155; margin: 0 4px;"></div>
+        <a id="btnDownloadSvg" href="" download target="_blank" class="btn-ctrl" style="text-decoration:none;">⬇️ โหลด Vector SVG</a>
+        <button class="btn-ctrl" onclick="closeLightbox()" style="background:#7f1d1d; color:#fca5a5; border-color:#ef4444;">✕ ปิด</button>
+      </div>
+    </div>
+
+    <div class="lb-viewport" id="lbViewport">
+      <div class="zoom-stage" id="zoomStage">
+        <img id="lightboxImg" class="lightbox-img" src="" alt="ขยายภาพหลักฐาน">
+      </div>
+      <div class="lb-footer-hint">
+        💡 <strong>คำแนะนำ:</strong> หมุนลูกกลิ้งเมาส์ (Scroll Wheel) เพื่อซูมลึก 500% | คลิกค้างแล้วลากเมาส์ (Drag) เพื่อเลื่อนดูภาพอย่างอิสระ
+      </div>
+    </div>
   </div>
 
   <script>
@@ -675,10 +800,14 @@ html_content = f'''<!DOCTYPE html>
               </div>
 
               <div class="evidence-img-container">
-                <div style="font-size:13px; color:#94a3b8; margin-bottom:8px;">สลิปโอนเงินจริงที่จับคู่กันแบบ 1:1</div>
-                <img src="${{it.cropped_img}}" alt="สลิปพยานหลักฐาน" class="evidence-img" onclick="openLightbox('${{it.cropped_img}}')" title="คลิกเพื่อขยายดูภาพสลิปเต็มใบ">
-                <div style="margin-top:10px;">
-                  <button class="btn-action" onclick="openLightbox('${{it.cropped_img}}')" style="font-size:12.5px; padding:4px 12px;">🔍 ดูภาพสลิปเต็มใบ</button>
+                <div style="font-size:13.5px; color:#38bdf8; font-weight:700; margin-bottom:8px;">
+                  ⚡ พยานหลักฐานสลิปจริง 300 DPI (Vector SVG)
+                </div>
+                <img src="${{it.cropped_img}}" alt="สลิปพยานหลักฐาน" class="evidence-img" onclick="openLightbox('${{it.cropped_img}}', '${{it.full_scroll || ''}}', '${{it.title}}')" title="คลิกเพื่อขยายและซูมระดับเวกเตอร์">
+                <div style="margin-top:12px;">
+                  <button class="btn-action" onclick="openLightbox('${{it.cropped_img}}', '${{it.full_scroll || ''}}', '${{it.title}}')" style="font-size:14px; padding:6px 16px;">
+                    🔍 ดูภาพหลักฐาน
+                  </button>
                 </div>
               </div>
             </div>
@@ -724,16 +853,119 @@ html_content = f'''<!DOCTYPE html>
       }});
     }}
 
-    function openLightbox(src) {{
-      const modal = document.getElementById('lightboxModal');
-      const img = document.getElementById('lightboxImg');
-      img.src = src;
+    // ==========================================
+    // DEEP PAN & ZOOM VECTOR ENGINE (60 FPS)
+    // ==========================================
+    let currentVectorSrc = '';
+    let currentScrollSrc = '';
+    let currentZoom = 1.0;
+    let panX = 0;
+    let panY = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+
+    const modal = document.getElementById('lightboxModal');
+    const stage = document.getElementById('zoomStage');
+    const imgEl = document.getElementById('lightboxImg');
+    const viewport = document.getElementById('lbViewport');
+
+    function updateTransform() {{
+      stage.style.transform = `translate(${{panX}}px, ${{panY}}px) scale(${{currentZoom}})`;
+    }}
+
+    function openLightbox(vectorSrc, scrollSrc, title) {{
+      currentVectorSrc = vectorSrc;
+      currentScrollSrc = scrollSrc || vectorSrc;
+      currentZoom = 1.0;
+      panX = 0;
+      panY = 0;
+
+      document.getElementById('lbTitleText').innerText = '🔍 ' + (title || 'ภาพพยานหลักฐานจุดตาย');
+      document.getElementById('btnDownloadSvg').href = vectorSrc;
+      
+      switchLbView('vector');
       modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
     }}
 
     function closeLightbox() {{
-      document.getElementById('lightboxModal').classList.remove('open');
+      modal.classList.remove('open');
+      document.body.style.overflow = 'auto';
     }}
+
+    function switchLbView(mode) {{
+      const btnVector = document.getElementById('btnModeVector');
+      const btnScroll = document.getElementById('btnModeScroll');
+
+      if (mode === 'vector') {{
+        imgEl.src = currentVectorSrc;
+        btnVector.classList.add('active');
+        btnScroll.classList.remove('active');
+      }} else {{
+        imgEl.src = currentScrollSrc;
+        btnScroll.classList.add('active');
+        btnVector.classList.remove('active');
+      }}
+      resetZoom();
+    }}
+
+    function zoomIn() {{
+      currentZoom = Math.min(5.0, currentZoom + 0.35);
+      updateTransform();
+    }}
+
+    function zoomOut() {{
+      currentZoom = Math.max(0.4, currentZoom - 0.35);
+      updateTransform();
+    }}
+
+    function resetZoom() {{
+      currentZoom = 1.0;
+      panX = 0;
+      panY = 0;
+      updateTransform();
+    }}
+
+    function zoomActual() {{
+      currentZoom = 1.8;
+      updateTransform();
+    }}
+
+    // MOUSE WHEEL ZOOM
+    viewport.addEventListener('wheel', (e) => {{
+      e.preventDefault();
+      const zoomFactor = e.deltaY < 0 ? 1.18 : 0.85;
+      currentZoom = Math.min(Math.max(0.4, currentZoom * zoomFactor), 5.5);
+      updateTransform();
+    }}, {{ passive: false }});
+
+    // DRAG TO PAN
+    viewport.addEventListener('mousedown', (e) => {{
+      isDragging = true;
+      startX = e.clientX - panX;
+      startY = e.clientY - panY;
+    }});
+
+    window.addEventListener('mousemove', (e) => {{
+      if (!isDragging) return;
+      panX = e.clientX - startX;
+      panY = e.clientY - startY;
+      updateTransform();
+    }});
+
+    window.addEventListener('mouseup', () => {{
+      isDragging = false;
+    }});
+
+    // KEYBOARD SHORTCUTS
+    window.addEventListener('keydown', (e) => {{
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === '+' || e.key === '=') zoomIn();
+      if (e.key === '-' || e.key === '_') zoomOut();
+      if (e.key === '0') resetZoom();
+    }});
 
     function setTab(tab) {{
       currentTab = tab;
@@ -757,4 +989,4 @@ with open(DASHBOARD_HTML, 'w', encoding='utf-8') as f:
     f.write(html_content)
 
 shutil.copy2(DASHBOARD_HTML, os.path.join(ARTIFACT_DIR, 'CHAT_FORENSIC_VECTOR_EXPLORER.html'))
-print("Regenerated CHAT_FORENSIC_VECTOR_EXPLORER.html successfully!")
+print("Regenerated CHAT_FORENSIC_VECTOR_EXPLORER.html with Deep Pan & Zoom Vector Engine successfully!")
