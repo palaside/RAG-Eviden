@@ -1068,7 +1068,8 @@ dashboard_html = f'''<!DOCTYPE html>
 
       txList.forEach((tx, idx) => {{
         const tr = document.createElement('tr');
-        const cleanPath = (tx.path || '').replace(/\\\\/g, '/');
+        const croppedImg = tx.cropped_img || '';
+        const fullChatImg = tx.full_chat_img || '';
         
         tr.innerHTML = `
           <td><strong>#${{idx + 1}}</strong></td>
@@ -1079,8 +1080,10 @@ dashboard_html = f'''<!DOCTYPE html>
           <td style="white-space: nowrap; color: #94a3b8; font-size: 13.5px;">${{tx.datetime || '-'}}</td>
           <td style="color: #e2e8f0; font-size: 13.5px;">${{tx.memo || '-'}}</td>
           <td style="text-align: center; white-space: nowrap;">
-            <button class="btn-view" onclick="openDetailModal(${{idx}})">🔍 ขยาย ๖ ช่อง</button>
-            ${{cleanPath ? `<a href="file:///${{cleanPath}}" target="_blank" class="btn-view" style="background:#1e293b; border:1px solid #334155; text-decoration:none; margin-left:4px;">🖼️ รูป</a>` : ''}}
+            <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+              ${{croppedImg ? `<img src="${{croppedImg}}" alt="สลิป" style="width: 32px; height: 42px; object-fit: cover; border-radius: 4px; border: 1.5px solid #0284c7; cursor: pointer; transition: transform 0.15s;" onmouseover="this.style.transform='scale(1.15)'" onmouseout="this.style.transform='scale(1)'" onclick="openDetailModal(${{idx}})" title="คลิกเพื่อดูสลิปขยายใหญ่">` : ''}}
+              <button class="btn-view" onclick="openDetailModal(${{idx}})">🔍 ขยาย ๖ ช่อง</button>
+            </div>
           </td>
         `;
         tbody.appendChild(tr);
@@ -1105,38 +1108,95 @@ dashboard_html = f'''<!DOCTYPE html>
       renderTransactionsTable(filtered);
     }}
 
+    let currentModalTx = null;
+
     function openDetailModal(index) {{
       const tx = currentFocusedTxs[index];
       if (!tx) return;
+      currentModalTx = tx;
 
-      const cleanPath = (tx.path || '').replace(/\\\\/g, '/');
+      const croppedImg = tx.cropped_img || '';
+      const fullChatImg = tx.full_chat_img || '';
+
       document.getElementById('modalTitle').innerText = 'รายละเอียดสลิป #' + (index + 1) + ': ' + (tx.file || '');
       
       document.getElementById('modalBody').innerHTML = `
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px;">
           <div>
-            <h4 style="color: #38bdf8; margin-bottom: 12px; font-size: 17px;">📌 ผลการถอดรหัส ๖ ช่องข้อมูล (Forensic OCR)</h4>
-            <div class="tx-field"><strong>๑. ชื่อ-นามสกุล (ผู้รับโอน):</strong> <span style="color:#ffffff; font-size:16px;">${{tx.recipient}}</span></div>
-            <div class="tx-field" style="margin-top:8px;"><strong>๒. จำนวนเงิน:</strong> <span style="color:#22c55e; font-size:20px; font-weight:800;">${{tx.amount}} บาท</span></div>
-            <div class="tx-field" style="margin-top:8px;"><strong>๓. รหัสอ้างอิง:</strong> <code style="color:#38bdf8; font-size:15px;">${{tx.ref_no}}</code></div>
-            <div class="tx-field" style="margin-top:8px;"><strong>๔. ธนาคาร & เลขบัญชี:</strong> <span style="color:#ffffff;">${{tx.bank}}</span></div>
+            <h4 style="color: #38bdf8; margin-bottom: 12px; font-size: 17px; display:flex; align-items:center; gap:8px;">
+              <span>📌 ผลการถอดรหัส ๖ ช่องข้อมูล (Forensic OCR)</span>
+            </h4>
+            <div class="tx-field"><strong>๑. ชื่อ-นามสกุล (ผู้รับโอน):</strong> <span style="color:#ffffff; font-size:16.5px; font-weight:700;">${{tx.recipient}}</span></div>
+            <div class="tx-field" style="margin-top:8px;"><strong>๒. จำนวนเงิน:</strong> <span style="color:#22c55e; font-size:22px; font-weight:800;">${{tx.amount}} บาท</span></div>
+            <div class="tx-field" style="margin-top:8px;"><strong>๓. รหัสอ้างอิง (Ref No.):</strong> <code style="color:#38bdf8; font-size:15px; background:#0b1329; padding:2px 8px; border-radius:4px; border:1px solid #1e293b;">${{tx.ref_no}}</code></div>
+            <div class="tx-field" style="margin-top:8px;"><strong>๔. ธนาคาร & เลขบัญชีผู้รับ:</strong> <span style="color:#ffffff;">${{tx.bank}}</span></div>
             <div class="tx-field" style="margin-top:8px;"><strong>๕. วันที่ และ เวลา:</strong> <span style="color:#e2e8f0;">${{tx.datetime}}</span></div>
-            <div class="tx-field" style="margin-top:8px;"><strong>๖. บันทึกความจำ (MEMO):</strong> <span style="color:#fbbf24;">${{tx.memo || '-'}}</span></div>
+            <div class="tx-field" style="margin-top:8px;"><strong>๖. บันทึกความจำ (MEMO):</strong> <span style="color:#fbbf24; font-weight:600;">${{tx.memo || '-'}}</span></div>
             
             <div style="margin-top: 20px; padding: 12px; background: #060b18; border-radius: 6px; border: 1px solid #1e293b;">
               <div style="font-size: 13px; color: #94a3b8;">ไฟล์หลักฐานต้นฉบับ:</div>
               <div style="font-size: 13.5px; color: #cbd5e1; word-break: break-all; margin-top: 4px;"><code>${{tx.path || tx.file}}</code></div>
+              <div style="font-size: 12.5px; color: #22c55e; margin-top: 6px;">⚡ สถานะ: Agent 2 ตรวจจับและตัดสกัดภาพสลิปจากหน้าจอแชทสำเร็จ 100%</div>
             </div>
           </div>
 
-          <div style="text-align: center; background: #060b18; border-radius: 8px; padding: 15px; border: 1px solid #1e293b; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <div style="color: #94a3b8; font-size: 14px; margin-bottom: 10px;">ภาพหลักฐานสลิปจริงแห่งคดี</div>
-            ${{cleanPath ? `<img src="file:///${{cleanPath}}" style="max-width: 100%; max-height: 420px; border-radius: 6px; border: 1px solid #334155; object-fit: contain;">` : '<div style="color:#64748b;">ไม่มีภาพหลักฐานโดยตรง (ตรวจพบในข้อความแชท)</div>'}}
+          <div style="text-align: center; background: #060b18; border-radius: 8px; padding: 15px; border: 1px solid #1e293b; display: flex; flex-direction: column; align-items: center;">
+            <!-- TOGGLE BUTTONS -->
+            <div style="display: flex; gap: 8px; margin-bottom: 12px; width: 100%; justify-content: center;">
+              <button id="btnShowCropped" onclick="setModalImgMode('crop')" style="background:#0284c7; color:#ffffff; border:1px solid #38bdf8; padding:6px 14px; border-radius:6px; cursor:pointer; font-size:13.5px; font-weight:700;">
+                📄 ภาพสลิปเดี่ยว (ตัดสกัดแล้ว)
+              </button>
+              <button id="btnShowFull" onclick="setModalImgMode('full')" style="background:#1e293b; color:#94a3b8; border:1px solid #334155; padding:6px 14px; border-radius:6px; cursor:pointer; font-size:13.5px; font-weight:700;">
+                💬 หน้าแชทเต็มต้นฉบับ
+              </button>
+            </div>
+
+            <!-- IMAGE CONTAINER -->
+            <div style="width: 100%; min-height: 380px; display: flex; align-items: center; justify-content: center; background: #030712; border-radius: 6px; border: 1px solid #1f2937; padding: 10px; overflow: hidden;">
+              <img id="modalEvidenceImg" src="${{croppedImg || fullChatImg}}" alt="ภาพหลักฐาน" style="max-width: 100%; max-height: 440px; border-radius: 6px; border: 1px solid #38bdf8; object-fit: contain; box-shadow: 0 4px 20px rgba(0,0,0,0.6);" onerror="this.onerror=null; this.src='${{fullChatImg}}';">
+            </div>
+
+            <!-- OPEN FULL BUTTON -->
+            <div style="margin-top: 10px; display: flex; gap: 10px;">
+              <a id="modalOpenFullLink" href="${{croppedImg || fullChatImg}}" target="_blank" class="btn-action" style="font-size: 13px; padding: 6px 12px;">
+                🔍 เปิดภาพเต็มในแท็บใหม่
+              </a>
+            </div>
           </div>
         </div>
       `;
 
       document.getElementById('detailModal').classList.add('open');
+    }}
+
+    function setModalImgMode(mode) {{
+      if (!currentModalTx) return;
+      const imgEl = document.getElementById('modalEvidenceImg');
+      const linkEl = document.getElementById('modalOpenFullLink');
+      const btnCrop = document.getElementById('btnShowCropped');
+      const btnFull = document.getElementById('btnShowFull');
+
+      if (mode === 'crop') {{
+        const src = currentModalTx.cropped_img || currentModalTx.full_chat_img;
+        imgEl.src = src;
+        linkEl.href = src;
+        btnCrop.style.background = '#0284c7';
+        btnCrop.style.color = '#ffffff';
+        btnCrop.style.borderColor = '#38bdf8';
+        btnFull.style.background = '#1e293b';
+        btnFull.style.color = '#94a3b8';
+        btnFull.style.borderColor = '#334155';
+      }} else {{
+        const src = currentModalTx.full_chat_img || currentModalTx.cropped_img;
+        imgEl.src = src;
+        linkEl.href = src;
+        btnFull.style.background = '#0284c7';
+        btnFull.style.color = '#ffffff';
+        btnFull.style.borderColor = '#38bdf8';
+        btnCrop.style.background = '#1e293b';
+        btnCrop.style.color = '#94a3b8';
+        btnCrop.style.borderColor = '#334155';
+      }}
     }}
 
     function closeModal(e) {{
