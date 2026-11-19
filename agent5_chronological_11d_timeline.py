@@ -1090,27 +1090,7 @@ html_template = """<!DOCTYPE html>
 
     <!-- Suite Cross Navigation -->
     <nav class="suite-nav">
-      <a href="../MASTER_SSOT_STITCH_VIEWER.html" class="suite-link" title="Agent 1: เส้นเวลาแชท 577 ภาพต่อเนื่อง">
-        📜 Agent 1: SSOT Chat Timeline
-      </a>
-      <a href="../TARGET_FOCUS_SELECTOR.html" class="suite-link" title="Agent 2: กรองเฉพาะบุคคลเป้าหมาย">
-        🎯 Agent 2: Target Focus
-      </a>
-      <a href="../BENEFICIARY_NETWORK_DASHBOARD.html" class="suite-link" title="Agent 2: ผังเครือข่ายเส้นทางเงิน 10 บัญชี">
-        🕸️ Agent 2: Beneficiary Network
-      </a>
-      <a href="../CHAT_FORENSIC_VECTOR_EXPLORER.html" class="suite-link" title="Agent 3: นิติวิทยาศาสตร์ทางภาษา & จุดตายสลิป 300 DPI">
-        🔬 Agent 3: Forensic Linguistics & Vectors
-      </a>
-      <a href="../INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="suite-link" title="Agent 4: สำนวนฟ้อง 6 ผู้ต้องหา">
-        🏛️ Agent 4: Indictment Dossier
-      </a>
-      <a href="VECTOR_EVIDENCE_DASHBOARD.html" class="suite-link" title="Agent 5: แฟ้มสารบบ 35 แผ่นเดิม">
-        📑 Agent 5: 35 Court Sheets
-      </a>
-      <a href="TIMELINE_11D_DASHBOARD.html" class="suite-link active" title="Agent 5: ไทม์ไลน์ 11 มิติและคำถามซักค้าน">
-        ⏱️ Agent 5: 11D Timeline & Cross-Exam
-      </a>
+__SUITE_NAV_LINKS__
     </nav>
   </header>
 
@@ -1308,8 +1288,13 @@ html_template = """<!DOCTYPE html>
     }
 
     function openModal(url, title) {
+      const isSubdir = window.location.pathname.replace(/\\/g, '/').toLowerCase().includes('/vector_evidence/');
+      let finalUrl = url;
+      if (!isSubdir && !url.startsWith('VECTOR_EVIDENCE/') && !url.startsWith('http')) {
+        finalUrl = 'VECTOR_EVIDENCE/' + url;
+      }
       document.getElementById('modalTitle').innerText = title || '🖥️ ตรวจสอบพยานหลักฐาน';
-      document.getElementById('modalFrame').src = url;
+      document.getElementById('modalFrame').src = finalUrl;
       document.getElementById('vectorModal').style.display = 'flex';
     }
 
@@ -1317,50 +1302,156 @@ html_template = """<!DOCTYPE html>
       document.getElementById('modalFrame').src = '';
       document.getElementById('vectorModal').style.display = 'none';
     }
+
+    // Universal Smart Link Resolver for Suite Cross Navigation
+    (function initSmartNav() {
+      const isSubdir = window.location.pathname.replace(/\\/g, '/').toLowerCase().includes('/vector_evidence/');
+      const linkMap = {
+        'Agent 1': 'MASTER_SSOT_STITCH_VIEWER.html',
+        'Target Focus': 'TARGET_FOCUS_SELECTOR.html',
+        'Beneficiary Network': 'BENEFICIARY_NETWORK_DASHBOARD.html',
+        'Agent 3': 'CHAT_FORENSIC_VECTOR_EXPLORER.html',
+        'Agent 4': 'INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html',
+        '35 Court Sheets': isSubdir ? 'VECTOR_EVIDENCE_DASHBOARD.html' : 'VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html',
+        '11D Timeline': 'TIMELINE_11D_DASHBOARD.html',
+        'Agent 6': 'AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html'
+      };
+
+      document.querySelectorAll('.suite-link').forEach(el => {
+        const text = el.innerText;
+        for (const [key, target] of Object.entries(linkMap)) {
+          if (text.includes(key)) {
+            const resolved = isSubdir ? ((key === '35 Court Sheets' || key === '11D Timeline' || key === 'Agent 6') ? target : '../' + target) : target;
+            el.href = resolved;
+            el.onclick = function() {
+              const curSub = window.location.pathname.replace(/\\/g, '/').toLowerCase().includes('/vector_evidence/');
+              this.href = curSub ? ((key === '35 Court Sheets' || key === '11D Timeline' || key === 'Agent 6') ? target : '../' + target) : target;
+            };
+            break;
+          }
+        }
+      });
+    })();
   </script>
 </body>
 </html>
 """
 
-full_timeline_html = html_template.replace("__TIMELINE_ITEMS_HTML__", "\n".join(timeline_items_html))
-full_timeline_html = full_timeline_html.replace("__CROSS_EXAM_HTML__", "\n".join(cross_exam_html_list))
+# 1. Navigation HTML for Root (d:\Project\ชวกม.2\EDOK_NUI\TIMELINE_11D_DASHBOARD.html)
+root_suite_nav = '''
+      <a href="MASTER_SSOT_STITCH_VIEWER.html" class="suite-link" title="Agent 1: เส้นเวลาแชท 577 ภาพต่อเนื่อง">
+        📜 Agent 1: SSOT Chat Timeline
+      </a>
+      <a href="TARGET_FOCUS_SELECTOR.html" class="suite-link" title="Agent 2: กรองเฉพาะบุคคลเป้าหมาย">
+        🎯 Agent 2: Target Focus
+      </a>
+      <a href="BENEFICIARY_NETWORK_DASHBOARD.html" class="suite-link" title="Agent 2: ผังเครือข่ายเส้นทางเงิน 10 บัญชี">
+        🕸️ Agent 2: Beneficiary Network
+      </a>
+      <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="suite-link" title="Agent 3: นิติวิทยาศาสตร์ทางภาษา & จุดตายสลิป 300 DPI">
+        🔬 Agent 3: Forensic Linguistics & Vectors
+      </a>
+      <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="suite-link" title="Agent 4: สำนวนฟ้อง 6 ผู้ต้องหา">
+        🏛️ Agent 4: Indictment Dossier
+      </a>
+      <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="suite-link" title="Agent 5: แฟ้มสารบบ 35 แผ่นเดิม">
+        📑 Agent 5: 35 Court Sheets
+      </a>
+      <a href="TIMELINE_11D_DASHBOARD.html" class="suite-link active" title="Agent 5: ไทม์ไลน์ 11 มิติและคำถามซักค้าน">
+        ⏱️ Agent 5: 11D Timeline & Cross-Exam
+      </a>
+      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="suite-link" title="Agent 6: ประธานศาลฎีกา Command Center">
+        👑 Agent 6: Supreme Commander
+      </a>
+'''
+
+# 2. Navigation HTML for Subdir (d:\Project\ชวกม.2\EDOK_NUI\VECTOR_EVIDENCE\TIMELINE_11D_DASHBOARD.html)
+subdir_suite_nav = '''
+      <a href="../MASTER_SSOT_STITCH_VIEWER.html" class="suite-link" title="Agent 1: เส้นเวลาแชท 577 ภาพต่อเนื่อง">
+        📜 Agent 1: SSOT Chat Timeline
+      </a>
+      <a href="../TARGET_FOCUS_SELECTOR.html" class="suite-link" title="Agent 2: กรองเฉพาะบุคคลเป้าหมาย">
+        🎯 Agent 2: Target Focus
+      </a>
+      <a href="../BENEFICIARY_NETWORK_DASHBOARD.html" class="suite-link" title="Agent 2: ผังเครือข่ายเส้นทางเงิน 10 บัญชี">
+        🕸️ Agent 2: Beneficiary Network
+      </a>
+      <a href="../CHAT_FORENSIC_VECTOR_EXPLORER.html" class="suite-link" title="Agent 3: นิติวิทยาศาสตร์ทางภาษา & จุดตายสลิป 300 DPI">
+        🔬 Agent 3: Forensic Linguistics & Vectors
+      </a>
+      <a href="../INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="suite-link" title="Agent 4: สำนวนฟ้อง 6 ผู้ต้องหา">
+        🏛️ Agent 4: Indictment Dossier
+      </a>
+      <a href="VECTOR_EVIDENCE_DASHBOARD.html" class="suite-link" title="Agent 5: แฟ้มสารบบ 35 แผ่นเดิม">
+        📑 Agent 5: 35 Court Sheets
+      </a>
+      <a href="TIMELINE_11D_DASHBOARD.html" class="suite-link active" title="Agent 5: ไทม์ไลน์ 11 มิติและคำถามซักค้าน">
+        ⏱️ Agent 5: 11D Timeline & Cross-Exam
+      </a>
+      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="suite-link" title="Agent 6: ประธานศาลฎีกา Command Center">
+        👑 Agent 6: Supreme Commander
+      </a>
+'''
+
+# Build Root Dashboard
+full_root_html = html_template.replace("__TIMELINE_ITEMS_HTML__", "\n".join(timeline_items_html))
+full_root_html = full_root_html.replace("__CROSS_EXAM_HTML__", "\n".join(cross_exam_html_list))
+full_root_html = full_root_html.replace("__SUITE_NAV_LINKS__", root_suite_nav)
 
 timeline_dashboard_path = os.path.join(EDOK_DIR, "TIMELINE_11D_DASHBOARD.html")
 with open(timeline_dashboard_path, "w", encoding="utf-8") as f:
-    f.write(full_timeline_html)
+    f.write(full_root_html)
 
-print(f"Saved Standalone Timeline Dashboard: {timeline_dashboard_path}")
+print(f"Saved Standalone Root Timeline Dashboard: {timeline_dashboard_path}")
 
-# Also save inside VECTOR_EVIDENCE
+# Build Subdir Dashboard inside VECTOR_EVIDENCE
+full_subdir_html = html_template.replace("__TIMELINE_ITEMS_HTML__", "\n".join(timeline_items_html))
+full_subdir_html = full_subdir_html.replace("__CROSS_EXAM_HTML__", "\n".join(cross_exam_html_list))
+full_subdir_html = full_subdir_html.replace("__SUITE_NAV_LINKS__", subdir_suite_nav)
+
 vector_timeline_path = os.path.join(VECTOR_DIR, "TIMELINE_11D_DASHBOARD.html")
 with open(vector_timeline_path, "w", encoding="utf-8") as f:
-    f.write(full_timeline_html)
+    f.write(full_subdir_html)
 
-# Now update VECTOR_EVIDENCE_DASHBOARD.html cleanly
+print(f"Saved Subdir Timeline Dashboard: {vector_timeline_path}")
+
+# Now update VECTOR_EVIDENCE_DASHBOARD.html cleanly with full 6 Agent nav
 with open(os.path.join(VECTOR_DIR, "VECTOR_EVIDENCE_DASHBOARD.html"), "r", encoding="utf-8") as f:
     dash_html = f.read()
 
-# 1. Add Navigation Bar below header if not present
-if "TIMELINE_11D_DASHBOARD.html" not in dash_html:
-    nav_bar = '''
-  <div style="background: #09101d; border-bottom: 1px solid #1e3052; padding: 10px 24px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+# Replace or insert Navigation Bar below header
+nav_bar_6agents = '''
+  <div style="background: #09101d; border-bottom: 1px solid #1e3052; padding: 10px 24px; display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
     <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-      <a href="TIMELINE_11D_DASHBOARD.html" target="_blank" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; text-decoration: none; padding: 7px 16px; border-radius: 6px; font-size: 13.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 10px rgba(2,132,199,0.4);">
-        ⏱️ เปิดหน้าต่างไทม์ไลน์ ๑๑ มิติ & กลยุทธ์ซักค้านเผด็จศึกพยาน (Agent 5 Supreme)
+      <a href="../MASTER_SSOT_STITCH_VIEWER.html" target="_blank" style="background: rgba(255,255,255,0.05); border: 1px solid #1e3052; color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; display: inline-flex; align-items: center; gap: 5px;">
+        📜 SSOT Chat (Agent 1)
       </a>
-      <a href="../INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" target="_blank" style="background: rgba(255,255,255,0.05); border: 1px solid #1e3052; color: #94a3b8; text-decoration: none; padding: 7px 14px; border-radius: 6px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 6px;">
+      <a href="../BENEFICIARY_NETWORK_DASHBOARD.html" target="_blank" style="background: rgba(255,255,255,0.05); border: 1px solid #1e3052; color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; display: inline-flex; align-items: center; gap: 5px;">
+        🕸️ เส้นทางเงิน (Agent 2)
+      </a>
+      <a href="../CHAT_FORENSIC_VECTOR_EXPLORER.html" target="_blank" style="background: rgba(255,255,255,0.05); border: 1px solid #1e3052; color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; display: inline-flex; align-items: center; gap: 5px;">
+        🔬 แชท & สลิป 300 DPI (Agent 3)
+      </a>
+      <a href="../INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" target="_blank" style="background: rgba(255,255,255,0.05); border: 1px solid #1e3052; color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; display: inline-flex; align-items: center; gap: 5px;">
         🏛️ สำนวนฟ้อง ๖ ผู้ต้องหา (Agent 4)
       </a>
-      <a href="../CHAT_FORENSIC_VECTOR_EXPLORER.html" target="_blank" style="background: rgba(255,255,255,0.05); border: 1px solid #1e3052; color: #94a3b8; text-decoration: none; padding: 7px 14px; border-radius: 6px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 6px;">
-        🔬 นิติวิทยาศาสตร์แชท & สลิป 300 DPI (Agent 3)
+      <a href="TIMELINE_11D_DASHBOARD.html" target="_blank" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; text-decoration: none; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; box-shadow: 0 2px 10px rgba(2,132,199,0.4);">
+        ⏱️ ไทม์ไลน์ ๑๑ มิติ & ซักค้าน (Agent 5)
+      </a>
+      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" target="_blank" style="background: linear-gradient(135deg, rgba(234, 179, 8, 0.2) 0%, rgba(202, 138, 4, 0.3) 100%); border: 1px solid #eab308; color: #eab308; text-decoration: none; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 5px;">
+        👑 ประธานศาลฎีกา (Agent 6)
       </a>
     </div>
     <div style="font-size: 13px; color: #38bdf8; font-family: monospace;">
       ⚖️ มาตรฐานศาลยุติธรรม ป.วิ.อ. ๒๒๖ • ๓๕ แผ่นสารบบแท้
     </div>
   </div>
-    '''
-    dash_html = dash_html.replace('</header>', '</header>\n' + nav_bar)
+'''
+
+if 'border-bottom: 1px solid #1e3052; padding: 10px 24px;' in dash_html:
+    dash_html = re.sub(r'<div style="background: #09101d; border-bottom: 1px solid #1e3052; padding: 10px 24px;.*?</div>\s*</div>', nav_bar_6agents, dash_html, flags=re.DOTALL)
+elif '</header>' in dash_html:
+    dash_html = dash_html.replace('</header>', '</header>\n' + nav_bar_6agents)
 
 # 2. Add button in shell actions for 11D inspection
 def add_11d_button(match):

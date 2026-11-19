@@ -520,27 +520,32 @@
 
     <!-- Suite Cross Navigation -->
     <nav class="suite-nav">
-      <a href="../MASTER_SSOT_STITCH_VIEWER.html" class="suite-link" title="Agent 1: เส้นเวลาแชท 577 ภาพต่อเนื่อง">
+
+      <a href="MASTER_SSOT_STITCH_VIEWER.html" class="suite-link" title="Agent 1: เส้นเวลาแชท 577 ภาพต่อเนื่อง">
         📜 Agent 1: SSOT Chat Timeline
       </a>
-      <a href="../TARGET_FOCUS_SELECTOR.html" class="suite-link" title="Agent 2: กรองเฉพาะบุคคลเป้าหมาย">
+      <a href="TARGET_FOCUS_SELECTOR.html" class="suite-link" title="Agent 2: กรองเฉพาะบุคคลเป้าหมาย">
         🎯 Agent 2: Target Focus
       </a>
-      <a href="../BENEFICIARY_NETWORK_DASHBOARD.html" class="suite-link" title="Agent 2: ผังเครือข่ายเส้นทางเงิน 10 บัญชี">
+      <a href="BENEFICIARY_NETWORK_DASHBOARD.html" class="suite-link" title="Agent 2: ผังเครือข่ายเส้นทางเงิน 10 บัญชี">
         🕸️ Agent 2: Beneficiary Network
       </a>
-      <a href="../CHAT_FORENSIC_VECTOR_EXPLORER.html" class="suite-link" title="Agent 3: นิติวิทยาศาสตร์ทางภาษา & จุดตายสลิป 300 DPI">
+      <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="suite-link" title="Agent 3: นิติวิทยาศาสตร์ทางภาษา & จุดตายสลิป 300 DPI">
         🔬 Agent 3: Forensic Linguistics & Vectors
       </a>
-      <a href="../INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="suite-link" title="Agent 4: สำนวนฟ้อง 6 ผู้ต้องหา">
+      <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="suite-link" title="Agent 4: สำนวนฟ้อง 6 ผู้ต้องหา">
         🏛️ Agent 4: Indictment Dossier
       </a>
-      <a href="VECTOR_EVIDENCE_DASHBOARD.html" class="suite-link" title="Agent 5: แฟ้มสารบบ 35 แผ่นเดิม">
+      <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="suite-link" title="Agent 5: แฟ้มสารบบ 35 แผ่นเดิม">
         📑 Agent 5: 35 Court Sheets
       </a>
       <a href="TIMELINE_11D_DASHBOARD.html" class="suite-link active" title="Agent 5: ไทม์ไลน์ 11 มิติและคำถามซักค้าน">
         ⏱️ Agent 5: 11D Timeline & Cross-Exam
       </a>
+      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="suite-link" title="Agent 6: ประธานศาลฎีกา Command Center">
+        👑 Agent 6: Supreme Commander
+      </a>
+
     </nav>
   </header>
 
@@ -4041,8 +4046,13 @@
     }
 
     function openModal(url, title) {
+      const isSubdir = window.location.pathname.replace(/\/g, '/').toLowerCase().includes('/vector_evidence/');
+      let finalUrl = url;
+      if (!isSubdir && !url.startsWith('VECTOR_EVIDENCE/') && !url.startsWith('http')) {
+        finalUrl = 'VECTOR_EVIDENCE/' + url;
+      }
       document.getElementById('modalTitle').innerText = title || '🖥️ ตรวจสอบพยานหลักฐาน';
-      document.getElementById('modalFrame').src = url;
+      document.getElementById('modalFrame').src = finalUrl;
       document.getElementById('vectorModal').style.display = 'flex';
     }
 
@@ -4050,6 +4060,36 @@
       document.getElementById('modalFrame').src = '';
       document.getElementById('vectorModal').style.display = 'none';
     }
+
+    // Universal Smart Link Resolver for Suite Cross Navigation
+    (function initSmartNav() {
+      const isSubdir = window.location.pathname.replace(/\/g, '/').toLowerCase().includes('/vector_evidence/');
+      const linkMap = {
+        'Agent 1': 'MASTER_SSOT_STITCH_VIEWER.html',
+        'Target Focus': 'TARGET_FOCUS_SELECTOR.html',
+        'Beneficiary Network': 'BENEFICIARY_NETWORK_DASHBOARD.html',
+        'Agent 3': 'CHAT_FORENSIC_VECTOR_EXPLORER.html',
+        'Agent 4': 'INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html',
+        '35 Court Sheets': isSubdir ? 'VECTOR_EVIDENCE_DASHBOARD.html' : 'VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html',
+        '11D Timeline': 'TIMELINE_11D_DASHBOARD.html',
+        'Agent 6': 'AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html'
+      };
+
+      document.querySelectorAll('.suite-link').forEach(el => {
+        const text = el.innerText;
+        for (const [key, target] of Object.entries(linkMap)) {
+          if (text.includes(key)) {
+            const resolved = isSubdir ? ((key === '35 Court Sheets' || key === '11D Timeline' || key === 'Agent 6') ? target : '../' + target) : target;
+            el.href = resolved;
+            el.onclick = function() {
+              const curSub = window.location.pathname.replace(/\/g, '/').toLowerCase().includes('/vector_evidence/');
+              this.href = curSub ? ((key === '35 Court Sheets' || key === '11D Timeline' || key === 'Agent 6') ? target : '../' + target) : target;
+            };
+            break;
+          }
+        }
+      });
+    })();
   </script>
 </body>
 </html>

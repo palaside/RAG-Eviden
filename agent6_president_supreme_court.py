@@ -562,27 +562,27 @@ boss_html_template = """<!DOCTYPE html>
 
     <!-- Agent Nav Grid -->
     <div class="agent-nav-grid">
-      <a href="../MASTER_SSOT_STITCH_VIEWER.html" class="agent-card-nav" target="_blank">
+      <a href="__AGENT1_HREF__" class="agent-card-nav" target="_blank" data-target="MASTER_SSOT_STITCH_VIEWER.html">
         <span class="ac-title">📜 Agent 1</span>
         <span class="ac-desc">SSOT Chat 577 ภาพต่อเนื่อง</span>
       </a>
-      <a href="../BENEFICIARY_NETWORK_DASHBOARD.html" class="agent-card-nav" target="_blank">
+      <a href="__AGENT2_HREF__" class="agent-card-nav" target="_blank" data-target="BENEFICIARY_NETWORK_DASHBOARD.html">
         <span class="ac-title">🕸️ Agent 2</span>
         <span class="ac-desc">ผังเส้นทางเงิน 10 บัญชีผู้รับ</span>
       </a>
-      <a href="../CHAT_FORENSIC_VECTOR_EXPLORER.html" class="agent-card-nav" target="_blank">
+      <a href="__AGENT3_HREF__" class="agent-card-nav" target="_blank" data-target="CHAT_FORENSIC_VECTOR_EXPLORER.html">
         <span class="ac-title">🔬 Agent 3</span>
         <span class="ac-desc">นิติวิทยาศาสตร์ภาษา & 300 DPI</span>
       </a>
-      <a href="../INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="agent-card-nav" target="_blank">
+      <a href="__AGENT4_HREF__" class="agent-card-nav" target="_blank" data-target="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html">
         <span class="ac-title">🏛️ Agent 4</span>
         <span class="ac-desc">สำนวนฟ้อง 6 จำเลย 26+ กระทง</span>
       </a>
-      <a href="TIMELINE_11D_DASHBOARD.html" class="agent-card-nav" target="_blank">
+      <a href="__AGENT5_HREF__" class="agent-card-nav" target="_blank" data-target="TIMELINE_11D_DASHBOARD.html">
         <span class="ac-title">⏱️ Agent 5</span>
         <span class="ac-desc">ไทม์ไลน์ 11 มิติ & ซักค้าน Matrix</span>
       </a>
-      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="agent-card-nav boss-active">
+      <a href="__AGENT6_HREF__" class="agent-card-nav boss-active" data-target="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html">
         <span class="ac-title">👑 Agent 6 (Boss)</span>
         <span class="ac-desc">Command Center & 5 Game-Changers</span>
       </a>
@@ -860,15 +860,47 @@ boss_html_template = """<!DOCTYPE html>
       if (target) target.style.display = 'block';
       if (btn) btn.classList.add('active');
     }
+
+    // Universal Smart Link Resolver for Agent Navigation & Exhibits
+    (function initSmartNav() {
+      const isSubdir = window.location.pathname.replace(/\\/g, '/').toLowerCase().includes('/vector_evidence/');
+      const linkMap = {
+        'Agent 1': 'MASTER_SSOT_STITCH_VIEWER.html',
+        'Agent 2': 'BENEFICIARY_NETWORK_DASHBOARD.html',
+        'Agent 3': 'CHAT_FORENSIC_VECTOR_EXPLORER.html',
+        'Agent 4': 'INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html',
+        'Agent 5': 'TIMELINE_11D_DASHBOARD.html',
+        'Agent 6': 'AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html'
+      };
+
+      document.querySelectorAll('.agent-card-nav').forEach(el => {
+        const titleEl = el.querySelector('.ac-title');
+        if (!titleEl) return;
+        const text = titleEl.innerText;
+        for (const [key, target] of Object.entries(linkMap)) {
+          if (text.includes(key)) {
+            const resolved = isSubdir ? ((key === 'Agent 5' || key === 'Agent 6') ? target : '../' + target) : target;
+            el.href = resolved;
+            el.onclick = function() {
+              const curSub = window.location.pathname.replace(/\\/g, '/').toLowerCase().includes('/vector_evidence/');
+              this.href = curSub ? ((key === 'Agent 5' || key === 'Agent 6') ? target : '../' + target) : target;
+            };
+            break;
+          }
+        }
+      });
+    })();
   </script>
 </body>
 </html>
 """
 
-# Build Exhibit Rows HTML
-exhibit_rows = []
-for ex in exhibit_registry:
-    row = f'''
+# Build Exhibit Rows HTML generator
+def make_exhibit_rows(is_subdir=False):
+    rows = []
+    for ex in exhibit_registry:
+        sheet_url = ex["html_sheet"] if is_subdir else f"VECTOR_EVIDENCE/{ex['html_sheet']}"
+        row = f'''
     <tr>
       <td style="text-align:center;"><span class="ex-badge">{ex["exhibit_no"]}</span></td>
       <td>
@@ -881,13 +913,14 @@ for ex in exhibit_registry:
       <td><span style="color:#22c55e; font-weight:700; font-family:monospace;">{ex["amount"]}</span></td>
       <td><span style="font-size:12.5px; color:#94a3b8;">{ex["datetime"]}</span></td>
       <td style="text-align:center;">
-        <a href="{ex["html_sheet"]}" target="_blank" style="color:#38bdf8; text-decoration:none; font-size:13px; font-weight:600;">
+        <a href="{sheet_url}" target="_blank" style="color:#38bdf8; text-decoration:none; font-size:13px; font-weight:600;">
           📄 เปิดตรวจแผ่นศาล
         </a>
       </td>
     </tr>
     '''
-    exhibit_rows.append(row)
+        rows.append(row)
+    return rows
 
 # Build Cross Exam Summary Cards for Tab 4
 cross_exam_cards = []
@@ -914,17 +947,38 @@ for xc in timeline_11d["cross_examination_matrix"]:
     '''
     cross_exam_cards.append(card)
 
-boss_html = boss_html_template.replace("__EXHIBIT_ROWS_HTML__", "\n".join(exhibit_rows))
-boss_html = boss_html.replace("__CROSS_EXAM_SUMMARY_CARDS__", "\n".join(cross_exam_cards))
+# 1. Generate Root Dashboard (d:\Project\ชวกม.2\EDOK_NUI\AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html)
+root_html = boss_html_template.replace("__AGENT1_HREF__", "MASTER_SSOT_STITCH_VIEWER.html")
+root_html = root_html.replace("__AGENT2_HREF__", "BENEFICIARY_NETWORK_DASHBOARD.html")
+root_html = root_html.replace("__AGENT3_HREF__", "CHAT_FORENSIC_VECTOR_EXPLORER.html")
+root_html = root_html.replace("__AGENT4_HREF__", "INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html")
+root_html = root_html.replace("__AGENT5_HREF__", "TIMELINE_11D_DASHBOARD.html")
+root_html = root_html.replace("__AGENT6_HREF__", "AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html")
+root_html = root_html.replace("__EXHIBIT_ROWS_HTML__", "\n".join(make_exhibit_rows(is_subdir=False)))
+root_html = root_html.replace("__CROSS_EXAM_SUMMARY_CARDS__", "\n".join(cross_exam_cards))
 
 boss_dashboard_path = os.path.join(EDOK_DIR, "AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html")
 with open(boss_dashboard_path, "w", encoding="utf-8") as f:
-    f.write(boss_html)
+    f.write(root_html)
+print(f"Generated Root Boss Dashboard: {boss_dashboard_path}")
 
-print(f"Generated Boss Dashboard: {boss_dashboard_path}")
+# 2. Generate Subdir Dashboard (d:\Project\ชวกม.2\EDOK_NUI\VECTOR_EVIDENCE\AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html)
+subdir_html = boss_html_template.replace("__AGENT1_HREF__", "../MASTER_SSOT_STITCH_VIEWER.html")
+subdir_html = subdir_html.replace("__AGENT2_HREF__", "../BENEFICIARY_NETWORK_DASHBOARD.html")
+subdir_html = subdir_html.replace("__AGENT3_HREF__", "../CHAT_FORENSIC_VECTOR_EXPLORER.html")
+subdir_html = subdir_html.replace("__AGENT4_HREF__", "../INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html")
+subdir_html = subdir_html.replace("__AGENT5_HREF__", "TIMELINE_11D_DASHBOARD.html")
+subdir_html = subdir_html.replace("__AGENT6_HREF__", "AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html")
+subdir_html = subdir_html.replace("__EXHIBIT_ROWS_HTML__", "\n".join(make_exhibit_rows(is_subdir=True)))
+subdir_html = subdir_html.replace("__CROSS_EXAM_SUMMARY_CARDS__", "\n".join(cross_exam_cards))
 
-# Also copy to VECTOR_EVIDENCE
-shutil.copy2(boss_dashboard_path, os.path.join(EDOK_DIR, "VECTOR_EVIDENCE", "AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html"))
+vector_boss_path = os.path.join(EDOK_DIR, "VECTOR_EVIDENCE", "AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html")
+with open(vector_boss_path, "w", encoding="utf-8") as f:
+    f.write(subdir_html)
+print(f"Generated Vector Evidence Subdir Boss Dashboard: {vector_boss_path}")
+
+# Copy Blueprint to VECTOR_EVIDENCE as well
+shutil.copy2(blueprint_path, os.path.join(EDOK_DIR, "VECTOR_EVIDENCE", "AGENT6_ULTIMATE_BLUEPRINT_AND_GENESIS.md"))
 
 # 4. Copy deliverables to Artifact Directory
 print("\n>>> Copying Agent 6 deliverables to Artifact Directory...")

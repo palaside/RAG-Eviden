@@ -394,27 +394,27 @@
 
     <!-- Agent Nav Grid -->
     <div class="agent-nav-grid">
-      <a href="../MASTER_SSOT_STITCH_VIEWER.html" class="agent-card-nav" target="_blank">
+      <a href="../MASTER_SSOT_STITCH_VIEWER.html" class="agent-card-nav" target="_blank" data-target="MASTER_SSOT_STITCH_VIEWER.html">
         <span class="ac-title">📜 Agent 1</span>
         <span class="ac-desc">SSOT Chat 577 ภาพต่อเนื่อง</span>
       </a>
-      <a href="../BENEFICIARY_NETWORK_DASHBOARD.html" class="agent-card-nav" target="_blank">
+      <a href="../BENEFICIARY_NETWORK_DASHBOARD.html" class="agent-card-nav" target="_blank" data-target="BENEFICIARY_NETWORK_DASHBOARD.html">
         <span class="ac-title">🕸️ Agent 2</span>
         <span class="ac-desc">ผังเส้นทางเงิน 10 บัญชีผู้รับ</span>
       </a>
-      <a href="../CHAT_FORENSIC_VECTOR_EXPLORER.html" class="agent-card-nav" target="_blank">
+      <a href="../CHAT_FORENSIC_VECTOR_EXPLORER.html" class="agent-card-nav" target="_blank" data-target="CHAT_FORENSIC_VECTOR_EXPLORER.html">
         <span class="ac-title">🔬 Agent 3</span>
         <span class="ac-desc">นิติวิทยาศาสตร์ภาษา & 300 DPI</span>
       </a>
-      <a href="../INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="agent-card-nav" target="_blank">
+      <a href="../INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="agent-card-nav" target="_blank" data-target="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html">
         <span class="ac-title">🏛️ Agent 4</span>
         <span class="ac-desc">สำนวนฟ้อง 6 จำเลย 26+ กระทง</span>
       </a>
-      <a href="TIMELINE_11D_DASHBOARD.html" class="agent-card-nav" target="_blank">
+      <a href="TIMELINE_11D_DASHBOARD.html" class="agent-card-nav" target="_blank" data-target="TIMELINE_11D_DASHBOARD.html">
         <span class="ac-title">⏱️ Agent 5</span>
         <span class="ac-desc">ไทม์ไลน์ 11 มิติ & ซักค้าน Matrix</span>
       </a>
-      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="agent-card-nav boss-active">
+      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="agent-card-nav boss-active" data-target="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html">
         <span class="ac-title">👑 Agent 6 (Boss)</span>
         <span class="ac-desc">Command Center & 5 Game-Changers</span>
       </a>
@@ -1360,6 +1360,36 @@
       if (target) target.style.display = 'block';
       if (btn) btn.classList.add('active');
     }
+
+    // Universal Smart Link Resolver for Agent Navigation & Exhibits
+    (function initSmartNav() {
+      const isSubdir = window.location.pathname.replace(/\/g, '/').toLowerCase().includes('/vector_evidence/');
+      const linkMap = {
+        'Agent 1': 'MASTER_SSOT_STITCH_VIEWER.html',
+        'Agent 2': 'BENEFICIARY_NETWORK_DASHBOARD.html',
+        'Agent 3': 'CHAT_FORENSIC_VECTOR_EXPLORER.html',
+        'Agent 4': 'INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html',
+        'Agent 5': 'TIMELINE_11D_DASHBOARD.html',
+        'Agent 6': 'AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html'
+      };
+
+      document.querySelectorAll('.agent-card-nav').forEach(el => {
+        const titleEl = el.querySelector('.ac-title');
+        if (!titleEl) return;
+        const text = titleEl.innerText;
+        for (const [key, target] of Object.entries(linkMap)) {
+          if (text.includes(key)) {
+            const resolved = isSubdir ? ((key === 'Agent 5' || key === 'Agent 6') ? target : '../' + target) : target;
+            el.href = resolved;
+            el.onclick = function() {
+              const curSub = window.location.pathname.replace(/\/g, '/').toLowerCase().includes('/vector_evidence/');
+              this.href = curSub ? ((key === 'Agent 5' || key === 'Agent 6') ? target : '../' + target) : target;
+            };
+            break;
+          }
+        }
+      });
+    })();
   </script>
 </body>
 </html>
