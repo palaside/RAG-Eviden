@@ -2,7 +2,7 @@
 """
 Script: build_beneficiary_dashboard.py
 สร้างแดชบอร์ดสารบบผู้รับโอนเงินและแผนผังเครือข่ายทางการเงิน (Interactive Beneficiary Network Dashboard)
-รองรับการเลือกและคัดกรองเป้าหมายโดยผู้ใช้งาน (Target Selection Matrix)
+รองรับการรับค่าที่ผู้ใช้เลือกมาจาก TARGET_FOCUS_SELECTOR.html แบบ Dynamic 100%
 """
 
 import os
@@ -18,7 +18,6 @@ with open(RECIPIENTS_FILE, 'r', encoding='utf-8') as f:
 with open(TRANSACTIONS_FILE, 'r', encoding='utf-8') as f:
     transactions = json.load(f)
 
-# แปลงข้อมูลเป็น JSON String สำหรับฝังใน JavaScript
 recipients_json = json.dumps(recipients, ensure_ascii=False)
 transactions_json = json.dumps(transactions, ensure_ascii=False)
 
@@ -45,11 +44,18 @@ html_content = f'''<!DOCTYPE html>
     .top-header {{
       background: rgba(15, 23, 42, 0.95);
       border-bottom: 1px solid #1e293b;
-      padding: 20px 30px;
+      padding: 18px 30px;
       position: sticky;
       top: 0;
       z-index: 100;
       backdrop-filter: blur(12px);
+    }}
+    .header-flex {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
     }}
     .header-title {{
       font-size: 24px;
@@ -63,6 +69,26 @@ html_content = f'''<!DOCTYPE html>
       font-size: 15px;
       color: #94a3b8;
       margin-top: 4px;
+    }}
+    
+    .btn-back {{
+      background: #1e293b;
+      color: #38bdf8;
+      border: 1px solid #0284c7;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }}
+    .btn-back:hover {{
+      background: #0284c7;
+      color: #ffffff;
     }}
     
     /* STATS SUMMARY */
@@ -176,10 +202,6 @@ html_content = f'''<!DOCTYPE html>
       font-size: 13px;
       font-weight: 700;
     }}
-    .tag-core {{ background: #7f1d1d; color: #fca5a5; border: 1px solid #ef4444; }}
-    .tag-mule {{ background: #78350f; color: #fde68a; border: 1px solid #f59e0b; }}
-    .tag-proxy {{ background: #1e3a8a; color: #bfdbfe; border: 1px solid #3b82f6; }}
-    .tag-exclude {{ background: #334155; color: #94a3b8; border: 1px solid #475569; }}
     
     .btn-view {{
       background: #0284c7;
@@ -251,11 +273,19 @@ html_content = f'''<!DOCTYPE html>
 </head>
 <body>
   <div class="top-header">
-    <div class="header-title">
-      <span>🕸️ สารบบบัญชีผู้รับโอนเงินและแผนผังเครือข่ายทางการเงิน (Agent 2 Beneficiary Dashboard)</span>
-    </div>
-    <div class="header-sub">
-      ผลงานส่งมอบจาก เอเจนต์ตัวที่ ๒: สกัดสลิปครบ ๖ ช่องข้อมูล (ชื่อผู้รับ, ยอดเงิน, รหัสอ้างอิง, ธนาคาร, วันเวลา, MEMO) เพื่อให้ผู้ใช้งานเลือกเป้าหมาย
+    <div class="header-flex">
+      <div>
+        <div class="header-title">
+          <span>🕸️ สารบบบัญชีผู้รับโอนเงินและแผนผังเครือข่ายทางการเงิน (Beneficiary Network Dashboard)</span>
+        </div>
+        <div class="header-sub">
+          แสดงข้อมูลตามเป้าหมายที่ผู้ใช้งานเลือกโฟกัส • สกัดจากสลิปจริงครบ ๖ ช่องข้อมูล • คำนวณยอดเงินความเสียหายแบบ Real-time
+        </div>
+      </div>
+      
+      <a href="TARGET_FOCUS_SELECTOR.html" class="btn-back">
+        <span>⬅️ กลับไปหน้าเลือกเป้าหมาย (Change Target Selection)</span>
+      </a>
     </div>
     
     <div class="stats-bar">
@@ -264,16 +294,16 @@ html_content = f'''<!DOCTYPE html>
         <div class="stat-lbl">🧾 สลิปการเงินจริงที่ตรวจพบ</div>
       </div>
       <div class="stat-card">
-        <div class="stat-val" style="color: #38bdf8;" id="totalRecipientsCount">7</div>
-        <div class="stat-lbl">👥 บุคคล/กลุ่มผู้รับโอนทั้งหมด</div>
+        <div class="stat-val" style="color: #38bdf8;" id="selectedTargetCount">2 บุคคล</div>
+        <div class="stat-lbl">🎯 เป้าหมายที่ผู้ใช้เลือกโฟกัส</div>
       </div>
       <div class="stat-card">
-        <div class="stat-val" style="color: #f43f5e;" id="selectedCoreLoss">574,239.25 บาท</div>
-        <div class="stat-lbl">🎯 ยอดเงินเป้าหมายที่เลือกดำเนินคดี</div>
+        <div class="stat-val" style="color: #f43f5e;" id="selectedCoreLoss">0.00 บาท</div>
+        <div class="stat-lbl">⚖️ ยอดเงินความเสียหายสุทธิแห่งคดี</div>
       </div>
       <div class="stat-card">
         <div class="stat-val" style="color: #22c55e;" id="totalGrossFlow">693,717.09 บาท</div>
-        <div class="stat-lbl">💰 มูลค่าธุรกรรมรวมทุกบัญชี</div>
+        <div class="stat-lbl">💰 มูลค่าธุรกรรมรวมทุกบัญชีในระบบ</div>
       </div>
     </div>
   </div>
@@ -285,7 +315,6 @@ html_content = f'''<!DOCTYPE html>
         <span>🌐 แผนผังเครือข่ายความสัมพันธ์ทางการเงิน (Interactive Fraud Network Graph)</span>
       </div>
       <div class="graph-wrapper" id="networkGraphSvg">
-        <!-- SVG Interactive Graph -->
         <svg width="100%" height="100%" viewBox="0 0 1000 360" preserveAspectRatio="xMidYMid meet">
           <!-- Connection Lines -->
           <line x1="200" y1="180" x2="550" y2="90" stroke="#f43f5e" stroke-width="4" stroke-dasharray="4"/>
@@ -304,22 +333,18 @@ html_content = f'''<!DOCTYPE html>
           <text x="160" y="196" fill="#93c5fd" font-size="13" font-weight="600" text-anchor="middle">ณัฐชัย รักษาวงศ์</text>
 
           <!-- Target Nodes -->
-          <!-- 1. Jinnipha (Main Target) -->
           <circle cx="580" cy="90" r="40" fill="#7f1d1d" stroke="#f43f5e" stroke-width="3"/>
-          <text x="580" y="86" fill="#ffffff" font-size="14" font-weight="800" text-anchor="middle">🎯 ตัวการหลัก</text>
+          <text x="580" y="86" fill="#ffffff" font-size="14" font-weight="800" text-anchor="middle">🎯 เป้าหมายหลัก</text>
           <text x="580" y="104" fill="#fca5a5" font-size="12" font-weight="600" text-anchor="middle">จิณห์นิภา (574k)</text>
 
-          <!-- 2. Preeyachat (Mule/Cat) -->
           <circle cx="580" cy="170" r="28" fill="#78350f" stroke="#f59e0b" stroke-width="2"/>
           <text x="580" y="167" fill="#ffffff" font-size="13" font-weight="800" text-anchor="middle">🐴 เครือข่าย</text>
           <text x="580" y="183" fill="#fde68a" font-size="11" font-weight="600" text-anchor="middle">ปรียชาติ (22.5k)</text>
 
-          <!-- 3. Return Transfers (Victim/Self) -->
           <circle cx="580" cy="250" r="28" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
           <text x="580" y="247" fill="#ffffff" font-size="12" font-weight="800" text-anchor="middle">🔄 บัญชีโอนคืน</text>
           <text x="580" y="263" fill="#93c5fd" font-size="11" font-weight="600" text-anchor="middle">ณัฐชัย (85.4k)</text>
 
-          <!-- 4. Others -->
           <circle cx="580" cy="310" r="20" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/>
           <text x="580" y="315" fill="#94a3b8" font-size="11" font-weight="700" text-anchor="middle">อื่นๆ</text>
         </svg>
@@ -329,11 +354,8 @@ html_content = f'''<!DOCTYPE html>
     <!-- TARGET SELECTION TABLE -->
     <div class="table-card">
       <div class="card-title">
-        <span>📋 สารบบรายชื่อผู้รับโอนเงินทั้งหมด (คัดกรองจากสลิป 100% พร้อมตัวเลือกเป้าหมาย)</span>
+        <span>📋 สารบบรายชื่อผู้รับโอนเงิน (เจาะลึก ๖ ช่องข้อมูลสำหรับเป้าหมายที่เลือก)</span>
       </div>
-      <p style="color: #94a3b8; font-size: 14.5px; margin-bottom: 12px;">
-        ผู้ใช้งานสามารถปรับเปลี่ยนสถานะของแต่ละบุคคล (ตัวการหลัก / บัญชีม้า / สั่งโอนแทน / ยกเว้น) ระบบจะคำนวณยอดเงินความเสียหายสุทธิแบบ Real-time ทันที
-      </p>
       
       <table class="custom-table" id="recipientsTable">
         <thead>
@@ -369,17 +391,32 @@ html_content = f'''<!DOCTYPE html>
     const recipientsData = {recipients_json};
     const transactionsData = {transactions_json};
     
-    // บทบาทเริ่มต้น
+    // โหลดเป้าหมายที่ผู้ใช้เลือกมาจาก TARGET_FOCUS_SELECTOR.html
+    let focusIds = ['jinnipha', 'preeyachat'];
+    const saved = localStorage.getItem('SELECTED_FOCUS_TARGETS');
+    if (saved) {{
+      try {{
+        focusIds = JSON.parse(saved);
+      }} catch(e) {{}}
+    }}
+
     const userRoleAssignments = {{}};
     recipientsData.forEach(r => {{
-      if (r.recipient_name.includes('จิณห์นิภา')) {{
-        userRoleAssignments[r.recipient_name] = 'CORE_TARGET';
-      }} else if (r.recipient_name.includes('ปรียชาติ') || r.recipient_name.includes('พี่แมว')) {{
-        userRoleAssignments[r.recipient_name] = 'MULE_ACCOUNT';
-      }} else if (r.recipient_name.includes('ณัฐชัย')) {{
-        userRoleAssignments[r.recipient_name] = 'RETURN_TRANSFER';
+      const name = r.recipient_name;
+      let isFocused = false;
+      if (focusIds.includes('jinnipha') && name.includes('จิณห์นิภา')) isFocused = true;
+      if (focusIds.includes('preeyachat') && (name.includes('ปรียชาติ') || name.includes('พี่แมว'))) isFocused = true;
+      if (focusIds.includes('wanwisa') && name.includes('วันวิศา')) isFocused = true;
+      if (focusIds.includes('tatsaneekan') && name.includes('ทัศนีการ')) isFocused = true;
+      if (focusIds.includes('kanyapak') && name.includes('กัญญาภัค')) isFocused = true;
+      if (focusIds.includes('promptpay_086') && name.includes('086-4483287')) isFocused = true;
+
+      if (isFocused) {{
+        userRoleAssignments[name] = name.includes('จิณห์นิภา') ? 'CORE_TARGET' : 'MULE_ACCOUNT';
+      }} else if (name.includes('ณัฐชัย')) {{
+        userRoleAssignments[name] = 'RETURN_TRANSFER';
       }} else {{
-        userRoleAssignments[r.recipient_name] = 'EXCLUDE';
+        userRoleAssignments[name] = 'EXCLUDE';
       }}
     }});
 
@@ -424,12 +461,15 @@ html_content = f'''<!DOCTYPE html>
 
     function calculateTotals() {{
       let targetLoss = 0;
+      let focusedCount = 0;
       recipientsData.forEach(r => {{
         const role = userRoleAssignments[r.recipient_name];
         if (role === 'CORE_TARGET' || role === 'MULE_ACCOUNT') {{
           targetLoss += r.total_amount;
+          focusedCount += 1;
         }}
       }});
+      document.getElementById('selectedTargetCount').innerText = focusedCount + ' บุคคล';
       document.getElementById('selectedCoreLoss').innerText = targetLoss.toLocaleString('th-TH', {{minimumFractionDigits: 2, maximumFractionDigits: 2}}) + ' บาท';
     }}
 
