@@ -721,8 +721,13 @@
       </div>
     </div>
 
-    <!-- CENTERED TABS FOR TOOL 4 -->
-    
+        <!-- CENTERED TABS FOR TOOL 4 -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" onclick="switchTab('defendants')">📁 แถบสำนวนฟ้องร้องแยกบุคคล</button>
+      <button class="tab-btn" onclick="switchTab('charges')">⚖️ แถบบัญชีกระทงความผิด (26 กระทง ป.อ. ม. ๙๑)</button>
+      <button class="tab-btn" onclick="switchTab('witnesses')">📜 คำขอออกหมายเรียกพยานเอกสารธนาคาร (Statement)</button>
+      <button class="tab-btn" onclick="switchTab('amlc')">🛡️ หนังสือคำร้องขออายัดทรัพย์ ปปง.</button>
+    </div>
   </div>
 
   <div class="top-header" style="position:static; box-shadow:none; padding:10px 28px;">
@@ -751,13 +756,6 @@
   </header>
 
   <main class="container">
-    <!-- TABS BAR -->
-    <div class="tabs-bar">
-      <button class="tab-btn active" onclick="switchTab('defendants')">📁 แถบสำนวนฟ้องร้องแยกบุคคล</button>
-      <button class="tab-btn" onclick="switchTab('charges')">⚖️ แถบบัญชีกระทงความผิด</button>
-      <button class="tab-btn" onclick="switchTab('witnesses')">📜 คำขอออกหมายเรียกพยานเอกสารธนาคาร (Statement)</button>
-      <button class="tab-btn" onclick="switchTab('amlc')">🛡️ หนังสือคำร้องขออายัดทรัพย์ ปปง.</button>
-    </div>
 
     <!-- TAB 1: DEFENDANTS DOSSIERS -->
     <div id="pane-defendants" class="tab-pane active">
