@@ -652,6 +652,9 @@ html_content = f'''<!DOCTYPE html>
         <a href="BENEFICIARY_NETWORK_DASHBOARD.html" class="btn-action">
           <span>⬅️ กลับแดชบอร์ดเครือข่ายการเงิน (Agent 2)</span>
         </a>
+        <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="btn-action" style="background:#059669;">
+          <span>➡️ แฟ้มสำนวนฟ้องร้องรายบุคคล (Agent 4)</span>
+        </a>
       </div>
     </div>
 
