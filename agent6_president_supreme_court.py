@@ -561,30 +561,38 @@ boss_html_template = """<!DOCTYPE html>
     </div>
 
     <!-- Agent Nav Grid -->
-    <div class="agent-nav-grid">
+    <div class="agent-nav-grid" style="grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));">
       <a href="__AGENT1_HREF__" class="agent-card-nav" target="_blank" data-target="MASTER_SSOT_STITCH_VIEWER.html">
-        <span class="ac-title">📜 Agent 1</span>
-        <span class="ac-desc">SSOT Chat 577 ภาพต่อเนื่อง</span>
+        <span class="ac-title">🏛️ [1] SSOT Stream</span>
+        <span class="ac-desc">แชท 577 ภาพ สู่แกนเวลาเดียว</span>
       </a>
       <a href="__AGENT2_HREF__" class="agent-card-nav" target="_blank" data-target="TARGET_FOCUS_SELECTOR.html">
-        <span class="ac-title">🎯 Agent 2 (หน้าที่ ๑ หลัก)</span>
-        <span class="ac-desc">คลังสารบบบุคคล ➔ ผังเส้นทางเงิน</span>
+        <span class="ac-title">🎯 [2] Target Focus (หลัก)</span>
+        <span class="ac-desc">คลังสารบบ 59 รายชื่อบุคคล</span>
+      </a>
+      <a href="__AGENT2_1_HREF__" class="agent-card-nav" target="_blank" data-target="BENEFICIARY_NETWORK_DASHBOARD.html">
+        <span class="ac-title">🕸️ [2.1] Money Network</span>
+        <span class="ac-desc">ผังเส้นทางเงิน 10 บัญชีผู้รับ</span>
       </a>
       <a href="__AGENT3_HREF__" class="agent-card-nav" target="_blank" data-target="CHAT_FORENSIC_VECTOR_EXPLORER.html">
-        <span class="ac-title">🔬 Agent 3</span>
-        <span class="ac-desc">นิติวิทยาศาสตร์ภาษา & 300 DPI</span>
+        <span class="ac-title">🧠 [3] Forensic Vector</span>
+        <span class="ac-desc">นิติภาษาศาสตร์ & สลิป 300 DPI</span>
       </a>
       <a href="__AGENT4_HREF__" class="agent-card-nav" target="_blank" data-target="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html">
-        <span class="ac-title">🏛️ Agent 4</span>
+        <span class="ac-title">⚖️ [4] Indictment Engine</span>
         <span class="ac-desc">สำนวนฟ้อง 6 จำเลย 26+ กระทง</span>
       </a>
-      <a href="__AGENT5_HREF__" class="agent-card-nav" target="_blank" data-target="TIMELINE_11D_DASHBOARD.html">
-        <span class="ac-title">⏱️ Agent 5</span>
+      <a href="__AGENT5_HREF__" class="agent-card-nav" target="_blank" data-target="VECTOR_EVIDENCE_DASHBOARD.html">
+        <span class="ac-title">📑 [5] Master Dossier (หลัก)</span>
+        <span class="ac-desc">สารบบเวกเตอร์แท้ 35 แผ่น</span>
+      </a>
+      <a href="__AGENT5_1_HREF__" class="agent-card-nav" target="_blank" data-target="TIMELINE_11D_DASHBOARD.html">
+        <span class="ac-title">⏱️ [5.1] Timeline 11D</span>
         <span class="ac-desc">ไทม์ไลน์ 11 มิติ & ซักค้าน Matrix</span>
       </a>
       <a href="__AGENT6_HREF__" class="agent-card-nav boss-active" data-target="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html">
-        <span class="ac-title">👑 Agent 6 (Boss)</span>
-        <span class="ac-desc">Command Center & 5 Game-Changers</span>
+        <span class="ac-title">👑 [6] Supreme President</span>
+        <span class="ac-desc">ศูนย์บัญชาการสูงสุด ๖ เอเจนต์</span>
       </a>
     </div>
   </header>
@@ -865,12 +873,14 @@ boss_html_template = """<!DOCTYPE html>
     (function initSmartNav() {
       const isSubdir = window.location.pathname.replace(/\\/g, '/').toLowerCase().includes('/vector_evidence/');
       const linkMap = {
-        'Agent 1': 'MASTER_SSOT_STITCH_VIEWER.html',
-        'Agent 2': 'TARGET_FOCUS_SELECTOR.html',
-        'Agent 3': 'CHAT_FORENSIC_VECTOR_EXPLORER.html',
-        'Agent 4': 'INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html',
-        'Agent 5': 'TIMELINE_11D_DASHBOARD.html',
-        'Agent 6': 'AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html'
+        '[1]': 'MASTER_SSOT_STITCH_VIEWER.html',
+        '[2]': 'TARGET_FOCUS_SELECTOR.html',
+        '[2.1]': 'BENEFICIARY_NETWORK_DASHBOARD.html?targets=jinnipha%2Cpreeyachat%2C',
+        '[3]': 'CHAT_FORENSIC_VECTOR_EXPLORER.html',
+        '[4]': 'INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html',
+        '[5]': isSubdir ? 'VECTOR_EVIDENCE_DASHBOARD.html' : 'VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html',
+        '[5.1]': 'TIMELINE_11D_DASHBOARD.html',
+        '[6]': 'AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html'
       };
 
       document.querySelectorAll('.agent-card-nav').forEach(el => {
@@ -879,11 +889,11 @@ boss_html_template = """<!DOCTYPE html>
         const text = titleEl.innerText;
         for (const [key, target] of Object.entries(linkMap)) {
           if (text.includes(key)) {
-            const resolved = isSubdir ? ((key === 'Agent 5' || key === 'Agent 6') ? target : '../' + target) : target;
+            const resolved = isSubdir ? ((key === '[5]' || key === '[5.1]' || key === '[6]') ? target : '../' + target) : target;
             el.href = resolved;
             el.onclick = function() {
               const curSub = window.location.pathname.replace(/\\/g, '/').toLowerCase().includes('/vector_evidence/');
-              this.href = curSub ? ((key === 'Agent 5' || key === 'Agent 6') ? target : '../' + target) : target;
+              this.href = curSub ? ((key === '[5]' || key === '[5.1]' || key === '[6]') ? target : '../' + target) : target;
             };
             break;
           }
@@ -950,9 +960,11 @@ for xc in timeline_11d["cross_examination_matrix"]:
 # 1. Generate Root Dashboard (d:\Project\ชวกม.2\EDOK_NUI\AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html)
 root_html = boss_html_template.replace("__AGENT1_HREF__", "MASTER_SSOT_STITCH_VIEWER.html")
 root_html = root_html.replace("__AGENT2_HREF__", "TARGET_FOCUS_SELECTOR.html")
+root_html = root_html.replace("__AGENT2_1_HREF__", "BENEFICIARY_NETWORK_DASHBOARD.html?targets=jinnipha%2Cpreeyachat%2C")
 root_html = root_html.replace("__AGENT3_HREF__", "CHAT_FORENSIC_VECTOR_EXPLORER.html")
 root_html = root_html.replace("__AGENT4_HREF__", "INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html")
-root_html = root_html.replace("__AGENT5_HREF__", "TIMELINE_11D_DASHBOARD.html")
+root_html = root_html.replace("__AGENT5_HREF__", "VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html")
+root_html = root_html.replace("__AGENT5_1_HREF__", "TIMELINE_11D_DASHBOARD.html")
 root_html = root_html.replace("__AGENT6_HREF__", "AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html")
 root_html = root_html.replace("__EXHIBIT_ROWS_HTML__", "\n".join(make_exhibit_rows(is_subdir=False)))
 root_html = root_html.replace("__CROSS_EXAM_SUMMARY_CARDS__", "\n".join(cross_exam_cards))
@@ -965,9 +977,11 @@ print(f"Generated Root Boss Dashboard: {boss_dashboard_path}")
 # 2. Generate Subdir Dashboard (d:\Project\ชวกม.2\EDOK_NUI\VECTOR_EVIDENCE\AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html)
 subdir_html = boss_html_template.replace("__AGENT1_HREF__", "../MASTER_SSOT_STITCH_VIEWER.html")
 subdir_html = subdir_html.replace("__AGENT2_HREF__", "../TARGET_FOCUS_SELECTOR.html")
+subdir_html = subdir_html.replace("__AGENT2_1_HREF__", "../BENEFICIARY_NETWORK_DASHBOARD.html?targets=jinnipha%2Cpreeyachat%2C")
 subdir_html = subdir_html.replace("__AGENT3_HREF__", "../CHAT_FORENSIC_VECTOR_EXPLORER.html")
 subdir_html = subdir_html.replace("__AGENT4_HREF__", "../INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html")
-subdir_html = subdir_html.replace("__AGENT5_HREF__", "TIMELINE_11D_DASHBOARD.html")
+subdir_html = subdir_html.replace("__AGENT5_HREF__", "VECTOR_EVIDENCE_DASHBOARD.html")
+subdir_html = subdir_html.replace("__AGENT5_1_HREF__", "TIMELINE_11D_DASHBOARD.html")
 subdir_html = subdir_html.replace("__AGENT6_HREF__", "AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html")
 subdir_html = subdir_html.replace("__EXHIBIT_ROWS_HTML__", "\n".join(make_exhibit_rows(is_subdir=True)))
 subdir_html = subdir_html.replace("__CROSS_EXAM_SUMMARY_CARDS__", "\n".join(cross_exam_cards))

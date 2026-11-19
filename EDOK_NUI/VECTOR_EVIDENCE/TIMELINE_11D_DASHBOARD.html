@@ -521,29 +521,29 @@
     <!-- Suite Cross Navigation -->
     <nav class="suite-nav">
 
-      <a href="../MASTER_SSOT_STITCH_VIEWER.html" class="suite-link" title="Agent 1: เส้นเวลาแชท 577 ภาพต่อเนื่อง">
-        📜 Agent 1: SSOT Chat Timeline
+      <a href="../MASTER_SSOT_STITCH_VIEWER.html" class="suite-link" title="[1] สายธารแชท 577 ภาพต่อเนื่อง สู่แกนเวลาเดียว">
+        🏛️ [1] SSOT Stream
       </a>
-      <a href="../TARGET_FOCUS_SELECTOR.html" class="suite-link" title="Agent 2 หน้าที่ ๑: คลังสารบบรายชื่อบุคคลทั้งหมดแห่งคดี (หลัก)">
-        🎯 Agent 2 (หน้าที่ ๑ หลัก): สารบบรายชื่อบุคคล
+      <a href="../TARGET_FOCUS_SELECTOR.html" class="suite-link" title="[2] คลังสารบบรายชื่อบุคคลทั้งหมดแห่งคดี (หลัก)">
+        🎯 [2] สารบบบุคคล (หลัก)
       </a>
-      <a href="../BENEFICIARY_NETWORK_DASHBOARD.html" class="suite-link" title="Agent 2 หน้าที่ ๒: สารบบบัญชีผู้รับโอนเงินและแผนผังเครือข่ายทางการเงิน (ขยายผล)">
-        🕸️ Agent 2 (หน้าที่ ๒ ขยายผล): ผังเครือข่ายเส้นทางเงิน
+      <a href="../BENEFICIARY_NETWORK_DASHBOARD.html?targets=jinnipha%2Cpreeyachat%2C" class="suite-link" title="[2.1] สารบบบัญชีผู้รับโอนเงินและแผนผังเครือข่ายทางการเงิน (ขยายผล)">
+        🕸️ [2.1] ผังเงิน (ขยายผล)
       </a>
-      <a href="../CHAT_FORENSIC_VECTOR_EXPLORER.html" class="suite-link" title="Agent 3: นิติวิทยาศาสตร์ทางภาษา & จุดตายสลิป 300 DPI">
-        🔬 Agent 3: Forensic Linguistics & Vectors
+      <a href="../CHAT_FORENSIC_VECTOR_EXPLORER.html" class="suite-link" title="[3] นิติวิทยาศาสตร์ทางภาษา & จุดตายสลิป 300 DPI">
+        🧠 [3] นิติภาษา & 300 DPI
       </a>
-      <a href="../INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="suite-link" title="Agent 4: สำนวนฟ้อง 6 ผู้ต้องหา">
-        🏛️ Agent 4: Indictment Dossier
+      <a href="../INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="suite-link" title="[4] แฟ้มสำนวนฟ้อง 6 จำเลย 26+ กระทง">
+        ⚖️ [4] สำนวนฟ้อง 6 จำเลย
       </a>
-      <a href="VECTOR_EVIDENCE_DASHBOARD.html" class="suite-link" title="Agent 5: แฟ้มสารบบ 35 แผ่นเดิม">
-        📑 Agent 5: 35 Court Sheets
+      <a href="VECTOR_EVIDENCE_DASHBOARD.html" class="suite-link" title="[5] แฟ้มสารบบคดีอาญาเวกเตอร์แท้ 35 แผ่น (หลัก)">
+        📑 [5] สารบบ 35 แผ่น (หลัก)
       </a>
-      <a href="TIMELINE_11D_DASHBOARD.html" class="suite-link active" title="Agent 5: ไทม์ไลน์ 11 มิติและคำถามซักค้าน">
-        ⏱️ Agent 5: 11D Timeline & Cross-Exam
+      <a href="TIMELINE_11D_DASHBOARD.html" class="suite-link active" title="[5.1] ไทม์ไลน์ 11 มิติและคำถามซักค้าน (ขยายผล)">
+        ⏱️ [5.1] ไทม์ไลน์ 11 มิติ (ขยายผล)
       </a>
-      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="suite-link" title="Agent 6: ประธานศาลฎีกา Command Center">
-        👑 Agent 6: Supreme Commander
+      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="suite-link" title="[6] ประธานศาลฎีกา ศูนย์บัญชาการสูงสุด">
+        👑 [6] ศูนย์บัญชาการประธานศาลฎีกา
       </a>
 
     </nav>
@@ -4065,25 +4065,25 @@
     (function initSmartNav() {
       const isSubdir = window.location.pathname.replace(/\/g, '/').toLowerCase().includes('/vector_evidence/');
       const linkMap = {
-        'Agent 1': 'MASTER_SSOT_STITCH_VIEWER.html',
-        'Target Focus': 'TARGET_FOCUS_SELECTOR.html',
-        'Beneficiary Network': 'BENEFICIARY_NETWORK_DASHBOARD.html',
-        'Agent 3': 'CHAT_FORENSIC_VECTOR_EXPLORER.html',
-        'Agent 4': 'INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html',
-        '35 Court Sheets': isSubdir ? 'VECTOR_EVIDENCE_DASHBOARD.html' : 'VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html',
-        '11D Timeline': 'TIMELINE_11D_DASHBOARD.html',
-        'Agent 6': 'AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html'
+        '[1]': 'MASTER_SSOT_STITCH_VIEWER.html',
+        '[2]': 'TARGET_FOCUS_SELECTOR.html',
+        '[2.1]': 'BENEFICIARY_NETWORK_DASHBOARD.html?targets=jinnipha%2Cpreeyachat%2C',
+        '[3]': 'CHAT_FORENSIC_VECTOR_EXPLORER.html',
+        '[4]': 'INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html',
+        '[5]': isSubdir ? 'VECTOR_EVIDENCE_DASHBOARD.html' : 'VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html',
+        '[5.1]': 'TIMELINE_11D_DASHBOARD.html',
+        '[6]': 'AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html'
       };
 
       document.querySelectorAll('.suite-link').forEach(el => {
         const text = el.innerText;
         for (const [key, target] of Object.entries(linkMap)) {
           if (text.includes(key)) {
-            const resolved = isSubdir ? ((key === '35 Court Sheets' || key === '11D Timeline' || key === 'Agent 6') ? target : '../' + target) : target;
+            const resolved = isSubdir ? ((key === '[5]' || key === '[5.1]' || key === '[6]') ? target : '../' + target) : target;
             el.href = resolved;
             el.onclick = function() {
               const curSub = window.location.pathname.replace(/\/g, '/').toLowerCase().includes('/vector_evidence/');
-              this.href = curSub ? ((key === '35 Court Sheets' || key === '11D Timeline' || key === 'Agent 6') ? target : '../' + target) : target;
+              this.href = curSub ? ((key === '[5]' || key === '[5.1]' || key === '[6]') ? target : '../' + target) : target;
             };
             break;
           }
