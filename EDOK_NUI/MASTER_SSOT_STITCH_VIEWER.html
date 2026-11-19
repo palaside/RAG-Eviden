@@ -619,7 +619,78 @@
     }
 
 
-    /* MASTER HEADER & CENTERED TABS ARCHITECTURE (BLUEPRINT STANDARD) */
+    
+    /* MASTER LOCKED HEADER (BLUEPRINT STANDARD: LOCKED NAVBAR & TITLEBAR) */
+    .sticky-master-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 10000;
+      background: #070b14;
+      border-bottom: 2px solid #1e293b;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.85);
+      width: 100%;
+    }
+    .master-header-frame {
+      background: transparent;
+      border-bottom: 1px solid #1e293b;
+      padding: 10px 20px 8px;
+      margin-bottom: 0;
+      width: 100%;
+    }
+    .sticky-titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 24px;
+      background: rgba(15, 23, 42, 0.6);
+      border-bottom: 1px solid rgba(30, 41, 59, 0.7);
+    }
+    .sticky-titlebar .st-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tabs-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin: 8px auto 10px auto;
+      width: 100%;
+      padding-bottom: 0;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      color: #94a3b8;
+      padding: 8px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14.5px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover {
+      color: #e2e8f0;
+      background: #1e293b;
+      border-color: #38bdf8;
+    }
+    .tab-btn.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #38bdf8;
+      box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
+    }
+
     .master-header-frame {
       background: #090d16;
       border-bottom: 2px solid #1e293b;
@@ -751,49 +822,62 @@
 </style>
 </head>
 <body>
-  <!-- MASTER APP HEADER (BLUEPRINT STANDARD) -->
-  <header class="master-header-frame">
-    <nav class="master-tool-row">
-      <a href="MASTER_SSOT_STITCH_VIEWER.html" class="app-tool-btn active">
-        <span class="at-title">🏛️ SSOT</span>
-        <span class="at-desc">ร้อยเรียง 577 ภาพ</span>
-      </a>
-      <a href="TARGET_FOCUS_SELECTOR.html" class="app-tool-btn">
-        <span class="at-title">🎯 บุคคล</span>
-        <span class="at-desc">คลังบุคคล & ผังเงิน</span>
-      </a>
-      <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="app-tool-btn">
-        <span class="at-title">🧠 นิติวิทยาศาสตร์ภาษา</span>
-        <span class="at-desc">เวกเตอร์แชท & จุดตาย</span>
-      </a>
-      <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="app-tool-btn">
-        <span class="at-title">⚖️ สำนวนฟ้องรายบุคคล</span>
-        <span class="at-desc">6 จำเลย 26+ กระทง</span>
-      </a>
-      <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="app-tool-btn">
-        <span class="at-title">⏱️ สารบบเวกเตอร์แท้</span>
-        <span class="at-desc">Codex Master & 11 มิติ</span>
-      </a>
-      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="app-tool-btn boss-tool">
-        <span class="at-title">👑 ประธานศาลฎีกา</span>
-        <span class="at-desc">Supreme Command</span>
-      </a>
-    </nav>
-    <div class="nav-direction-row">
-      <a href="#" class="btn-nav-dir disabled">⬅️ BACK</a>
-      <span style="font-size: 12px; color: #64748b; font-weight:600; letter-spacing: 0.5px;">EVIDENCE CODEX SUITE • ISO/IEC 27037</span>
-      <a href="TARGET_FOCUS_SELECTOR.html" class="btn-nav-dir">FORWARD ➡️</a>
-    </div>
-  </header>
-  
+  <!-- LOCKED MASTER HEADER (NAVBAR + TITLEBAR + CENTERED TABS) -->
+  <div class="sticky-master-wrapper">
+    <header class="master-header-frame">
+      <nav class="master-tool-row">
+        <a href="MASTER_SSOT_STITCH_VIEWER.html" class="app-tool-btn active">
+          <span class="at-title">🏛️ SSOT</span>
+          <span class="at-desc">ร้อยเรียง 577 ภาพ</span>
+        </a>
+        <a href="TARGET_FOCUS_SELECTOR.html" class="app-tool-btn">
+          <span class="at-title">🎯 บุคคล</span>
+          <span class="at-desc">คลังบุคคล & ผังเงิน</span>
+        </a>
+        <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="app-tool-btn">
+          <span class="at-title">🧠 นิติวิทยาศาสตร์ภาษา</span>
+          <span class="at-desc">เวกเตอร์แชท & จุดตาย</span>
+        </a>
+        <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="app-tool-btn">
+          <span class="at-title">⚖️ สำนวนฟ้องรายบุคคล</span>
+          <span class="at-desc">6 จำเลย 26+ กระทง</span>
+        </a>
+        <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="app-tool-btn">
+          <span class="at-title">⏱️ สารบบเวกเตอร์แท้</span>
+          <span class="at-desc">Codex Master & 11 มิติ</span>
+        </a>
+        <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="app-tool-btn boss-tool">
+          <span class="at-title">👑 ประธานศาลฎีกา</span>
+          <span class="at-desc">Supreme Command</span>
+        </a>
+      </nav>
+      <div class="nav-direction-row">
+        <a href="#" class="btn-nav-dir disabled">⬅️ BACK</a>
+        <span style="font-size: 12px; color: #64748b; font-weight:600; letter-spacing: 0.5px;">EVIDENCE CODEX SUITE • ISO/IEC 27037</span>
+        <a href="TARGET_FOCUS_SELECTOR.html" class="btn-nav-dir">FORWARD ➡️</a>
+      </div>
+    </header>
 
-  <div class="top-header">
+    <div class="sticky-titlebar">
+      <div class="st-title">
+        <span>🏛️ [1] แดชบอร์ดตรวจสอบการร้อยเรียงภาพแชททุกภาพสู่ SSOT (Single Line Stream Audit)</span>
+      </div>
+      <div style="font-size: 12px; font-weight: 700; background: #065f46; color: #a7f3d0; padding: 3px 10px; border-radius: 999px;">
+        🚀 60 FPS ULTRA SMOOTH
+      </div>
+    </div>
+
+    <!-- CENTERED TABS FOR PAGE 1 -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" id="tabModePage" onclick="switchPage1Tab('PAGE')">⚡ แถบลื่นไหลพิเศษ</button>
+      <button class="tab-btn" id="tabModeAll" onclick="switchPage1Tab('ALL')">📜 แถบแสดงทั้งหมด</button>
+    </div>
+  </div>
+
+<div class="top-header">
     
 
-    <div class="header-title">
-      <span>🏛️ แดชบอร์ดตรวจสอบการร้อยเรียงภาพแชททุกภาพสู่ SSOT (Single Line Stream Audit)</span>
-      <span style="font-size: 13px; font-weight: 700; background: #065f46; color: #a7f3d0; padding: 4px 10px; border-radius: 999px; margin-left: auto;">🚀 60 FPS ULTRA SMOOTH</span>
-    </div>
+    
     <div class="header-sub">
       ขับเคลื่อนด้วย OCR Agent ระดับพิกเซลบริสุทธิ์: สกัดไทม์แสตมป์เวลาบับเบิ้ล 530 โหนด • คัดกรองภาพซ้ำ 100% • ปล่อยช่องว่างกรณีไม่พบหมุดวันตามกฎข้อ ๒
     </div>
@@ -836,11 +920,7 @@
     
     <!-- PERFORMANCE & PAGINATION TOOLBAR -->
     <div class="perf-toolbar">
-      <div class="mode-switch-group">
-        <span style="font-size: 13.5px; font-weight: 700; color: #94a3b8;">โหมดแสดงผล:</span>
-        <button id="btnModePage" class="btn-mode active" onclick="setRenderMode('PAGE')">⚡ โหมดลื่นไหลพิเศษ (ทีละ 50 โหนด)</button>
-        <button id="btnModeAll" class="btn-mode" onclick="setRenderMode('ALL')">📜 แสดงทั้งหมด (577 โหนด)</button>
-      </div>
+      
       <div class="pagination-controls" id="paginationControls">
         <button class="btn-page" id="btnPrevPage" onclick="changePage(-1)">◀ หน้าก่อนหน้า</button>
         <span class="page-info-label" id="pageInfoLabel">หน้า 1 / 12 (โหนด 1 - 50)</span>
@@ -850,11 +930,7 @@
   </div>
 
   
-  <!-- CENTERED TABS FOR PAGE 1 -->
-  <div class="tabs-bar">
-    <button class="tab-btn active" id="tabModePage" onclick="switchPage1Tab('PAGE')">⚡ แถบลื่นไหลพิเศษ</button>
-    <button class="tab-btn" id="tabModeAll" onclick="switchPage1Tab('ALL')">📜 แถบแสดงทั้งหมด</button>
-  </div>
+  
 
   <div class="stream-container">
     <div class="timeline-stream" id="timelineStream">
@@ -22236,6 +22312,7 @@
 
     
     function switchPage1Tab(mode) {
+      setTimeout(observeAllPreviewBoxes, 100);
       setRenderMode(mode);
       const bPage = document.getElementById('tabModePage');
       const bAll = document.getElementById('tabModeAll');
@@ -22380,6 +22457,35 @@
 
   <script>
     
+    
+    // UNIVERSAL FOCAL OBSERVER FOR EVERY NODE (ALL 576 NODES)
+    const focalObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const box = entry.target;
+          const focalY = parseInt(box.getAttribute('data-focal-y') || '2100', 10);
+          if (focalY > 0 && box.scrollTop === 0) {
+            box.scrollTo({ top: focalY, behavior: 'smooth' });
+          }
+        }
+      });
+    }, { rootMargin: '300px 0px' });
+
+    function observeAllPreviewBoxes() {
+      document.querySelectorAll('.img-preview-box[data-focal-y]').forEach(box => {
+        focalObserver.observe(box);
+        const focalY = parseInt(box.getAttribute('data-focal-y') || '2100', 10);
+        if (focalY > 0 && box.scrollTop === 0) {
+          box.scrollTo({ top: focalY, behavior: 'instant' });
+        }
+      });
+    }
+
+    // Auto-scroll all on load
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(observeAllPreviewBoxes, 150);
+    });
+
     function scrollToFocal(boxId, y) {
       const box = document.getElementById(boxId);
       if (box) {

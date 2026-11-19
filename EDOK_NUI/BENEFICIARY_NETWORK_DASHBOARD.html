@@ -365,7 +365,78 @@
     }
 
 
-    /* MASTER HEADER & CENTERED TABS ARCHITECTURE (BLUEPRINT STANDARD) */
+    
+    /* MASTER LOCKED HEADER (NAVBAR + TITLE + CENTERED TABS) */
+    .sticky-master-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 10000;
+      background: #070b14;
+      border-bottom: 2px solid #1e293b;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.85);
+      width: 100%;
+    }
+    .master-header-frame {
+      background: transparent;
+      border-bottom: 1px solid #1e293b;
+      padding: 10px 20px 8px;
+      margin-bottom: 0;
+      width: 100%;
+    }
+    .sticky-titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 24px;
+      background: rgba(15, 23, 42, 0.6);
+      border-bottom: 1px solid rgba(30, 41, 59, 0.7);
+    }
+    .sticky-titlebar .st-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tabs-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin: 8px auto 10px auto;
+      width: 100%;
+      padding-bottom: 0;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      color: #94a3b8;
+      padding: 8px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14.5px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover {
+      color: #e2e8f0;
+      background: #1e293b;
+      border-color: #38bdf8;
+    }
+    .tab-btn.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #38bdf8;
+      box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
+    }
+
     .master-header-frame {
       background: #090d16;
       border-bottom: 2px solid #1e293b;
@@ -497,81 +568,63 @@
 </style>
 </head>
 <body>
-  <!-- MASTER APP HEADER (BLUEPRINT STANDARD) -->
-  <header class="master-header-frame">
-    <nav class="master-tool-row">
-      <a href="MASTER_SSOT_STITCH_VIEWER.html" class="app-tool-btn">
-        <span class="at-title">🏛️ SSOT</span>
-        <span class="at-desc">ร้อยเรียง 577 ภาพ</span>
-      </a>
-      <a href="TARGET_FOCUS_SELECTOR.html" class="app-tool-btn active">
-        <span class="at-title">🎯 บุคคล</span>
-        <span class="at-desc">คลังบุคคล & ผังเงิน</span>
-      </a>
-      <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="app-tool-btn">
-        <span class="at-title">🧠 นิติวิทยาศาสตร์ภาษา</span>
-        <span class="at-desc">เวกเตอร์แชท & จุดตาย</span>
-      </a>
-      <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="app-tool-btn">
-        <span class="at-title">⚖️ สำนวนฟ้องรายบุคคล</span>
-        <span class="at-desc">6 จำเลย 26+ กระทง</span>
-      </a>
-      <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="app-tool-btn">
-        <span class="at-title">⏱️ สารบบเวกเตอร์แท้</span>
-        <span class="at-desc">Codex Master & 11 มิติ</span>
-      </a>
-      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="app-tool-btn boss-tool">
-        <span class="at-title">👑 ประธานศาลฎีกา</span>
-        <span class="at-desc">Supreme Command</span>
-      </a>
-    </nav>
-    <div class="nav-direction-row">
-      <a href="MASTER_SSOT_STITCH_VIEWER.html" class="btn-nav-dir">⬅️ BACK</a>
-      <span style="font-size: 12px; color: #64748b; font-weight:600; letter-spacing: 0.5px;">EVIDENCE CODEX SUITE • ISO/IEC 27037</span>
-      <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="btn-nav-dir">FORWARD ➡️</a>
-    </div>
-  </header>
-  
+  <!-- LOCKED MASTER HEADER (NAVBAR + TITLEBAR + CENTERED TABS) -->
+  <div class="sticky-master-wrapper">
+    <header class="master-header-frame">
+      <nav class="master-tool-row">
+        <a href="MASTER_SSOT_STITCH_VIEWER.html" class="app-tool-btn">
+          <span class="at-title">🏛️ SSOT</span>
+          <span class="at-desc">ร้อยเรียง 577 ภาพ</span>
+        </a>
+        <a href="TARGET_FOCUS_SELECTOR.html" class="app-tool-btn active">
+          <span class="at-title">🎯 บุคคล</span>
+          <span class="at-desc">คลังบุคคล & ผังเงิน</span>
+        </a>
+        <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="app-tool-btn">
+          <span class="at-title">🧠 นิติวิทยาศาสตร์ภาษา</span>
+          <span class="at-desc">เวกเตอร์แชท & จุดตาย</span>
+        </a>
+        <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="app-tool-btn">
+          <span class="at-title">⚖️ สำนวนฟ้องรายบุคคล</span>
+          <span class="at-desc">6 จำเลย 26+ กระทง</span>
+        </a>
+        <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="app-tool-btn">
+          <span class="at-title">⏱️ สารบบเวกเตอร์แท้</span>
+          <span class="at-desc">Codex Master & 11 มิติ</span>
+        </a>
+        <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="app-tool-btn boss-tool">
+          <span class="at-title">👑 ประธานศาลฎีกา</span>
+          <span class="at-desc">Supreme Command</span>
+        </a>
+      </nav>
+      <div class="nav-direction-row">
+        <a href="TARGET_FOCUS_SELECTOR.html" class="btn-nav-dir">⬅️ BACK</a>
+        <span style="font-size: 12px; color: #64748b; font-weight:600; letter-spacing: 0.5px;">EVIDENCE CODEX SUITE • ISO/IEC 27037</span>
+        <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="btn-nav-dir">FORWARD ➡️</a>
+      </div>
+    </header>
 
-  <!-- Suite Cross Navigation Bar -->
-  <div style="background: #020617; border-bottom: 1px solid #1e293b; padding: 8px 30px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-    <a href="MASTER_SSOT_STITCH_VIEWER.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 6px; border: 1px solid #1e293b;">🏛️ [1] SSOT Stream</a>
-    <a href="TARGET_FOCUS_SELECTOR.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 6px; border: 1px solid #1e293b;">🎯 [2] สารบบบุคคล (หลัก)</a>
-    <a href="BENEFICIARY_NETWORK_DASHBOARD.html" style="background: rgba(56, 189, 248, 0.25); border: 1px solid #38bdf8; color: #38bdf8; font-weight: 700; text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 6px;">🕸️ [2.1] ผังเงิน (ขยายผล)</a>
-    <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 6px; border: 1px solid #1e293b;">🧠 [3] นิติภาษา & 300 DPI</a>
-    <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 6px; border: 1px solid #1e293b;">⚖️ [4] สำนวนฟ้อง 6 จำเลย</a>
-    <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 6px; border: 1px solid #1e293b;">📑 [5] สารบบ 35 แผ่น (หลัก)</a>
-    <a href="TIMELINE_11D_DASHBOARD.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 6px; border: 1px solid #1e293b;">⏱️ [5.1] ไทม์ไลน์ 11 มิติ (ขยายผล)</a>
-    <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 6px; border: 1px solid #1e293b;">👑 [6] ศูนย์บัญชาการประธานศาลฎีกา</a>
+    <div class="sticky-titlebar">
+      <div class="st-title">
+        <span>🕸️ [2.1] สารบบบัญชีผู้รับโอนเงินและแผนผังเครือข่ายทางการเงิน (Strict Target Focus)</span>
+        <span style="font-size: 13px; background: rgba(56,189,248,0.2); border: 1px solid #38bdf8; color: #38bdf8; padding: 2px 10px; border-radius: 12px; font-weight: 700;">
+          Agent 2 • หน้าที่ ๒ (ขยายรายละเอียด)
+        </span>
+      </div>
+      <div>
+        <span style="font-size: 12.5px; color: #94a3b8;">สกัดเส้นทางการเงิน ๖ ช่องข้อมูล ปลอดข้อมูลบุคคลอื่น ๑๐๐%</span>
+      </div>
+    </div>
+
+    <!-- CENTERED TABS FOR TOOL 2 -->
+    <div class="tabs-bar">
+      <a href="TARGET_FOCUS_SELECTOR.html" class="tab-btn">🎯 แถบคลังสารบบรายชื่อบุคคล</a>
+      <a href="BENEFICIARY_NETWORK_DASHBOARD.html" class="tab-btn active">🕸️ แถบสารบบบัญชีผู้รับโอนเงิน</a>
+    </div>
   </div>
 
-  <!-- TOP HEADER -->
-  <header class="top-header">
-
-    
-    <!-- SUBPAGE TABS FOR TOOL 2 (มี ๒ หน้า) -->
-    
-    <div class="header-flex">
-      <div>
-        <div class="header-title">
-          <span>🕸️ สารบบบัญชีผู้รับโอนเงินและแผนผังเครือข่ายทางการเงิน (Strict Target Focus)</span>
-          <span style="font-size: 13.5px; background: rgba(56,189,248,0.2); border: 1px solid #38bdf8; color: #38bdf8; padding: 2px 10px; border-radius: 12px; font-weight: 700;">
-            Agent 2 • หน้าที่ ๒ (ขยายรายละเอียด)
-          </span>
-        </div>
-        <div class="header-sub">
-          วิเคราะห์เจาะลึกเฉพาะเป้าหมายที่เลือก — สกัดเส้นทางการเงิน ๖ ช่องข้อมูล ปลอดข้อมูลบุคคลอื่น ๑๐๐% (ขยายผลจากคลังสารบบรายชื่อบุคคล หน้าที่ ๑)
-        </div>
-      </div>
-      <div style="display: flex; gap: 10px;">
-        <a href="TARGET_FOCUS_SELECTOR.html" class="btn-action" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #fff; border-color: #38bdf8; font-weight: 700;">
-          <span>🎯 กลับสู่หน้าที่ ๑ (หน้าหลัก): คลังสารบบรายชื่อบุคคล</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- KPI STATS -->
-    <div class="stats-bar">
+  <div class="container">
+<div class="stats-bar">
       <div class="stat-card">
         <div class="stat-val" id="kpiTargetName" style="color: #38bdf8; font-size: 20px;">-</div>
         <div class="stat-lbl">🎯 บุคคลเป้าหมายที่โฟกัส</div>

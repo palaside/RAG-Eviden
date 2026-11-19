@@ -377,6 +377,78 @@
     
 
 
+    
+    /* MASTER LOCKED HEADER (NAVBAR + TITLE + CENTERED TABS) */
+    .sticky-master-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 10000;
+      background: #070b14;
+      border-bottom: 2px solid #1e293b;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.85);
+      width: 100%;
+    }
+    .master-header-frame {
+      background: transparent;
+      border-bottom: 1px solid #1e293b;
+      padding: 10px 20px 8px;
+      margin-bottom: 0;
+      width: 100%;
+    }
+    .sticky-titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 24px;
+      background: rgba(15, 23, 42, 0.6);
+      border-bottom: 1px solid rgba(30, 41, 59, 0.7);
+    }
+    .sticky-titlebar .st-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #facc15;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tabs-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin: 8px auto 10px auto;
+      width: 100%;
+      padding-bottom: 0;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      color: #94a3b8;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover {
+      color: #facc15;
+      background: #1e293b;
+      border-color: #eab308;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.25) 0%, rgba(202, 138, 4, 0.35) 100%);
+      color: #facc15;
+      border-color: #facc15;
+      box-shadow: 0 0 12px rgba(234, 179, 8, 0.35);
+    }
+
     /* MASTER 6-TOOL APPLICATION NAV BAR */
     .master-app-nav {
       display: grid;
@@ -609,103 +681,64 @@
 </style>
 </head>
 <body>
-  <!-- MASTER APP HEADER (BLUEPRINT STANDARD) -->
-  <header class="master-header-frame">
-    <nav class="master-tool-row">
-      <a href="MASTER_SSOT_STITCH_VIEWER.html" class="app-tool-btn">
-        <span class="at-title">🏛️ SSOT</span>
-        <span class="at-desc">ร้อยเรียง 577 ภาพ</span>
-      </a>
-      <a href="TARGET_FOCUS_SELECTOR.html" class="app-tool-btn">
-        <span class="at-title">🎯 บุคคล</span>
-        <span class="at-desc">คลังบุคคล & ผังเงิน</span>
-      </a>
-      <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="app-tool-btn">
-        <span class="at-title">🧠 นิติวิทยาศาสตร์ภาษา</span>
-        <span class="at-desc">เวกเตอร์แชท & จุดตาย</span>
-      </a>
-      <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="app-tool-btn">
-        <span class="at-title">⚖️ สำนวนฟ้องรายบุคคล</span>
-        <span class="at-desc">6 จำเลย 26+ กระทง</span>
-      </a>
-      <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="app-tool-btn">
-        <span class="at-title">⏱️ สารบบเวกเตอร์แท้</span>
-        <span class="at-desc">Codex Master & 11 มิติ</span>
-      </a>
-      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="app-tool-btn boss-tool active">
-        <span class="at-title">👑 ประธานศาลฎีกา</span>
-        <span class="at-desc">Supreme Command</span>
-      </a>
-    </nav>
-    <div class="nav-direction-row">
-      <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="btn-nav-dir">⬅️ BACK</a>
-      <span style="font-size: 12px; color: #64748b; font-weight:600; letter-spacing: 0.5px;">EVIDENCE CODEX SUITE • ISO/IEC 27037</span>
-      <a href="#" class="btn-nav-dir disabled">FORWARD ➡️</a>
-    </div>
-  </header>
-  
+  <!-- LOCKED MASTER HEADER (NAVBAR + TITLEBAR + CENTERED TABS) -->
+  <div class="sticky-master-wrapper">
+    <header class="master-header-frame">
+      <nav class="master-tool-row">
+        <a href="MASTER_SSOT_STITCH_VIEWER.html" class="app-tool-btn">
+          <span class="at-title">🏛️ SSOT</span>
+          <span class="at-desc">ร้อยเรียง 577 ภาพ</span>
+        </a>
+        <a href="TARGET_FOCUS_SELECTOR.html" class="app-tool-btn">
+          <span class="at-title">🎯 บุคคล</span>
+          <span class="at-desc">คลังบุคคล & ผังเงิน</span>
+        </a>
+        <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="app-tool-btn">
+          <span class="at-title">🧠 นิติวิทยาศาสตร์ภาษา</span>
+          <span class="at-desc">เวกเตอร์แชท & จุดตาย</span>
+        </a>
+        <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="app-tool-btn">
+          <span class="at-title">⚖️ สำนวนฟ้องรายบุคคล</span>
+          <span class="at-desc">6 จำเลย 26+ กระทง</span>
+        </a>
+        <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="app-tool-btn">
+          <span class="at-title">⏱️ สารบบเวกเตอร์แท้</span>
+          <span class="at-desc">Codex Master & 11 มิติ</span>
+        </a>
+        <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="app-tool-btn boss-tool active">
+          <span class="at-title">👑 ประธานศาลฎีกา</span>
+          <span class="at-desc">Supreme Command</span>
+        </a>
+      </nav>
+      <div class="nav-direction-row">
+        <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="btn-nav-dir">⬅️ BACK</a>
+        <span style="font-size: 12px; color: #64748b; font-weight:600; letter-spacing: 0.5px;">EVIDENCE CODEX SUITE • ISO/IEC 27037</span>
+        <a href="#" class="btn-nav-dir disabled">FORWARD ➡️</a>
+      </div>
+    </header>
 
-  <!-- Crown Header -->
-  <header class="crown-header">
-
-    <div class="crown-meta">
-      <div class="crown-title-group">
-        <div class="crown-icon">👑</div>
-        <div>
-          <div class="crown-title">
-            <span>Agent 6: President of the Supreme Court</span>
-            <span class="badge-gold">จอมทัพประธานศาลฎีกา</span>
-          </div>
-          <div class="crown-sub">
-            ศูนย์บัญชาการสูงสุดคุม ๕ เอเจนต์ • ๕ ฟีเจอร์ Game-Changer • The Ultimate Blueprint & Genesis Prompt
-          </div>
-        </div>
+    <div class="sticky-titlebar">
+      <div class="st-title">
+        <span>👑 [6] Agent 6: President of the Supreme Court (จอมทัพประธานศาลฎีกา)</span>
       </div>
       <div>
-        <a href="AGENT6_ULTIMATE_BLUEPRINT_AND_GENESIS.md" target="_blank" class="btn-gold">
-          📜 เปิดอ่าน The Ultimate Blueprint (.md)
+        <a href="AGENT6_ULTIMATE_BLUEPRINT_AND_GENESIS.md" target="_blank" class="btn-gold" style="padding: 4px 12px; font-size: 12px;">
+          📜 The Ultimate Blueprint (.md)
         </a>
       </div>
     </div>
 
-    <!-- Agent Nav Grid -->
-    <div class="agent-nav-grid" style="grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));">
-      <a href="MASTER_SSOT_STITCH_VIEWER.html" class="agent-card-nav" target="_blank" data-target="MASTER_SSOT_STITCH_VIEWER.html">
-        <span class="ac-title">🏛️ [1] SSOT Stream</span>
-        <span class="ac-desc">แชท 577 ภาพ สู่แกนเวลาเดียว</span>
-      </a>
-      <a href="TARGET_FOCUS_SELECTOR.html" class="agent-card-nav" target="_blank" data-target="TARGET_FOCUS_SELECTOR.html">
-        <span class="ac-title">🎯 [2] Target Focus (หลัก)</span>
-        <span class="ac-desc">คลังสารบบ 59 รายชื่อบุคคล</span>
-      </a>
-      <a href="BENEFICIARY_NETWORK_DASHBOARD.html?targets=jinnipha%2Cpreeyachat%2C" class="agent-card-nav" target="_blank" data-target="BENEFICIARY_NETWORK_DASHBOARD.html">
-        <span class="ac-title">🕸️ [2.1] Money Network</span>
-        <span class="ac-desc">ผังเส้นทางเงิน 10 บัญชีผู้รับ</span>
-      </a>
-      <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="agent-card-nav" target="_blank" data-target="CHAT_FORENSIC_VECTOR_EXPLORER.html">
-        <span class="ac-title">🧠 [3] Forensic Vector</span>
-        <span class="ac-desc">นิติภาษาศาสตร์ & สลิป 300 DPI</span>
-      </a>
-      <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="agent-card-nav" target="_blank" data-target="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html">
-        <span class="ac-title">⚖️ [4] Indictment Engine</span>
-        <span class="ac-desc">สำนวนฟ้อง 6 จำเลย 26+ กระทง</span>
-      </a>
-      <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="agent-card-nav" target="_blank" data-target="VECTOR_EVIDENCE_DASHBOARD.html">
-        <span class="ac-title">📑 [5] Master Dossier (หลัก)</span>
-        <span class="ac-desc">สารบบเวกเตอร์แท้ 35 แผ่น</span>
-      </a>
-      <a href="TIMELINE_11D_DASHBOARD.html" class="agent-card-nav" target="_blank" data-target="TIMELINE_11D_DASHBOARD.html">
-        <span class="ac-title">⏱️ [5.1] Timeline 11D</span>
-        <span class="ac-desc">ไทม์ไลน์ 11 มิติ & ซักค้าน Matrix</span>
-      </a>
-      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="agent-card-nav boss-active" data-target="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html">
-        <span class="ac-title">👑 [6] Supreme President</span>
-        <span class="ac-desc">ศูนย์บัญชาการสูงสุด ๖ เอเจนต์</span>
-      </a>
+    <!-- CENTERED 5 TABS FOR AGENT 6 -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" id="tabBtnSim" onclick="switchBossView('simulator')">🎭 แถบ Killer Cross-Examination Simulator</button>
+      <button class="tab-btn" id="tabBtnFlip" onclick="switchBossView('flipengine')">🔄 แถบ Civil-to-Criminal Flip Engine</button>
+      <button class="tab-btn" id="tabBtnHeat" onclick="switchBossView('heatmap')">🌊 แถบ Psychological Manipulation & Urgency Heatmap</button>
+      <button class="tab-btn" id="tabBtnBust" onclick="switchBossView('defensebuster')">🛡️ แถบ Defense-Buster Matrix 5/5</button>
+      <button class="tab-btn" id="tabBtnExh" onclick="switchBossView('exhibitgen')">📑 แถบ 1-Click Court Exhibit Generator</button>
     </div>
-  </header>
+  </div>
 
-  <div class="container">
+<div class="container">
 
     <!-- KPI Summary Row -->
     <div class="kpi-row">
@@ -727,14 +760,7 @@
       </div>
     </div>
 
-    <!-- Tabs -->
-    <div class="tabs-bar">
-      <button class="tab-btn active" id="tabBtnSim" onclick="switchBossView('simulator')">🎭 แถบ Killer Cross-Examination Simulator</button>
-      <button class="tab-btn" id="tabBtnFlip" onclick="switchBossView('flipengine')">🔄 แถบ Civil-to-Criminal Flip Engine</button>
-      <button class="tab-btn" id="tabBtnHeat" onclick="switchBossView('heatmap')">🌊 แถบ Psychological Manipulation & Urgency Heatmap</button>
-      <button class="tab-btn" id="tabBtnBust" onclick="switchBossView('defensebuster')">🛡️ แถบ Defense-Buster Matrix 5/5</button>
-      <button class="tab-btn" id="tabBtnExh" onclick="switchBossView('exhibitgen')">📑 แถบ 1-Click Court Exhibit Generator</button>
-    </div>
+    
 
     <!-- TAB 1: SIMULATOR -->
     <div id="btab-simulator" class="boss-section">
