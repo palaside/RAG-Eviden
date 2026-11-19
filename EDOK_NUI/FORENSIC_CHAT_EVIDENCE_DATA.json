@@ -5,7 +5,7 @@
     "foot_in_the_door": 4,
     "third_party_coercion": 22,
     "debt_acknowledgement": 8,
-    "smoking_guns": 6
+    "smoking_guns": 8
   },
   "evidence": {
     "foot_in_the_door": [
@@ -328,21 +328,21 @@
         "chat_date": "๒๗ พ.ค. ๒๕๖๘",
         "chat_line": "Transcript Line 5860-5865",
         "chat_file": "A4_Full_27.5.68 พี่น้อง_IMG_6243.PNG",
-        "slip_file": "A4_Full_27.5.68 พี่น้อง_IMG_6243.PNG",
-        "cropped_img": "CROPPED_SLIPS/A4_Full_27.5.68_______IMG_6243_a5d4e12c.jpg",
+        "slip_file": "EVIDENCE_1_PRASATKHETKARN_SISTERS_ACCOUNTS.png",
+        "cropped_img": "SMOKING_GUNS/EVIDENCE_1_PRASATKHETKARN_SISTERS_ACCOUNTS.png",
         "amount": "26,000.00 บาท",
         "recipient": "วันวิศา (21k) + ทัศนีการ (5k)",
         "legal_impact": "พยานหลักฐานมัดตัวระดับสูงสุด พิสูจน์ขบวนการฟอกเงินและแบ่งหน้าที่กันทำในตระกูลประสาทเขตรการ"
       },
       {
         "id": "SG-02",
-        "title": "จุดตายที่ ๒: สัญญาเงินกู้พี่แมว คืน ๑๐,๐๐๐ บาท ภายใน ๒๔ ชม.",
+        "title": "จุดตายที่ ๒: สัญญาเงินกู้พี่แมว ยืม ๙,๐๐๐ คืน ๑๐,๐๐๐ บาท ใน ๒๔ ชม.",
         "chat_bubble": "เงินน่าจะได้วันนี้ จัดการภาระเค้าก่อน เค้าจะโอนเงินให้ 28125484551 กสิกร ปรียชาติ ฉิมพลี",
         "chat_date": "๐๒ มิ.ย. ๒๕๖๘",
         "chat_line": "Transcript Line 2482 / Vector Node 174",
         "chat_file": "IMG_6242 (2).PNG",
-        "slip_file": "IMG_6246.PNG",
-        "cropped_img": "CROPPED_SLIPS/IMG_6246_1e8a93bc.jpg",
+        "slip_file": "EVIDENCE_2_PREEYACHAT_CHIMPLEE_SLIP_9000.png",
+        "cropped_img": "SMOKING_GUNS/EVIDENCE_2_PREEYACHAT_CHIMPLEE_SLIP_9000.png",
         "amount": "9,000.00 บาท",
         "recipient": "น.ส. ปรียชาติ ฉิมพลี (กสิกรไทย 455-1)",
         "memo": "คืน 10000 วันที่ 3 มิ.ย.",
@@ -350,13 +350,13 @@
       },
       {
         "id": "SG-03",
-        "title": "จุดตายที่ ๓: สัญญาคืน ๑๕,๐๐๐ บาท ข้ามวัน",
+        "title": "จุดตายที่ ๓: สัญญาคืน ๑๕,๐๐๐ บาท ข้ามวัน (ยืม ๑๓,๕๐๐ บาท)",
         "chat_bubble": "จะไปหาไหนให้พี่แมวทัน โทรมาร้องไห้ อีกละ คงเครียด ... คืน 9/6 ยอด 15000",
         "chat_date": "๐๘ มิ.ย. ๒๕๖๘",
         "chat_line": "Transcript Line 2599 / Vector Node 176",
         "chat_file": "LINE_capture_796547198.800971.JPG",
-        "slip_file": "LINE_capture_796547198.800971.JPG",
-        "cropped_img": "CROPPED_SLIPS/LINE_capture_796547198.800971_e82bc341.jpg",
+        "slip_file": "EVIDENCE_3_PREEYACHAT_CHIMPLEE_SLIP_13500.jpg",
+        "cropped_img": "SMOKING_GUNS/EVIDENCE_3_PREEYACHAT_CHIMPLEE_SLIP_13500.jpg",
         "amount": "13,500.00 บาท",
         "recipient": "น.ส. ปรียชาติ ฉิมพลี (กสิกรไทย 455-1)",
         "memo": "คืน 9/6 ยอด 15000",
@@ -369,8 +369,8 @@
         "chat_date": "๑๓ มี.ค. ๒๕๖๘",
         "chat_line": "Transcript Line 3602-3607",
         "chat_file": "LINE_capture_800254816.874418.jpg",
-        "slip_file": "07.3.68_91AA7527-9CCF-499D-9972-27A7021A8460.png",
-        "cropped_img": "CROPPED_SLIPS/07.3.68_91AA7527-9CCF-499D-9972-27A7021A8460_4a9b1c2d.jpg",
+        "slip_file": "EVIDENCE_5_BOONPRASERT_WOUND_SLIP.jpg",
+        "cropped_img": "SMOKING_GUNS/EVIDENCE_5_BOONPRASERT_WOUND_SLIP.jpg",
         "amount": "1,500.00 บาท",
         "recipient": "น.ส. จิณห์นิภา บุญประเสริฐ (KTB)",
         "legal_impact": "สบช่องใช้ชื่อหน้าเหมือนจำเลย อาศัยความเจ็บป่วยเร่งด่วนตัดความระมัดระวังของผู้เสียหาย"
@@ -395,11 +395,37 @@
         "chat_date": "๐๘ ก.พ. ๒๕๖๘",
         "chat_line": "Transcript Line 6006 / Vector Node 179",
         "chat_file": "LINE_capture_800256213.882803.jpg",
-        "slip_file": "LINE_capture_800256213.882803.jpg",
-        "cropped_img": "CROPPED_SLIPS/LINE_capture_800256213.882803_7b9c3f1a.jpg",
+        "slip_file": "EVIDENCE_7_WANWISA_PAY_MOM_SLIP.jpg",
+        "cropped_img": "SMOKING_GUNS/EVIDENCE_7_WANWISA_PAY_MOM_SLIP.jpg",
         "amount": "2,000.00 บาท",
         "recipient": "นางสาว วันวิศา ประสาทเขตรการ",
         "legal_impact": "โอนเงินต่อไปยังบัญชีบุคคลในครอบครัว ยืนยันการนำเงินที่ได้ไปใช้จ่ายส่วนตัว"
+      },
+      {
+        "id": "SG-07",
+        "title": "จุดตายที่ ๗: ข้ออ้างบ้านหมุน ลุกไม่ได้ ต้องไปหาหมอ",
+        "chat_bubble": "ไปทำงานไม่ไหว ลุกไม่ได้บ้านหมุน เย็นๆ ไปหาหมอเค้าโอนให้นะ",
+        "chat_date": "๑๘ มี.ค. ๒๕๖๘",
+        "chat_line": "Transcript Line 4238-4240",
+        "chat_file": "LINE_capture_800255446.662076.jpg",
+        "slip_file": "EVIDENCE_6_BOONPRASERT_DIZZY_SLIP.jpg",
+        "cropped_img": "SMOKING_GUNS/EVIDENCE_6_BOONPRASERT_DIZZY_SLIP.jpg",
+        "amount": "3,000.00 บาท",
+        "recipient": "น.ส. จิณห์นิภา บุญประเสริฐ",
+        "legal_impact": "อ้างเหตุเจ็บป่วยวิกฤตซ้ำซาก เพื่อหลอกให้โอนเงินเข้าบัญชีนอมินี"
+      },
+      {
+        "id": "SG-08",
+        "title": "จุดตายที่ ๘: แชทตรงพี่แมวส่งเลขบัญชีรับเงินด้วยตนเอง",
+        "chat_bubble": "เงินน่าจะได้วันนี้ จัดการภาระเค้าก่อน เค้าจะโอนเงินให้ 28125484551 กสิกร ปรียชาติ ฉิมพลี",
+        "chat_date": "๒๖ พ.ค. ๒๕๖๘",
+        "chat_line": "Vector Node 174",
+        "chat_file": "IMG_6242 (2).PNG",
+        "slip_file": "EVIDENCE_4_PREEYACHAT_DIRECT_CHAT_ACCOUNT.png",
+        "cropped_img": "SMOKING_GUNS/EVIDENCE_4_PREEYACHAT_DIRECT_CHAT_ACCOUNT.png",
+        "amount": "ส่งเลขบัญชีรับเงิน",
+        "recipient": "น.ส. ปรียชาติ ฉิมพลี (พี่แมว)",
+        "legal_impact": "หลักฐานเชื่อมโยงตัวตน \"พี่แมว\" เข้ากับบัญชีธนาคารจริง ปฏิเสธไม่ได้ว่าไม่รู้เห็น"
       }
     ]
   }
