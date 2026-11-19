@@ -369,47 +369,146 @@
     .btn-action:hover {
       background: #0369a1;
     }
-  </style>
+  
+    /* MASTER 6-TOOL APPLICATION NAV BAR */
+    .master-app-nav {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #1e293b;
+    }
+    .app-tool-btn {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 8px 10px;
+      text-decoration: none;
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .app-tool-btn:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: #38bdf8;
+      color: #ffffff;
+    }
+    .app-tool-btn.active {
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.35) 0%, rgba(14, 165, 233, 0.2) 100%);
+      border-color: #38bdf8;
+      color: #38bdf8;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+    }
+    .app-tool-btn.boss-tool {
+      border-color: #ca8a04;
+      background: rgba(30, 25, 10, 0.8);
+      color: #facc15;
+    }
+    .app-tool-btn.boss-tool:hover {
+      background: rgba(234, 179, 8, 0.2);
+      border-color: #facc15;
+    }
+    .app-tool-btn.boss-tool.active {
+      border-color: #facc15;
+      box-shadow: 0 0 12px rgba(250, 204, 21, 0.35);
+    }
+    .at-title { font-weight: 700; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .at-desc { font-size: 11px; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .multi-page-pill {
+      position: absolute;
+      top: 4px;
+      right: 6px;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid #f59e0b;
+      color: #fbbf24;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 10px;
+    }
+
+    /* SUBPAGE TAB STRIP (สำหรับเครื่องมือที่มี 2 หน้า) */
+    .subpage-tab-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      padding: 8px 14px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+    }
+    .subtab-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #94a3b8;
+      white-space: nowrap;
+    }
+    .subtab-item {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .subtab-item:hover {
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      border-color: #38bdf8;
+    }
+    .subtab-item.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+    }
+
+</style>
 </head>
 <body>
 
   <!-- TOP HEADER -->
   <header class="top-header">
-    <!-- MASTER 8-NODE NAVIGATION BAR -->
-    <div class="agent-nav-grid">
-      <a href="MASTER_SSOT_STITCH_VIEWER.html" class="agent-card-nav" data-target="MASTER_SSOT_STITCH_VIEWER.html">
-        <span class="ac-title">🏛️ [1] SSOT Stream</span>
-        <span class="ac-desc">แชท 577 ภาพ สู่แกนเวลาเดียว</span>
+<!-- MASTER 6-TOOL APPLICATION NAV BAR -->
+    <nav class="master-app-nav">
+      <a href="MASTER_SSOT_STITCH_VIEWER.html" class="app-tool-btn">
+        <span class="at-title">🏛️ [1] SSOT Stream</span>
+        <span class="at-desc">ร้อยเรียง 577 ภาพแชท</span>
       </a>
-      <a href="TARGET_FOCUS_SELECTOR.html" class="agent-card-nav" data-target="TARGET_FOCUS_SELECTOR.html">
-        <span class="ac-title">🎯 [2] Target Focus (หลัก)</span>
-        <span class="ac-desc">คลังสารบบ 59 รายชื่อบุคคล</span>
+      <a href="TARGET_FOCUS_SELECTOR.html" class="app-tool-btn">
+        <span class="multi-page-pill">๒ หน้า</span>
+        <span class="at-title">🎯 [2] บุคคล & ผังเงิน</span>
+        <span class="at-desc">คลังบุคคล & ผังเครือข่าย</span>
       </a>
-      <a href="BENEFICIARY_NETWORK_DASHBOARD.html?targets=jinnipha%2Cpreeyachat%2C" class="agent-card-nav" data-target="BENEFICIARY_NETWORK_DASHBOARD.html">
-        <span class="ac-title">🕸️ [2.1] Money Network</span>
-        <span class="ac-desc">ผังเส้นทางเงิน 10 บัญชีผู้รับ</span>
+      <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="app-tool-btn">
+        <span class="at-title">🧠 [3] นิติวิทยาศาสตร์ภาษา</span>
+        <span class="at-desc">เวกเตอร์แชท & จุดตาย</span>
       </a>
-      <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="agent-card-nav" data-target="CHAT_FORENSIC_VECTOR_EXPLORER.html">
-        <span class="ac-title">🧠 [3] Forensic Vector</span>
-        <span class="ac-desc">นิติภาษาศาสตร์ & สลิป 300 DPI</span>
+      <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="app-tool-btn active">
+        <span class="at-title">⚖️ [4] สำนวนฟ้องรายบุคคล</span>
+        <span class="at-desc">6 จำเลย 26+ กระทง</span>
       </a>
-      <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="agent-card-nav active" data-target="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html">
-        <span class="ac-title">⚖️ [4] Indictment Engine</span>
-        <span class="ac-desc">สำนวนฟ้อง 6 จำเลย 26+ กระทง</span>
+      <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="app-tool-btn">
+        <span class="multi-page-pill">๒ หน้า</span>
+        <span class="at-title">⏱️ [5] สารบบเวกเตอร์แท้</span>
+        <span class="at-desc">Codex Master & 11 มิติ</span>
       </a>
-      <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="agent-card-nav" data-target="VECTOR_EVIDENCE_DASHBOARD.html">
-        <span class="ac-title">📑 [5] Master Dossier (หลัก)</span>
-        <span class="ac-desc">สารบบเวกเตอร์แท้ 35 แผ่น</span>
+      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="app-tool-btn boss-tool">
+        <span class="at-title">👑 [6] ประธานศาลฎีกา</span>
+        <span class="at-desc">Cross-Exam & Flip Engine</span>
       </a>
-      <a href="TIMELINE_11D_DASHBOARD.html" class="agent-card-nav" data-target="TIMELINE_11D_DASHBOARD.html">
-        <span class="ac-title">⏱️ [5.1] Timeline 11D</span>
-        <span class="ac-desc">ไทม์ไลน์ 11 มิติ & ซักค้าน Matrix</span>
-      </a>
-      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="agent-card-nav boss-nav" data-target="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html">
-        <span class="ac-title">👑 [6] Supreme President</span>
-        <span class="ac-desc">ศูนย์บัญชาการสูงสุด ๖ เอเจนต์</span>
-      </a>
-    </div>
+    </nav>
+    
 
     <div class="header-flex">
       <div>
