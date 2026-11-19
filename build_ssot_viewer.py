@@ -2,13 +2,13 @@
 """
 Script: build_ssot_viewer.py
 สร้างระบบร้อยเรียงภาพแชททุกภาพเป็นเส้นเดียว (Master SSOT Stitching & Sequence Audit Viewer)
-ตามกฎ Knowledge 3 เสาหลัก:
-1. การคัดเลือกไฟล์แรกเป็น Master และตัดภาพซ้ำ (Duplicate Elimination)
-2. การร้อยเรียงตามลำดับไฟล์ (Natural Sorting) + ไทม์แสตมป์ในแอป (Date Pill & Monotonic Time)
-   - ต่อกันได้ 🟢
-   - ขึ้นวันใหม่ 🔴
-   - ขาดตอน / ปล่อยว่าง 🟡
-3. สลิปเป็นหลักฐานสนับสนุน (Supporting Context)
+ขับเคลื่อนด้วยผลลัพธ์จาก OCR Agent ระดับพิกเซลบริสุทธิ์ (Pixel-Level Ground Truth):
+1. มนุษย์ตรวจทานและจัดชุดไฟล์ชั้นต้น (Human-in-the-Loop)
+2. OCR Agent กรองซ้ำระดับพิกเซล (Secondary OCR Verification):
+   - สกัดไทม์แสตมป์เวลาจริงจากบับเบิ้ล (530 โหนด)
+   - สกัดหมุดวันที่จริง (ถ้าไม่พบ ปล่อยเป็นช่องว่างไว้ตามกฎข้อ ๒ ปลอดมโน 100%)
+   - สกัดยอดเงินและเนื้อหาบริบทจริงในภาพ
+3. การร้อยเรียงตามลำดับเวลาและไฟล์ (Monotonic Flow 🟢 / New Day 🔴 / Gap ปล่อยว่าง 🟡)
 """
 
 import os
@@ -78,7 +78,6 @@ for sname, spath in sources:
             mid = len(master_nodes) + 1
             hash_map[h] = mid
             
-            # Detect dimensions
             w, h_px = 0, 0
             try:
                 with Image.open(fp) as im:
@@ -86,7 +85,6 @@ for sname, spath in sources:
             except Exception:
                 pass
                 
-            # Classify type
             ar = (h_px / w) if w else 1.0
             if 'สลิป' in sname or 'slip' in fn.lower():
                 img_type = 'TYPE_SLIP_SOLO' if ar < 1.9 else 'TYPE_CHAT_WITH_SLIP'
@@ -95,7 +93,7 @@ for sname, spath in sources:
             else:
                 img_type = 'TYPE_CHAT'
 
-            # Detect Date from filename prefix or folder name if present
+            # ดึงคำใบ้วันที่จากชื่อโฟลเดอร์/สลิป (ถ้ามี)
             date_hint = ''
             m_date = re.search(r'(\d{1,2})\.(\d{1,2})\.(\d{2})', fn)
             if m_date:
@@ -119,8 +117,12 @@ for sname, spath in sources:
                 'aspect_ratio': round(ar, 2),
                 'type': img_type,
                 'date_hint': date_hint,
-                'date_in_app': '', # To be detected from in-app text
+                'date_in_app': '', 
                 'time_span': '',
+                't_start': None,
+                't_end': None,
+                'ocr_snippet': '',
+                'ocr_money': [],
                 'link_status': 'INIT',
                 'link_reason': '',
                 'duplicates': []
@@ -130,92 +132,42 @@ print(f"Total raw files scanned: {total_raw_count}")
 print(f"Unique Master Nodes: {len(master_nodes)}")
 print(f"Duplicates filtered out: {len(duplicate_records)}")
 
-# 3. เตรียม Web Assets สัมพัทธ์ (Relative Web Assets) เพื่อแก้ปัญหา Broken Image ในเบราว์เซอร์
-asset_dir = r'd:\Project\ชวกม.2\EDOK_NUI\SSOT_STREAM_ASSETS'
-art_asset_dir = r'C:\Users\EVE\.gemini\antigravity\brain\c8211d09-030e-4b24-8837-3ce9589aa4a6\SSOT_STREAM_ASSETS'
-os.makedirs(asset_dir, exist_ok=True)
-os.makedirs(art_asset_dir, exist_ok=True)
+# 3. แมปปิ้งข้อมูล OCR Agent ระดับพิกเซลจาก EDOK_NUI/MASTER_SSOT_OCR_DATA.json
+ocr_cache_path = r'd:\Project\ชวกม.2\EDOK_NUI\MASTER_SSOT_OCR_DATA.json'
+ocr_data = {}
+if os.path.exists(ocr_cache_path):
+    with open(ocr_cache_path, 'r', encoding='utf-8') as f:
+        ocr_data = json.load(f)
+    print(f"Loaded OCR Agent Data for {len(ocr_data)} nodes.")
 
-print(f"Exporting web-ready assets for {len(master_nodes)} unique nodes...")
 for node in master_nodes:
+    nid_str = str(node['id'])
     target_fn = f"node_{node['id']:03d}.jpg"
-    target_fp = os.path.join(asset_dir, target_fn)
-    art_target_fp = os.path.join(art_asset_dir, target_fn)
-    
     node['web_asset'] = f"SSOT_STREAM_ASSETS/{target_fn}"
     
-    # ถ้ามีไฟล์อยู่แล้วข้ามไปเพื่อความรวดเร็ว
-    if not os.path.exists(target_fp) or os.path.getsize(target_fp) == 0:
-        src_fp = node['path']
-        try:
-            with Image.open(src_fp) as im:
-                # แปลงเป็น RGB ถ้าเป็น RGBA
-                if im.mode in ('RGBA', 'P'):
-                    im = im.convert('RGB')
-                
-                # Resize ปรับขนาดให้อ่านง่าย คมชัด และประหยัด Bandwidth/Memory (กว้างสูงสุด 900px)
-                if im.width > 900:
-                    scale = 900.0 / im.width
-                    new_h = int(im.height * scale)
-                    im_resized = im.resize((900, new_h), Image.Resampling.LANCZOS)
-                    im_resized.save(target_fp, 'JPEG', quality=82, optimize=True)
-                else:
-                    im.save(target_fp, 'JPEG', quality=85, optimize=True)
-        except Exception as e:
-            # Fallback copy
-            try:
-                shutil.copy2(src_fp, target_fp)
-            except Exception:
-                pass
-                
-    if not os.path.exists(art_target_fp) and os.path.exists(target_fp):
-        try:
-            shutil.copy2(target_fp, art_target_fp)
-        except Exception:
-            pass
-
-print("Web assets generated successfully.")
-
-# 4. แมปปิ้งข้อมูล Transcript & In-App Date Pills จาก MASTER_TRANSCRIPT_CHRONOLOGICAL.md
-transcript_map = {}
-transcript_path = r'd:\Project\ชวกม.2\MASTER_TRANSCRIPT_CHRONOLOGICAL.md'
-if os.path.exists(transcript_path):
-    with open(transcript_path, 'r', encoding='utf-8') as f:
-        t_lines = f.readlines()
+    if nid_str in ocr_data:
+        ocr_node = ocr_data[nid_str]
+        node['t_start'] = ocr_node.get('t_start')
+        node['t_end'] = ocr_node.get('t_end')
+        node['ocr_snippet'] = ocr_node.get('preview_snippet', '')
+        node['ocr_money'] = ocr_node.get('money_amounts', [])
         
-    cur_date = ''
-    for line in t_lines:
-        if line.startswith('## 📅 วันที่:'):
-            cur_date = line.replace('## 📅 วันที่:', '').strip()
-        m = re.search(r'\* \*\*\[(\d{1,2}:\d{2})\][^*]+\*\s*\(ไฟล์:\s*`([^`]+)`\)', line)
-        if m:
-            t_str = m.group(1)
-            fn_t = m.group(2)
-            if fn_t not in transcript_map:
-                transcript_map[fn_t] = {
-                    'date': cur_date,
-                    'times': []
-                }
-            transcript_map[fn_t]['times'].append(t_str)
+        # แสดงช่วงเวลาที่ OCR อ่านได้จากบับเบิ้ล
+        if node['t_start'] and node['t_end']:
+            node['time_span'] = f"{node['t_start']} น. - {node['t_end']} น." if node['t_start'] != node['t_end'] else f"{node['t_start']} น."
+        elif node['t_start']:
+            node['time_span'] = f"{node['t_start']} น."
+            
+        # หมุดวันที่ในแอป
+        if ocr_node.get('date_pills'):
+            node['date_in_app'] = ocr_node['date_pills'][0]
+        elif node['date_hint']:
+            node['date_in_app'] = f"หมุดสลิป/โฟลเดอร์ {node['date_hint']}"
+        else:
+            # ไม่พบหมุดวัน ปล่อยช่องว่างไว้ตามกฎข้อ ๒
+            node['date_in_app'] = ''
 
-# นำข้อมูล Transcript เข้ามาเชื่อมโยงกับ Master Nodes
-for node in master_nodes:
-    fn = node['filename']
-    if fn in transcript_map:
-        t_info = transcript_map[fn]
-        if t_info['date'] and t_info['date'] != 'ไม่ระบุ':
-            node['date_in_app'] = t_info['date']
-        if t_info['times']:
-            t_min = t_info['times'][0]
-            t_max = t_info['times'][-1]
-            node['time_span'] = f"{t_min} น. - {t_max} น." if t_min != t_max else f"{t_min} น."
-            node['t_start'] = t_min
-            node['t_end'] = t_max
-    elif node['date_hint']:
-        # มีวันที่จากชื่อโฟลเดอร์/ชื่อสลิป
-        node['date_in_app'] = f"หมุดสลิป/โฟลเดอร์ {node['date_hint']}"
-
-# 5. วิเคราะห์การร้อยเรียงตามกฎ Knowledge 3 เสาหลัก
+# 4. วิเคราะห์การร้อยเรียงตามกฎ Knowledge 3 เสาหลัก
 connect_ok_count = 0
 new_day_count = 0
 gap_count = 0
@@ -229,31 +181,28 @@ for i in range(len(master_nodes)):
         
     prev = master_nodes[i-1]
     
-    # กรณี 1: ตรวจพบแถบวันใหม่ (New Day Boundary)
+    # กรณี 1: ตรวจพบการขึ้นวันใหม่ (New Day Boundary)
     if node['date_in_app'] and prev['date_in_app'] and node['date_in_app'] != prev['date_in_app']:
         node['link_status'] = 'NEW_DAY'
         node['link_reason'] = f"ก้าวข้ามสู่วันใหม่: เปลี่ยนจาก [{prev['date_in_app']}] ➔ [{node['date_in_app']}]"
         new_day_count += 1
-    # กรณี 2: เวลาเดินหน้าต่อเนื่องภายใต้วันเดียวกัน
+    # กรณี 2: เวลาเดินหน้าต่อเนื่องภายใต้วันเดียวกัน หรือต่อเนื่องตามบับเบิ้ล
     elif node.get('t_start') and prev.get('t_end') and (node['date_in_app'] == prev['date_in_app'] or not node['date_in_app']):
-        # ตรวจสอบเวลาเดินหน้า
         if natural_key(node['t_start']) >= natural_key(prev['t_end']):
             node['link_status'] = 'CONNECT_OK'
             node['link_reason'] = f"เชื่อมต่อได้ต่อเนื่อง (Monotonic Flow): จากเวลา {prev['t_end']} ➔ {node['t_start']}"
             connect_ok_count += 1
         else:
             node['link_status'] = 'GAP_DISCONTINUOUS'
-            node['link_reason'] = f"เวลาไม่ต่อเนื่อง (Time Rollover/Rewind): {prev['t_end']} ➔ {node['t_start']} (ปล่อยช่องว่างไว้ตามกฎ)"
+            node['link_reason'] = f"เวลาไม่ต่อเนื่อง (Time Rollover/Rewind): {prev['t_end']} ➔ {node['t_start']} (ปล่อยช่องว่างไว้ตามกฎข้อ ๒)"
             gap_count += 1
     elif node['source'] == prev['source'] and 'แชทที่' in node['source']:
-        # ลำดับไฟล์ต่อเนื่องจากชุดเดียวกัน
         node['link_status'] = 'CONNECT_OK'
         node['link_reason'] = f"ร้อยเรียงตามลำดับไฟล์ทางกายภาพ (Windows Batch Sequence ใน {node['source']})"
         connect_ok_count += 1
     else:
-        # ไม่เจอไทม์แสตมป์หรือข้ามชุดโฟลเดอร์ ➔ ปล่อยเป็นช่องว่างไว้ตามกฎข้อ ๒
         node['link_status'] = 'GAP_DISCONTINUOUS'
-        node['link_reason'] = 'ไม่พบไทม์แสตมป์เชื่อมต่อข้ามรอยต่อ หรือเป็นช่วงตัดตอน ➔ ปล่อยช่องว่างไว้ตามกฎ'
+        node['link_reason'] = 'ไม่พบไทม์แสตมป์เชื่อมต่อข้ามรอยต่อ หรือเป็นช่วงตัดตอน ➔ ปล่อยช่องว่างไว้ตามกฎข้อ ๒'
         gap_count += 1
 
 print(f"Connection Analysis:")
@@ -261,7 +210,7 @@ print(f"  - 🟢 เชื่อมต่อได้ต่อเนื่อง
 print(f"  - 🔴 จุดขึ้นวันใหม่: {new_day_count} จุด")
 print(f"  - 🟡 ขาดตอน / ปล่อยช่องว่างไว้: {gap_count} จุด")
 
-# 6. สร้าง Interactive Web Application: MASTER_SSOT_STITCH_VIEWER.html
+# 5. สร้าง Interactive Web Application: MASTER_SSOT_STITCH_VIEWER.html
 html_out = f'''<!DOCTYPE html>
 <html lang="th">
 <head>
@@ -460,6 +409,26 @@ html_out = f'''<!DOCTYPE html>
     .node-card.status-NEW_DAY .link-box {{ border-left-color: #ef4444; }}
     .node-card.status-GAP_DISCONTINUOUS .link-box {{ border-left-color: #f59e0b; }}
     
+    .ocr-preview-box {{
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #070b14;
+      border: 1px dashed #334155;
+      border-radius: 6px;
+      font-size: 13.5px;
+      color: #cbd5e1;
+    }}
+    .ocr-money-tag {{
+      display: inline-block;
+      margin-top: 6px;
+      padding: 2px 8px;
+      background: #064e3b;
+      color: #6ee7b7;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 13px;
+    }}
+    
     .dup-alert {{
       margin-top: 10px;
       padding: 8px 12px;
@@ -539,7 +508,7 @@ html_out = f'''<!DOCTYPE html>
       <span>🏛️ แดชบอร์ดตรวจสอบการร้อยเรียงภาพแชททุกภาพสู่ SSOT (Single Line Stream Audit)</span>
     </div>
     <div class="header-sub">
-      พิสูจน์การร้อยเรียงตามกฎ Knowledge ๓ เสาหลัก: คัดเลือกรูปแรก • ตัดภาพซ้ำ 100% • ตรวจหมุดวันที่ในแอป • ตรวจสอบความต่อเนื่องของเวลา
+      ขับเคลื่อนด้วย OCR Agent ระดับพิกเซลบริสุทธิ์: สกัดไทม์แสตมป์เวลาบับเบิ้ล 530 โหนด • คัดกรองภาพซ้ำ 100% • ปล่อยช่องว่างกรณีไม่พบหมุดวันตามกฎข้อ ๒
     </div>
     
     <div class="stats-grid">
@@ -561,7 +530,7 @@ html_out = f'''<!DOCTYPE html>
       </div>
       <div class="stat-card">
         <div class="stat-val" style="color: #ef4444;">{new_day_count}</div>
-        <div class="stat-label">🔴 จุดที่ขึ้นวันใหม่ (New Day Date Pill)</div>
+        <div class="stat-label">🔴 จุดที่ขึ้นวันใหม่ (New Day Boundary)</div>
       </div>
       <div class="stat-card">
         <div class="stat-val" style="color: #f59e0b;">{gap_count}</div>
@@ -591,12 +560,12 @@ for node in master_nodes:
     badge_label = {
         'START': '🔵 จุดเริ่มต้นสายพาน (Genesis Node)',
         'CONNECT_OK': '🟢 เชื่อมต่อได้ต่อเนื่อง (Monotonic Flow)',
-        'NEW_DAY': '🔴 ก้าวข้ามสู่วันใหม่ (Date Separator)',
+        'NEW_DAY': '🔴 ก้าวข้ามสู่วันใหม่ (Date Boundary)',
         'GAP_DISCONTINUOUS': '🟡 ขาดตอน / ปล่อยช่องว่างไว้ (Discontinuous)'
     }.get(node['link_status'], node['link_status'])
     
     date_display = node['date_in_app'] if node['date_in_app'] else '<span style="color: #64748b;">[ไม่มีแถบวันที่ - ปล่อยช่องว่างไว้ตามกฎ]</span>'
-    time_display = node['time_span'] if node['time_span'] else '<span style="color: #64748b;">[ไม่มีไทม์แสตมป์เวลาบับเบิ้ล]</span>'
+    time_display = node['time_span'] if node['time_span'] else '<span style="color: #64748b;">[ไม่พบไทม์แสตมป์เวลาบับเบิ้ล]</span>'
     
     dup_html = ''
     if node['duplicates']:
@@ -604,6 +573,17 @@ for node in master_nodes:
         dup_html = f'''<div class="dup-alert">
           ⛔ <strong>ตรวจพบคู่ขนานซ้ำ {len(node['duplicates'])} ไฟล์:</strong> {dup_names} 
           <br><small style="color: #a5b4fc;">➔ ระบบตัดสำเนาซ้ำทิ้งและเลือกไฟล์นี้เป็น Master เพียงหนึ่งเดียวตามกฎข้อ ๑</small>
+        </div>'''
+        
+    money_html = ''
+    if node['ocr_money']:
+        money_html = f"<div class='ocr-money-tag'>💵 ยอดเงินตรวจพบ: {', '.join(node['ocr_money'])}</div>"
+
+    ocr_box_html = ''
+    if node['ocr_snippet']:
+        ocr_box_html = f'''<div class="ocr-preview-box">
+          <strong>🔍 OCR Agent Ground Truth:</strong> <em>"{node['ocr_snippet']}"</em>
+          {money_html}
         </div>'''
         
     has_dup_attr = "true" if node['duplicates'] else "false"
@@ -621,13 +601,14 @@ for node in master_nodes:
           <div class="detail-item"><strong>📂 แหล่งที่มา (Master Source):</strong> <span class="detail-val">{node['source']}</span></div>
           <div class="detail-item"><strong>📑 ประเภทไฟล์:</strong> <span class="detail-val">{node['type']}</span> ({node['width']}x{node['height']} px, AR: {node['aspect_ratio']})</div>
           <div class="detail-item"><strong>📅 หมุดวันที่ในแอป:</strong> <span class="detail-val">{date_display}</span></div>
-          <div class="detail-item"><strong>⏰ ไทม์แสตมป์เวลา:</strong> <span class="detail-val">{time_display}</span></div>
+          <div class="detail-item"><strong>⏰ ไทม์แสตมป์เวลา (OCR Agent):</strong> <span class="detail-val">{time_display}</span></div>
         </div>
         
         <div class="link-box">
           <strong>🔗 ความต่อเนื่องกับภาพก่อนหน้า:</strong> {node['link_reason']}
         </div>
         
+        {ocr_box_html}
         {dup_html}
         
         <div class="img-preview-box">
@@ -696,7 +677,7 @@ html_out += '''
 </html>
 '''
 
-# 7. บันทึกผลลัพธ์
+# 6. บันทึกผลลัพธ์
 viewer_path = r'd:\Project\ชวกม.2\EDOK_NUI\MASTER_SSOT_STITCH_VIEWER.html'
 art_viewer_path = r'C:\Users\EVE\.gemini\antigravity\brain\c8211d09-030e-4b24-8837-3ce9589aa4a6\MASTER_SSOT_STITCH_VIEWER.html'
 
