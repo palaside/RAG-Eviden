@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 """
 Script: update_target_selector_pure_individuals.py
-อัปเดต TARGET_FOCUS_SELECTOR.html ให้แสดงผลบุคคลทุกคนเดี่ยวๆ 100% (Zero-Lumping)
-ไม่มีการจัดกลุ่มเป็น "บุคคลอื่นๆ" เด็ดขาด — สกัดรายชื่อบุคคลทั้ง 59 คนที่ตรวจพบในคดี
+อัปเดต TARGET_FOCUS_SELECTOR.html ให้แสดงผลการ์ดกระชับตาม KPI รูปที่ 2
+- ซ่อนรายละเอียดบัญชีจากหน้า UI (แต่คงข้อมูลทำงานใน Background 100%)
+- การ์ดแสดงเฉพาะ:
+  1. ชื่อ-นามสกุล + Checkbox
+  2. กล่อง KPI: [ยอดเงิน (สีเขียว)] และ [สลิป/หลักฐาน (สีฟ้า)]
 """
 
 import os
@@ -39,7 +42,7 @@ html_content = f'''<!DOCTYPE html>
     .top-bar {{
       background: rgba(15, 23, 42, 0.95);
       border-bottom: 1px solid #1e293b;
-      padding: 18px 30px;
+      padding: 16px 30px;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -133,15 +136,16 @@ html_content = f'''<!DOCTYPE html>
     }}
     .cards-grid {{
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 14px;
     }}
+    
+    /* COMPACT KPI CARD (EXACTLY AS IMAGE 2) */
     .entity-card {{
-      background: #0f172a;
+      background: #0b1329;
       border: 2px solid #1e293b;
       border-radius: 10px;
-      padding: 16px 18px;
-      position: relative;
+      padding: 14px 16px;
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
@@ -154,61 +158,63 @@ html_content = f'''<!DOCTYPE html>
     }}
     .entity-card.selected {{
       border-color: #0284c7;
-      background: #0a1733;
-      box-shadow: 0 0 12px rgba(2, 132, 199, 0.35);
+      background: #0e1d3e;
+      box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
     }}
     
     .card-top {{
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       gap: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }}
     .entity-name {{
       font-size: 17px;
       font-weight: 800;
-      color: #f1f5f9;
-      line-height: 1.3;
+      color: #f8fafc;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }}
     .checkbox-custom {{
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       accent-color: #0284c7;
       cursor: pointer;
       flex-shrink: 0;
     }}
     
-    .metrics-row {{
+    /* KPI METRICS BOX */
+    .metrics-box {{
+      background: #040814;
+      border: 1px solid #162036;
+      border-radius: 8px;
+      padding: 10px 14px;
       display: flex;
       justify-content: space-between;
-      background: #090d16;
-      border-radius: 6px;
-      padding: 8px 12px;
-      margin-bottom: 10px;
-      font-size: 14px;
+      align-items: center;
     }}
-    .metrics-row strong {{
-      color: #38bdf8;
-      font-size: 15.5px;
+    .kpi-col {{
+      display: flex;
+      flex-direction: column;
     }}
-    
-    .accounts-box {{
+    .kpi-lbl {{
       font-size: 13px;
       color: #94a3b8;
-      border-top: 1px solid #1e293b;
-      padding-top: 8px;
-      min-height: 48px;
+      margin-bottom: 2px;
     }}
-    .acc-badge {{
-      display: inline-block;
-      background: #1e293b;
-      color: #cbd5e1;
-      padding: 2px 6px;
-      border-radius: 4px;
-      margin: 2px 2px 0 0;
-      font-family: monospace;
-      font-size: 12px;
+    .kpi-val-amt {{
+      font-size: 16px;
+      font-weight: 800;
+      color: #22c55e;
+    }}
+    .kpi-val-cnt {{
+      font-size: 16px;
+      font-weight: 800;
+      color: #38bdf8;
+      text-align: right;
     }}
   </style>
 </head>
@@ -219,7 +225,7 @@ html_content = f'''<!DOCTYPE html>
         <span>🎯 คลังสารบบรายชื่อบุคคลทั้งหมดแห่งคดี (Target Focus Discovery Gateway)</span>
       </div>
       <div class="bar-sub">
-        แสดงบุคคลและบัญชีทุกคน 100% แยกเป็นรายบุคคลเดี่ยว ({len(individuals)} บุคคล) — ผู้ใช้งานหรือลูกค้าเป็นผู้เลือกว่าใครคือเป้าหมายสืบสวน
+        แสดงบุคคลทุกคน {len(individuals)} คนแยกเป็นรายบุคคลเดี่ยว — คลิกเลือกบุคคลที่ต้องการเพื่อส่งต่อให้แดชบอร์ดเครือข่าย
       </div>
     </div>
     
@@ -235,7 +241,7 @@ html_content = f'''<!DOCTYPE html>
   </div>
 
   <div class="controls-strip">
-    <input type="text" class="search-box" id="searchBox" placeholder="🔍 ค้นหาชื่อ-นามสกุล, เลขบัญชี, หรือธนาคาร..." oninput="handleSearch()">
+    <input type="text" class="search-box" id="searchBox" placeholder="🔍 ค้นหาชื่อ-นามสกุล, เลขบัญชี (ค้นหาเบื้องหลังได้)..." oninput="handleSearch()">
     
     <div style="display: flex; gap: 8px; align-items: center;">
       <span style="font-size: 13.5px; color: #94a3b8;">เรียงตาม:</span>
@@ -262,7 +268,6 @@ html_content = f'''<!DOCTYPE html>
     let currentSort = 'amount';
     let searchQuery = '';
 
-    // โหลดจากการตั้งค่าเดิมถ้ามี
     const saved = localStorage.getItem('SELECTED_FOCUS_TARGETS');
     if (saved) {{
       try {{
@@ -277,7 +282,7 @@ html_content = f'''<!DOCTYPE html>
       let list = allIndividuals.filter(p => {{
         if (!searchQuery) return true;
         const q = searchQuery.toLowerCase();
-        const accs = p.accounts.join(' ').toLowerCase();
+        const accs = p.accounts ? p.accounts.join(' ').toLowerCase() : '';
         return p.name.toLowerCase().includes(q) || accs.includes(q);
       }});
 
@@ -299,27 +304,21 @@ html_content = f'''<!DOCTYPE html>
           }}
         }};
 
-        let accHtml = '';
-        if (ent.accounts && ent.accounts.length > 0) {{
-          accHtml = '<div class="accounts-box"><strong>บัญชีที่ตรวจพบ:</strong><br>' + 
-                    ent.accounts.map(a => `<span class="acc-badge">${{a}}</span>`).join('') + 
-                    '</div>';
-        }} else {{
-          accHtml = '<div class="accounts-box" style="color:#64748b;"><em>ตรวจพบการกล่าวถึงในบทสนทนาแชท</em></div>';
-        }}
-
         card.innerHTML = `
-          <div>
-            <div class="card-top">
-              <div class="entity-name">${{ent.name}}</div>
-              <input type="checkbox" class="checkbox-custom" ${{isSelected ? 'checked' : ''}} onchange="toggleSelect('${{ent.id}}')">
+          <div class="card-top">
+            <div class="entity-name" title="${{ent.name}}">${{ent.name}}</div>
+            <input type="checkbox" class="checkbox-custom" ${{isSelected ? 'checked' : ''}} onchange="toggleSelect('${{ent.id}}')">
+          </div>
+          <div class="metrics-box">
+            <div class="kpi-col">
+              <span class="kpi-lbl">ยอดเงิน:</span>
+              <span class="kpi-val-amt">${{ent.total_amount.toLocaleString('th-TH', {{minimumFractionDigits: 2}})}} บ.</span>
             </div>
-            <div class="metrics-row">
-              <div>ยอดเงิน:<br><strong style="color:#22c55e;">${{ent.total_amount.toLocaleString('th-TH', {{minimumFractionDigits: 2}})}} บ.</strong></div>
-              <div style="text-align:right;">สลิป/หลักฐาน:<br><strong>${{ent.slips_count}} รายการ</strong></div>
+            <div class="kpi-col" style="text-align: right;">
+              <span class="kpi-lbl">สลิป/หลักฐาน:</span>
+              <span class="kpi-val-cnt">${{ent.slips_count}} รายการ</span>
             </div>
           </div>
-          ${{accHtml}}
         `;
         grid.appendChild(card);
       }});
@@ -390,4 +389,4 @@ html_content = f'''<!DOCTYPE html>
 with open(SELECTOR_FILE, 'w', encoding='utf-8') as f:
     f.write(html_content)
 
-print(f"Updated TARGET_FOCUS_SELECTOR.html with {len(individuals)} distinct individual cards!")
+print(f"Updated TARGET_FOCUS_SELECTOR.html with compact KPI cards (Image 2 standard)!")
