@@ -77,7 +77,7 @@ class TestMasterPipelineOrchestrator(unittest.TestCase):
         self.assertEqual(result["recipient_summary"]["primary_poi"]["name"], "นางสาว จิณห์นิภา ประสาทเขตรการ")
         self.assertEqual(result["t5_result"]["the_4_cards"]["card_1"]["total_net_loss"], 10500.0)
         self.assertEqual(result["t8_result"]["status"], "COURT_DOSSIER_SUCCESS_SEALED")
-        self.assertEqual(result["t9_result"]["status"], "VAULT_EXPORT_LOCKED_SUCCESS")
+        self.assertEqual(result["t9_result"]["status"], "VAULT_EXPORT_SUCCESS_SEALED")
 
 if __name__ == "__main__":
     unittest.main()
