@@ -191,8 +191,13 @@ class MasterPipelineOrchestrator:
         }
 
         if output_json_path:
+            def json_default(obj):
+                if isinstance(obj, (bytes, bytearray)):
+                    return obj.hex()
+                return str(obj)
+
             with open(output_json_path, "w", encoding="utf-8") as f:
-                json.dump(master_output, f, ensure_ascii=False, indent=2)
+                json.dump(master_output, f, ensure_ascii=False, indent=2, default=json_default)
 
         return master_output
 
