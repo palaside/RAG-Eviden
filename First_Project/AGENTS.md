@@ -330,3 +330,13 @@ Agent จะไม่ยึดติดกับชื่อไฟล์ขอ�
 ## 11. 💾 Session Persistence (save-project-state + resume-project-state)
 - **ปิดงาน (save):** ล็อก env + ล้างแคช + เขียน 4 เอกสาร (`README` / `STATUS` / `CHAT` / `FLOW`) + `LATEST_CHECKPOINT.md` (≤30 บรรทัด ระบุ Single Source of Truth, สถานะหลักฐาน `VERIFIED`/`NOT_FOUND`, ผลการทดสอบ 4 ระดับ, ปัญหาที่ค้าง และก้าวต่อไป) + สำรอง `state/` + ผูก Git remote — สั่งด้วยคำว่า "เซฟ/บันทึก"
 - **เปิดงาน (resume):** อ่าน `LATEST_CHECKPOINT.md` + `INDEX.md` + behavior + mistakes ก่อนทัก — ห้ามถาม "ครั้งก่อนทำอะไร" — ตอบด้วย Memory Briefing (จำได้/สถานะ/ลุยต่อ 2-3 ข้อ) — ทริกเกอร์: "เปิดงาน/ลุยต่อ/resume/ตื่น"
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

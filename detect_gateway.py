@@ -96,7 +96,7 @@ class DetectGateway:
             inferred_type = EvidenceType.TYPE_CHAT_WITH_SLIP
         elif has_dialogue or aspect_ratio > 2.0:
             inferred_type = EvidenceType.TYPE_CHAT
-        elif has_ocr or aspect_ratio <= 1.9:
+        elif has_ocr or (0.9 <= aspect_ratio <= 1.9):
             inferred_type = EvidenceType.TYPE_SLIP_SOLO
         else:
             inferred_type = EvidenceType.TYPE_UNKNOWN
