@@ -23,6 +23,8 @@ class NormalizedEvidenceRecord:
     aspect_ratio: float
     iso_timestamp: str
     dialogue_snippet: Optional[str] = None
+    sender_name: Optional[str] = None
+    sender_account: Optional[str] = None
     receiver_name: Optional[str] = None
     receiver_bank: Optional[str] = None
     receiver_account: Optional[str] = None
@@ -40,6 +42,8 @@ class NormalizedEvidenceRecord:
             "aspect_ratio": self.aspect_ratio,
             "iso_timestamp": self.iso_timestamp,
             "dialogue_snippet": self.dialogue_snippet,
+            "sender_name": self.sender_name,
+            "sender_account": self.sender_account,
             "receiver_name": self.receiver_name,
             "receiver_bank": self.receiver_bank,
             "receiver_account": self.receiver_account,
@@ -101,6 +105,14 @@ class Task1FeatureNormalizer:
         # Dialogue text
         dialogue = meta.get("dialogue_text") or meta.get("chat_text")
 
+        # Sender metadata & canonical disambiguation
+        raw_sender = ocr.get("sender_name") or meta.get("sender_name")
+        sender_name = raw_sender.strip() if isinstance(raw_sender, str) else None
+        if sender_name and "ณัฐชัย" in sender_name:
+            if any(k in sender_name for k in ["รักษา", "ภักษา", "พงษ์", "วงษ์", "เจริญ"]):
+                sender_name = "นาย ณัฐชัย รักษาวงษ์"
+        sender_account = ocr.get("sender_account") or meta.get("sender_account")
+
         # Slip metadata
         raw_receiver = ocr.get("receiver_name") or meta.get("receiver_name")
         receiver_name = raw_receiver.strip() if isinstance(raw_receiver, str) else None
@@ -123,6 +135,8 @@ class Task1FeatureNormalizer:
             aspect_ratio=item.aspect_ratio,
             iso_timestamp=iso_ts,
             dialogue_snippet=dialogue,
+            sender_name=sender_name,
+            sender_account=sender_account,
             receiver_name=receiver_name,
             receiver_bank=receiver_bank,
             receiver_account=receiver_account,

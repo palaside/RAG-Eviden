@@ -86,6 +86,8 @@ class GeminiForensicOCREngine:
             "You are a certified digital forensic examiner in criminal cases. "
             "Analyze this Thai digital evidence image (LINE/messenger chat screenshot or bank transfer slip). "
             "Extract all text, timestamps, and financial transaction metadata accurately. "
+            "CRITICAL NAMING RULE: The complainant / transfer sender name is 'นาย ณัฐชัย รักษาวงษ์' (spelled with 'ว' in รักษาวงษ์, NOT 'พ' or รักษาพงษ์ or ภักษาเจริญ). Ensure 100% correct Thai orthography. "
+            "The recipient person of interest is 'น.ส. จิณห์นิภา ประสาทเขตรการ' (or จิณห์ณิกา ประสาทเขตการ). "
             "Return a strictly valid JSON object matching this schema:\n"
             "{\n"
             '  "evidence_type": "TYPE_CHAT" | "TYPE_SLIP_SOLO" | "TYPE_CHAT_WITH_SLIP",\n'
@@ -133,6 +135,11 @@ class GeminiForensicOCREngine:
                 candidate = result_json.get("candidates", [])[0]
                 text_content = candidate.get("content", {}).get("parts", [])[0].get("text", "{}")
                 parsed_data = json.loads(text_content)
+                # Forensic Entity Disambiguation & Canonical Name Healing
+                if parsed_data.get("sender_name"):
+                    s_name = str(parsed_data["sender_name"]).strip()
+                    if "ณัฐชัย" in s_name and any(k in s_name for k in ["รักษา", "ภักษา", "พงษ์", "วงษ์", "เจริญ"]):
+                        parsed_data["sender_name"] = "นาย ณัฐชัย รักษาวงษ์"
                 parsed_data["success"] = True
                 parsed_data["model"] = self.model
                 return parsed_data

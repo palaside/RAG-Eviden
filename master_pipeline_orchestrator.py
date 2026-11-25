@@ -111,7 +111,7 @@ class MasterPipelineOrchestrator:
                 "ref_id": sample_slip.ref_id if sample_slip else "REF20261120001",
                 "amount": sample_slip.amount if sample_slip else 8500.0,
                 "currency": "THB",
-                "sender": {"name": "ส.ต. ณัฐชัย ภักษาเจริญ", "account": "xxx-x-x1234-x"},
+                "sender": {"name": "นาย ณัฐชัย รักษาวงษ์", "account": "xxx-x-x1234-x"},
                 "receiver": {"name": primary_name, "account": "xxx-x-x5678-x"},
                 "datetime": "20 พ.ย. 2569 เวลา 10:48 น.",
                 "elapsed_ms": 881.63

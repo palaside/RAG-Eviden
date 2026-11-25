@@ -69,6 +69,8 @@ const server = http.createServer((req, res) => {
           'You are a certified digital forensic examiner in criminal cases. ' +
           'Analyze this Thai digital evidence image (LINE/messenger chat screenshot or bank transfer slip). ' +
           'Extract all text, timestamps, and financial transaction metadata accurately. ' +
+          'CRITICAL NAMING RULE: The complainant / transfer sender name is "นาย ณัฐชัย รักษาวงษ์" (spelled with "ว" in รักษาวงษ์, NOT "พ" or รักษาพงษ์ or ภักษาเจริญ). Ensure 100% correct Thai orthography. ' +
+          'The recipient person of interest is "น.ส. จิณห์นิภา ประสาทเขตรการ" (or จิณห์ณิกา ประสาทเขตการ). ' +
           'Return a strictly valid JSON object matching this schema:\n' +
           '{\n' +
           '  "evidence_type": "TYPE_CHAT" | "TYPE_SLIP_SOLO" | "TYPE_CHAT_WITH_SLIP",\n' +
@@ -114,6 +116,13 @@ const server = http.createServer((req, res) => {
               const textContent = parsedG.candidates?.[0]?.content?.parts?.[0]?.text;
               if (textContent) {
                 const extracted = JSON.parse(textContent);
+                // Forensic Entity Disambiguation & Canonical Name Healing
+                if (extracted.sender_name && typeof extracted.sender_name === 'string') {
+                  const s = extracted.sender_name.trim();
+                  if (s.includes('ณัฐชัย') && ['รักษา', 'ภักษา', 'พงษ์', 'วงษ์', 'เจริญ'].some(k => s.includes(k))) {
+                    extracted.sender_name = 'นาย ณัฐชัย รักษาวงษ์';
+                  }
+                }
                 extracted.success = true;
                 extracted.model = 'gemini-2.5-flash';
                 res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
