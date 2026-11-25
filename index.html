@@ -6027,7 +6027,7 @@
       const capsuleEl = document.getElementById('headerStatusCapsule');
       if (!textEl || !ledEl) return;
 
-      const slips = (Task0EvidenceRegistry || []).filter(r => r.type === 'TYPE_SLIP_SOLO');
+      const slips = (Task0EvidenceRegistry || []).filter(r => r.type === 'TYPE_SLIP_SOLO' || r.type === 'TYPE_CHAT_WITH_SLIP' || r.slipFound);
       const confirmedSlips = slips.filter(r => !r.isDuplicate);
       const netTotal = confirmedSlips.reduce((sum, r) => sum + (r.amount || 0), 0);
 
@@ -6441,6 +6441,7 @@
       }
     }
     let Task0EvidenceRegistry = [];
+    window.Task0EvidenceRegistry = Task0EvidenceRegistry;
     let currentStagedIndex = 0;
 
     function handleEvidenceFileInput(files) {
@@ -6533,6 +6534,34 @@
       });
     }
 
+    async function getOptimizedBase64(file, maxDim = 1600) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            let w = img.naturalWidth || img.width;
+            let h = img.naturalHeight || img.height;
+            if (Math.max(w, h) > maxDim) {
+              const ratio = maxDim / Math.max(w, h);
+              w = Math.round(w * ratio);
+              h = Math.round(h * ratio);
+            }
+            const cvs = document.createElement('canvas');
+            cvs.width = w;
+            cvs.height = h;
+            const ctx = cvs.getContext('2d');
+            ctx.drawImage(img, 0, 0, w, h);
+            resolve(cvs.toDataURL('image/jpeg', 0.85));
+          };
+          img.onerror = () => resolve(e.target.result);
+          img.src = e.target.result;
+        };
+        reader.onerror = () => resolve('');
+        reader.readAsDataURL(file);
+      });
+    }
+
     async function stageIncomingFiles(files) {
       if (!files || files.length === 0) return;
       const rawList = Array.from(files);
@@ -6547,7 +6576,13 @@
       const autoDetectText = document.getElementById('autoDetectText');
       if (autoDetectBadge && autoDetectText) {
         autoDetectBadge.classList.remove('hidden');
-        autoDetectText.innerText = `🔍 กำลังวิเคราะห์และแยกประเภท ${imageFiles.length} ไฟล์...`;
+        autoDetectText.innerText = `🔍 กำลังสแกนพยานหลักฐานด้วย Gemini OCR ${imageFiles.length} ไฟล์...`;
+      }
+
+      // If previous registry was only preloaded mock data (no real File attached), start fresh
+      if (Task0EvidenceRegistry.length > 0 && Task0EvidenceRegistry.every(it => !it.file)) {
+        Task0EvidenceRegistry = [];
+        window.Task0EvidenceRegistry = Task0EvidenceRegistry;
       }
 
       const seenHashes = new Set(Task0EvidenceRegistry.map(item => item.sha256));
@@ -6565,15 +6600,34 @@
         let refId = '';
         let receiver = '';
         let bank = '';
+        let type = analysis.type;
+        let slipFound = analysis.slipFound;
 
-        // Only assign financial values if it is a solo slip or slip found inside chat
-        if (analysis.type === 'TYPE_SLIP_SOLO' || analysis.slipFound) {
-          const amtMatch = file.name.match(/(\d+)(?:k|baht|บ|บาท)?/i);
-          amount = amtMatch ? parseFloat(amtMatch[1]) : (5600.00 + (Task0EvidenceRegistry.length * 400));
-          if (amount < 100) amount = 2000.00;
-          refId = 'REF' + sha256.substring(0, 10).toUpperCase();
-          bank = file.name.toLowerCase().includes('kbank') ? 'KBANK' : 'SCB';
-          receiver = 'อลงกรณ์ แจ่มเมือง'; // Extracted from slip
+        // Auto-run real Gemini Multimodal OCR on dropped file
+        try {
+          const optB64 = await getOptimizedBase64(file, 1600);
+          if (optB64) {
+            const ocrRes = await fetch('/api/gemini-ocr', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ image: optB64, mimeType: 'image/jpeg' })
+            });
+            const ocrData = await ocrRes.json();
+            if (ocrData && ocrData.success) {
+              if (ocrData.amount) amount = parseFloat(ocrData.amount) || 0.0;
+              if (ocrData.receiver_name) receiver = ocrData.receiver_name;
+              if (ocrData.bank) bank = ocrData.bank;
+              if (ocrData.ref_id) refId = ocrData.ref_id;
+              if (ocrData.evidence_type) {
+                type = ocrData.evidence_type;
+                if (type === 'TYPE_CHAT_WITH_SLIP' || type === 'TYPE_SLIP_SOLO') {
+                  slipFound = true;
+                }
+              }
+            }
+          }
+        } catch (ocrErr) {
+          console.warn('Auto-OCR exception:', ocrErr);
         }
 
         const record = {
@@ -6582,16 +6636,16 @@
           name: file.name,
           size: (file.size / 1024).toFixed(1) + ' KB',
           sha256: sha256,
-          type: analysis.type,
+          type: type,
           aspectRatio: analysis.aspectRatio,
           width: analysis.width,
           height: analysis.height,
-          slipFound: analysis.slipFound,
+          slipFound: slipFound,
           amount: amount,
-          refId: refId,
+          refId: refId || ('REF' + sha256.substring(0, 10).toUpperCase()),
           receiver: receiver,
           bank: bank,
-          sender: analysis.type === 'TYPE_SLIP_SOLO' ? 'นาย ณัฐชัย รักษาวงษ์' : '',
+          sender: (type === 'TYPE_SLIP_SOLO' || type === 'TYPE_CHAT_WITH_SLIP') ? 'นาย ณัฐชัย รักษาวงษ์' : '',
           isDuplicate: isDuplicate,
           previewUrl: previewUrl,
           timestamp: new Date().toLocaleDateString('th-TH') + ' ' + new Date().toLocaleTimeString('th-TH'),
@@ -6599,7 +6653,7 @@
           currentSliceIndex: 0
         };
 
-        if (analysis.type === 'TYPE_CHAT') {
+        if (type === 'TYPE_CHAT' || type === 'TYPE_CHAT_WITH_SLIP') {
           try {
             const slices = await sliceChatImageLocally(file);
             record.chatSlices = slices;
@@ -6612,10 +6666,17 @@
         Task0EvidenceRegistry.push(record);
       }
 
+      // Persist active evidence to localStorage for cross-dashboard synchronization
+      try {
+        localStorage.setItem('ACTIVE_CASE_EVIDENCE', JSON.stringify(Task0EvidenceRegistry));
+      } catch (e) {
+        console.warn('localStorage persist warning:', e);
+      }
+
       if (autoDetectBadge && autoDetectText) {
-        const slipCount = Task0EvidenceRegistry.filter(r => r.type === 'TYPE_SLIP_SOLO').length;
-        const chatCount = Task0EvidenceRegistry.filter(r => r.type === 'TYPE_CHAT').length;
-        autoDetectText.innerText = `⚡ ตรวจจับสำเร็จ: แชท ${chatCount} หน้า · สลิป ${slipCount} รายการ`;
+        const slipCount = Task0EvidenceRegistry.filter(r => r.type === 'TYPE_SLIP_SOLO' || r.type === 'TYPE_CHAT_WITH_SLIP' || r.slipFound).length;
+        const chatCount = Task0EvidenceRegistry.filter(r => r.type === 'TYPE_CHAT' || r.type === 'TYPE_CHAT_WITH_SLIP').length;
+        autoDetectText.innerText = `⚡ สกัดสมบูรณ์: แชท ${chatCount} หน้า · สลิป ${slipCount} รายการ`;
       }
 
       if (currentCanvasPage >= Task0EvidenceRegistry.length) {
@@ -6629,6 +6690,10 @@
     }
 
     function renderStagingBufferCards() {
+      if (window.Task0EvidenceRegistry && window.Task0EvidenceRegistry !== Task0EvidenceRegistry) {
+        Task0EvidenceRegistry = window.Task0EvidenceRegistry;
+      }
+      window.Task0EvidenceRegistry = Task0EvidenceRegistry;
       const slot = document.getElementById('stagedCardsSlot');
       const kpiChat = document.getElementById('kpiChatCountText');
       const kpiChatGroup = document.getElementById('kpiChatLabelGroup');
@@ -6660,11 +6725,11 @@
         return;
       }
 
-      const chats = Task0EvidenceRegistry.filter(r => r.type === 'TYPE_CHAT');
-      const slips = Task0EvidenceRegistry.filter(r => r.type === 'TYPE_SLIP_SOLO');
+      const chats = Task0EvidenceRegistry.filter(r => r.type === 'TYPE_CHAT' || r.type === 'TYPE_CHAT_WITH_SLIP');
+      const slips = Task0EvidenceRegistry.filter(r => r.type === 'TYPE_SLIP_SOLO' || r.type === 'TYPE_CHAT_WITH_SLIP' || r.slipFound);
       const confirmedSlips = slips.filter(r => !r.isDuplicate);
 
-      const totalChatPages = Task0EvidenceRegistry.reduce((acc, r) => acc + (r.type === 'TYPE_CHAT' ? (r.chatSlices ? r.chatSlices.length : 1) : 0), 0);
+      const totalChatPages = Task0EvidenceRegistry.reduce((acc, r) => acc + ((r.type === 'TYPE_CHAT' || r.type === 'TYPE_CHAT_WITH_SLIP') ? (r.chatSlices ? r.chatSlices.length : 1) : 0), 0);
 
       // Event-Driven KPI Formatting (Image 1 fix)
       if (kpiChat) {
@@ -6691,10 +6756,12 @@
 
       const itemsHtml = Task0EvidenceRegistry.map((item, idx) => {
         const isSelected = idx === currentCanvasPage;
-        const isSlip = item.type === 'TYPE_SLIP_SOLO';
-        const typeBadge = isSlip
-          ? '<span class="text-[10px] text-emerald-400 font-mono font-bold">🧾 สลิป</span>'
-          : '<span class="text-[10px] text-sky-400 font-mono">📷 หน้าแชท</span>';
+        let typeBadge = '<span class="text-[10px] text-sky-400 font-mono">📷 หน้าแชท</span>';
+        if (item.type === 'TYPE_SLIP_SOLO') {
+          typeBadge = '<span class="text-[10px] text-emerald-400 font-mono font-bold">🧾 สลิป</span>';
+        } else if (item.type === 'TYPE_CHAT_WITH_SLIP' || item.slipFound) {
+          typeBadge = '<span class="text-[10px] text-emerald-300 font-mono font-bold">💬 แชท+สลิป</span>';
+        }
         const dupNotice = item.isDuplicate
           ? '<span class="text-[9px] text-amber-300 font-mono font-bold bg-amber-500/20 px-1 py-0.5 rounded border border-amber-400/30">DUP</span>'
           : '';
@@ -7456,8 +7523,12 @@
 
   <script>
     function reconcileAndRenderTask0() {
-      const slips = Task0EvidenceRegistry.filter(r => r.type === 'TYPE_SLIP_SOLO');
-      const chats = Task0EvidenceRegistry.filter(r => r.type === 'TYPE_CHAT');
+      if (window.Task0EvidenceRegistry && window.Task0EvidenceRegistry !== Task0EvidenceRegistry) {
+        Task0EvidenceRegistry = window.Task0EvidenceRegistry;
+      }
+      window.Task0EvidenceRegistry = Task0EvidenceRegistry;
+      const slips = Task0EvidenceRegistry.filter(r => r.type === 'TYPE_SLIP_SOLO' || r.type === 'TYPE_CHAT_WITH_SLIP' || r.slipFound);
+      const chats = Task0EvidenceRegistry.filter(r => r.type === 'TYPE_CHAT' || r.type === 'TYPE_CHAT_WITH_SLIP');
 
       // Deduplication Check
       const seenRefs = new Set();
@@ -8210,8 +8281,7 @@
     // TASK 8 HANDLERS: LEGAL CONTEXT & MASTER PDF ENGINE
     // =========================================================================
     function openLegalContextModal() {
-      const modal = document.getElementById('legalContextModal');
-      if (modal) modal.style.display = 'flex';
+      window.open('/EDOK_NUI/INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html', '_blank');
     }
 
     function closeLegalContextModal() {
@@ -8353,7 +8423,7 @@
           Task0EvidenceRegistry = data.detect_summary.items.map((it, idx) => {
             const meta = it.raw_metadata || {};
             const ocr = meta.ocr_data || {};
-            const isSlip = it.type === 'TYPE_SLIP_SOLO';
+            const isSlip = it.type === 'TYPE_SLIP_SOLO' || it.type === 'TYPE_CHAT_WITH_SLIP' || !!ocr.amount;
             return {
               id: 'EV-' + (idx + 1),
               file: null,
@@ -8365,12 +8435,12 @@
               width: 1080,
               height: isSlip ? 1920 : 2400,
               slipFound: isSlip,
-              amount: ocr.amount || meta.amount || (isSlip ? 2000.0 : 0.0),
+              amount: ocr.amount || meta.amount || 0.0,
               refId: ocr.ref_id || ocr.ref_no || (isSlip ? 'REF' + it.sha256.substring(0, 8).toUpperCase() : ''),
-              receiver: ocr.receiver_name || meta.receiver_name || (isSlip ? 'นางสาว จิณห์นิภา ประสาทเขตรการ' : ''),
-              bank: ocr.bank || ocr.receiver_bank || (isSlip ? 'KBANK' : ''),
+              receiver: ocr.receiver_name || meta.receiver_name || '',
+              bank: ocr.bank || ocr.receiver_bank || '',
               sender: isSlip ? 'นาย ณัฐชัย รักษาวงษ์' : '',
-              isDuplicate: it.file_id.includes('DUP'),
+              isDuplicate: it.file_id ? it.file_id.includes('DUP') : false,
               previewUrl: 'test_assets/' + it.name,
               timestamp: '20 พ.ย. 2569 เวลา 10:48 น.',
               chatSlices: null,

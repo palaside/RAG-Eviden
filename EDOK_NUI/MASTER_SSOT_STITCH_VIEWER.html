@@ -27060,8 +27060,76 @@
     let filteredIndices = [];
     let allCards = [];
 
+    function checkAndInjectActiveCaseEvidence() {
+      try {
+        let activeEvidence = null;
+        if (window.parent && window.parent.Task0EvidenceRegistry && window.parent.Task0EvidenceRegistry.length > 0) {
+          activeEvidence = window.parent.Task0EvidenceRegistry;
+        } else {
+          const raw = localStorage.getItem('ACTIVE_CASE_EVIDENCE');
+          if (raw) activeEvidence = JSON.parse(raw);
+        }
+
+        if (activeEvidence && activeEvidence.length > 0) {
+          const stream = document.getElementById('timelineStream');
+          if (!stream) return;
+
+          if (document.querySelector('.node-card-active-dynamic')) return;
+
+          const dynamicHtml = activeEvidence.map((item, idx) => {
+            const hasSlip = item.type === 'TYPE_SLIP_SOLO' || item.type === 'TYPE_CHAT_WITH_SLIP' || item.slipFound;
+            const amtStr = item.amount ? `฿${parseFloat(item.amount).toLocaleString('th-TH', {minimumFractionDigits: 2})}` : 'ไม่ระบุยอดเงิน';
+            const recvStr = item.receiver || 'รอระบุผู้รับ';
+            const bankStr = item.bank || '-';
+            const statusClass = hasSlip ? 'status-CONNECT_OK' : 'status-START';
+            const badgeClass = hasSlip ? 'badge-CONNECT_OK' : 'badge-START';
+            const badgeLabel = hasSlip ? '🟢 ตรวจพบสลิปการเงินในบทสนทนา (Corroborated)' : '🔵 บทสนทนาในคดี (Case Dialogue)';
+
+            return `
+              <div class="node-card node-card-active-dynamic ${statusClass}" data-status="${hasSlip ? 'CONNECT_OK' : 'START'}" data-has-dup="${item.isDuplicate}">
+                <div class="node-top">
+                  <div class="node-idx">#NODE-${String(idx + 1).padStart(3, '0')}: ${item.name}</div>
+                  <span class="status-badge ${badgeClass}">${badgeLabel}</span>
+                </div>
+                <div class="forensic-bullets-box">
+                  <div class="forensic-bullets-header">
+                    <span>🎯</span> <strong>ประเด็นและบริบทที่น่าจับตาในภาพนี้ (Key Forensic Highlights):</strong>
+                  </div>
+                  <ul class="forensic-bullets-list">
+                    <li><strong>📌 พฤติการณ์สำคัญ:</strong> <span>${hasSlip ? 'บทสนทนาสั่งโอนเงินและหลักฐานการเงินแห่งคดี (Smoking Gun Evidence)' : 'บทสนทนาต่อเนื่องในคดี'}</span></li>
+                    <li><strong>👤 บุคคลที่เกี่ยวข้อง:</strong> <span>ผู้รับโอน: ${recvStr} | ผู้โอน: ${item.sender || 'นาย ณัฐชัย รักษาวงษ์'}</span></li>
+                    <li><strong>💰 รายการธุรกรรม/ยอดเงิน:</strong> <span style="color: #4ade80; font-weight:700; text-decoration: underline;">${amtStr} (ธนาคาร: ${bankStr})</span></li>
+                    <li><strong>⏰ ไทม์แสตมป์เวลา:</strong> <span style="color: #fde047; font-weight:600;">${item.timestamp || 'ตามวันเวลาในหลักฐาน'}</span></li>
+                    <li><strong>🔗 ความต่อเนื่องสายพาน:</strong> <span style="color: #38bdf8;">SHA-256: ${item.sha256}</span></li>
+                  </ul>
+                </div>
+                ${item.isDuplicate ? '<div class="dup-alert">⛔ ตรวจพบคู่ขนานซ้ำในระบบ</div>' : ''}
+                <div class="img-preview-box" data-focal-y="0">
+                  <img src="${item.previewUrl || ('../test_assets/' + item.name)}" 
+                       class="img-thumb" 
+                       alt="${item.name}" 
+                       title="คลิกเพื่อขยายดูภาพขนาดใหญ่"
+                       onclick="openModal(this.src, '${item.name}', 'พยานหลักฐานปัจจุบัน')">
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          stream.insertAdjacentHTML('afterbegin', dynamicHtml);
+
+          const headerSub = document.querySelector('.header-sub');
+          if (headerSub) {
+            headerSub.innerHTML = `<span style="color: #38bdf8; font-weight: bold;">⚡ กำลังแสดงผลพยานหลักฐานปัจจุบันของคดี (${activeEvidence.length} ไฟล์):</span> สกัดยอดเงินจริงและผู้รับโอนตามผลลัพธ์ OCR สด`;
+          }
+        }
+      } catch (e) {
+        console.warn('Active evidence inject error:', e);
+      }
+    }
+
     // Cache cards array once DOM is ready
     window.addEventListener('DOMContentLoaded', () => {
+      checkAndInjectActiveCaseEvidence();
       allCards = Array.from(document.querySelectorAll('.node-card'));
       updateFilteredSet();
       renderCurrentView();

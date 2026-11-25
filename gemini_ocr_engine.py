@@ -87,17 +87,17 @@ class GeminiForensicOCREngine:
             "Analyze this Thai digital evidence image (LINE/messenger chat screenshot or bank transfer slip). "
             "Extract all text, timestamps, and financial transaction metadata accurately. "
             "CRITICAL NAMING RULE: The complainant / transfer sender name is 'นาย ณัฐชัย รักษาวงษ์' (spelled with 'ว' in รักษาวงษ์, NOT 'พ' or รักษาพงษ์ or ภักษาเจริญ). Ensure 100% correct Thai orthography. "
-            "The recipient person of interest is 'น.ส. จิณห์นิภา ประสาทเขตรการ' (or จิณห์ณิกา ประสาทเขตการ). "
+            "Identify the exact recipient name (e.g. นางสาว อลงกรณ์ แจ่มเมือง, น.ส. จิณห์นิภา ประสาทเขตรการ, น.ส. ปรียาฉัตร ชิมพลี, or recipient in slip/chat). Extract the true recipient accurately from the evidence without guessing. "
             "Return a strictly valid JSON object matching this schema:\n"
             "{\n"
             '  "evidence_type": "TYPE_CHAT" | "TYPE_SLIP_SOLO" | "TYPE_CHAT_WITH_SLIP",\n'
             '  "dialogue_text": "all visible chat dialogues in reading order, or null",\n'
-            '  "bank": "SCB" | "KBANK" | "KTB" | "BBL" | "TTB" | "GSB" | "PROMPTPAY" | null,\n'
+            '  "bank": "SCB" | "KBANK" | "KTB" | "BBL" | "TTB" | "GSB" | "PROMPTPAY" | "Krungthai" | "Kiatnakin" | null,\n'
             '  "receiver_name": "exact recipient name in Thai or null",\n'
             '  "receiver_account": "account number or masked number, or null",\n'
             '  "sender_name": "exact sender name in Thai or null",\n'
             '  "sender_account": "sender account number or null",\n'
-            '  "amount": float number of transfer amount (e.g. 8500.0) or null,\n'
+            '  "amount": float number of transfer amount (e.g. 5600.0) or null,\n'
             '  "ref_id": "transaction reference code / transaction ID or null",\n'
             '  "datetime": "transaction datetime in YYYY-MM-DD HH:mm:ss format or null",\n'
             '  "confidence": 0.0 to 1.0\n'
