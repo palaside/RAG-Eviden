@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas A4 Event-Driven Verified</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@100;200;300;400;500;600;700&display=swap');
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0b0f19;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #evidenceCanvas {
+      width: 600px;
+      height: auto;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="evidenceCanvas" width="993" height="1406"></canvas>
+
+  <script>
+    window.onload = function() {
+      const canvas = document.getElementById('evidenceCanvas');
+      const ctx = canvas.getContext('2d');
+
+      const a4WidthPx = 993;
+      const a4HeightPx = 1406;
+      canvas.width = a4WidthPx;
+      canvas.height = a4HeightPx;
+
+      // 1. Background White
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, a4WidthPx, a4HeightPx);
+
+      // 2. Evidence Ribbon Header (Y = 38, H = 77, X = 40, W = 913)
+      const ribbonTop = 38;
+      const ribbonHeight = 77;
+      const ribbonLeft = 40;
+      const ribbonWidth = a4WidthPx - 80;
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(ribbonLeft, ribbonTop, ribbonWidth, ribbonHeight);
+      ctx.strokeStyle = '#CBD5E1';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(ribbonLeft, ribbonTop, ribbonWidth, ribbonHeight);
+
+      const activeItem = {
+        name: 'LINE_capture_800252756.687906.jpg',
+        type: 'TYPE_CHAT',
+        slipFound: true,
+        sha256: '2e4df4bc1bf50d5636af1073340f98d5bc19fc42079654d0089aef78c2e11894'
+      };
+
+      const logo = new Image();
+      logo.src = 'LOGO.png';
+
+      const drawRibbonContent = () => {
+        try {
+          if (logo.complete && logo.naturalWidth > 0) {
+            const scale = Math.min(55 / logo.naturalHeight, 55 / logo.naturalWidth);
+            const lW = logo.naturalWidth * scale;
+            const lH = logo.naturalHeight * scale;
+            ctx.drawImage(logo, ribbonLeft + 14, ribbonTop + (ribbonHeight - lH) / 2, lW, lH);
+          }
+        } catch(e) {}
+
+        const contentLeft = ribbonLeft + 82;
+        const contentRight = ribbonLeft + ribbonWidth - 18;
+
+        // Row 1 (Y = ribbonTop + 30): MODE (Left) | PAGE (Right)
+        ctx.textBaseline = 'alphabetic';
+        ctx.font = 'bold 15pt "Sarabun", sans-serif';
+        ctx.fillStyle = '#0f172a';
+        ctx.fillText('MODE : ', contentLeft, ribbonTop + 30);
+        const modeLblW = ctx.measureText('MODE : ').width;
+
+        ctx.font = 'normal 15pt "Sarabun", sans-serif';
+        ctx.fillText('CHAT', contentLeft + modeLblW, ribbonTop + 30);
+
+        // Page Number on Right of Row 1
+        const pageStr = '1 / 1';
+        ctx.font = 'normal 15pt "Sarabun", sans-serif';
+        const pageValW = ctx.measureText(pageStr).width;
+        ctx.fillText(pageStr, contentRight - pageValW, ribbonTop + 30);
+
+        ctx.font = 'bold 15pt "Sarabun", sans-serif';
+        const pageLblW = ctx.measureText('PAGE : ').width;
+        ctx.fillText('PAGE : ', contentRight - pageValW - pageLblW, ribbonTop + 30);
+
+        // Row 2 (Y = ribbonTop + 62): CORROBORATED (Left) | Timestamp (Right)
+        const corroText = 'ตรวจพบสลิปโอนเงินในหน้าแชท (สอดคล้องธุรกรรมแห่งคดี)';
+
+        ctx.font = 'bold 12.5pt "Sarabun", sans-serif';
+        ctx.fillStyle = '#0f172a';
+        ctx.fillText('CORROBORATED : ', contentLeft, ribbonTop + 62);
+        const corroLblW = ctx.measureText('CORROBORATED : ').width;
+
+        const dateStr = '25/11/2026 : 07:33';
+        ctx.font = 'normal 11.5pt "Sarabun", sans-serif';
+        ctx.fillStyle = '#475569';
+        const dateW = ctx.measureText(dateStr).width;
+        ctx.fillText(dateStr, contentRight - dateW, ribbonTop + 62);
+
+        // Dynamic Fit Corroborated Value
+        ctx.font = 'normal 12pt "Sarabun", sans-serif';
+        ctx.fillStyle = '#0f172a';
+        ctx.fillText(corroText, contentLeft + corroLblW, ribbonTop + 62);
+      };
+
+      // 3. Evidence Body Area (X = 93, Y = 140, W = 807, H = 1115)
+      const chatTopX = 93;
+      const chatTopY = 140;
+      const chatBlockW = 807;
+      const chatBlockH = 1115;
+
+      function drawFooter() {
+        ctx.strokeStyle = '#E2E8F0';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(40, 1342);
+        ctx.lineTo(a4WidthPx - 40, 1342);
+        ctx.stroke();
+
+        ctx.font = 'normal 8.5pt "Sarabun", sans-serif';
+        ctx.fillStyle = '#64748B';
+        ctx.textAlign = 'center';
+        ctx.fillText(
+          'DIGITAL EVIDENCE เป็นเพียงเครื่องมืออำนวยความสะดวกให้กับผู้ว่าจ้าง โดยไม่ได้ดัดแปลง แก้ไข เพิ่ม-ลบ เนื้อหา จากต้นฉบับใดๆ และไม่มีส่วนเกี่ยวข้องใดๆ กับเนื้อหาในเอกสาร เป็นเพียงเครื่องมือที่ทำงานเกี่ยวกับระบบไฟล์ เอกสารแบบอิเล็กทรอนิกส์เท่านั้น',
+          a4WidthPx / 2,
+          1360
+        );
+
+        ctx.font = 'normal 7.5pt "JetBrains Mono", monospace';
+        ctx.fillStyle = '#94A3B8';
+        ctx.fillText(
+          `EVIDENCE SHA-256: ${activeItem.sha256} | COURT PARITY VERIFIED`,
+          a4WidthPx / 2,
+          1378
+        );
+        ctx.textAlign = 'left';
+      }
+
+      const img = new Image();
+      img.src = 'COMPATIBILITY_HANDOFF/samples/LINE_capture_800252756.687906.jpg';
+      img.onload = function() {
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(chatTopX, chatTopY, chatBlockW, chatBlockH);
+
+        const scale = Math.min(chatBlockW / img.naturalWidth, chatBlockH / img.naturalHeight);
+        const drawW = img.naturalWidth * scale;
+        const drawH = img.naturalHeight * scale;
+        const drawX = chatTopX + (chatBlockW - drawW) / 2;
+        const drawY = chatTopY + (chatBlockH - drawH) / 2;
+
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(img, drawX, drawY, drawW, drawH);
+        drawRibbonContent();
+        drawFooter();
+        document.body.setAttribute('data-rendered', 'true');
+      };
+
+      if (logo.complete) {
+        drawRibbonContent();
+      } else {
+        logo.onload = drawRibbonContent;
+      }
+    };
+  </script>
+</body>
+</html>

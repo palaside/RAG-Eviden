@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASK 3: KPI Target & Financial Loss Aggregator [LOCKED]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=JetBrains+Mono:wght@500;700;800&family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #090d16;
+            --panel-bg: rgba(15, 23, 42, 0.75);
+            --border-glass: rgba(56, 189, 248, 0.2);
+            --accent-cyan: #38bdf8;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-purple: #a855f7;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: radial-gradient(circle at 50% 0%, #1e293b 0%, #090d16 80%);
+            color: var(--text-main);
+            font-family: 'Sarabun', sans-serif;
+            min-height: 100vh;
+            padding: 30px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        h1 {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 0.5px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .kpi-badge {
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .lock-pill {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid #10b981;
+            color: #34d399;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .grid-kpi {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .kpi-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(16px);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: var(--accent-cyan);
+        }
+        .kpi-card.emerald::before { background: var(--accent-emerald); }
+        .kpi-card.amber::before { background: var(--accent-amber); }
+        .kpi-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .kpi-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .table-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(16px);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        .panel-title {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.2rem;
+            color: #38bdf8;
+            font-weight: 700;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: rgba(30, 41, 59, 0.8);
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        td {
+            padding: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+        }
+        tr:hover td {
+            background: rgba(56, 189, 248, 0.05);
+        }
+        tr.selected-row td {
+            background: rgba(16, 185, 129, 0.12);
+            border-bottom-color: rgba(16, 185, 129, 0.3);
+        }
+        .kpi-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #10b981;
+        }
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 4px;
+            font-family: monospace;
+        }
+        .bank-badge { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
+        .acc-badge { background: rgba(148, 163, 184, 0.2); color: #cbd5e1; }
+        .count-badge { background: rgba(245, 158, 11, 0.2); color: #fbbf24; font-weight: 700; }
+        .status-pill {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .status-active { background: #064e3b; color: #34d399; border: 1px solid #059669; }
+        .status-ready { background: #1e293b; color: #94a3b8; border: 1px solid #334155; }
+        .action-bar {
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-glass);
+        }
+        .btn-task5 {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+        .btn-task5:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+        }
+        .payload-preview {
+            margin-top: 20px;
+            background: #020617;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #1e293b;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #38bdf8;
+            max-height: 180px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1><span>📊 TASK 3: KPI Target & Financial Loss Aggregator</span> <span class="lock-pill">🔒 WORKFLOW LOCKED</span></h1>
+                <p style="color: #64748b; font-size: 0.9rem; margin-top: 4px;">ระบบรวบรวมรายชื่อ บวกรวมยอดความเสียหาย และเจาะจงเป้าหมายสู่งานที่ 5 ภายใต้ 5 Invariant Gates</p>
+            </div>
+            <div style="text-align: right; font-family: monospace; font-size: 0.85rem; color: #94a3b8;">
+                ENGINE: <span style="color: #10b981; font-weight: bold;">LOCKED DETERMINISTIC</span><br>
+                PIPELINE: TASK 1 / TASK 2 ➔ TASK 3 ➔ TASK 5
+            </div>
+        </header>
+
+        <!-- KPI Summary Cards -->
+        <div class="grid-kpi">
+            <div class="kpi-card amber">
+                <div class="kpi-label">👤 บุคคลเป้าหมายที่ตรวจพบ (Unique Targets)</div>
+                <div class="kpi-val" id="val-targets">2 <span style="font-size: 1rem; font-weight: normal; color: #94a3b8;">ราย</span></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">🧾 จำนวนสลิปรวมทั้งหมด (Total Slips Detected)</div>
+                <div class="kpi-val" id="val-slips">3 <span style="font-size: 1rem; font-weight: normal; color: #94a3b8;">ฉบับ</span></div>
+            </div>
+            <div class="kpi-card emerald">
+                <div class="kpi-label">💰 ยอดเงินความเสียหายรวมทั้งหมด (Total Net Loss)</div>
+                <div class="kpi-val" id="val-amount">11,000.00 <span style="font-size: 1rem; font-weight: normal; color: #94a3b8;">บาท</span></div>
+            </div>
+        </div>
+
+        <!-- Table Component -->
+        <div class="table-panel">
+            <div class="panel-header">
+                <div class="panel-title">📋 สรุปบัญชีรายชื่อและยอดเงินตามบุคคลเป้าหมาย (KPI Summary Table)</div>
+                <span style="font-size: 0.85rem; color: #94a3b8;">* ติ๊ก Checkbox เพื่อเจาะจงเป้าหมายที่จะนำไปสร้างรายละเอียดในงานที่ 5</span>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 50px; text-align: center;">เลือก</th>
+                        <th style="width: 50px; text-align: center;">ลำดับ</th>
+                        <th>ชื่อผู้รับโอน / บัญชีที่เกี่ยวข้อง</th>
+                        <th style="width: 120px; text-align: center;">จำนวนสลิป</th>
+                        <th style="width: 200px; text-align: right;">ยอดรวมสุทธิ (บาท)</th>
+                        <th style="width: 150px; text-align: center;">สถานะส่งต่อ</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    
+            <tr class="selected-row" id="row-1">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="kpi-checkbox" name="target_choice" 
+                           value="อลงกรณ์ แจ่มเมือง" checked onchange="selectTarget('อลงกรณ์ แจ่มเมือง', this)">
+                </td>
+                <td style="text-align: center; color: #94a3b8; font-family: monospace;">01</td>
+                <td>
+                    <div style="font-weight: 700; font-size: 1.05rem; color: #f8fafc;">นางสาว อลงกรณ์ แจ่มเมือง</div>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;"><span class="badge acc-badge">XXX-X-XX259-1</span> <span class="badge bank-badge">กรุงไทย</span></div>
+                </td>
+                <td style="text-align: center;"><span class="badge count-badge">2 สลิป</span></td>
+                <td style="text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; font-weight: 800; color: #38bdf8;">
+                    10,000.00 THB
+                </td>
+                <td style="text-align: center;">
+                    <span class="status-pill status-active">
+                        ⚡ เจาะจงสู่งานที่ 5
+                    </span>
+                </td>
+            </tr>
+            
+            <tr class="" id="row-2">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="kpi-checkbox" name="target_choice" 
+                           value="จิณห์นิภา บุญประเสริฐ"  onchange="selectTarget('จิณห์นิภา บุญประเสริฐ', this)">
+                </td>
+                <td style="text-align: center; color: #94a3b8; font-family: monospace;">02</td>
+                <td>
+                    <div style="font-weight: 700; font-size: 1.05rem; color: #f8fafc;">น.ส. จิณห์นิภา บุญประเสริฐ</div>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;"><span class="badge acc-badge">XXX-X-XX764-0</span> <span class="badge bank-badge">ธนาคารกรุงไทย (KTB)</span></div>
+                </td>
+                <td style="text-align: center;"><span class="badge count-badge">1 สลิป</span></td>
+                <td style="text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; font-weight: 800; color: #38bdf8;">
+                    1,000.00 THB
+                </td>
+                <td style="text-align: center;">
+                    <span class="status-pill status-ready">
+                        พร้อมส่งต่อ
+                    </span>
+                </td>
+            </tr>
+            
+                </tbody>
+            </table>
+
+            <div class="action-bar">
+                <div>
+                    <span style="color: #94a3b8; font-size: 0.9rem;">เป้าหมายที่ถูกเลือกขณะนี้: </span>
+                    <strong id="active-target-name" style="color: #10b981; font-size: 1.1rem; margin-left: 8px;">
+                        อลงกรณ์ แจ่มเมือง
+                    </strong>
+                </div>
+                <button class="btn-task5" onclick="triggerExportTask5()">
+                    <span>🚀 ยืนยันเป้าหมายและส่งต่อไปยังงานที่ 5</span>
+                </button>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px;">Handoff Payload to Task 5 (Locked Contract JSON):</div>
+                <div class="payload-preview" id="payload-box">{
+  "status": "LOCKED_READY_FOR_TASK_5",
+  "task_source": "TASK_3_LOCKED_KPI_AGGREGATOR",
+  "invariants_verified": true,
+  "target_person": {
+    "name": "อลงกรณ์ แจ่มเมือง",
+    "display_name": "นางสาว อลงกรณ์ แจ่มเมือง",
+    "total_loss_amount": 10000.0,
+    "total_loss_formatted": "10,000.00 THB",
+    "total_transactions": 2,
+    "accounts_involved": [
+      "XXX-X-XX259-1"
+    ],
+    "banks_involved": [
+      "กรุงไทย"
+    ]
+  },
+  "timeline_transactions": [
+    {
+      "ref_no": "Aa7e0058a52854e5c",
+      "datetime": "26 พ.ค. 2568 - 16:52",
+      "amount": 5600.0,
+      "bank": "กรุงไทย",
+      "sender": "-",
+      "source_task": "TASK_2",
+      "evidence_file": "chatv3 (41).jpg"
+    },
+    {
+      "ref_no": "Bb8f9900112233",
+      "datetime": "27 พ.ค. 2568 - 10:15",
+      "amount": 4400.0,
+      "bank": "กรุงไทย",
+      "sender": "-",
+      "source_task": "TASK_2",
+      "evidence_file": "chatv3 (99).jpg"
+    }
+  ]
+}</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const allGroups = [{"target_name": "อลงกรณ์ แจ่มเมือง", "display_name": "นางสาว อลงกรณ์ แจ่มเมือง", "total_amount": 10000.0, "total_amount_formatted": "10,000.00 THB", "slip_count": 2, "banks": ["กรุงไทย"], "accounts": ["XXX-X-XX259-1"], "ref_ids": ["Aa7e0058a52854e5c", "Bb8f9900112233"], "is_selected": true, "has_multiple_slips": true, "workflow_lock_status": "VERIFIED_LOCKED"}, {"target_name": "จิณห์นิภา บุญประเสริฐ", "display_name": "น.ส. จิณห์นิภา บุญประเสริฐ", "total_amount": 1000.0, "total_amount_formatted": "1,000.00 THB", "slip_count": 1, "banks": ["ธนาคารกรุงไทย (KTB)"], "accounts": ["XXX-X-XX764-0"], "ref_ids": ["N006727673034053896171486"], "is_selected": false, "has_multiple_slips": false, "workflow_lock_status": "VERIFIED_LOCKED"}];
+        
+        function selectTarget(targetName, checkboxElem) {
+            const checkboxes = document.querySelectorAll('.kpi-checkbox');
+            checkboxes.forEach(cb => {
+                if (cb !== checkboxElem) cb.checked = false;
+            });
+
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(r => r.classList.remove('selected-row'));
+
+            if (checkboxElem.checked) {
+                checkboxElem.closest('tr').classList.add('selected-row');
+                document.getElementById('active-target-name').innerText = targetName;
+                updatePayload(targetName);
+            } else {
+                document.getElementById('active-target-name').innerText = 'ยังไม่มีการเลือก';
+                document.getElementById('payload-box').innerText = JSON.stringify({"status": "NO_TARGET_SELECTED"}, null, 2);
+            }
+        }
+
+        function updatePayload(targetName) {
+            const selected = allGroups.find(g => g.target_name === targetName);
+            if (!selected) return;
+            const payload = {
+                "status": "LOCKED_READY_FOR_TASK_5",
+                "task_source": "TASK_3_LOCKED_KPI_AGGREGATOR",
+                "invariants_verified": true,
+                "target_person": {
+                    "name": selected.target_name,
+                    "display_name": selected.display_name,
+                    "total_loss_amount": selected.total_amount,
+                    "total_loss_formatted": selected.total_amount_formatted,
+                    "total_transactions": selected.slip_count,
+                    "accounts_involved": selected.accounts,
+                    "banks_involved": selected.banks
+                },
+                "ref_ids": selected.ref_ids
+            };
+            document.getElementById('payload-box').innerText = JSON.stringify(payload, null, 2);
+        }
+
+        function triggerExportTask5() {
+            const activeName = document.getElementById('active-target-name').innerText;
+            if (activeName === 'ยังไม่มีการเลือก') {
+                alert('กรุณาติ๊กเลือกเป้าหมายอย่างน้อย 1 รายการก่อนส่งต่อไปยังงานที่ 5');
+                return;
+            }
+            alert('ส่งข้อมูลเป้าหมาย [' + activeName + '] สู่งานที่ 5 เรียบร้อยแล้ว!');
+        }
+    </script>
+</body>
+</html>

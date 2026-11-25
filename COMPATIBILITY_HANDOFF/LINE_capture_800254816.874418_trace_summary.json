@@ -1,0 +1,136 @@
+{
+  "schema": "digital-evidence.extraction-diagnostic-trace.v1",
+  "generatedAt": "2026-11-04T20:31:20.339Z",
+  "target_file_alias_in_test": "V1- (173).jpg",
+  "sha256": "54a638fca69ce690123dd2eeb3ba24845b7543c414eb921a7c8129fd6f65a997",
+  "matched_local_name": "LINE_capture_800254816.874418.jpg",
+  "total_candidates": 6,
+  "slip_extractions": [
+    {
+      "slip_no": 1,
+      "expected_amount": "1,500.00 THB",
+      "ref_from_qr": "N006728230107019953913698",
+      "qr_sourceBounds": {
+        "x": 535.4498714652957,
+        "y": 2361.4121859736274,
+        "width": 62.12853470437015,
+        "height": 62.098361311617474
+      },
+      "slip_frame_sourceBounds": {
+        "x": 149.59897172236506,
+        "y": 2075.4328904595995,
+        "width": 461.8766066838046,
+        "height": 701.057815860103
+      },
+      "ref_ocr_text_boxes": [
+        {
+          "text": "รหัสอ้างอิง           eR\n",
+          "confidence": 0.89,
+          "bounds": {
+            "x": 382,
+            "y": 628,
+            "width": 327,
+            "height": 35
+          },
+          "classification": "uncertain",
+          "reason": "อยู่ในขอบเขต OCR รอบหลักฐาน แต่ยังผูกกับฟิลด์สลิปไม่ได้",
+          "supportsFields": []
+        },
+        {
+          "text": "N006728230107019953913698    io}   เซ\n",
+          "confidence": 0.59,
+          "bounds": {
+            "x": 382,
+            "y": 662,
+            "width": 363,
+            "height": 25
+          },
+          "classification": "uncertain",
+          "reason": "อยู่ในขอบเขต OCR รอบหลักฐาน แต่ยังผูกกับฟิลด์สลิปไม่ได้",
+          "supportsFields": []
+        }
+      ],
+      "amount_ocr_text_box": [
+        {
+          "text": "จํานวนเงิน                               1,500.00 บาท\n",
+          "confidence": 0.94,
+          "bounds": {
+            "x": 308,
+            "y": 964,
+            "width": 438,
+            "height": 39
+          },
+          "classification": "slip_evidence",
+          "reason": "เชื่อมกับฟิลด์: amount",
+          "supportsFields": [
+            "amount"
+          ]
+        }
+      ]
+    },
+    {
+      "slip_no": 2,
+      "expected_amount": "3,000.00 THB",
+      "ref_from_qr": "N006728239785025333486297",
+      "qr_sourceBounds": {
+        "x": 535.7942122186495,
+        "y": 3886.2260823178353,
+        "width": 62.372990353697745,
+        "height": 62.388864253921895
+      },
+      "slip_frame_sourceBounds": {
+        "x": 168.7138263665595,
+        "y": 3886.2260823178353,
+        "width": 446.8360128617363,
+        "height": 396.8340873855999
+      },
+      "ref_ocr_text_boxes": [
+        {
+          "text": "รหัสอ้างอิง              AR tA\n",
+          "confidence": 0.8,
+          "bounds": {
+            "x": 386,
+            "y": 196,
+            "width": 288,
+            "height": 23
+          },
+          "classification": "slip_evidence",
+          "reason": "เชื่อมกับฟิลด์: amount",
+          "supportsFields": [
+            "amount"
+          ]
+        },
+        {
+          "text": "N006728239785025333486297    fate\n",
+          "confidence": 0.35,
+          "bounds": {
+            "x": 386,
+            "y": 216,
+            "width": 290,
+            "height": 20
+          },
+          "classification": "uncertain",
+          "reason": "อยู่ในขอบเขต OCR รอบหลักฐาน แต่ยังผูกกับฟิลด์สลิปไม่ได้",
+          "supportsFields": []
+        }
+      ],
+      "amount_ocr_text_box": [
+        {
+          "text": "จํานวนเงิน                            3,000.00 บาท\n",
+          "confidence": 0.94,
+          "bounds": {
+            "x": 330,
+            "y": 461,
+            "width": 347,
+            "height": 30
+          },
+          "classification": "slip_evidence",
+          "reason": "เชื่อมกับฟิลด์: amount",
+          "supportsFields": [
+            "amount"
+          ]
+        }
+      ]
+    }
+  ]
+}

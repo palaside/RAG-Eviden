@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIGITAL EVIDENCE REVISION 02 — Master Shell UI (1:1 Production Parity)</title>
+  
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & RESET (Re-architected Zero-Legacy System)
+       ========================================================================== */
+    :root {
+      --bg-deep: #060911;
+      --bg-header: rgba(7, 11, 20, 0.88);
+      --bg-workspace: #080d19;
+      --panel-bg: rgba(13, 20, 36, 0.76);
+      --panel-bg-subtle: rgba(18, 28, 50, 0.65);
+      --panel-border: rgba(56, 189, 248, 0.16);
+      --panel-border-glow: rgba(56, 189, 248, 0.40);
+      
+      --accent-cyan: #38bdf8;
+      --accent-cyan-dark: #0284c7;
+      --accent-cyan-gradient: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+      --accent-green: #10b981;
+      --accent-green-dark: #059669;
+      --accent-purple: #a855f7;
+      --accent-amber: #f59e0b;
+      --accent-red: #ef4444;
+
+      --text-white: #ffffff;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --text-inverse: #0f172a;
+
+      --font-ui: 'Sarabun', 'Segoe UI', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-court: 'TH Sarabun PSK', 'THSarabunNew', 'Sarabun', serif;
+
+      --glass-blur: blur(16px);
+      --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
+      --card-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Ambient Glow Behind Interface */
+    .ambient-glow {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.08) 0%, transparent 60%),
+                  radial-gradient(circle at 10% 30%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 90% 70%, rgba(168, 85, 247, 0.04) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .app-container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Glass utility */
+    .glass {
+      background: var(--panel-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--panel-border);
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    ::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.25); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(56, 189, 248, 0.5); }
+
+    /* ==========================================================================
+       2. TOP HEADER BAR
+       ========================================================================== */
+    .header-bar {
+      height: 58px;
+      background: var(--bg-header);
+      border-bottom: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      gap: 16px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .header-logo-shield {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #0284c7 0%, #38bdf8 50%, #0369a1 100%);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.5);
+    }
+    .header-logo-shield svg { width: 18px; height: 18px; fill: #ffffff; }
+
+    .brand-title-wrap { display: flex; flex-direction: column; }
+    .brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.5px;
+    }
+    .brand-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 4px;
+      padding: 1px 6px;
+    }
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: -0.2px;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .header-motto {
+      text-align: center;
+      line-height: 1.2;
+    }
+    .motto-th { font-size: 12px; font-weight: 600; color: #e2e8f0; }
+    .motto-en { font-size: 9px; font-family: var(--font-mono); color: var(--accent-cyan); opacity: 0.85; }
+
+    .mode-tab-group {
+      display: flex;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--panel-border);
+      border-radius: 6px;
+      padding: 2px;
+      gap: 2px;
+    }
+    .btn-mode {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-mode.active {
+      background: var(--accent-cyan-dark);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(14, 165, 233, 0.4);
+    }
+
+    .case-sync-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 14px;
+    }
+    .case-sync-pill .dot {
+      width: 6px; height: 6px;
+      background: #34d399;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #34d399;
+    }
+
+    .pdpa-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .toggle-switch {
+      width: 30px;
+      height: 16px;
+      background: #1e293b;
+      border-radius: 10px;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: background 0.2s;
+    }
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 12px; height: 12px;
+      background: #94a3b8;
+      border-radius: 50%;
+      top: 1px; left: 2px;
+      transition: transform 0.2s;
+    }
+    .toggle-switch.active { background: var(--accent-cyan-dark); }
+    .toggle-switch.active::after { transform: translateX(14px); background: #ffffff; }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+    .clock-display {
+      text-align: right;
+      line-height: 1.15;
+    }
+    .clock-time {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .clock-date {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .btn-print {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--panel-border);
+      color: #ffffff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-print:hover {
+      background: var(--accent-cyan-dark);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+    }
+
+    /* ==========================================================================
+       3. WORKFLOW STEPPER BAR
+       ========================================================================== */
+    .stepper-bar {
+      height: 40px;
+      background: rgba(9, 14, 26, 0.95);
+      border-bottom: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      flex-shrink: 0;
+      font-size: 11px;
+    }
+
+    .stepper-steps {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .step-item.completed {
+      color: var(--accent-green);
+    }
+    .step-item.active {
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+    .step-badge {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      border: 1px solid currentColor;
+    }
+    .step-item.completed .step-badge {
+      background: rgba(16, 185, 129, 0.2);
+    }
+    .step-item.active .step-badge {
+      background: var(--accent-cyan-dark);
+      color: #ffffff;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+    }
+
+    .stepper-tools {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ocr-select {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--panel-border);
+      color: var(--text-primary);
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn-key-manage {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fbbf24;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .badge-case-index {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-secondary);
+    }
+    .badge-online {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--accent-green);
+      font-size: 10px;
+      font-family: var(--font-mono);
+    }
+    .badge-online::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--accent-green);
+    }
+    .badge-batch {
+      color: #fde047;
+      font-family: var(--font-mono);
+      font-size: 10px;
+    }
+
+    /* ==========================================================================
+       4. MAIN 3-COLUMN WORKSPACE
+       ========================================================================== */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 310px 1fr 310px;
+      flex: 1;
+      overflow: hidden;
+      background: var(--bg-workspace);
+    }
+
+    /* --------------------------------------------------------------------------
+       COLUMN 1: INTAKE & STAGING BUFFER
+       -------------------------------------------------------------------------- */
+    .col-intake {
+      border-right: 1px solid var(--panel-border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 12px;
+      gap: 12px;
+      background: rgba(9, 14, 26, 0.65);
+    }
+
+    .pane-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+    .pane-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge-zero-state {
+      font-size: 9px;
+      font-family: var(--font-mono);
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    /* Dropzone */
+    .dropzone-card {
+      border: 1px dashed var(--panel-border);
+      background: rgba(13, 20, 36, 0.4);
+      border-radius: 8px;
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .dropzone-card:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.05);
+    }
+    .dropzone-icon {
+      width: 28px;
+      height: 28px;
+      margin: 0 auto 6px auto;
+      color: var(--accent-cyan);
+    }
+    .dropzone-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 2px;
+    }
+    .dropzone-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .btn-choose-file {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid var(--panel-border);
+      color: #cbd5e1;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Staging Buffer */
+    .staging-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .staging-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .staging-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: #f59e0b;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .btn-clear-staging {
+      color: var(--accent-red);
+      font-size: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .staging-meta-note {
+      font-size: 10px;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+    .btn-process-action {
+      background: var(--accent-cyan-gradient);
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
+      transition: all 0.2s;
+    }
+    .btn-process-action:hover {
+      filter: brightness(1.15);
+      box-shadow: 0 4px 16px rgba(14, 165, 233, 0.55);
+    }
+    .trace-check-text {
+      font-size: 10px;
+      color: var(--accent-cyan);
+      text-align: center;
+    }
+
+    .staging-file-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .file-item-card {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 6px;
+    }
+    .file-thumb-placeholder {
+      width: 28px;
+      height: 32px;
+      background: #1e293b;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .file-info {
+      flex: 1;
+      overflow: hidden;
+    }
+    .file-name {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: #f1f5f9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .file-tags {
+      display: flex;
+      gap: 4px;
+      margin-top: 2px;
+    }
+    .tag-pill {
+      font-size: 8px;
+      padding: 1px 4px;
+      border-radius: 3px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-cyan);
+    }
+
+    .page-summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--text-muted);
+      padding: 2px 4px;
+    }
+
+    /* Detected Names Box */
+    .detected-names-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .target-entity-pill {
+      background: rgba(15, 23, 42, 0.9);
+      border-left: 3px solid var(--accent-green);
+      padding: 6px 8px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+    }
+    .target-entity-pill .name { color: #ffffff; font-weight: 600; }
+    .target-entity-pill .amount { font-family: var(--font-mono); color: #34d399; font-size: 10px; }
+
+    .search-filter-input {
+      display: flex;
+      gap: 4px;
+    }
+    .search-filter-input input {
+      flex: 1;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--panel-border);
+      color: #ffffff;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    .search-filter-input button {
+      background: var(--accent-cyan-dark);
+      border: none;
+      color: #ffffff;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* --------------------------------------------------------------------------
+       COLUMN 2: A4 CANVAS PREVIEW (CENTER)
+       -------------------------------------------------------------------------- */
+    .col-canvas {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 50%, #0d1527 0%, #060911 100%);
+      position: relative;
+    }
+
+    .canvas-tab-bar {
+      height: 38px;
+      background: rgba(8, 12, 22, 0.85);
+      border-bottom: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      flex-shrink: 0;
+    }
+    .canvas-tabs {
+      display: flex;
+      gap: 6px;
+    }
+    .canvas-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .canvas-tab.active {
+      background: rgba(56, 189, 248, 0.16);
+      color: #38bdf8;
+      font-weight: 600;
+      border-bottom: 2px solid #38bdf8;
+    }
+    .canvas-meta-status {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    .canvas-viewport {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px 16px 40px 16px;
+    }
+
+    /* Standard A4 Paper Document */
+    .a4-paper-sheet {
+      width: 210mm;
+      min-height: 297mm;
+      background: #ffffff;
+      color: #1e293b;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.75);
+      border-radius: 3px;
+      padding: 18mm 18mm 20mm 18mm;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      font-family: var(--font-court);
+    }
+
+    .court-doc-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .court-emblem {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #cbd5e1;
+      border-radius: 50%;
+      background: #f8fafc;
+    }
+    .court-emblem svg { width: 28px; height: 28px; fill: #b45309; }
+
+    .court-title-block { flex: 1; }
+    .court-title-main {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+    .court-title-sub {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    .court-case-number {
+      position: absolute;
+      top: 0; right: 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    /* 3 Summary KPI Boxes */
+    .kpi-boxes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .kpi-sheet-box {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .kpi-sheet-box.box-green {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .kpi-sheet-box.box-cyan {
+      background: #f0f9ff;
+      border-color: #7dd3fc;
+    }
+    .kpi-sheet-box.box-purple {
+      background: #faf5ff;
+      border-color: #d8b4fe;
+    }
+
+    .kpi-sheet-label { font-size: 12px; color: #475569; font-weight: 600; }
+    .kpi-sheet-val { font-size: 18px; font-weight: 700; }
+    .box-green .kpi-sheet-val { color: #16a34a; }
+    .box-cyan .kpi-sheet-val { color: #0284c7; }
+    .box-purple .kpi-sheet-val { color: #9333ea; }
+    .kpi-sheet-sub { font-size: 11px; color: #64748b; line-height: 1.25; }
+
+    /* Top Recipient Section */
+    .sheet-section {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      background: #f8fafc;
+    }
+    .sheet-section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .sheet-two-col {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 8px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .sheet-text-row { display: flex; gap: 4px; }
+    .sheet-label { color: #475569; }
+    .sheet-value { color: #0f172a; font-weight: 600; }
+
+    /* Narrative text */
+    .sheet-narrative-box {
+      margin-bottom: 18px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #334155;
+      text-align: justify;
+    }
+
+    /* Legal Footer */
+    .sheet-legal-footer {
+      margin-top: auto;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+      font-size: 10.5px;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    .canvas-status-footer {
+      height: 28px;
+      background: rgba(6, 9, 17, 0.95);
+      border-top: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+    .pass-seal {
+      color: var(--accent-green);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* --------------------------------------------------------------------------
+       COLUMN 3: AUDIT & COURT PACKAGING (RIGHT)
+       -------------------------------------------------------------------------- */
+    .col-audit {
+      border-left: 1px solid var(--panel-border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 12px;
+      gap: 12px;
+      background: rgba(9, 14, 26, 0.65);
+    }
+
+    .badge-ledger {
+      font-size: 9px;
+      font-family: var(--font-mono);
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    /* Timeline card */
+    .timeline-summary-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--panel-border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+    }
+    .timeline-title { color: #f1f5f9; font-weight: 600; }
+    .timeline-pill-count {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    /* 4 KPI Mini Cards */
+    .kpi-mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .kpi-mini-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 6px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .kpi-mini-title {
+      font-size: 10px;
+      color: var(--text-secondary);
+      line-height: 1.2;
+    }
+    .kpi-mini-val {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .kpi-mini-sub {
+      font-size: 9px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    /* Status card */
+    .status-standby-card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 10.5px;
+      color: var(--text-secondary);
+      line-height: 1.35;
+    }
+    .status-standby-header {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 9.5px;
+      margin-bottom: 4px;
+    }
+
+    .btn-full-table {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid var(--panel-border);
+      color: #ffffff;
+      padding: 7px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .btn-full-table:hover {
+      background: var(--accent-cyan-dark);
+      border-color: var(--accent-cyan);
+    }
+
+    /* Document Tools List */
+    .doc-tools-section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .doc-tools-title {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .btn-doc-tool {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-size: 11px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+    }
+    .btn-doc-tool:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent-cyan);
+      color: #ffffff;
+    }
+
+    .btn-master-pdf {
+      background: var(--accent-cyan-gradient);
+      color: #ffffff;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
+      margin-top: 4px;
+      text-align: center;
+    }
+
+    /* Password SFX Box */
+    .sfx-password-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 6px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sfx-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--text-secondary);
+    }
+    .badge-no-pass {
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 9px;
+    }
+    .sfx-note { font-size: 9.5px; color: var(--text-muted); }
+    .btn-single-pdf {
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      padding: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    /* ==========================================================================
+       5. PRINT RECEPTACLE (Zero Blank Screen)
+       ========================================================================== */
+    @media print {
+      body * { visibility: hidden; }
+      .a4-paper-sheet, .a4-paper-sheet * { visibility: visible; }
+      .a4-paper-sheet {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        box-shadow: none;
+        margin: 0;
+        padding: 15mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="ambient-glow"></div>
+
+  <div class="app-container">
+
+    <!-- ========================================================================
+         TOP HEADER BAR
+         ======================================================================== -->
+    <header class="header-bar glass">
+      <div class="header-left">
+        <div class="header-logo-shield">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+        </div>
+        <div class="brand-title-wrap">
+          <div class="brand-title">
+            DIGITAL EVIDENCE
+            <span class="brand-tag">REVISION 02</span>
+          </div>
+          <div class="brand-subtitle">เครื่องมือรวบรวมและจัดระเบียบพยานหลักฐานดิจิทัล</div>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <div class="header-motto">
+          <div class="motto-th">จากข้อมูลดิจิทัล สู่ความยุติธรรม</div>
+          <div class="motto-en">DIGITAL EVIDENCE FOR A FAIRER TOMORROW</div>
+        </div>
+
+        <div class="mode-tab-group">
+          <button class="btn-mode active" id="btnModeChat" onclick="setMode('chat')">CHAT (แชท)</button>
+          <button class="btn-mode" id="btnModeSlip" onclick="setMode('slip')">SLIP (สลิป)</button>
+        </div>
+
+        <div class="case-sync-pill">
+          <span class="dot"></span>
+          <span>[ปัจจุบันคดี] 4 รายการ • แชท 38 หน้า</span>
+        </div>
+
+        <div class="pdpa-toggle" onclick="togglePdpa()">
+          <span>PDPA</span>
+          <div class="toggle-switch" id="pdpaSwitch"></div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="clock-display">
+          <div class="clock-time" id="liveClock">23:25:26</div>
+          <div class="clock-date" id="liveDate">24 พ.ย. 2569</div>
+        </div>
+
+        <button class="btn-print" onclick="window.print()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>
+          <span>พิมพ์เอกสาร</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ========================================================================
+         WORKFLOW STEPPER BAR
+         ======================================================================== -->
+    <div class="stepper-bar">
+      <div class="stepper-steps">
+        <div class="step-item completed" onclick="setStep(1)">
+          <div class="step-badge">✓</div>
+          <span>Step 1: จัดทำข้อมูล (Upload & Intake)</span>
+        </div>
+        <div class="step-item active" onclick="setStep(2)">
+          <div class="step-badge">2</div>
+          <span>Step 2: การประมวลผลและสืบสวน (Process & Match)</span>
+        </div>
+        <div class="step-item" onclick="setStep(3)">
+          <div class="step-badge">3</div>
+          <span>Step 3: สร้างเอกสารหลักฐาน (Document & Audit)</span>
+        </div>
+        <div class="step-item" onclick="setStep(4)">
+          <div class="step-badge">4</div>
+          <span>Step 4: ส่งออก (Export & Packaging)</span>
+        </div>
+      </div>
+
+      <div class="stepper-tools">
+        <select class="ocr-select">
+          <option>OCR: Gemini 1.5 Pro (Google)</option>
+          <option>OCR: OpenTyphoon 2.5</option>
+          <option>OCR: Tesseract v5 (Offline)</option>
+        </select>
+        <button class="btn-key-manage">🔑 จัดการ API Key</button>
+        <span class="badge-case-index">แชทรวมหน้าที่: 012/2569</span>
+        <span class="badge-online">3453 ONLINE</span>
+        <span class="badge-batch">BATCH: 500 หมุดพิกัด</span>
+      </div>
+    </div>
+
+    <!-- ========================================================================
+         MAIN 3-COLUMN WORKSPACE GRID
+         ======================================================================== -->
+    <main class="workspace-grid">
+
+      <!-- ======================================================================
+           COLUMN 1: INTAKE & STAGING BUFFER
+           ====================================================================== -->
+      <section class="col-intake">
+        <div class="pane-header">
+          <div class="pane-title">
+            <span>01 นำเข้าพยานหลักฐาน</span>
+          </div>
+          <span class="badge-zero-state">PURE ZERO STATE</span>
+        </div>
+
+        <!-- Dropzone -->
+        <div class="dropzone-card" id="dropzoneEl">
+          <div class="dropzone-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+          </div>
+          <div class="dropzone-title">ลากไฟล์ภาพแชท / สลิป มาหยอดพักไว้ที่นี่</div>
+          <div class="dropzone-sub">PNG, JPG, WEBP จัดการไฟล์ภาษาไทยได้ดีเยี่ยม</div>
+          <button class="btn-choose-file">+ เลือกไฟล์เพื่อเพิ่มในโฟลเดอร์</button>
+        </div>
+
+        <!-- Staging Buffer -->
+        <div class="staging-card">
+          <div class="staging-header">
+            <div class="staging-title">
+              <span>📁 หน่วยความจำพักรอ (Staging Buffer)</span>
+            </div>
+            <button class="btn-clear-staging">ล้าง</button>
+          </div>
+          <div class="staging-meta-note">กู้คืนไฟล์เดิม (SHA-256 ทรงสิทธิ์เงินวัน)<br>กลุ่มไฟล์ที่กำลังทำงาน: chatv3- 2 ไฟล์, ส่งออก PDF และแชทไทย Slip Index .JSON</div>
+          <button class="btn-process-action">เริ่มประมวลผลพยานหลักฐาน (2 ไฟล์)</button>
+          <div class="trace-check-text">ตรวจโครงสร้าง JSON Trace - 2 ภาพ</div>
+
+          <!-- Staged files -->
+          <div class="staging-file-list">
+            <div class="file-item-card">
+              <div class="file-thumb-placeholder">JPG</div>
+              <div class="file-info">
+                <div class="file-name">chatv3 (40).jpg</div>
+                <div class="file-tags">
+                  <span class="tag-pill">GenAI</span>
+                  <span class="tag-pill">Slip/Voice</span>
+                </div>
+              </div>
+            </div>
+            <div class="file-item-card">
+              <div class="file-thumb-placeholder">JPG</div>
+              <div class="file-info">
+                <div class="file-name">chatv3 (41).jpg</div>
+                <div class="file-tags">
+                  <span class="tag-pill">GenAI</span>
+                  <span class="tag-pill">Slip/Voice</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="page-summary-row">
+            <span>10 หน้า</span>
+            <span>พบ 1 ยืนยัน 0 รายการ</span>
+          </div>
+        </div>
+
+        <!-- Detected Names Box -->
+        <div class="detected-names-card">
+          <div class="pane-header">
+            <span style="font-size:11px; font-weight:600; color:#e2e8f0;">ตรวจพบรายชื่อ</span>
+            <span style="font-size:9.5px; color:#38bdf8;">บุคคลที่ตรงกับการสืบค้น (1 คน)</span>
+          </div>
+          <div class="target-entity-pill">
+            <span class="name">ผู้รับโอน อลงกรณ์ แจ่มเมือง</span>
+            <span class="amount">1 สลิป / 0.00 บาท</span>
+          </div>
+          <div style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">
+            รายการที่อยู่ระหว่างรอการตรวจทาน: ยังไม่มีรายชื่อบุคคลหรือสิทธิที่ตรวจพบ
+          </div>
+          <div class="search-filter-input">
+            <input type="text" placeholder="พิมพ์ชื่อหรือคำค้น (เช่น นาย วิชัย ใจดี)">
+            <button>+ ค้น</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           COLUMN 2: A4 CANVAS PREVIEW (CENTER)
+           ====================================================================== -->
+      <section class="col-canvas">
+        <div class="canvas-tab-bar">
+          <div class="canvas-tabs">
+            <button class="canvas-tab" onclick="switchCanvasTab('raw')">📄 บนกระดาษ A4</button>
+            <button class="canvas-tab" onclick="switchCanvasTab('cover')">หน้าปะหน้าพยานหลักฐาน</button>
+            <button class="canvas-tab" onclick="switchCanvasTab('manifest')">บัญชีคุม</button>
+            <button class="canvas-tab active" onclick="switchCanvasTab('executive')">สรุปผู้บริหาร</button>
+          </div>
+          <span class="canvas-meta-status">SCALE: FIT</span>
+        </div>
+
+        <div class="canvas-viewport">
+          <!-- A4 Document Sheet 1:1 -->
+          <div class="a4-paper-sheet" id="a4PaperSheet">
+            <header class="court-doc-header">
+              <div class="court-emblem">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+              </div>
+              <div class="court-title-block">
+                <div class="court-title-main">ใบสรุปข้อมูลและเส้นทางการเงินที่ตรวจพบ (Executive Summary Sheet)</div>
+                <div class="court-title-sub">เอกสารสรุปเบื้องต้นเพื่อประกอบการตรวจสอบ ไม่ใช่คำฟ้อง</div>
+              </div>
+              <div class="court-case-number">เลขที่เรื่อง : 012/2569</div>
+            </header>
+
+            <!-- 3 Summary KPI Boxes -->
+            <div class="kpi-boxes-grid">
+              <div class="kpi-sheet-box box-green">
+                <span class="kpi-sheet-label">ยอดรวมตรวจพบรายการนำ (Net Total)</span>
+                <span class="kpi-sheet-val">ยังสรุปยอดไม่ได้</span>
+                <span class="kpi-sheet-sub">คำนวณจากรายการที่มีหลักฐานยืนยันไม่ได้ ติดตามหลักฐานส่งท้ายปี</span>
+              </div>
+              <div class="kpi-sheet-box box-cyan">
+                <span class="kpi-sheet-label">รายการสลิปที่ตรวจพบ</span>
+                <span class="kpi-sheet-val">0 รายการ</span>
+                <span class="kpi-sheet-sub">ข้อมูลมาจากตารางคัดกรองพยานหลักฐาน</span>
+              </div>
+              <div class="kpi-sheet-box box-purple">
+                <span class="kpi-sheet-label">ความสอดคล้อง แชท ↔ สลิป</span>
+                <span class="kpi-sheet-val">0 คู่รายการ</span>
+                <span class="kpi-sheet-sub">จับคู่อนุมัติและยอดเงินโอน</span>
+              </div>
+            </div>
+
+            <!-- Top Recipient Section -->
+            <div class="sheet-section">
+              <div class="sheet-section-title">
+                <span>📍 สรุปเส้นทางเงินไปยังบุคคล/บัญชีที่ตรวจพบ (Top Recipient)</span>
+              </div>
+              <div class="sheet-two-col">
+                <div class="sheet-text-row">
+                  <span class="sheet-label">ชื่อบุคคลที่เกี่ยวข้อง / ผู้รับโอน:</span>
+                  <span class="sheet-value">ยังไม่มีข้อมูล</span>
+                </div>
+                <div class="sheet-text-row">
+                  <span class="sheet-label">ยอดเงินที่เกี่ยวข้อง:</span>
+                  <span class="sheet-value">ยังสรุปยอดไม่ได้</span>
+                </div>
+                <div class="sheet-text-row" style="grid-column: span 2;">
+                  <span class="sheet-label">สัญญาณแชทและมีรายการตรงกัน:</span>
+                  <span class="sheet-value" style="font-weight: normal; color:#64748b;">ไม่พบคู่แชทอ้างอิงตรงกันในรายการที่ยืนยัน</span>
+                </div>
+                <div class="sheet-text-row" style="grid-column: span 2;">
+                  <span class="sheet-label">วัน-เวลาประมวลผลเอกสาร:</span>
+                  <span class="sheet-value" id="sheetProcessTimestamp">24/11/2569 01:16:16</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Narrative Paragraph -->
+            <div class="sheet-narrative-box">
+              <strong style="color:#0f172a;">สรุปสาระสำคัญของพยานหลักฐาน:</strong><br>
+              พยานหลักฐานดิจิทัลทั้งหมดได้รับการจัดระบบตามลำดับเวลา มีการยืนยันความถูกต้องด้วยลายนิ้วมือดิจิทัล SHA-256 โดยแสดงทั้งสัญญาณแชทคำสั่งตรงกับยอดสลิปและสรุปผลตรวจ ไม่พบข้อบกพร่องเชิงเทคนิคทางนิติวิทยาศาสตร์เบื้องต้น ผู้ใช้เอกสารนี้เป็นเครื่องมือช่วยจัดระเบียบข้อมูลเพื่อประกอบการตรวจทาน
+            </div>
+
+            <!-- Legal Footer -->
+            <footer class="sheet-legal-footer">
+              <strong>DIGITAL EVIDENCE:</strong> เอกสารนี้สร้างขึ้นโดยระบบจัดระเบียบพยานหลักฐานอัตโนมัติ โดยใช้ข้อมูลดิบจริง และการตรวจทางวิทยาศาสตร์เบื้องต้น ไม่ควรนำไปใช้เป็นหลักฐานเดี่ยวในชั้นศาล ผู้ใช้ควรตรวจสอบความถูกต้องร่วมกับทนายความหรือผู้เชี่ยวชาญก่อนใช้งานจริง
+            </footer>
+          </div>
+        </div>
+
+        <div class="canvas-status-footer">
+          <span>SHA-256: 24d271ba71891b5c478a5e74fe40f5139a04a441e8c460a4f5...</span>
+          <span class="pass-seal">✓ ZERO BLANK SCREEN PASS</span>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           COLUMN 3: AUDIT & COURT PACKAGING (RIGHT)
+           ====================================================================== -->
+      <section class="col-audit">
+        <div class="pane-header">
+          <div class="pane-title">
+            <span>03 สรุปข้อมูลตรวจสอบ</span>
+          </div>
+          <span class="badge-ledger">LEDGER REVIEW</span>
+        </div>
+
+        <!-- Timeline Status Card -->
+        <div class="timeline-summary-card">
+          <span class="timeline-title">🕒 Timeline</span>
+          <span style="font-size:10px; color:var(--text-muted);">รวบรวมข้อมูลตามลำดับเวลา...</span>
+          <span class="timeline-pill-count">0 จุด ✓</span>
+        </div>
+
+        <!-- 4 KPI Mini Cards -->
+        <div class="kpi-mini-grid">
+          <div class="kpi-mini-card">
+            <span class="kpi-mini-title">1. ยอดรวมความเสียหายที่แท้จริง (หักตรวจ Ref ซ้ำ)</span>
+            <span class="kpi-mini-val">ยังจำแนกประเภทไม่ได้</span>
+            <span class="kpi-mini-sub">(00.00)</span>
+          </div>
+          <div class="kpi-mini-card">
+            <span class="kpi-mini-title">2. ยอดรวมรายการบุคคลที่เกี่ยวข้อง</span>
+            <span class="kpi-mini-val">ยังสรุปยอดไม่ได้</span>
+            <span class="kpi-mini-sub">(00.00)</span>
+          </div>
+          <div class="kpi-mini-card">
+            <span class="kpi-mini-title">3. สัญญาณแชท-สลิป</span>
+            <span class="kpi-mini-val" style="color:#fbbf24;">candidate</span>
+            <span class="kpi-mini-sub">(OCR ตรวจ... ในโหมดรอตรวจสอบ)</span>
+          </div>
+          <div class="kpi-mini-card">
+            <span class="kpi-mini-title">4. Ref ID จากสลิป</span>
+            <span class="kpi-mini-val" style="color:#fbbf24;">0 จุด</span>
+            <span class="kpi-mini-sub">(0 รายการ ยืนยัน... ในโหมดรอตรวจสอบ)</span>
+          </div>
+        </div>
+
+        <!-- Status Box -->
+        <div class="status-standby-card">
+          <div class="status-standby-header">
+            <span>สถานะการตรวจทาน (EXTRACTION STATUS)</span>
+            <span style="color:#38bdf8; font-weight:700;">STANDBY</span>
+          </div>
+          <div>ยังไม่พบหลักฐานพยานนิติ หรือมีผู้ใช้ต้องการยืนยันตนเอง</div>
+          <div style="font-family:var(--font-mono); font-size:9.5px; margin-top:2px;">Ref ID: -</div>
+        </div>
+
+        <button class="btn-full-table">📋 ตารางสรุปหลักฐาน (11 คอลัมน์)</button>
+
+        <!-- Document Assembly Tools -->
+        <div class="doc-tools-section">
+          <div class="doc-tools-title">เครื่องมือจัดทำเอกสารประกอบหลักฐาน</div>
+          <button class="btn-doc-tool">หน้าปะหน้าพยานหลักฐาน (Cover Page)</button>
+          <button class="btn-doc-tool">บัญชีคุมลายนิ้วมือดิจิทัล</button>
+          <button class="btn-doc-tool">สรุปข้อมูลและเส้นทางการเงิน</button>
+          <button class="btn-doc-tool">รายการกฎหมายที่เกี่ยวข้อง (เบื้องต้น)</button>
+          <button class="btn-master-pdf">รวมเล่มเอกสารประกอบหลักฐาน (Master PDF)</button>
+        </div>
+
+        <!-- SFX & Password Export -->
+        <div class="sfx-password-card">
+          <div class="sfx-header">
+            <span>🔑 รหัสผ่าน PDF และ SFX</span>
+            <span class="badge-no-pass">NO PASSWORD SET</span>
+          </div>
+          <div class="sfx-note">ถ้าเว้นว่างไว้ไฟล์ PDF และ SFX จะไม่มีรหัสผ่าน</div>
+          <div style="font-size:10px; color:#94a3b8; margin-top:2px;">
+            สร้าง PDF ภาพชุดพยานหลักฐานไฟล์เดี่ยว - <strong style="color:#ffffff;">chatv3 (40).jpg</strong>
+          </div>
+          <button class="btn-single-pdf">📄 PDF</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ========================================================================
+       RE-ARCHITECTED STATE CONTROLLER (Clean Vanilla State / Zero Legacy)
+       ======================================================================== -->
+  <script>
+    // Pure Declarative State Ready for Engine Injection
+    const AppState = {
+      mode: 'chat',
+      step: 2,
+      pdpa: false,
+      activeCanvasTab: 'executive'
+    };
+
+    function setMode(mode) {
+      AppState.mode = mode;
+      document.getElementById('btnModeChat').classList.toggle('active', mode === 'chat');
+      document.getElementById('btnModeSlip').classList.toggle('active', mode === 'slip');
+    }
+
+    function setStep(stepNum) {
+      AppState.step = stepNum;
+      const stepItems = document.querySelectorAll('.step-item');
+      stepItems.forEach((el, index) => {
+        el.classList.remove('active', 'completed');
+        if (index + 1 < stepNum) el.classList.add('completed');
+        if (index + 1 === stepNum) el.classList.add('active');
+      });
+    }
+
+    function togglePdpa() {
+      AppState.pdpa = !AppState.pdpa;
+      document.getElementById('pdpaSwitch').classList.toggle('active', AppState.pdpa);
+    }
+
+    function switchCanvasTab(tabKey) {
+      AppState.activeCanvasTab = tabKey;
+      const tabs = document.querySelectorAll('.canvas-tab');
+      tabs.forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    // Live Clock
+    function updateClock() {
+      const now = new Date();
+      const timeStr = now.toTimeString().split(' ')[0];
+      const thaiMonths = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
+      const dateStr = `${now.getDate()} ${thaiMonths[now.getMonth()]} ${now.getFullYear() + 543}`;
+      
+      const clockEl = document.getElementById('liveClock');
+      const dateEl = document.getElementById('liveDate');
+      if (clockEl) clockEl.textContent = timeStr;
+      if (dateEl) dateEl.textContent = dateStr;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>

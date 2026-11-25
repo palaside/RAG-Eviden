@@ -1,0 +1,19 @@
+{
+  "name": "chawakom-evidence-suite",
+  "version": "2.0.0",
+  "description": "Production Court Dossier & Digital Evidence Forensic Engine Revision 02",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "python -m unittest test_master_e2e_detect_to_task9.py"
+  },
+  "keywords": [
+    "digital-evidence",
+    "forensics",
+    "court-dossier",
+    "sfx-vault"
+  ],
+  "author": "Antigravity Forensic Team",
+  "license": "UNLICENSED",
+  "private": true
+}

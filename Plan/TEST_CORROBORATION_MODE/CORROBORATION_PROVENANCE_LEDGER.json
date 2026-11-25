@@ -1,0 +1,16 @@
+{
+  "evidence_chain": [
+    {
+      "entity": "CHAT_NODE_01",
+      "source": "chatv3 (1).jpg",
+      "status": "RAW_EVIDENCE_INGESTED",
+      "extracted_amount": null,
+      "note": "ยืนยันการตรวจสอบจริง: ไม่ปรากฏข้อความสั่งโอน 1,500 บาทในไฟล์นี้"
+    },
+    {
+      "entity": "CORROB_LINK_001",
+      "status": "UNMATCHED",
+      "reason": "chatv3 (1).jpg ไม่พบคำสั่งโอนเงิน (transfer_amount=null, NOT_FOUND) และเวลา 20:26 น. ไม่ตรงกับสลิป 14:15 น."
+    }
+  ]
+}

@@ -27069,6 +27069,16 @@
       initSmartNav();
     });
 
+    function autoScrollBox(img) {
+      if (!img) return;
+      const box = img.closest('.img-preview-box');
+      if (!box) return;
+      const focalY = parseInt(box.getAttribute('data-focal-y') || '0', 10);
+      if (focalY > 0 && box.scrollTop === 0) {
+        box.scrollTop = focalY;
+      }
+    }
+
     function setRenderMode(mode) {
       currentMode = mode;
       document.getElementById('btnModePage').classList.toggle('active', mode === 'PAGE');

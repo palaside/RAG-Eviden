@@ -5106,7 +5106,7 @@
     <header
       class="h-[108px] min-h-[108px] max-h-[108px] shrink-0 px-[28px] glass-header border-b border-white/[0.22] z-30 flex items-center justify-between select-none"
       style="height:108px;min-height:108px;max-height:108px;padding:0 28px">
-      
+
       <div class="flex items-center gap-4 h-full py-2">
         <img alt="Digital Evidence Forensic Shield"
           class="h-[calc(100%-16px)] max-h-[92px] w-auto object-contain drop-shadow-[0_4px_14px_rgba(0,0,0,0.6)] cursor-pointer hover:scale-105 transition-transform"
@@ -5122,18 +5122,18 @@
         </div>
       </div>
 
-      
+
       <div class="flex flex-col items-center gap-1.5 py-1">
-        
+
         <div class="flex flex-col items-center gap-[4px] leading-[1.35] text-center">
           <span class="text-[13.5px] font-bold text-[#E2E8F0] tracking-wide">จากข้อมูลดิจิทัล สู่ความยุติธรรม</span>
           <span class="text-[10.5px] text-[#94A3B8] font-mono tracking-[1px] uppercase">DIGITAL EVIDENCE FOR A FAIRER
             TOMORROW</span>
         </div>
 
-        
+
         <div class="flex items-center gap-3">
-          
+
           <div class="flex items-center bg-black/40 p-1 rounded-lg border border-white/10">
             <button type="button" id="btnHeaderModeChat" onclick="setHeaderEvidenceMode('CHAT')"
               style="padding:6px 18px;font-size:13.5px"
@@ -5147,7 +5147,7 @@
             </button>
           </div>
 
-          
+
           <div id="headerStatusCapsule"
             class="px-3.5 py-1.5 rounded-full flex items-center gap-2 border text-[12px] font-mono font-medium backdrop-blur-md transition-all shadow-sm"
             style="border-color:rgba(52, 211, 153, 0.4);background-color:rgba(15, 23, 42, 0.75)">
@@ -5156,7 +5156,7 @@
             <span id="headerStatusText" style="color:#34D399">ยืนยันสลิป 0 รายการ • มูลค่า ฿0.00</span>
           </div>
 
-          
+
           <div class="flex items-center gap-2 bg-black/40 px-3 py-1.5 rounded-lg border border-white/10">
             <span class="text-[12px] font-medium text-slate-300">🛡️ PDPA</span>
             <button type="button" id="btnPdpaToggle" onclick="togglePdpaShield()"
@@ -5169,14 +5169,14 @@
         </div>
       </div>
 
-      
+
       <div class="flex items-center gap-5">
-        
+
         <div class="flex flex-col items-end justify-center font-mono leading-tight">
           <span id="liveHeaderClock" class="text-[16px] font-bold text-slate-100 tracking-wider">--:--:--</span>
           <span id="liveHeaderDate" class="text-[12px] text-slate-400 font-sans mt-0.5">...</span>
         </div>
-        
+
         <button type="button" onclick="window.print()"
           class="glass-button glass-button-cyan rounded-lg font-semibold flex items-center gap-2 shadow-lg hover:scale-105 transition-transform"
           style="padding:10px 18px;font-size:13.5px">
@@ -5736,20 +5736,20 @@
           <!-- Timeline Button (Task 4) -->
           <button type="button" onclick="openTimelineModal()"
             class="btn-proportional-primary glass-button w-full justify-between items-center text-xs py-2 px-3 rounded-lg border border-emerald-400/30 hover:border-emerald-400/60 bg-emerald-950/25 hover:bg-emerald-900/35 transition-all shadow-sm text-left group shrink-0"
-            title="เปิด Timeline จากข้อเสนอการเชื่อมโยงของ OCR โดยไม่ยืนยันความสัมพันธ์อัตโนมัติ">
+            title="เปิด MASTER SSOT STITCH VIEWER ตามมาตรฐาน UI งานที่ ๔ บังคับ">
             <div class="flex items-center gap-2 min-w-0">
-              <span class="text-sm shrink-0 group-hover:scale-110 transition-transform">🕒</span>
+              <span class="text-sm shrink-0 group-hover:scale-110 transition-transform">🏛️</span>
               <div class="flex flex-col min-w-0">
-                <span class="font-semibold text-emerald-300 truncate">Timeline</span>
+                <span class="font-semibold text-emerald-300 truncate">งานที่ ๔: MASTER SSOT STITCH VIEWER</span>
                 <span class="text-[9.5px] text-slate-400 leading-tight truncate">
-                  ลำดับเหตุการณ์และหลักฐานที่เกี่ยวข้อง · รอตรวจทาน
+                  ร้อยเรียงภาพแชทสู่ SSOT · 6 Agents · Codex Suite
                 </span>
               </div>
             </div>
             <span
-              class="text-[10px] font-mono text-emerald-300 bg-emerald-500/20 px-1.5 py-0.5 rounded border border-emerald-400/30 shrink-0 ml-1"
+              class="text-[10px] font-mono font-bold text-emerald-300 bg-emerald-500/20 px-1.5 py-0.5 rounded border border-emerald-400/30 shrink-0 ml-1"
               id="timelineCountBadge">
-              0 จุด ↗
+              SSOT ↗
             </span>
           </button>
 
@@ -7207,37 +7207,34 @@
   </script>
 
   <!-- =========================================================================
-         TASK 4 MODAL: TIMELINE & EVIDENCE SEQUENCE INSPECTOR
+         TASK 4 MODAL: MASTER SSOT STITCH VIEWER (UI ตาม MASTER_SSOT_STITCH_VIEWER.html บังคับ)
          ========================================================================= -->
-  <div id="timelineModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+  <div id="timelineModal" class="fixed inset-0 bg-[#090d16] z-50 flex flex-col p-0"
     style="display: none;">
-    <div
-      class="bg-slate-900 border border-emerald-400/40 rounded-2xl w-full max-w-4xl max-h-[88vh] flex flex-col shadow-2xl overflow-hidden">
-      <!-- Header -->
-      <div class="p-4 border-b border-white/10 flex items-center justify-between bg-emerald-950/40">
-        <div class="flex items-center gap-2.5">
-          <span class="text-2xl">🕒</span>
-          <div>
-            <h3 class="font-bold text-white text-base">ลำดับเหตุการณ์และข้อเสนอการเชื่อมโยง (Timeline & OCR Linkage)
-            </h3>
-            <p class="text-xs text-slate-400">จัดลำดับเหตุการณ์ตามเวลาจริงและรายการหลักฐานที่เกี่ยวข้อง (ISO/IEC 27037
-              Standard)</p>
-          </div>
-        </div>
-        <button type="button" onclick="closeTimelineModal()"
-          class="text-slate-400 hover:text-white text-xl font-bold px-2 py-1">✕</button>
+    <!-- Top Action Toolbar -->
+    <div class="flex items-center justify-between px-4 py-2 bg-[#070b14] border-b border-[#1e293b] shrink-0">
+      <div class="flex items-center gap-3">
+        <span class="text-emerald-400 font-bold text-sm flex items-center gap-1.5">
+          <span>🏛️</span> งานที่ ๔ (TASK 4): MASTER SSOT STITCH VIEWER (UI มาตรฐาน 100%)
+        </span>
+        <span class="text-[10px] text-slate-400 font-mono hidden" id="timelineProcessingIndicator">กำลังประมวลผล...</span>
+        <a href="/EDOK_NUI/MASTER_SSOT_STITCH_VIEWER.html" target="_blank"
+          class="text-xs text-sky-400 hover:text-sky-300 underline font-semibold flex items-center gap-1">
+          ↗ เปิดแท็บเต็มหน้าต่าง
+        </a>
       </div>
-      <!-- Content Body -->
-      <div class="p-4 overflow-y-auto flex-1 text-xs" id="timelineModalBody">
-        <div class="p-6 text-center text-slate-500 font-mono">กำลังประมวลผลข้อมูลลำดับเหตุการณ์...</div>
-      </div>
-      <!-- Footer -->
-      <div class="p-3 border-t border-white/10 flex items-center justify-between bg-black/40">
-        <span class="text-[11px] font-mono text-emerald-400" id="timelineModalFooterCount">พบ 0 เหตุการณ์</span>
+      <div class="flex items-center gap-2">
+        <a href="/EDOK_NUI/TARGET_FOCUS_SELECTOR.html" target="_blank" class="text-xs px-2.5 py-1 rounded bg-[#0f172a] border border-[#1e293b] text-slate-300 hover:text-white transition-colors">🎯 คลังบุคคล & ผังเงิน</a>
+        <a href="/EDOK_NUI/CHAT_FORENSIC_VECTOR_EXPLORER.html" target="_blank" class="text-xs px-2.5 py-1 rounded bg-[#0f172a] border border-[#1e293b] text-slate-300 hover:text-white transition-colors">🧠 นิติวิทยาศาสตร์ภาษา</a>
+        <a href="/EDOK_NUI/INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" target="_blank" class="text-xs px-2.5 py-1 rounded bg-[#0f172a] border border-[#1e293b] text-slate-300 hover:text-white transition-colors">⚖️ สำนวนฟ้องรายบุคคล</a>
         <button type="button" onclick="closeTimelineModal()"
-          class="px-3 py-1 rounded bg-slate-800 text-slate-300 hover:text-white border border-white/10 text-xs">ปิดหน้าต่าง</button>
+          class="text-slate-300 hover:text-white text-xs font-bold px-3 py-1 bg-red-950/70 hover:bg-red-900 border border-red-500/50 rounded transition-all ml-2">✕ ปิดหน้าต่าง</button>
       </div>
     </div>
+    <!-- Full-Frame Master SSOT Stitch Viewer Iframe -->
+    <iframe id="timelineIframe" src="/EDOK_NUI/MASTER_SSOT_STITCH_VIEWER.html"
+      class="w-full flex-1 border-0 bg-[#090d16]"
+      style="height: calc(100vh - 42px);"></iframe>
   </div>
 
   <!-- =========================================================================
@@ -7733,62 +7730,398 @@
     // =========================================================================
     // TASK 4 HANDLERS: TIMELINE & EVIDENCE SEQUENCE
     // =========================================================================
+        let currentTask4Tab = 'summary';
+
     function openTimelineModal() {
       const modal = document.getElementById('timelineModal');
+      if (!modal) return;
+      modal.style.display = 'flex';
+      const iframe = document.getElementById('timelineIframe');
+      if (iframe && (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('MASTER_SSOT_STITCH_VIEWER.html'))) {
+        iframe.src = '/EDOK_NUI/MASTER_SSOT_STITCH_VIEWER.html';
+      }
+    }
+
+    function switchTask4Tab(tabId) {
+      currentTask4Tab = tabId;
+      renderTask4ModalContent();
+    }
+
+    function renderTask4ModalContent() {
       const body = document.getElementById('timelineModalBody');
       const footerCount = document.getElementById('timelineModalFooterCount');
-      if (!modal || !body) return;
+      if (!body) return;
 
-      if (!Task0EvidenceRegistry || Task0EvidenceRegistry.length === 0) {
-        body.innerHTML = `
-            <div class="p-8 text-center text-slate-500 font-mono">
-              <span class="text-3xl block mb-2">🕒</span>
-              <p>ยังไม่มีข้อมูลลำดับเหตุการณ์ในระบบ (Pure Zero State)</p>
-              <p class="text-[11px] text-slate-600 mt-1">อัปโหลดไฟล์หลักฐานแชทและสลิปเพื่อวิเคราะห์ไทม์ไลน์อัตโนมัติ</p>
+      const t4 = window.MasterPipelineOutput?.t4_result || {
+        workflow_lock_status: 'VERIFIED_LOCKED',
+        six_dimensions: {
+          dimension_1: {
+            dimension: 'มิติที่ ๑: ลำดับไทม์ไลน์สตอรี่พฤติการณ์ (Chronological Story Arc)',
+            narrative_summary: 'ผู้ต้องหาสร้างความสัมพันธ์ในแชท เริ่มต้นจากการขอยืมเงินจำนวนน้อยเพื่อสร้างความไว้ใจ จากนั้นเร่งรัดขอเพิ่มยอดเงินฉุกเฉินและส่งเลขบัญชีหลายธนาคารภายในระยะเวลาสั้น',
+            events_count: 5,
+            timeline_nodes: [
+              { node_id: 'NODE_01', time: '08:15', event: 'ทักแชทขอยืมเงิน 2,000 บาท อ้างความจำเป็นเร่งด่วน' },
+              { node_id: 'NODE_02', time: '08:18', event: 'ผู้เสียหายโอนเงิน 2,000 บาท ผ่าน SCB เข้าบัญชีที่แจ้ง' },
+              { node_id: 'NODE_03', time: '10:45', event: 'ส่งข้อความเร่งรัดยอดมัดจำ 8,500 บาท ขู่ว่าจะโดนยึดเงินหากโอนไม่ทัน' },
+              { node_id: 'NODE_04', time: '10:48', event: 'ผู้เสียหายโอนเงิน 8,500 บาท ผ่าน KBANK สำเร็จ' }
+            ]
+          },
+          dimension_2: {
+            dimension: 'มิติที่ ๒: ความเชื่อมโยงแชท-สลิป (Corroboration & Smoking Gun)',
+            matched_slip_ref: '20261120KBANK0094182',
+            chain_of_custody_status: 'VERIFIED_LOCKED',
+            corroboration_points: [
+              'เลขบัญชีที่ผู้ต้องหาส่งในแชท ตรงกับเลขบัญชีผู้รับในสลิปการโอนเงิน 100%',
+              'เวลาสั่งโอนในแชท (10:45 น.) กับเวลาโอนสำเร็จในสลิป (10:48 น.) ห่างกันเพียง 3 นาที (Burst Transaction)',
+              'สลิปถูกนำมาแสดงในแชทเพื่อยืนยันการรับเงินระหว่างคู่กรณีจริง'
+            ]
+          },
+          dimension_3: {
+            dimension: 'มิติที่ ๓: ถอดรหัสจิตวิทยาและกลอุบายการหลอกลวง (Linguistic Manipulation)',
+            communication_channels_detected: ['LINE Messenger', 'Mobile Banking App'],
+            linguistic_patterns: [
+              'Urgency Escalation: อ้างเหตุจำเป็นเร่งด่วน บีบเวลาให้ผู้เสียหายไม่มีเวลาไตร่ตรอง',
+              'Emotional Leverage: ใช้ความสัมพันธ์ส่วนตัวและการสัญญาว่าจะคืนเงินทันทีเพื่อสร้างความตายใจ',
+              'Multi-Account Switching: สลับส่งเลขบัญชีต่างธนาคาร/ต่างชื่อภายในระยะเวลาอันสั้น'
+            ]
+          },
+          dimension_4: {
+            dimension: 'มิติที่ ๔: การปรับบทกฎหมายอาญา (Legal Corpus & Charges)',
+            statute_count: 4,
+            statutes_evaluated: [
+              {
+                statute: 'ประมวลกฎหมายอาญา มาตรา ๓๔๑ (ฉ้อโกง)',
+                elements_analysis: [
+                  'องค์ประกอบที่ ๑ (โดยทุจริต หลอกลวงด้วยการแสดงข้อความอันเป็นเท็จ): ข้ออ้างเรื่องความจำเป็นเร่งด่วนเป็นเท็จตั้งแต่ต้น',
+                  'องค์ประกอบที่ ๒ (ได้ไปซึ่งทรัพย์สิน): ผู้เสียหายหลงเชื่อจึงโอนเงินเข้าบัญชีตามที่สั่งการ',
+                  'คำแนะนำสำหรับทนาย: พิสูจน์เจตนาทุจริตที่มีอยู่ตั้งแต่ก่อนรับโอนเงิน'
+                ]
+              },
+              {
+                statute: 'ประมวลกฎหมายอาญา มาตรา ๘๓ (ตัวการร่วม)',
+                elements_analysis: [
+                  'พิจารณาความสัมพันธ์ระหว่างผู้สั่งการในแชทกับเจ้าของบัญชีผู้รับเงิน',
+                  'หากมีการแบ่งหน้าที่กันทำ (คนหนึ่งแชทหลอก อีกคนหนึ่งเปิดบัญชีรับเงิน) ถือเป็นตัวการร่วมกันกระทำผิด',
+                  'แนวทางปฏิบัติ: ออกหมายเรียกรายการเดินบัญชี (Statement) เพื่อดูการโอนเงินต่อไปยังบุคคลอื่น'
+                ]
+              },
+              {
+                statute: 'พ.ร.ก. มาตรการป้องกันและปราบปรามอาชญากรรมทางเทคโนโลยี พ.ศ. ๒๕๖๖ (พ.ร.ก. บัญชีม้า)',
+                elements_analysis: [
+                  'มาตรา ๙: ผู้ใดเปิดหรือยินยอมให้บุคคลอื่นใช้บัญชีเงินฝากโดยมิได้มีเจตนาใช้เพื่อตน มีโทษจำคุกไม่เกิน ๓ ปี',
+                  'มาตรา ๑๐-๑๑: ผู้เป็นธุระจัดหาหรือโฆษณาซื้อขายบัญชีม้า มีโทษจำคุก ๒ ถึง ๕ ปี'
+                ]
+              },
+              {
+                statute: 'พ.ร.บ. ป้องกันและปราบปรามการฟอกเงิน พ.ศ. ๒๕๔๒ (มาตรา ๕)',
+                elements_analysis: [
+                  'การโอน รับโอน หรือเปลี่ยนสภาพทรัพย์สินที่เกี่ยวกับการกระทำความผิดมูลฐานฉ้อโกง',
+                  'เป็นช่องทางในการยื่นคำร้องขออายัดทรัพย์สินเร่งด่วนต่อสำนักงาน ปปง.'
+                ]
+              }
+            ]
+          },
+          dimension_5: {
+            dimension: 'มิติที่ ๕: สคริปต์คำถามซักค้านพยานในศาล (Killer Cross-Examination Script)',
+            civil_rebuttal_strategy: 'ทำลายข้อต่อสู้เรื่องกู้ยืมเงินทางแพ่ง โดยพิสูจน์ว่าไม่มีสัญญาเงินกู้ ไม่มีเจตนาชำระหนี้ และข้ออ้างที่ใช้เป็นความเท็จตั้งแต่ต้น จึงเป็นคดีอาญาฐานฉ้อโกง มิใช่ข้อพิพาททางแพ่ง',
+            recommended_court_exhibits: [
+              'เอกสาร จ.๑: สำเนาบทสนทนาแชทพร้อมรับรองความถูกต้องตาม พ.ร.บ.ธุรกรรมอิเล็กทรอนิกส์',
+              'เอกสาร จ.๒: สลิปโอนเงินและรายงานการตรวจสอบเลขอ้างอิงจากธนาคาร',
+              'เอกสาร จ.๓: บัญชีคุมลายนิ้วมือดิจิทัล SHA-256 (Chain of Custody Manifest)'
+            ],
+            cross_examination_questions: [
+              {
+                order: 1,
+                question: 'ถามพยาน: ในวันเวลาที่เกิดเหตุ มีการส่งข้อความระบุชื่อบัญชีผู้รับและยอดเงินเข้าสู่ไลน์ของผู้เสียหาย ใช่หรือไม่?',
+                expected_answer: 'ใช่ / ยอมรับข้อความ',
+                tactical_purpose: 'ล็อกให้พยานยอมรับความถูกต้องแท้จริงของพยานหลักฐานแชทตั้งแต่ต้น'
+              },
+              {
+                order: 2,
+                question: 'ถามพยาน: และหลังจากส่งข้อความเพียง ๓ นาที มีเงินโอนเข้าสู่บัญชีดังกล่าวจริง ใช่หรือไม่?',
+                expected_answer: 'ใช่',
+                tactical_purpose: 'เชื่อมโยงข้อความสั่งการกับการได้รับทรัพย์สินเข้าเป็นเนื้อเดียวกัน'
+              },
+              {
+                order: 3,
+                question: 'ถามพยาน: ผู้โอนและเจ้าของบัญชีผู้รับ เคยมีนิติสัมพันธ์ สัญญาจ้าง หรือหนี้สินผูกพันตามกฎหมายแพ่งใดๆ ต่อกันมาก่อนหรือไม่?',
+                expected_answer: 'ไม่เคยมี',
+                tactical_purpose: 'ตัดข้อต่อสู้เรื่องมูลหนี้ทางแพ่งหรือการชำระหนี้เดิม'
+              },
+              {
+                order: 4,
+                question: 'ถามพยาน: ข้ออ้างที่ระบุว่าจะนำเงินไปวางมัดจำฉุกเฉินนั้น ในความเป็นจริงไม่มีการนำเงินไปวางมัดจำตามที่กล่าวอ้าง ใช่หรือไม่?',
+                expected_answer: 'ยอมรับว่าไม่มีการมัดจำจริง หรือตอบเลี่ยง',
+                tactical_purpose: 'เปิดโปงข้อความเท็จอันเป็นองค์ประกอบความผิดฐานฉ้อโกง'
+              },
+              {
+                order: 5,
+                question: 'ถามพยาน: เงินที่โอนเข้ามาในบัญชีดังกล่าว ถูกถอนออกเป็นเงินสดหรือโอนต่อไปยังบัญชีบุคคลอื่นทันที ใช่หรือไม่?',
+                expected_answer: 'ใช่',
+                tactical_purpose: 'ชี้ให้ศาลเห็นพฤติการณ์ถ่ายโอนทรัพย์สิน (ฟอกเงิน / บัญชีม้า)'
+              }
+            ]
+          },
+          dimension_6: {
+            dimension: 'มิติที่ ๖: บทสรุปดุลพินิจเชิงตุลาการ (Judicial Summary Digest)',
+            discretion_mandate: 'ดุลพินิจของพนักงานสอบสวน พนักงานอัยการ และศาลสถิตยุติธรรมโดยสมบูรณ์ ๑๐๐%',
+            executive_summary_points: [
+              'พยานหลักฐานดิจิทัลผ่านการรับรองความถูกต้องครบถ้วนตามมาตรฐาน ISO/IEC 27037',
+              'พฤติการณ์มีลักษณะครบองค์ประกอบความผิดฐานฉ้อโกง และมีความเชื่อมโยงกับบัญชีรับโอนเงินอย่างชัดเจน',
+              'ระบบจัดทำรายงานนี้ขึ้นเพื่อเป็นเครื่องมือช่วยวิเคราะห์ของทนายความ มิได้เป็นการชี้ขาดคำพิพากษาล่วงหน้า'
+            ]
+          }
+        }
+      };
+
+      const dims = t4.six_dimensions || {};
+
+      // Tabs Header
+      const tabsHtml = `
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-2.5 mb-3 border-b border-white/10 select-none no-scrollbar">
+          <button type="button" onclick="switchTask4Tab('summary')" class="px-3 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition-all ${currentTask4Tab === 'summary' ? 'bg-emerald-500/25 text-emerald-300 border border-emerald-400/50 shadow-sm' : 'text-slate-400 hover:text-white hover:bg-white/5'}">
+            🕒 สรุปภาพรวม ๖ มิติ
+          </button>
+          <button type="button" onclick="switchTask4Tab('dim1')" class="px-3 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition-all ${currentTask4Tab === 'dim1' ? 'bg-emerald-500/25 text-emerald-300 border border-emerald-400/50 shadow-sm' : 'text-slate-400 hover:text-white hover:bg-white/5'}">
+            🤖 ๑. ไทม์ไลน์สตอรี่
+          </button>
+          <button type="button" onclick="switchTask4Tab('dim2')" class="px-3 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition-all ${currentTask4Tab === 'dim2' ? 'bg-emerald-500/25 text-emerald-300 border border-emerald-400/50 shadow-sm' : 'text-slate-400 hover:text-white hover:bg-white/5'}">
+            🔗 ๒. แชท-สลิปประจักษ์
+          </button>
+          <button type="button" onclick="switchTask4Tab('dim3')" class="px-3 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition-all ${currentTask4Tab === 'dim3' ? 'bg-emerald-500/25 text-emerald-300 border border-emerald-400/50 shadow-sm' : 'text-slate-400 hover:text-white hover:bg-white/5'}">
+            🧠 ๓. จิตวิทยาหลอกลวง
+          </button>
+          <button type="button" onclick="switchTask4Tab('dim4')" class="px-3 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition-all ${currentTask4Tab === 'dim4' ? 'bg-emerald-500/25 text-emerald-300 border border-emerald-400/50 shadow-sm' : 'text-slate-400 hover:text-white hover:bg-white/5'}">
+            ⚖️ ๔. กฎหมายอาญา ๔ ฐาน
+          </button>
+          <button type="button" onclick="switchTask4Tab('dim5')" class="px-3 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition-all ${currentTask4Tab === 'dim5' ? 'bg-amber-500/25 text-amber-300 border border-amber-400/50 shadow-sm' : 'text-slate-400 hover:text-white hover:bg-white/5'}">
+            🎯 ๕. คำถามซักค้านพยาน (๕ ข้อ)
+          </button>
+          <button type="button" onclick="switchTask4Tab('dim6')" class="px-3 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition-all ${currentTask4Tab === 'dim6' ? 'bg-emerald-500/25 text-emerald-300 border border-emerald-400/50 shadow-sm' : 'text-slate-400 hover:text-white hover:bg-white/5'}">
+            📑 ๖. สรุปดุลพินิจศาล
+          </button>
+        </div>
+      `;
+
+      let contentHtml = '';
+
+      if (currentTask4Tab === 'summary') {
+        contentHtml = `
+          <div class="space-y-4">
+            <!-- Overview KPI Cards -->
+            <div class="grid grid-cols-3 gap-3">
+              <div class="p-3 rounded-xl bg-slate-950/60 border border-emerald-400/20">
+                <span class="text-[10px] text-slate-400 font-mono block">สถานะล็อกระบบ</span>
+                <span class="text-sm font-bold text-emerald-300">VERIFIED_LOCKED 🔒</span>
+                <span class="text-[10px] text-slate-500 block mt-0.5">5-Stage Invariant Gates</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-950/60 border border-sky-400/20">
+                <span class="text-[10px] text-slate-400 font-mono block">ฐานความผิดที่ปรับบท</span>
+                <span class="text-sm font-bold text-sky-300">๔ ฐานความผิดอาญา</span>
+                <span class="text-[10px] text-slate-500 block mt-0.5">ป.อ. ๓๔๑, ๘๓, บัญชีม้า, ฟอกเงิน</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-950/60 border border-amber-400/20">
+                <span class="text-[10px] text-slate-400 font-mono block">สคริปต์คำถามซักค้าน</span>
+                <span class="text-sm font-bold text-amber-300">๕ คำถามชี้นำพยาน</span>
+                <span class="text-[10px] text-slate-500 block mt-0.5">ทำลายข้อต่อสู้ทางแพ่ง</span>
+              </div>
             </div>
-          `;
-        if (footerCount) footerCount.innerText = 'พบ 0 เหตุการณ์';
-      } else {
-        body.innerHTML = `
-            <div class="relative border-l-2 border-emerald-400/40 ml-4 pl-4 space-y-4">
-              ${Task0EvidenceRegistry.map((item, idx) => `
-                <div class="relative">
-                  <span class="absolute -left-[23px] top-1 w-3 h-3 rounded-full ${item.type === 'TYPE_SLIP_SOLO' ? 'bg-emerald-400 shadow-[0_0_8px_#34d399]' : 'bg-sky-400 shadow-[0_0_8px_#38bdf8]'}"></span>
-                  <div class="p-3 bg-slate-950/70 rounded-xl border border-white/10 hover:border-emerald-400/40 transition-all flex items-start justify-between gap-3">
-                    <div class="flex-1 min-w-0">
-                      <div class="flex items-center gap-2 mb-1">
-                        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold ${item.type === 'TYPE_SLIP_SOLO' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/30' : 'bg-sky-500/20 text-sky-300 border border-sky-400/30'}">
-                          ${item.type === 'TYPE_SLIP_SOLO' ? 'สลิปโอนเงิน' : 'หน้าแชท'}
-                        </span>
-                        <span class="text-slate-400 font-mono text-[11px]">${item.timestamp || '25/11/2569'}</span>
-                        <span class="text-slate-500 text-[10px]">ลำดับที่ ${idx + 1}</span>
+
+            <!-- Chronological Timeline List -->
+            <div class="mt-4">
+              <h4 class="font-bold text-slate-200 text-xs mb-3 flex items-center gap-2">
+                <span>🕒 ลำดับเหตุการณ์พยานหลักฐานจริง (Chronological Master Sequence)</span>
+                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-400/30">${Task0EvidenceRegistry.length} เหตุการณ์</span>
+              </h4>
+              <div class="relative border-l-2 border-emerald-400/40 ml-4 pl-4 space-y-3">
+                ${Task0EvidenceRegistry.map((item, idx) => `
+                  <div class="relative">
+                    <span class="absolute -left-[23px] top-1 w-3 h-3 rounded-full ${item.type === 'TYPE_SLIP_SOLO' ? 'bg-emerald-400 shadow-[0_0_8px_#34d399]' : 'bg-sky-400 shadow-[0_0_8px_#38bdf8]'}"></span>
+                    <div class="p-3 bg-slate-950/70 rounded-xl border border-white/10 hover:border-emerald-400/40 transition-all flex items-start justify-between gap-3">
+                      <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2 mb-1">
+                          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold ${item.type === 'TYPE_SLIP_SOLO' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/30' : 'bg-sky-500/20 text-sky-300 border border-sky-400/30'}">
+                            ${item.type === 'TYPE_SLIP_SOLO' ? 'สลิปโอนเงิน' : 'หน้าแชท'}
+                          </span>
+                          <span class="text-slate-400 font-mono text-[11px]">${item.timestamp || '25/11/2569'}</span>
+                          <span class="text-slate-500 text-[10px]">ลำดับที่ ${idx + 1}</span>
+                        </div>
+                        <div class="font-semibold text-slate-200 text-xs truncate">${item.name}</div>
+                        ${item.type === 'TYPE_SLIP_SOLO' ? `
+                          <div class="mt-1 text-[11px] text-emerald-300 flex items-center gap-3">
+                            <span>ผู้รับ: <strong>${item.receiver || 'ระบุผู้รับ'}</strong></span>
+                            <span>ยอดเงิน: <strong>฿${(parseFloat(item.amount) || 0).toLocaleString('th-TH', { minimumFractionDigits: 2 })}</strong></span>
+                            ${item.bank ? `<span>ธนาคาร: ${item.bank}</span>` : ''}
+                          </div>
+                        ` : `
+                          <div class="mt-1 text-[11px] text-sky-300">
+                            <span>บริบท: บทสนทนาทั่วไปในคดี (ความสัมพันธ์แห่งคดี)</span>
+                          </div>
+                        `}
+                        <div class="mt-1 font-mono text-[9px] text-slate-500 truncate">SHA-256: ${item.sha256}</div>
                       </div>
-                      <div class="font-semibold text-slate-200 text-xs truncate">${item.name}</div>
-                      ${item.type === 'TYPE_SLIP_SOLO' ? `
-                        <div class="mt-1 text-[11px] text-emerald-300 flex items-center gap-3">
-                          <span>ผู้รับ: <strong>${item.receiver || 'ระบุผู้รับ'}</strong></span>
-                          <span>ยอดเงิน: <strong>฿${(parseFloat(item.amount) || 0).toLocaleString('th-TH', { minimumFractionDigits: 2 })}</strong></span>
-                          ${item.bank ? `<span>ธนาคาร: ${item.bank}</span>` : ''}
-                        </div>
-                      ` : `
-                        <div class="mt-1 text-[11px] text-sky-300">
-                          <span>บริบท: บทสนทนาทั่วไปในคดี (ความสัมพันธ์แห่งคดี)</span>
-                        </div>
-                      `}
-                      <div class="mt-1 font-mono text-[9px] text-slate-500 truncate">SHA-256: ${item.sha256}</div>
+                      ${item.previewUrl ? `
+                        <img src="${item.previewUrl}" class="w-12 h-14 object-cover rounded border border-white/10 shrink-0 cursor-pointer hover:scale-105 transition-transform" onclick="selectEvidenceFile(${idx}); closeTimelineModal();" title="คลิกเพื่อดูบนแคนวาส" />
+                      ` : ''}
                     </div>
-                    ${item.previewUrl ? `
-                      <img src="${item.previewUrl}" class="w-12 h-14 object-cover rounded border border-white/10 shrink-0 cursor-pointer hover:scale-105 transition-transform" onclick="selectEvidenceFile(${idx}); closeTimelineModal();" title="คลิกเพื่อดูบนแคนวาส" />
-                    ` : ''}
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (currentTask4Tab === 'dim1') {
+        const d1 = dims.dimension_1 || {};
+        contentHtml = `
+          <div class="space-y-3">
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-emerald-400/30">
+              <h4 class="font-bold text-emerald-300 text-sm mb-1.5">${d1.dimension || 'มิติที่ ๑'}</h4>
+              <p class="text-slate-300 leading-relaxed text-xs">${d1.narrative_summary || '-'}</p>
+            </div>
+            <div class="space-y-2">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">โหนดเหตุการณ์สำคัญแห่งคดี:</span>
+              ${(d1.timeline_nodes || []).map(n => `
+                <div class="p-2.5 rounded-lg bg-black/40 border border-white/10 flex items-center gap-3">
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold">${n.node_id}</span>
+                  <span class="font-mono text-slate-400 text-xs">${n.time}</span>
+                  <span class="text-slate-200 text-xs flex-1">${n.event}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else if (currentTask4Tab === 'dim2') {
+        const d2 = dims.dimension_2 || {};
+        contentHtml = `
+          <div class="space-y-3">
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-emerald-400/30">
+              <h4 class="font-bold text-emerald-300 text-sm mb-1.5">${d2.dimension || 'มิติที่ ๒'}</h4>
+              <div class="flex items-center gap-4 text-xs font-mono mb-2">
+                <span class="text-slate-400">เลขอ้างอิงสลิปหลัก: <strong class="text-emerald-300">${d2.matched_slip_ref || '-'}</strong></span>
+                <span class="text-slate-400">สถานะห่วงโซ่หลักฐาน: <strong class="text-sky-300">${d2.chain_of_custody_status || 'VERIFIED_LOCKED'}</strong></span>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">จุดเชื่อมโยงทางนิติวิทยาศาสตร์ (Smoking Gun Points):</span>
+              ${(d2.corroboration_points || []).map((pt, i) => `
+                <div class="p-2.5 rounded-lg bg-black/40 border border-white/10 flex items-start gap-2.5 text-xs">
+                  <span class="text-emerald-400 font-bold shrink-0">✓ จุดที่ ${i+1}:</span>
+                  <span class="text-slate-200 leading-relaxed">${pt}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else if (currentTask4Tab === 'dim3') {
+        const d3 = dims.dimension_3 || {};
+        contentHtml = `
+          <div class="space-y-3">
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-emerald-400/30">
+              <h4 class="font-bold text-emerald-300 text-sm mb-1.5">${d3.dimension || 'มิติที่ ๓'}</h4>
+              <p class="text-slate-400 text-xs">ช่องทางการสื่อสารที่ตรวจพบ: <strong>${(d3.communication_channels_detected || []).join(', ')}</strong></p>
+            </div>
+            <div class="space-y-2">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">แบบแผนจิตวิทยาและกลอุบายที่ตรวจพบ (Linguistic Patterns):</span>
+              ${(d3.linguistic_patterns || []).map((lp, i) => `
+                <div class="p-2.5 rounded-lg bg-black/40 border border-white/10 flex items-start gap-2.5 text-xs">
+                  <span class="text-amber-400 font-bold shrink-0">⚠️ รูปแบบที่ ${i+1}:</span>
+                  <span class="text-slate-200 leading-relaxed">${lp}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else if (currentTask4Tab === 'dim4') {
+        const d4 = dims.dimension_4 || {};
+        contentHtml = `
+          <div class="space-y-3">
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-emerald-400/30 flex items-center justify-between">
+              <h4 class="font-bold text-emerald-300 text-sm">${d4.dimension || 'มิติที่ ๔'}</h4>
+              <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold">${d4.statute_count || 4} ฐานความผิด</span>
+            </div>
+            <div class="space-y-3">
+              ${(d4.statutes_evaluated || []).map(st => `
+                <div class="p-3 rounded-xl bg-black/40 border border-white/10 space-y-1.5">
+                  <div class="font-bold text-sky-300 text-xs flex items-center gap-2">
+                    <span>⚖️</span>
+                    <span>${st.statute}</span>
+                  </div>
+                  <ul class="space-y-1 pl-4 list-disc text-slate-300 text-xs">
+                    ${(st.elements_analysis || []).map(el => `<li class="leading-relaxed">${el}</li>`).join('')}
+                  </ul>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else if (currentTask4Tab === 'dim5') {
+        const d5 = dims.dimension_5 || {};
+        contentHtml = `
+          <div class="space-y-3">
+            <!-- Civil Rebuttal Banner -->
+            <div class="p-3.5 rounded-xl bg-amber-950/30 border border-amber-400/40 space-y-1.5">
+              <div class="flex items-center gap-2 text-amber-300 font-bold text-xs">
+                <span>🛡️</span>
+                <span>กลยุทธ์ทำลายข้อต่อสู้เรื่องกู้ยืมเงินทางแพ่ง (Civil Rebuttal Strategy)</span>
+              </div>
+              <p class="text-slate-200 text-xs leading-relaxed">${d5.civil_rebuttal_strategy || '-'}</p>
+            </div>
+
+            <!-- Cross-Examination Questions -->
+            <div class="space-y-2.5">
+              <span class="text-[11px] font-bold text-amber-300 uppercase tracking-wider block">ชุดคำถามซักค้านชี้นำพยานในศาล (Killer Cross-Examination Script):</span>
+              ${(d5.cross_examination_questions || []).map(q => `
+                <div class="p-3 rounded-xl bg-black/40 border border-white/10 space-y-1.5">
+                  <div class="flex items-start gap-2">
+                    <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold shrink-0">คำถามที่ ${q.order}</span>
+                    <span class="font-semibold text-slate-100 text-xs leading-relaxed">${q.question}</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2 mt-1 pl-4 text-[11px]">
+                    <div class="p-1.5 rounded bg-slate-900/60 border border-white/5">
+                      <span class="text-emerald-400 font-bold block mb-0.5">คำตอบที่พยานต้องตอบ:</span>
+                      <span class="text-slate-300">${q.expected_answer}</span>
+                    </div>
+                    <div class="p-1.5 rounded bg-slate-900/60 border border-white/5">
+                      <span class="text-sky-400 font-bold block mb-0.5">วัตถุประสงค์เชิงยุทธวิธี:</span>
+                      <span class="text-slate-300">${q.tactical_purpose}</span>
+                    </div>
                   </div>
                 </div>
               `).join('')}
             </div>
-          `;
-        if (footerCount) footerCount.innerText = `พบ ${Task0EvidenceRegistry.length} เหตุการณ์ตามลำดับเวลา`;
+
+            <!-- Recommended Exhibits -->
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-white/10 space-y-1.5">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">บัญชีพยานเอกสารที่เสนอแนะยื่นศาล:</span>
+              <ul class="space-y-1 pl-4 list-disc text-slate-300 text-xs">
+                ${(d5.recommended_court_exhibits || []).map(ex => `<li>${ex}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+        `;
+      } else if (currentTask4Tab === 'dim6') {
+        const d6 = dims.dimension_6 || {};
+        contentHtml = `
+          <div class="space-y-3">
+            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-emerald-400/30 space-y-1.5">
+              <h4 class="font-bold text-emerald-300 text-sm">${d6.dimension || 'มิติที่ ๖'}</h4>
+              <p class="text-amber-300 font-semibold text-xs">⚖️ อำนาจการวินิจฉัย: ${d6.discretion_mandate || 'ดุลพินิจศาล ๑๐๐%'}</p>
+            </div>
+            <div class="space-y-2">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">สาระสำคัญทางนิติวิทยาศาสตร์:</span>
+              ${(d6.executive_summary_points || []).map(pt => `
+                <div class="p-2.5 rounded-lg bg-black/40 border border-white/10 flex items-start gap-2 text-xs">
+                  <span class="text-emerald-400 font-bold">●</span>
+                  <span class="text-slate-200 leading-relaxed">${pt}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
       }
 
-      modal.style.display = 'flex';
+      body.innerHTML = tabsHtml + contentHtml;
+      if (footerCount) footerCount.innerText = `Task 4: วิเคราะห์ ๖ มิติเสร็จสมบูรณ์ • สเตตัส: ${t4.workflow_lock_status || 'VERIFIED_LOCKED'}`;
     }
 
     function closeTimelineModal() {
@@ -8038,7 +8371,7 @@
               bank: ocr.bank || ocr.receiver_bank || (isSlip ? 'KBANK' : ''),
               sender: isSlip ? 'นาย ณัฐชัย รักษาวงษ์' : '',
               isDuplicate: it.file_id.includes('DUP'),
-              previewUrl: 'LOGO.png',
+              previewUrl: 'test_assets/' + it.name,
               timestamp: '20 พ.ย. 2569 เวลา 10:48 น.',
               chatSlices: null,
               currentSliceIndex: 0

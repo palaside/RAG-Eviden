@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASK 4: 6-Agent Deep Forensic Suite [WORKFLOW LOCKED]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=JetBrains+Mono:wght@500;700&family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #070b14;
+            --panel-bg: rgba(15, 23, 42, 0.75);
+            --border-glass: rgba(56, 189, 248, 0.2);
+            --accent-cyan: #38bdf8;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-crimson: #ef4444;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: radial-gradient(circle at 50% 0%, #1e293b 0%, #070b14 85%);
+            color: var(--text-main);
+            font-family: 'Sarabun', sans-serif;
+            padding: 30px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1300px; margin: 0 auto; }
+        header {
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.6rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .lock-pill {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid #10b981;
+            color: #34d399;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .disclaimer-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-left: 4px solid #ef4444;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #fca5a5;
+        }
+        .grid-agents {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .agent-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(14px);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .agent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .agent-title {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #38bdf8;
+        }
+        .agent-id {
+            font-family: monospace;
+            font-size: 0.75rem;
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1><span>🧠 TASK 4: 6-AGENT DEEP FORENSIC SUITE</span> <span class="lock-pill">🔒 WORKFLOW LOCKED</span></h1>
+                <p style="color: #64748b; font-size: 0.9rem; margin-top: 4px;">การขยายงานเชิงลึก 6 มิติ (รับงานต่อจากงานที่ 2 เท่านั้น) ภายใต้ 5 Invariant Gates</p>
+            </div>
+            <div style="text-align: right; font-family: monospace; font-size: 0.85rem; color: #94a3b8;">
+                ENGINE: <span style="color: #10b981; font-weight: bold;">LOCKED DETERMINISTIC</span><br>
+                INPUT: <span style="color: #38bdf8; font-weight: bold;">TASK 2 ONLY</span> | DISCRETION: <span style="color: #10b981; font-weight: bold;">ATTORNEY & COURT 100%</span>
+            </div>
+        </header>
+
+        <!-- Legal Disclaimer Banner -->
+        <div class="disclaimer-box">
+            <strong>⚖️ ข้อกำหนดด้านจริยธรรมและดุลพินิจ (Zero Conclusive Ruling - Asserted by Lock Skill):</strong><br>
+            ⚖️ ข้อสงวนสิทธิ์ทางวิชาชีพกฎหมาย (Legal & Forensic Disclaimer): ระบบนี้ทำหน้าที่เป็นเครื่องมือกลั่นกรอง จัดโครงสร้าง และดึงพยานหลักฐานดิจิทัลเชิงประจักษ์ เพื่อสนับสนุนการวิเคราะห์ของทนายความและพนักงานสอบสวนเท่านั้น ระบบไม่มีสิทธิและไม่มีอำนาจในการฟันธงหรือวินิจฉัยชี้ขาดว่าการกระทำนั้นมีความผิดหรือไม่ การปรับบทกฎหมาย การชั่งน้ำหนักพยานหลักฐาน และการวินิจฉัยความรับผิดทางอาญา เป็นดุลพินิจของทนายความ พนักงานอัยการ และศาลสถิตยุติธรรมโดยสมบูรณ์ 100%
+        </div>
+
+        <div class="grid-agents">
+            <!-- AGENT 1 -->
+            <div class="agent-card">
+                <div class="agent-header">
+                    <div class="agent-title">📜 มิติที่ 1: ไทม์ไลน์สตอรี่และลำดับเหตุการณ์</div>
+                    <span class="agent-id">AGENT_01_CHRONO_STORY</span>
+                </div>
+                <p style="font-size: 0.88rem; color: #94a3b8; margin-bottom: 15px;">จากการสกัดภาพแชทต่อเนื่อง พบว่าเริ่มจากการทวงถามความชัดเจนในเวลา 16:22 น. คู่กรณีได้รับปากจะส่งเลขบัญชี จนกระทั่งเวลา 16:34 น. และ 16:51 น. มีการระบุเลขบัญชี และชื่อ 'นางสาว อลงกรณ์ แจ่มเมือง' อย่างชัดเจน นำไปสู่การโอนเงินจำนวน 5,600.00 บาท ในเวลา 16:52 น. และหลังจากโอนเสร็จเพียง 2 นาที คู่กรณีได้ส่งเลขบัญชีของบุคคลอื่น (ปรียชาติ ฉิมพลี) เข้ามาเพิ่มเติม</p>
+                <div>
+            <div style="display: flex; gap: 14px; margin-bottom: 12px; border-left: 2px solid #38bdf8; padding-left: 12px;">
+                <div style="font-family: monospace; color: #38bdf8; font-weight: bold; width: 80px;">16:22 น.</div>
+                <div style="flex: 1;">
+                    <strong style="color: #f1f5f9;">ผู้เสียหาย:</strong> 
+                    <span style="color: #cbd5e1; font-style: italic;">"ตีเส้นเงินกูก่อน"</span>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">📌 นัยสำคัญ: การทวงถามความชัดเจนเรื่องเงินหรือการจัดสรรยอดเงินล่วงหน้า</div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 14px; margin-bottom: 12px; border-left: 2px solid #38bdf8; padding-left: 12px;">
+                <div style="font-family: monospace; color: #38bdf8; font-weight: bold; width: 80px;">16:26 น.</div>
+                <div style="flex: 1;">
+                    <strong style="color: #f1f5f9;">คู่กรณี:</strong> 
+                    <span style="color: #cbd5e1; font-style: italic;">"รอเลขเดี๋ยวส่งให้"</span>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">📌 นัยสำคัญ: การรับปากว่าจะจัดหาเลขบัญชีรับโอนให้ ซึ่งเป็นจุดเริ่มต้นของสายพานการโอนเงิน</div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 14px; margin-bottom: 12px; border-left: 2px solid #38bdf8; padding-left: 12px;">
+                <div style="font-family: monospace; color: #38bdf8; font-weight: bold; width: 80px;">16:33 น.</div>
+                <div style="flex: 1;">
+                    <strong style="color: #f1f5f9;">คู่กรณี:</strong> 
+                    <span style="color: #cbd5e1; font-style: italic;">"[ส่งภาพแคปหน้าจอการสนทนาของบุคคลที่สาม อ้างเลขบัญชี 2050262591]"</span>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">📌 นัยสำคัญ: การอ้างความเชื่อมโยงกับบุคคลภายนอก สร้างความน่าเชื่อถือหรือสร้างเหตุผลในการรับเงิน</div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 14px; margin-bottom: 12px; border-left: 2px solid #38bdf8; padding-left: 12px;">
+                <div style="font-family: monospace; color: #38bdf8; font-weight: bold; width: 80px;">16:34 น.</div>
+                <div style="flex: 1;">
+                    <strong style="color: #f1f5f9;">คู่กรณี:</strong> 
+                    <span style="color: #cbd5e1; font-style: italic;">"2050262591"</span>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">📌 นัยสำคัญ: การพิมพ์เลขบัญชีแบบเจาะจง สั่งการให้โอนเงินเข้าสู่บัญชีเป้าหมาย</div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 14px; margin-bottom: 12px; border-left: 2px solid #38bdf8; padding-left: 12px;">
+                <div style="font-family: monospace; color: #38bdf8; font-weight: bold; width: 80px;">16:51 น.</div>
+                <div style="flex: 1;">
+                    <strong style="color: #f1f5f9;">คู่กรณี:</strong> 
+                    <span style="color: #cbd5e1; font-style: italic;">"อลงกรณ์ แจ่มเมืองนะ"</span>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">📌 นัยสำคัญ: การยืนยันชื่อเจ้าของบัญชีผู้รับโอนโดยตรง ก่อนการทำธุรกรรมสำเร็จ 1 นาที</div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 14px; margin-bottom: 12px; border-left: 2px solid #38bdf8; padding-left: 12px;">
+                <div style="font-family: monospace; color: #38bdf8; font-weight: bold; width: 80px;">16:52 น.</div>
+                <div style="flex: 1;">
+                    <strong style="color: #f1f5f9;">ระบบธนาคาร:</strong> 
+                    <span style="color: #cbd5e1; font-style: italic;">"[หลักฐานสลิปโอนเงินสำเร็จ: 5,600.00 บาท เข้าบัญชี นางสาว อลงกรณ์ แจ่มเมือง]"</span>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">📌 นัยสำคัญ: การส่งมอบทรัพย์สินอันเป็นผลโดยตรงจากการชี้แนะบัญชีและการสนทนาก่อนหน้า</div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 14px; margin-bottom: 12px; border-left: 2px solid #38bdf8; padding-left: 12px;">
+                <div style="font-family: monospace; color: #38bdf8; font-weight: bold; width: 80px;">16:54 น.</div>
+                <div style="flex: 1;">
+                    <strong style="color: #f1f5f9;">คู่กรณี:</strong> 
+                    <span style="color: #cbd5e1; font-style: italic;">"กสิกร28125484551 / ปรียชาติ ฉิมพลี"</span>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">📌 นัยสำคัญ: การส่งเลขบัญชีอื่นต่อเนื่องทันทีหลังได้รับเงิน บ่งชี้พฤติการณ์สับเปลี่ยนบัญชีรับเงิน</div>
+                </div>
+            </div>
+            </div>
+            </div>
+
+            <!-- AGENT 2 -->
+            <div class="agent-card">
+                <div class="agent-header">
+                    <div class="agent-title">🔗 มิติที่ 2: ความเชื่อมโยงระหว่างบทสนทนากับสลิปการเงิน</div>
+                    <span class="agent-id">AGENT_02_CORROBORATION</span>
+                </div>
+                <div style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px;">
+                    รหัสสลิปอ้างอิง: <strong style="color: #38bdf8; font-family: monospace;">Aa7e0058a52854e5c</strong>
+                </div>
+                <div>
+            <div style="background: rgba(15,23,42,0.8); border: 1px solid #1e293b; padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between;">
+                    <strong style="color: #38bdf8;">CORROB_01</strong>
+                    <span style="font-size: 0.75rem; background: #064e3b; color: #34d399; padding: 2px 8px; border-radius: 4px;">100% (Direct Temporal & Nominal Match)</span>
+                </div>
+                <div style="font-size: 0.9rem; color: #e2e8f0; margin-top: 6px;">💬 สัญญาณแชท: ข้อความ 'อลงกรณ์ แจ่มเมืองนะ' (เวลา 16:51 น.)</div>
+                <div style="font-size: 0.9rem; color: #a7f3d0; margin-top: 2px;">🧾 สลิปจริง: ชื่อผู้รับในสลิป: 'นางสาว อลงกรณ์ แจ่มเมือง' (เวลา 16:52 น.)</div>
+                <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 4px;">⚖️ ประโยชน์ในคดี: ใช้พิสูจน์เจตนาและความสัมพันธ์โดยตรงระหว่างคำสั่งในแชทกับการโอนเงินเข้าบัญชีจริง</div>
+            </div>
+            
+            <div style="background: rgba(15,23,42,0.8); border: 1px solid #1e293b; padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between;">
+                    <strong style="color: #38bdf8;">CORROB_02</strong>
+                    <span style="font-size: 0.75rem; background: #064e3b; color: #34d399; padding: 2px 8px; border-radius: 4px;">High Tactical Link</span>
+                </div>
+                <div style="font-size: 0.9rem; color: #e2e8f0; margin-top: 6px;">💬 สัญญาณแชท: การโทรแบบเสียง 1:00 นาที (16:44) และ 0:09 นาที (16:52)</div>
+                <div style="font-size: 0.9rem; color: #a7f3d0; margin-top: 2px;">🧾 สลิปจริง: เวลาทำรายการบนสลิปคือ 16:52 น. ตรงกับการโทรสายที่สอง</div>
+                <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 4px;">⚖️ ประโยชน์ในคดี: ชี้ให้เห็นว่ามีการติดต่อประสานงานสดในขณะกดทำรายการโอนเงิน</div>
+            </div>
+            
+            <div style="background: rgba(15,23,42,0.8); border: 1px solid #1e293b; padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between;">
+                    <strong style="color: #38bdf8;">CORROB_03</strong>
+                    <span style="font-size: 0.75rem; background: #064e3b; color: #34d399; padding: 2px 8px; border-radius: 4px;">100% Indisputable Receipt Delivery</span>
+                </div>
+                <div style="font-size: 0.9rem; color: #e2e8f0; margin-top: 6px;">💬 สัญญาณแชท: รูปสลิปถูกส่งกลับเข้ามาในห้องสนทนาทันทีหลังทำรายการ</div>
+                <div style="font-size: 0.9rem; color: #a7f3d0; margin-top: 2px;">🧾 สลิปจริง: รหัสอ้างอิงธุรกรรม: Aa7e0058a52854e5c ยอดเงิน 5,600.00 บาท</div>
+                <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 4px;">⚖️ ประโยชน์ในคดี: ใช้เป็นหลักฐานแสดงการรับรู้ของทั้งสองฝ่ายว่าธุรกรรมเสร็จสมบูรณ์แล้ว</div>
+            </div>
+            </div>
+            </div>
+
+            <!-- AGENT 3 -->
+            <div class="agent-card">
+                <div class="agent-header">
+                    <div class="agent-title">💬 มิติที่ 3: ตรรกะ บริบท และนิติวิทยาศาสตร์ทางภาษา</div>
+                    <span class="agent-id">AGENT_03_DIALOGUE_LOGIC</span>
+                </div>
+                
+                <div style="background: rgba(15,23,42,0.8); border-left: 3px solid #f59e0b; padding: 10px 14px; margin-bottom: 10px; border-radius: 0 6px 6px 0;">
+                    <div style="color: #fbbf24; font-weight: bold; font-size: 0.95rem;">1. กลวิธีอ้างบุคคลที่สาม (Third-Party Proxy Excuse)</div>
+                    <div style="font-size: 0.88rem; color: #cbd5e1; margin-top: 3px;">ข้อความจริง: [ภาพแคปแชทของบุคคลที่สาม] และการระบุบัญชี ปรียชาติ / อลงกรณ์</div>
+                    <div style="font-size: 0.82rem; color: #94a3b8; margin-top: 3px;">🔬 การวิเคราะห์: การสนทนามีลักษณะโยงบุคคลอื่นเข้ามาเกี่ยวข้องเพื่อกระจายความรับผิดชอบ หรือใช้บัญชีบุคคลอื่นแทนตนเอง</div>
+                </div>
+                
+                <div style="background: rgba(15,23,42,0.8); border-left: 3px solid #f59e0b; padding: 10px 14px; margin-bottom: 10px; border-radius: 0 6px 6px 0;">
+                    <div style="color: #fbbf24; font-weight: bold; font-size: 0.95rem;">2. การยืนยันตัวตนกระชั้นชิด (Last-Minute Nominal Confirmation)</div>
+                    <div style="font-size: 0.88rem; color: #cbd5e1; margin-top: 3px;">ข้อความจริง: 'อลงกรณ์ แจ่มเมืองนะ' ก่อนโอน 60 วินาที</div>
+                    <div style="font-size: 0.82rem; color: #94a3b8; margin-top: 3px;">🔬 การวิเคราะห์: เป็นการระบุชื่อเป้าหมายอย่างเฉพาะเจาะจง ไม่เปิดช่องให้เกิดความเข้าใจผิดหรือโอนผิดคน</div>
+                </div>
+                
+                <div style="background: rgba(15,23,42,0.8); border-left: 3px solid #f59e0b; padding: 10px 14px; margin-bottom: 10px; border-radius: 0 6px 6px 0;">
+                    <div style="color: #fbbf24; font-weight: bold; font-size: 0.95rem;">3. พฤติกรรมการสับเปลี่ยนบัญชีทันที (Immediate Account Shifting)</div>
+                    <div style="font-size: 0.88rem; color: #cbd5e1; margin-top: 3px;">ข้อความจริง: 'กสิกร28125484551 ปรียชาติ ฉิมพลี' หลังโอนเสร็จ 2 นาที</div>
+                    <div style="font-size: 0.82rem; color: #94a3b8; margin-top: 3px;">🔬 การวิเคราะห์: แสดงถึงความต่อเนื่องของการหมุนเวียนบัญชี หรืออาจเข้าลักษณะการใช้บัญชีม้าหลายทอด</div>
+                </div>
+                
+            </div>
+
+            <!-- AGENT 4 -->
+            <div class="agent-card">
+                <div class="agent-header">
+                    <div class="agent-title">⚖️ มิติที่ 4: ข้อกฎหมายและองค์ประกอบความผิดที่เกี่ยวข้อง</div>
+                    <span class="agent-id">AGENT_04_LEGAL_CORPUS</span>
+                </div>
+                
+                <div style="background: rgba(15,23,42,0.8); border: 1px solid #1e293b; padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="color: #38bdf8; font-weight: bold; font-size: 0.95rem;">ประมวลกฎหมายอาญา มาตรา ๓๔๑ (ความผิดฐานฉ้อโกง)</div>
+                    <ul style="margin-left: 20px; margin-top: 6px; font-size: 0.85rem; color: #cbd5e1; line-height: 1.5;">
+                        <li>องค์ประกอบที่ ๑ (โดยทุจริต หลอกลวงผู้อื่นด้วยการแสดงข้อความอันเป็นเท็จ): ให้พิจารณาว่าข้อความที่อ้างเรื่องเงินและเลขบัญชีเป็นความจริงตั้งแต่แรกหรือไม่</li><li>องค์ประกอบที่ ๒ (ได้ไปซึ่งทรัพย์สิน): ได้รับเงินโอน 5,600.00 บาท เข้าบัญชีที่ระบุชัดเจน</li><li>ความเห็นสำหรับทนาย: ต้องรวบรวมหลักฐานเพิ่มเติมว่าข้ออ้างที่ใช้ขอเงินนั้นเป็นเท็จตั้งแต่ขณะสนทนาหรือไม่</li>
+                    </ul>
+                </div>
+                
+                <div style="background: rgba(15,23,42,0.8); border: 1px solid #1e293b; padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="color: #38bdf8; font-weight: bold; font-size: 0.95rem;">ประมวลกฎหมายอาญา มาตรา ๘๓ (ตัวการร่วม)</div>
+                    <ul style="margin-left: 20px; margin-top: 6px; font-size: 0.85rem; color: #cbd5e1; line-height: 1.5;">
+                        <li>พิจารณาความสัมพันธ์ระหว่าง 'ผู้สั่งการในแชท' กับ 'เจ้าของบัญชี (อลงกรณ์/ปรียชาติ)'</li><li>หากมีการแบ่งหน้าที่กันทำ (คนหนึ่งแชทหลอก อีกคนหนึ่งเปิดบัญชีรับเงิน) อาจเข้าข่ายเป็นตัวการร่วม</li><li>แนวทางปฏิบัติ: ออกหมายเรียกสเตทเมนต์เพื่อดูว่าเมื่อเงินเข้าแล้ว ถูกถอนออกทันทีหรือโอนต่อให้ใคร</li>
+                    </ul>
+                </div>
+                
+                <div style="background: rgba(15,23,42,0.8); border: 1px solid #1e293b; padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="color: #38bdf8; font-weight: bold; font-size: 0.95rem;">พ.ร.ก. มาตรการป้องกันและปราบปรามอาชญากรรมทางเทคโนโลยี พ.ศ. ๒๕๖๖ (พ.ร.ก. บัญชีม้า)</div>
+                    <ul style="margin-left: 20px; margin-top: 6px; font-size: 0.85rem; color: #cbd5e1; line-height: 1.5;">
+                        <li>มาตรา ๙ (ผู้ใดเปิดหรือยินยอมให้บุคคลอื่นใช้บัญชีเงินฝาก โดยมิได้มีเจตนาใช้เพื่อตน): เจ้าของบัญชีผู้รับเงินมีภาระต้องชี้แจงเหตุผลในการรับโอน</li><li>มาตรา ๑๐-๑๑ (ผู้เป็นธุระจัดหาบัญชีม้า): ตรวจสอบพฤติการณ์ส่งเลขบัญชีหลายชื่อสลับกันในเวลาเพียง 2 นาที</li>
+                    </ul>
+                </div>
+                
+                <div style="background: rgba(15,23,42,0.8); border: 1px solid #1e293b; padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="color: #38bdf8; font-weight: bold; font-size: 0.95rem;">พ.ร.บ. ป้องกันและปราบปรามการฟอกเงิน พ.ศ. ๒๕๔๒ (มาตรา ๕)</div>
+                    <ul style="margin-left: 20px; margin-top: 6px; font-size: 0.85rem; color: #cbd5e1; line-height: 1.5;">
+                        <li>การโอน รับโอน หรือเปลี่ยนสภาพทรัพย์สินที่เกี่ยวกับการกระทำความผิดมูลฐานฉ้อโกงประชาชน/ปกติธุระ</li><li>เป็นช่องทางในการยื่นคำร้องขออายัดทรัพย์สินเร่งด่วนต่อ ปปง.</li>
+                    </ul>
+                </div>
+                
+            </div>
+
+            <!-- AGENT 5 -->
+            <div class="agent-card" style="grid-column: span 2;">
+                <div class="agent-header">
+                    <div class="agent-title">🎯 มิติที่ 5: องค์ความรู้ช่วยงานทนายและสคริปต์ซักค้านเผด็จศึก</div>
+                    <span class="agent-id">AGENT_05_ATTORNEY_KNOWLEDGE</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px;">
+                    <div>
+                        <h4 style="font-size: 0.95rem; color: #ef4444; margin-bottom: 10px;">⚔️ สคริปต์คำถามซักค้านชี้นำ (Leading Cross-Examination):</h4>
+                        
+            <div style="background: #090e17; border-left: 3px solid #ef4444; padding: 10px 14px; margin-bottom: 8px; border-radius: 0 6px 6px 0;">
+                <div style="color: #f87171; font-weight: bold; font-size: 0.95rem;">คำถามที่ 1: ถามพยาน: ในวันที่ 26 พฤษภาคม 2568 เวลา 16:51 น. มีการส่งข้อความระบุว่า 'นางสาว อลงกรณ์ แจ่มเมืองนะ' ใช่หรือไม่?</div>
+                <div style="color: #94a3b8; font-size: 0.82rem; margin-top: 3px;">🎯 เป้าหมายเชิงยุทธวิธี: ล็อกให้พยานยอมรับความถูกต้องของพยานหลักฐานแชทตั้งแต่ต้น</div>
+            </div>
+            
+            <div style="background: #090e17; border-left: 3px solid #ef4444; padding: 10px 14px; margin-bottom: 8px; border-radius: 0 6px 6px 0;">
+                <div style="color: #f87171; font-weight: bold; font-size: 0.95rem;">คำถามที่ 2: ถามพยาน: และในเวลา 16:52 น. หรือ 1 นาทีถัดมา มีเงินจำนวน 5,600.00 บาท เข้าสู่บัญชีธนาคารของ นางสาว อลงกรณ์ แจ่มเมือง ตามที่ระบุไว้จริง ใช่หรือไม่?</div>
+                <div style="color: #94a3b8; font-size: 0.82rem; margin-top: 3px;">🎯 เป้าหมายเชิงยุทธวิธี: เชื่อมโยงข้อความสั่งการกับผลสำเร็จของการรับเงินเข้าเป็นเนื้อเดียวกัน</div>
+            </div>
+            
+            <div style="background: #090e17; border-left: 3px solid #ef4444; padding: 10px 14px; margin-bottom: 8px; border-radius: 0 6px 6px 0;">
+                <div style="color: #f87171; font-weight: bold; font-size: 0.95rem;">คำถามที่ 3: ถามพยาน: ผู้โอนและเจ้าของบัญชีผู้รับ เคยมีนิติสัมพันธ์ สัญญาจ้าง หรือข้อตกลงทางธุรกิจใดๆ ต่อกันมาก่อนหรือไม่?</div>
+                <div style="color: #94a3b8; font-size: 0.82rem; margin-top: 3px;">🎯 เป้าหมายเชิงยุทธวิธี: ตัดข้อต่อสู้เรื่องมูลหนี้ทางแพ่งหรือการชำระหนี้ตามกฎหมายแพ่ง</div>
+            </div>
+            
+            <div style="background: #090e17; border-left: 3px solid #ef4444; padding: 10px 14px; margin-bottom: 8px; border-radius: 0 6px 6px 0;">
+                <div style="color: #f87171; font-weight: bold; font-size: 0.95rem;">คำถามที่ 4: ถามพยาน: เหตุใดหลังจากเงินเข้าเพียง 2 นาที ในเวลา 16:54 น. จึงปรากฏข้อความส่งเลขบัญชีของ 'ปรียชาติ ฉิมพลี' เข้ามาในแชทอีกหนึ่งบัญชี?</div>
+                <div style="color: #94a3b8; font-size: 0.82rem; margin-top: 3px;">🎯 เป้าหมายเชิงยุทธวิธี: เปิดเผยพิรุธเรื่องการหมุนเวียนบัญชีม้าให้ศาลประจักษ์</div>
+            </div>
+            
+            <div style="background: #090e17; border-left: 3px solid #ef4444; padding: 10px 14px; margin-bottom: 8px; border-radius: 0 6px 6px 0;">
+                <div style="color: #f87171; font-weight: bold; font-size: 0.95rem;">คำถามที่ 5: ถามพยาน: เงินที่โอนเข้าไปในบัญชีดังกล่าว ถูกถอนหรือโอนออกไปยังบัญชีของผู้ใดต่อในวันเดียวกันหรือไม่?</div>
+                <div style="color: #94a3b8; font-size: 0.82rem; margin-top: 3px;">🎯 เป้าหมายเชิงยุทธวิธี: ขอให้ศาลมีคำสั่งเรียกพยานเอกสารสเตทเมนต์บัญชีเดินสะพัดของธนาคารปลายทางทันที</div>
+            </div>
+            
+                    </div>
+                    <div>
+                        <h4 style="font-size: 0.95rem; color: #38bdf8; margin-bottom: 10px;">🛡️ กลยุทธ์หักล้างข้อต่อสู้คดีแพ่ง:</h4>
+                        <div style="background: #090e17; border: 1px solid #1e293b; padding: 12px; border-radius: 8px; font-size: 0.88rem; color: #cbd5e1; line-height: 1.6;">
+                            <strong style="color: #f59e0b;">ข้อต่อสู้ของฝ่ายตรงข้าม:</strong><br>
+                            ข้อต่อสู้ของฝ่ายจำเลยที่มักอ้างว่าเป็น 'การกู้ยืมเงินทางแพ่ง' หรือ 'ผิดนัดชำระหนี้ธรรมดา'<br><br>
+                            <strong style="color: #34d399;">แนวทางหักล้างของทนาย:</strong><br>
+                            วิธีหักล้างของทนาย: ชี้ให้ศาลเห็นว่ามีการนำเข้าภาพแชทหลอกลวงของบุคคลที่สามตั้งแต่ 16:33 น. และมีการระบุชื่อบัญชีผู้อื่นสลับไปมา แสดงว่ามีเจตนาทุจริตมาตั้งแต่ก่อนหรือขณะได้รับเงิน มิใช่เรื่องการยืมเงินแล้วไม่มีจ่ายตามสัญญาทางแพ่ง
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AGENT 6 -->
+            <div class="agent-card" style="grid-column: span 2; border-color: rgba(245, 158, 11, 0.4);">
+                <div class="agent-header">
+                    <div class="agent-title" style="color: #fbbf24;">👑 มิติที่ 6: การกลั่นกรองข้อเท็จจริง ดึงข้อมูลสำคัญสู่โต๊ะทำงานทนาย</div>
+                    <span class="agent-id" style="color: #fbbf24; background: rgba(245, 158, 11, 0.15);">AGENT_06_CASE_DIGEST</span>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 15px;">
+                    
+                    <div style="background: #0b1120; border: 1px solid #1e293b; padding: 12px; border-radius: 8px; font-size: 0.88rem; color: #f1f5f9; line-height: 1.5;">
+                        1. สรุปความเสียหายแห่งจุดตรวจนี้: ฿5,600.00 บาท (สลิป Ref: Aa7e0058a52854e5c)
+                    </div>
+                    
+                    <div style="background: #0b1120; border: 1px solid #1e293b; padding: 12px; border-radius: 8px; font-size: 0.88rem; color: #f1f5f9; line-height: 1.5;">
+                        2. บุคคลเป้าหมายปลายทางที่ปรากฏชื่อ: 'นางสาว อลงกรณ์ แจ่มเมือง' (บัญชีรับเงิน) และ 'ปรียชาติ ฉิมพลี' (บัญชีสำรอง)
+                    </div>
+                    
+                    <div style="background: #0b1120; border: 1px solid #1e293b; padding: 12px; border-radius: 8px; font-size: 0.88rem; color: #f1f5f9; line-height: 1.5;">
+                        3. สภาพแชทความยาวกว่า 3,156 พิกเซล ถูกสกัดเหลือเฉพาะ 7 ข้อความสำคัญที่เป็นสาระสำคัญแห่งคดี
+                    </div>
+                    
+                    <div style="background: #0b1120; border: 1px solid #1e293b; padding: 12px; border-radius: 8px; font-size: 0.88rem; color: #f1f5f9; line-height: 1.5;">
+                        4. ตรวจพบความสอดคล้องระดับ 100% ระหว่างคำบอกชื่อในแชทกับชื่อบนสลิปจริงในระยะเวลาห่างกัน 1 นาที
+                    </div>
+                    
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 12px; border-radius: 8px; font-size: 0.85rem; color: #a7f3d0; text-align: center;">
+                    ✅ ดุลพินิจ 100%: ระบบจัดเตรียมข้อเท็จจริงและหลักฐานตามมาตรฐานศาล โดยไม่ก้าวล่วงดุลพินิจในการชี้ขาดของทนายความและศาล
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

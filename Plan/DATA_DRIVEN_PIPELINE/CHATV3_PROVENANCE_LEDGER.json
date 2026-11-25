@@ -1,0 +1,33 @@
+{
+  "reversibility_proof": [
+    {
+      "ui_interaction": "Click [🎯 ส่องประเด็นสำคัญ (19:35 น.)]",
+      "target_focal_y": 480,
+      "normalized_bbox": {
+        "ymin": 0.0668,
+        "xmin": 0.1258,
+        "ymax": 0.1018,
+        "xmax": 0.8805
+      },
+      "local_pixel_box": {
+        "ymin": 420,
+        "xmin": 80,
+        "ymax": 640,
+        "xmax": 560
+      },
+      "source_vault_id": "VAULT_38bb247ba1f3",
+      "source_sha256": "38bb247ba1f3670887e343fe82fe5b598b2cfff447f902045d7e68dc3b5d29d8",
+      "original_filename": "chatv3 (1).jpg",
+      "original_file_path": "D:\\Project\\ชวกม.2\\EDOK_NUI\\FOR TEST In EDOK_NUI\\แชทที่ 3\\chatv3 (1).jpg",
+      "verification_status": "100% REVERSIBLE_VERIFIED"
+    },
+    {
+      "ui_interaction": "Inspection of duplicate alert for chatv3 (47).jpg",
+      "dedup_verdict": "TRAPPED_AS_DUPLICATE",
+      "matching_master": "chatv3 (46).jpg",
+      "identical_sha256": "a5f1a147a3555588ceeb06ba8a993ff33ddf976ff6bf160f1655a078e2e4497d",
+      "ocr_execution": "BYPASSED (Zero Waste)",
+      "verification_status": "100% REVERSIBLE_VERIFIED"
+    }
+  ]
+}

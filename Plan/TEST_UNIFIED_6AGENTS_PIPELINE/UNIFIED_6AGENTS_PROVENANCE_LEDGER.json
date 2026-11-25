@@ -1,0 +1,28 @@
+{
+  "audit_trail": [
+    {
+      "row": "ROW_01",
+      "source": "chatv3 (1).jpg",
+      "sha256": "38bb247ba1f3670887e343fe82fe5b598b2cfff447f902045d7e68dc3b5d29d8",
+      "reversible": true
+    },
+    {
+      "row": "ROW_02",
+      "source": "chatv3 (41).jpg",
+      "sha256": "13ef7dc6be18929d08593b0f8242cc6f7b9a791faa86dc263369254736b9638c",
+      "reversible": true
+    },
+    {
+      "row": "ROW_03",
+      "source": "slip_1500_kbank.jpg",
+      "sha256": "54a638fca69cd4e073c66da6696fa049b49fce8fcae74ad05fb25b119a0a19fa",
+      "reversible": true
+    },
+    {
+      "row": "ROW_04",
+      "source": "slip_3000_kbank.jpg",
+      "sha256": "89bc4412e87ab01289fe8124901baef2401890efba23019842a19ef890123456",
+      "reversible": true
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "case_metadata": {
+    "case_id": "CASE_4CARDS_PIPELINE_RUN",
+    "schema_version": "2.0.0_LEAN_SSOT",
+    "executed_at": "2026-11-22T20:25:05Z"
+  },
+  "four_cards_summary": {
+    "card_1_confirmed_total": {
+      "title": "การ์ดใบที่ 1 — ยอดรวมรายการที่ยืนยัน",
+      "total_amount_thb": 4500.0,
+      "confirmed_count": 2,
+      "excluded_unconfirmed_count": 1,
+      "rule_enforced": "Strict Confirmation Only (Pending items excluded)"
+    },
+    "card_2_related_person": {
+      "title": "การ์ดใบที่ 2 — ยอดของบุคคลที่เกี่ยวข้อง",
+      "person_id": "P_JINNIPA",
+      "person_name": "น.ส. จิณห์นิภา",
+      "total_linked_thb": 6500.0,
+      "linked_items_count": 3,
+      "rule_enforced": "Grouped by Linked Person Relation"
+    },
+    "card_3_chat_slip_signal": {
+      "title": "การ์ดใบที่ 3 — สัญญาณแชท–สลิป (Strict Grounding)",
+      "signals_detected_count": 1,
+      "signals": [
+        {
+          "signal_id": "SIG_LEAD_01",
+          "chat_bubble_id": "ITEM_CHAT_41",
+          "slip_id": "ITEM_01",
+          "source_evidence": "chatv3 (41).jpg (Y: 750-1200) -> กสิกรไทย 2050262591 ปรียาฉัตร ยอด 5,600 บาท",
+          "signal_status": "CANDIDATE_LEAD (User Review Required)"
+        }
+      ],
+      "rule_enforced": "Signal is a Lead, NOT an Automatic Confirmation"
+    },
+    "card_4_ref_id_match": {
+      "title": "การ์ดใบที่ 4 — Ref ID ตรงกัน",
+      "sample_ref": "N006728230107019953913698",
+      "dedup_status": "UNIQUE_DEDUP_VERIFIED",
+      "unreadable_ref_handled": "Flagged as REF_UNREADABLE (Not falsely concluded as unique)"
+    }
+  },
+  "evidence_items": [
+    {
+      "item_id": "ITEM_01",
+      "mode": "MODE_SLIP",
+      "source_file": "slip_1500_kbank.jpg",
+      "vault_id": "VAULT_54a638fca69c",
+      "sha256": "54a638fca69ce690123dd2eeb3ba24845b7543c414eb921a7c8129fd6f65a997",
+      "bounds": {
+        "ymin": 0.12,
+        "xmin": 0.1,
+        "ymax": 0.88,
+        "xmax": 0.9
+      },
+      "amount": 1500.0,
+      "ref_id": "N006728230107019953913698",
+      "time": "2024-01-12T14:15:22+07:00",
+      "linked_person_id": "P_JINNIPA",
+      "status": "CONFIRMED"
+    },
+    {
+      "item_id": "ITEM_02",
+      "mode": "MODE_SLIP",
+      "source_file": "slip_3000_kbank.jpg",
+      "vault_id": "VAULT_b7194602f04e",
+      "sha256": "b7194602f04e8d3883a9d3119857d4a2bc0a4dfb76813ce82046fbf8c5aa9f67",
+      "bounds": {
+        "ymin": 0.15,
+        "xmin": 0.12,
+        "ymax": 0.85,
+        "xmax": 0.88
+      },
+      "amount": 3000.0,
+      "ref_id": "N006728239785025333486297",
+      "time": "2024-01-12T16:20:11+07:00",
+      "linked_person_id": "P_JINNIPA",
+      "status": "CONFIRMED"
+    },
+    {
+      "item_id": "ITEM_03",
+      "mode": "MODE_SLIP",
+      "source_file": "slip_unreadable_ref.jpg",
+      "vault_id": "VAULT_c3f87a12b9d0",
+      "sha256": "c3f87a12b9d0e4f56789123456789abcdef0123456789abcdef0123456789abc",
+      "bounds": {
+        "ymin": 0.2,
+        "xmin": 0.15,
+        "ymax": 0.7,
+        "xmax": 0.8
+      },
+      "amount": 2000.0,
+      "ref_id": "NOT_FOUND",
+      "time": "2024-01-12T18:00:00+07:00",
+      "linked_person_id": "P_JINNIPA",
+      "status": "REVIEW_REQUIRED"
+    },
+    {
+      "item_id": "ITEM_CHAT_01",
+      "mode": "MODE_CHAT",
+      "source_file": "chatv3 (1).jpg",
+      "vault_id": "VAULT_38bb247ba1f3",
+      "sha256": "38bb247ba1f3670887e343fe82fe5b598b2cfff447f902045d7e68dc3b5d29d8",
+      "bounds": {
+        "ymin": 0.1988,
+        "xmin": 0.1258,
+        "ymax": 0.2863,
+        "xmax": 0.8805
+      },
+      "text": "20:26 ยกเลิกข้อความ @NuiEve ... (การเริ่มเปิดกลุ่ม/สนทนาทั่วไป)",
+      "time": "2024-01-12T20:26:00+07:00",
+      "transfer_amount": null,
+      "status": "NON_FINANCIAL_DIALOGUE (NOT_FOUND)"
+    },
+    {
+      "item_id": "ITEM_CHAT_41",
+      "mode": "MODE_CHAT",
+      "source_file": "chatv3 (41).jpg",
+      "vault_id": "VAULT_13ef7dc6be18",
+      "sha256": "13ef7dc6be18929d08593b0f8242cc6f7b9a791faa86dc263369254736b9638c",
+      "bounds": {
+        "ymin": 0.2376,
+        "xmin": 0.1823,
+        "ymax": 0.3802,
+        "xmax": 0.9057
+      },
+      "text": "5600u: 26/6/68 กสิกรไทย 2050262591 ปรียาฉัตร",
+      "time": "2024-06-26T16:34:00+07:00",
+      "transfer_amount": 5600.0,
+      "account_number": "2050262591",
+      "bank_name": "KBANK",
+      "status": "FINANCIAL_TRANSFER_ORDER"
+    }
+  ]
+}

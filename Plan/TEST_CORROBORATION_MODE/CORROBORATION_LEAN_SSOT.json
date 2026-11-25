@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "pipeline": "CORROBORATION_MODE_TRUTH_PIPELINE",
+    "version": "1.1.0",
+    "executed_at": "2026-11-23T04:10:07.383387",
+    "truth_integrity_status": "ENFORCED_ZERO_HALLUCINATION"
+  },
+  "chat_evidence": {
+    "item_id": "CHAT_NODE_01",
+    "mode": "MODE_CHAT",
+    "source_file": "chatv3 (1).jpg",
+    "source_sha256": "38bb247ba1f3670887e343fe82fe5b598b2cfff447f902045d7e68dc3b5d29d8",
+    "bbox": {
+      "y_min": 1250,
+      "y_max": 1750,
+      "x_min": 50,
+      "x_max": 600
+    },
+    "raw_text": "20:26 ยกเลิกข้อความ @NuiEve (การเริ่มเปิดกลุ่ม/สนทนาทั่วไป)",
+    "timestamp": "2024-01-12T20:26:00+07:00",
+    "transfer_amount": null,
+    "account_number": null,
+    "bank_name": null,
+    "is_raw_fact": true
+  },
+  "slip_evidence": {
+    "item_id": "SLIP_NODE_01",
+    "mode": "MODE_SLIP",
+    "source_file": "slip_1500_kbank.jpg",
+    "source_sha256": "54a638fca69cd4e073c66da6696fa049b49fce8fcae74ad05fb25b119a0a19fa",
+    "timestamp": "2024-01-12T14:15:22+07:00",
+    "transfer_amount": 1500.0,
+    "ref_id": "N006728230107019953913698",
+    "bank_name": "KBANK",
+    "is_raw_fact": true
+  },
+  "candidate_linkage": {
+    "candidate_id": "CORROB_LINK_001",
+    "chat_item_id": "CHAT_NODE_01",
+    "slip_item_id": "SLIP_NODE_01",
+    "chat_source": {
+      "file": "chatv3 (1).jpg",
+      "sha256": "38bb247ba1f3670887e343fe82fe5b598b2cfff447f902045d7e68dc3b5d29d8",
+      "bbox": {
+        "y_min": 1250,
+        "y_max": 1750,
+        "x_min": 50,
+        "x_max": 600
+      }
+    },
+    "slip_source": {
+      "file": "slip_1500_kbank.jpg",
+      "sha256": "54a638fca69cd4e073c66da6696fa049b49fce8fcae74ad05fb25b119a0a19fa",
+      "ref_id": "N006728230107019953913698"
+    },
+    "match_type": "NO_MATCH",
+    "corroboration_status": "UNMATCHED",
+    "reason": "chatv3 (1).jpg ไม่พบคำสั่งโอนเงิน (transfer_amount=null, NOT_FOUND) และเวลา 20:26 น. ไม่ตรงกับสลิป 14:15 น.",
+    "verification_log": {
+      "status": "UNMATCHED",
+      "decision": "NO_LINK_CREATED",
+      "verified_by": "SYSTEM_RULE_TRUTH_GUARD",
+      "notes": "ปฏิบัติตาม Data Not Found Logic: Missing data is treated as data, not an assumption."
+    }
+  }
+}

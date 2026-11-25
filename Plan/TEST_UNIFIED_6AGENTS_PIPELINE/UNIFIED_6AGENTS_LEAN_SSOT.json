@@ -1,0 +1,123 @@
+{
+  "case_metadata": {
+    "case_id": "CASE_UNIFIED_6AGENTS_PIPELINE",
+    "executed_at": "2026-11-23T04:56:40.363566",
+    "truth_integrity": "ZERO_TOLERANCE_STRICT_GROUNDING",
+    "agents_active": [
+      "AGENT_1",
+      "AGENT_2",
+      "AGENT_3",
+      "AGENT_4",
+      "AGENT_5",
+      "AGENT_6"
+    ]
+  },
+  "evidence_table": [
+    {
+      "row_id": "ROW_01",
+      "source_file": "chatv3 (1).jpg",
+      "sha256": "38bb247ba1f3670887e343fe82fe5b598b2cfff447f902045d7e68dc3b5d29d8",
+      "mode": "MODE_CHAT",
+      "date_time": "2024-01-12 20:26 น.",
+      "bank": "-",
+      "sender": "NuiEve",
+      "receiver": "-",
+      "amount": null,
+      "ref_id": "-",
+      "memo": "ข้อความเปิดกลุ่ม / ยกเลิกข้อความ",
+      "status": "RAW_EXTRACTED",
+      "source_anchor": "Y: [1200 - 1800] px"
+    },
+    {
+      "row_id": "ROW_02",
+      "source_file": "chatv3 (41).jpg",
+      "sha256": "13ef7dc6be18929d08593b0f8242cc6f7b9a791faa86dc263369254736b9638c",
+      "mode": "MODE_CHAT",
+      "date_time": "2024-06-26 16:34 น.",
+      "bank": "KBANK",
+      "sender": "-",
+      "receiver": "ปรียาฉัตร",
+      "amount": 5600.0,
+      "ref_id": "2050262591",
+      "memo": "5600u: 26/6/68 กสิกรไทย 2050262591",
+      "status": "REVIEW_REQUIRED",
+      "source_anchor": "Y: [750 - 1200] px"
+    },
+    {
+      "row_id": "ROW_03",
+      "source_file": "slip_1500_kbank.jpg",
+      "sha256": "54a638fca69cd4e073c66da6696fa049b49fce8fcae74ad05fb25b119a0a19fa",
+      "mode": "MODE_SLIP",
+      "date_time": "2024-01-12 14:15:22 น.",
+      "bank": "KBANK",
+      "sender": "นาย บัญชา...",
+      "receiver": "ปรียาฉัตร",
+      "amount": 1500.0,
+      "ref_id": "N006728230107019953913698",
+      "memo": "โอนชำระเงิน",
+      "status": "USER_CONFIRMED",
+      "source_anchor": "Full Slip Box"
+    },
+    {
+      "row_id": "ROW_04",
+      "source_file": "slip_3000_kbank.jpg",
+      "sha256": "89bc4412e87ab01289fe8124901baef2401890efba23019842a19ef890123456",
+      "mode": "MODE_SLIP",
+      "date_time": "2024-01-12 15:30:10 น.",
+      "bank": "KBANK",
+      "sender": "นาย บัญชา...",
+      "receiver": "จิณห์นิภา",
+      "amount": 3000.0,
+      "ref_id": "N006728230107020089123456",
+      "memo": "โอนชำระเงิน",
+      "status": "USER_CONFIRMED",
+      "source_anchor": "Full Slip Box"
+    }
+  ],
+  "corroboration_candidates": [
+    {
+      "candidate_id": "LEAD_01",
+      "chat_ref": "chatv3 (41).jpg (Y:750-1200)",
+      "slip_ref": "slip_1500_kbank.jpg (Ref: N006728230107019953913698)",
+      "match_points": "ชื่อผู้รับ 'ปรียาฉัตร' และธนาคารกสิกรไทยตรงกัน",
+      "status": "REVIEW_REQUIRED"
+    },
+    {
+      "candidate_id": "LEAD_02",
+      "chat_ref": "chatv3 (1).jpg",
+      "slip_ref": "slip_1500_kbank.jpg",
+      "match_points": "ไม่พบยอดเงินและเวลาไม่ตรง",
+      "status": "UNMATCHED (NOT_FOUND)"
+    }
+  ],
+  "four_cards_summary": {
+    "card_1": {
+      "title": "การ์ดใบที่ 1: ยอดรวมรายการที่ยืนยัน",
+      "value": "฿4,500.00",
+      "desc": "รวมเฉพาะรายการที่ผู้ใช้ยืนยันแล้ว (2 รายการ)"
+    },
+    "card_2": {
+      "title": "การ์ดใบที่ 2: ยอดบุคคลที่เกี่ยวข้อง",
+      "value": "฿10,100.00",
+      "desc": "ผูกความสัมพันธ์ ปรียาฉัตร / จิณห์นิภา (3 รายการ)"
+    },
+    "card_3": {
+      "title": "การ์ดใบที่ 3: สัญญาณแชท–สลิป",
+      "value": "1 จุดตรวจ",
+      "desc": "สัญญาณนำสืบจาก chatv3 (41).jpg -> สลิป 1,500"
+    },
+    "card_4": {
+      "title": "การ์ดใบที่ 4: Ref ID ตรงกัน",
+      "value": "2 รายการ",
+      "desc": "ตรวจความซ้ำซ้อนระดับ Ref ID (ไม่มีรหัสชนกัน)"
+    }
+  },
+  "the_five_pillars": {
+    "pillar_1": "เสาที่ 1: หน้าปกแฟ้มหลักฐาน (Cover Sheet)",
+    "pillar_2": "เสาที่ 2: บัญชีมูลหนี้/รายการธุรกรรม (Debt Ledger: ฿4,500.00)",
+    "pillar_3": "เสาที่ 3: สรุปเส้นทางการเงิน (Financial Flow Diagram)",
+    "pillar_4": "เสาที่ 4: รายการกฎหมายอ้างอิง (Legal Clauses: ป.อ. 341)",
+    "pillar_5": "เสาที่ 5: รวมเล่มเอกสารประกอบคดี (A4 Dossier Package)"
+  },
+  "reversibility_guarantee": "100% Dual-Sided Reversible to Raw Pixels"
+}

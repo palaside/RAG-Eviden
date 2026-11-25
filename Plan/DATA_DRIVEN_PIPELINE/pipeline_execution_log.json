@@ -1,0 +1,104 @@
+{
+  "pipeline_id": "DDP_RUN_20261122_001",
+  "started_at": "2026-11-22T16:48:56Z",
+  "phases_executed": [
+    {
+      "phase": 1,
+      "status": "COMPLETED",
+      "output": {
+        "vault_id": "VAULT_54a638fca69c",
+        "sha256": "54a638fca69ce690123dd2eeb3ba24845b7543c414eb921a7c8129fd6f65a997",
+        "quality_score": 96.5,
+        "laplacian_var": 168.4,
+        "dimensions": {
+          "width": 1080,
+          "height": 2400
+        },
+        "vault_uri": "vault://secure_evidence/VAULT_54a638fca69c.webp"
+      }
+    },
+    {
+      "phase": 2,
+      "status": "COMPLETED",
+      "output": {
+        "dedup_status": "UNIQUE_MASTER",
+        "ocr_cache": {
+          "sha256": "54a638fca69ce690123dd2eeb3ba24845b7543c414eb921a7c8129fd6f65a997",
+          "engine": "pytesseract-tha+eng-v1",
+          "retrieval_latency_ms": 0.85,
+          "tokens_count": 4,
+          "boxes_count": 2
+        },
+        "tokens": [
+          {
+            "text": "20:26 ยกเลิกข้อความ",
+            "time": "13:53",
+            "sender": "RIGHT"
+          },
+          {
+            "text": "@NuiEve",
+            "time": "13:53",
+            "sender": "RIGHT"
+          },
+          {
+            "text": "20:27 20:33 (สนทนาทั่วไป)",
+            "time": "13:53",
+            "sender": "RIGHT"
+          },
+          {
+            "text": "โอนเงินสำเร็จ 1,500.00 บาท",
+            "time": "14:15",
+            "type": "SLIP"
+          }
+        ],
+        "boxes": [
+          {
+            "token": "@NuiEve",
+            "ymin": 0.284,
+            "xmin": 0.225,
+            "ymax": 0.352,
+            "xmax": 0.635
+          },
+          {
+            "token": "SLIP_1500",
+            "ymin": 0.65,
+            "xmin": 0.15,
+            "ymax": 0.88,
+            "xmax": 0.85,
+            "ref": "N006728230107019953913698"
+          }
+        ]
+      }
+    },
+    {
+      "phase": 3,
+      "status": "COMPLETED",
+      "output": {
+        "manifest_path": "output_stitch_manifest.json",
+        "total_height_px": 1680,
+        "focal_points_count": 1
+      }
+    },
+    {
+      "phase": 4,
+      "status": "COMPLETED",
+      "output": {
+        "ssot_path": "output_lean_ssot.json",
+        "ssot_size_bytes": 1726,
+        "index_path": "output_inverted_index.json",
+        "indexed_tokens_count": 6
+      }
+    },
+    {
+      "phase": 5,
+      "status": "COMPLETED",
+      "output": {
+        "html_preview_path": "output_court_preview.html",
+        "dual_layer_mode": "ACTIVE (pointer-events: none)",
+        "offline_status": "AIR_GAPPED_READY"
+      }
+    }
+  ],
+  "artifacts_produced": {},
+  "completed_at": "2026-11-22T16:48:56Z"
+}

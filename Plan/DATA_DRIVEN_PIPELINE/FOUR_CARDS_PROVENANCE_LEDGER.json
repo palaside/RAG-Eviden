@@ -1,0 +1,115 @@
+{
+  "pipeline_run_id": "DDP_4CARDS_20261123_001",
+  "provenance_traceability": [
+    {
+      "card_name": "การ์ดที่ 1 — ยอดรวมรายการที่ยืนยัน",
+      "derived_value": "฿4,500.00",
+      "contributing_items": [
+        "ITEM_01",
+        "ITEM_02"
+      ],
+      "excluded_items": [
+        "ITEM_03 (รอตรวจ)"
+      ],
+      "reversibility_path": [
+        {
+          "item_id": "ITEM_01",
+          "file": "slip_1500_kbank.jpg",
+          "sha256": "54a638fca69ce690123dd2eeb3ba24845b7543c414eb921a7c8129fd6f65a997",
+          "vault_id": "VAULT_54a638fca69c",
+          "bounds": [
+            0.12,
+            0.1,
+            0.88,
+            0.9
+          ]
+        },
+        {
+          "item_id": "ITEM_02",
+          "file": "slip_3000_kbank.jpg",
+          "sha256": "b7194602f04e8d3883a9d3119857d4a2bc0a4dfb76813ce82046fbf8c5aa9f67",
+          "vault_id": "VAULT_b7194602f04e",
+          "bounds": [
+            0.15,
+            0.12,
+            0.85,
+            0.88
+          ]
+        }
+      ],
+      "status": "100% REVERSIBLE"
+    },
+    {
+      "card_name": "การ์ดที่ 2 — ยอดบุคคลที่เกี่ยวข้อง",
+      "derived_value": "น.ส. จิณห์นิภา (฿6,500.00)",
+      "contributing_items": [
+        "ITEM_01",
+        "ITEM_02",
+        "ITEM_03"
+      ],
+      "reversibility_path": [
+        {
+          "item_id": "ITEM_01",
+          "file": "slip_1500_kbank.jpg",
+          "sha256": "54a638fca69ce690123dd2eeb3ba24845b7543c414eb921a7c8129fd6f65a997",
+          "status": "CONFIRMED"
+        },
+        {
+          "item_id": "ITEM_02",
+          "file": "slip_3000_kbank.jpg",
+          "sha256": "b7194602f04e8d3883a9d3119857d4a2bc0a4dfb76813ce82046fbf8c5aa9f67",
+          "status": "CONFIRMED"
+        },
+        {
+          "item_id": "ITEM_03",
+          "file": "slip_unreadable_ref.jpg",
+          "sha256": "c3f87a12b9d0e4f56789123456789abcdef0123456789abcdef0123456789abc",
+          "status": "REVIEW_REQUIRED"
+        }
+      ],
+      "status": "100% REVERSIBLE"
+    },
+    {
+      "card_name": "การ์ดที่ 3 — สัญญาณแชท–สลิป",
+      "derived_value": "1 สัญญาณแชทสั่งโอน 13:53 น. -> สลิป 14:15 น.",
+      "reversibility_path": [
+        {
+          "item_id": "ITEM_CHAT_01",
+          "file": "chatv3 (1).jpg",
+          "sha256": "38bb247ba1f3670887e343fe82fe5b598b2cfff447f902045d7e68dc3b5d29d8",
+          "bounds": [
+            0.0668,
+            0.1258,
+            0.1018,
+            0.8805
+          ]
+        },
+        {
+          "item_id": "ITEM_01",
+          "file": "slip_1500_kbank.jpg",
+          "sha256": "54a638fca69ce690123dd2eeb3ba24845b7543c414eb921a7c8129fd6f65a997",
+          "bounds": [
+            0.12,
+            0.1,
+            0.88,
+            0.9
+          ]
+        }
+      ],
+      "status": "100% REVERSIBLE"
+    },
+    {
+      "card_name": "การ์ดที่ 4 — Ref ID ตรงกัน",
+      "derived_value": "Ref: N006728230107019953913698",
+      "reversibility_path": [
+        {
+          "item_id": "ITEM_01",
+          "file": "slip_1500_kbank.jpg",
+          "sha256": "54a638fca69ce690123dd2eeb3ba24845b7543c414eb921a7c8129fd6f65a997",
+          "verified_ref": "N006728230107019953913698"
+        }
+      ],
+      "status": "100% REVERSIBLE"
+    }
+  ]
+}

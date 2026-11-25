@@ -37,6 +37,10 @@ test_p13.*
 test_font.*
 test_searchable_p1.*
 test_thai_vector.pdf
+*.rar
+%USERPROFILE%/
+EDOK_NUI/FOR TEST In EDOK_NUI/
+EDOK_NUI/_TEST_CLONES/
 
 # Local IDE & OS
 .vscode/

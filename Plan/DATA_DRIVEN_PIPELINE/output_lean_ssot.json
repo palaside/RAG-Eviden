@@ -1,0 +1,56 @@
+{
+  "case_metadata": {
+    "case_id": "CRIMINAL_CASE_CHWKM_2026",
+    "jurisdiction": "ศาลอาญา / มาตรฐาน ป.วิ.อ. ๒๒๖",
+    "schema_version": "2.0.0_LEAN_NORMALIZED"
+  },
+  "persons": [
+    {
+      "person_id": "P01",
+      "name": "น.ส. จิณห์นิภา",
+      "role": "ตัวการหลัก (ผู้คุยและขอยืม)"
+    },
+    {
+      "person_id": "P02",
+      "name": "น.ส. ปรียชาติ",
+      "role": "เจ้าของบัญชีม้ารับโอน"
+    }
+  ],
+  "accounts": [
+    {
+      "account_id": "ACC01",
+      "owner_id": "P01",
+      "bank": "KBANK",
+      "account_no": "XXX-X-XX996-5"
+    },
+    {
+      "account_id": "ACC02",
+      "owner_id": "P02",
+      "bank": "SCB",
+      "account_no": "XXX-X-XX455-1"
+    }
+  ],
+  "slips": [
+    {
+      "slip_id": "SLIP_01",
+      "ref_id": "N006728230107019953913698",
+      "amount": 1500.0,
+      "timestamp": "2024-01-12T14:15:22+07:00",
+      "recipient_account_id": "ACC01",
+      "status": "TIME_LOCKED_BANK_ANCHORED"
+    }
+  ],
+  "events": [
+    {
+      "event_id": "EV_COUNT_01",
+      "count_no": 1,
+      "timestamp": "2024-01-12T13:53:00+07:00",
+      "person_id": "P01",
+      "category": "ก้าวแรกขอเงินน้อย (Foot-in-the-Door)",
+      "claimed_purpose": "ค่าครีม & แฟนอับสัญญาณ 2,000 บาท",
+      "focal_y": 1450,
+      "legal_dimension": "เจตนาทุจริตหลอกลวงตั้งแต่แรกเริ่ม (ป.อ. 341/343)",
+      "status": "CORROBORATED"
+    }
+  ]
+}

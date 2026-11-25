@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASK 7: ตารางสรุปหลักฐานเส้นทางการเงิน (Visual Preview Ledger)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=JetBrains+Mono:wght@500;700;800&family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #060911;
+            --panel-bg: rgba(15, 23, 42, 0.75);
+            --border-glass: rgba(56, 189, 248, 0.2);
+            --accent-cyan: #38bdf8;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: radial-gradient(circle at 50% 0%, #1e293b 0%, #060911 85%);
+            color: var(--text-main);
+            font-family: 'Sarabun', sans-serif;
+            padding: 30px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1450px; margin: 0 auto; }
+        header {
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.6rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .task-badge {
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .lock-pill {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid #10b981;
+            color: #34d399;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* KPI Cards Strip from Task 5 */
+        .grid-kpi {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+        .kpi-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(14px);
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .kpi-title { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+        .kpi-val { font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 800; color: #fff; margin-top: 4px; }
+        
+        /* Table Controls Bar */
+        .controls-bar {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-glass);
+            border-radius: 10px;
+            padding: 14px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .search-box {
+            background: #090e17;
+            border: 1px solid #334155;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 6px;
+            width: 320px;
+            font-size: 0.9rem;
+        }
+        .filter-btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        .filter-btn {
+            background: #090e17;
+            border: 1px solid #334155;
+            color: #cbd5e1;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #0284c7;
+            border-color: #38bdf8;
+            color: #fff;
+        }
+
+        /* Evidence Table */
+        .table-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(16px);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th {
+            background: rgba(30, 41, 59, 0.9);
+            color: #94a3b8;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-align: left;
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.92rem;
+            vertical-align: middle;
+        }
+        tr:hover td { background: rgba(56, 189, 248, 0.05); }
+        tr.whale-row td { background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; }
+
+        /* Visual Thumbnail Container */
+        .visual-thumb-container {
+            background: #090e17;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 8px;
+            cursor: pointer;
+            display: inline-block;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .visual-thumb-container:hover {
+            border-color: #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+            transform: translateY(-1px);
+        }
+        .visual-thumb-badge {
+            font-size: 0.72rem;
+            background: #0284c7;
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 4px;
+        }
+        .bank-badge { background: rgba(56, 189, 248, 0.2); color: #38bdf8; font-family: monospace; }
+        .badge-tag { background: rgba(148, 163, 184, 0.15); color: #cbd5e1; }
+        .status-cleared { background: #064e3b; color: #34d399; border: 1px solid #059669; font-weight: bold; }
+
+        /* Visual Lightbox Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.88);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .modal-card {
+            background: #0f172a;
+            border: 1px solid #38bdf8;
+            border-radius: 12px;
+            width: 520px;
+            max-width: 90vw;
+            padding: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 14px; right: 16px;
+            font-size: 1.5rem;
+            color: #94a3b8;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1><span>📋 TASK 7: ตารางสรุปหลักฐานเส้นทางการเงิน</span> <span class="task-badge">VISUAL PREVIEW</span> <span class="lock-pill">🔒 WORKFLOW LOCKED</span></h1>
+                <p style="color: #64748b; font-size: 0.9rem; margin-top: 4px;">ขยายเส้นทางการเงินในรูปแบบตารางที่มองเห็นหลักฐานด้วยตา (รับงานต่อจากงานที่ 5)</p>
+            </div>
+            <div style="text-align: right; font-family: monospace; font-size: 0.85rem; color: #94a3b8;">
+                SOURCE: <span style="color: #38bdf8; font-weight: bold;">TASK 5 (PURE SLIP SOT)</span><br>
+                RECONCILED: <span style="color: #10b981; font-weight: bold;">11,000.00 บาท</span>
+            </div>
+        </header>
+
+        <!-- 4 Cards KPI Strip from Task 5 -->
+        <div class="grid-kpi">
+            <div class="kpi-card" style="border-top: 3px solid #10b981;">
+                <div class="kpi-title">🃏 การ์ด ๑: ยอดความเสียหายสุทธิจริง</div>
+                <div class="kpi-val" style="color: #34d399;">11,000.00 บาท</div>
+            </div>
+            <div class="kpi-card" style="border-top: 3px solid #38bdf8;">
+                <div class="kpi-title">🃏 การ์ด ๒: บัญชีม้าตัวการใหญ่</div>
+                <div class="kpi-val" style="color: #38bdf8;">อลงกรณ์ แจ่มเมือง (90.9%)</div>
+            </div>
+            <div class="kpi-card" style="border-top: 3px solid #f43f5e;">
+                <div class="kpi-title">🃏 การ์ด ๓: ดัชนีโอนถี่ผิดปกติ</div>
+                <div class="kpi-val" style="color: #fb7185;">1 เหตุการณ์</div>
+            </div>
+            <div class="kpi-card" style="border-top: 3px solid #f59e0b;">
+                <div class="kpi-title">🃏 การ์ด ๔: ตัดสลิปซ้ำซ้อน</div>
+                <div class="kpi-val" style="color: #fbbf24;">ตัดออก 1 ฉบับ (5,600.00 บาท)</div>
+            </div>
+        </div>
+
+        <!-- Controls Bar -->
+        <div class="controls-bar">
+            <div class="filter-btn-group">
+                <button class="filter-btn active" onclick="filterTable('ALL', this)">แสดงทั้งหมด (3)</button>
+                <button class="filter-btn" onclick="filterTable('WHALE', this)">🎯 เฉพาะตัวการใหญ่ (Whale)</button>
+                <button class="filter-btn" onclick="filterTable('BURST', this)">⚡ เฉพาะรอบโอนถี่ (Burst)</button>
+            </div>
+            <input type="text" class="search-box" id="tableSearch" placeholder="🔍 ค้นหาชื่อผู้รับ, ธนาคาร, หรือ Ref ID..." onkeyup="searchTable()">
+        </div>
+
+        <!-- Evidence Ledger Table -->
+        <div class="table-panel">
+            <table id="evidenceTable">
+                <thead>
+                    <tr>
+                        <th style="width: 70px; text-align: center;">ลำดับ</th>
+                        <th style="width: 160px; text-align: center;">หลักฐานภาพจริง (Visual Preview)</th>
+                        <th style="width: 170px;">วัน-เวลาทำรายการ</th>
+                        <th>เส้นทางการเงิน (Money Trail)</th>
+                        <th style="width: 90px; text-align: center;">ธนาคาร</th>
+                        <th style="width: 160px; text-align: right;">ยอดเงินสุทธิ</th>
+                        <th style="width: 170px;">รหัสอ้างอิง Ref ID</th>
+                        <th style="width: 160px; text-align: center;">สถานะตรวจสอบ</th>
+                        <th style="width: 180px;">ห่วงโซ่พยาน (Provenance)</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    
+            <tr class="">
+                <td style="text-align: center; font-family: monospace; font-weight: bold; color: #94a3b8;">ROW_01</td>
+                <td style="text-align: center;">
+                    <div class="visual-thumb-container" onclick="openVisualModal('A4_IMG_ (100).PNG', '1,000.00 บาท', 'N006727673034053896171486', 'จิณห์นิภา บุญประเสริฐ')">
+                        <div class="visual-thumb-badge">👁️ กดดูสลิปจริง</div>
+                        <div style="font-size: 0.75rem; color: #38bdf8; font-family: monospace; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 140px;">
+                            📄 A4_IMG_ (100).PNG
+                        </div>
+                    </div>
+                </td>
+                <td style="font-family: monospace; font-size: 0.9rem; color: #cbd5e1; white-space: nowrap;">
+                    2025-03-12 20:17:00
+                </td>
+                <td>
+                    <div style="font-weight: 600; color: #f8fafc; font-size: 0.95rem;">ผู้เสียหาย (บัญชีต้นทาง) ➔ [ธนาคารกรุงไทย (KTB)] ➔ จิณห์นิภา บุญประเสริฐ</div>
+                    <div style="margin-top: 4px;"><span class="badge badge-tag">CLEARED_SOT</span></div>
+                </td>
+                <td style="text-align: center;">
+                    <span class="badge bank-badge">ธนาคารกรุงไทย (KTB)</span>
+                </td>
+                <td style="text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; font-weight: 800; color: #34d399;">
+                    1,000.00 บาท
+                </td>
+                <td style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #94a3b8;">
+                    N006727673034053896171486
+                </td>
+                <td style="text-align: center;">
+                    <span class="badge status-cleared">✓ ผ่านการตรวจ 100%</span>
+                </td>
+                <td style="font-family: monospace; font-size: 0.75rem; color: #64748b;">
+                    SHA256_HASH_VERIFIED // REF: N006727673034053896171486
+                </td>
+            </tr>
+            
+            <tr class="whale-row">
+                <td style="text-align: center; font-family: monospace; font-weight: bold; color: #94a3b8;">ROW_02</td>
+                <td style="text-align: center;">
+                    <div class="visual-thumb-container" onclick="openVisualModal('slip_5600.jpg', '5,600.00 บาท', 'Aa7e0058a52854e5c', 'อลงกรณ์ แจ่มเมือง')">
+                        <div class="visual-thumb-badge">👁️ กดดูสลิปจริง</div>
+                        <div style="font-size: 0.75rem; color: #38bdf8; font-family: monospace; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 140px;">
+                            📄 slip_5600.jpg
+                        </div>
+                    </div>
+                </td>
+                <td style="font-family: monospace; font-size: 0.9rem; color: #cbd5e1; white-space: nowrap;">
+                    2025-05-26 16:50:00
+                </td>
+                <td>
+                    <div style="font-weight: 600; color: #f8fafc; font-size: 0.95rem;">ผู้เสียหาย (บัญชีต้นทาง) ➔ [กรุงไทย] ➔ อลงกรณ์ แจ่มเมือง</div>
+                    <div style="margin-top: 4px;"><span class="badge badge-tag">CLEARED_SOT</span><span class="badge badge-tag">🎯 WHALE_TARGET (ตัวการใหญ่)</span><span class="badge badge-tag">⚡ BURST_COERCION (โอนถี่)</span></div>
+                </td>
+                <td style="text-align: center;">
+                    <span class="badge bank-badge">กรุงไทย</span>
+                </td>
+                <td style="text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; font-weight: 800; color: #34d399;">
+                    5,600.00 บาท
+                </td>
+                <td style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #94a3b8;">
+                    Aa7e0058a52854e5c
+                </td>
+                <td style="text-align: center;">
+                    <span class="badge status-cleared">✓ ผ่านการตรวจ 100%</span>
+                </td>
+                <td style="font-family: monospace; font-size: 0.75rem; color: #64748b;">
+                    SHA256_HASH_VERIFIED // REF: Aa7e0058a52854e5c
+                </td>
+            </tr>
+            
+            <tr class="whale-row">
+                <td style="text-align: center; font-family: monospace; font-weight: bold; color: #94a3b8;">ROW_03</td>
+                <td style="text-align: center;">
+                    <div class="visual-thumb-container" onclick="openVisualModal('slip_4400.jpg', '4,400.00 บาท', 'Bb8f9900112233', 'อลงกรณ์ แจ่มเมือง')">
+                        <div class="visual-thumb-badge">👁️ กดดูสลิปจริง</div>
+                        <div style="font-size: 0.75rem; color: #38bdf8; font-family: monospace; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 140px;">
+                            📄 slip_4400.jpg
+                        </div>
+                    </div>
+                </td>
+                <td style="font-family: monospace; font-size: 0.9rem; color: #cbd5e1; white-space: nowrap;">
+                    2025-05-26 16:51:30
+                </td>
+                <td>
+                    <div style="font-weight: 600; color: #f8fafc; font-size: 0.95rem;">ผู้เสียหาย (บัญชีต้นทาง) ➔ [กรุงไทย] ➔ อลงกรณ์ แจ่มเมือง</div>
+                    <div style="margin-top: 4px;"><span class="badge badge-tag">CLEARED_SOT</span><span class="badge badge-tag">🎯 WHALE_TARGET (ตัวการใหญ่)</span><span class="badge badge-tag">⚡ BURST_COERCION (โอนถี่)</span></div>
+                </td>
+                <td style="text-align: center;">
+                    <span class="badge bank-badge">กรุงไทย</span>
+                </td>
+                <td style="text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; font-weight: 800; color: #34d399;">
+                    4,400.00 บาท
+                </td>
+                <td style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #94a3b8;">
+                    Bb8f9900112233
+                </td>
+                <td style="text-align: center;">
+                    <span class="badge status-cleared">✓ ผ่านการตรวจ 100%</span>
+                </td>
+                <td style="font-family: monospace; font-size: 0.75rem; color: #64748b;">
+                    SHA256_HASH_VERIFIED // REF: Bb8f9900112233
+                </td>
+            </tr>
+            
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal for Visual Preview -->
+    <div class="modal-overlay" id="visualModal" onclick="closeVisualModal(event)">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeVisualModal()">&times;</span>
+            <div style="font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; font-weight: bold; color: #38bdf8; margin-bottom: 8px;">
+                👁️ VISUAL EVIDENCE INSPECTION
+            </div>
+            <div style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 16px;" id="modalFileLabel">ไฟล์: -</div>
+            <div style="background: #020617; border: 1px solid #1e293b; border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 16px;">
+                <div style="font-size: 3rem; margin-bottom: 10px;">🧾</div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; font-weight: 800; color: #34d399;" id="modalAmount">0.00 บาท</div>
+                <div style="font-size: 1rem; color: #f8fafc; margin-top: 6px;" id="modalReceiver">ผู้รับ: -</div>
+                <div style="font-size: 0.85rem; color: #94a3b8; font-family: monospace; margin-top: 4px;" id="modalRef">Ref: -</div>
+            </div>
+            <div style="font-size: 0.8rem; color: #64748b; text-align: center;">
+                🔒 รับรองความถูกต้องระดับพิกเซลตามมาตรฐาน ISO/IEC 27037
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openVisualModal(fileName, amount, ref, receiver) {
+            document.getElementById('modalFileLabel').innerText = 'ไฟล์พยานหลักฐาน: ' + fileName;
+            document.getElementById('modalAmount').innerText = amount;
+            document.getElementById('modalReceiver').innerText = 'บัญชีปลายทาง: ' + receiver;
+            document.getElementById('modalRef').innerText = 'รหัสอ้างอิง: ' + ref;
+            document.getElementById('visualModal').style.display = 'flex';
+        }
+        function closeVisualModal() {
+            document.getElementById('visualModal').style.display = 'none';
+        }
+        function filterTable(filterType, btnElem) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btnElem.classList.add('active');
+            const rows = document.querySelectorAll('#tableBody tr');
+            rows.forEach(r => {
+                if (filterType === 'ALL') {
+                    r.style.display = '';
+                } else if (filterType === 'WHALE') {
+                    r.style.display = r.classList.contains('whale-row') ? '' : 'none';
+                } else if (filterType === 'BURST') {
+                    r.style.display = r.innerText.includes('BURST_COERCION') ? '' : 'none';
+                }
+            });
+        }
+        function searchTable() {
+            const query = document.getElementById('tableSearch').value.toLowerCase();
+            const rows = document.querySelectorAll('#tableBody tr');
+            rows.forEach(r => {
+                r.style.display = r.innerText.toLowerCase().includes(query) ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>

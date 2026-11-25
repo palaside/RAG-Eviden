@@ -1,0 +1,52 @@
+{
+  "manifest_version": "2.0.0",
+  "sequence_id": "SEQ_CHATV3_MASTER",
+  "ordered_nodes": [
+    {
+      "node_id": "node_chatv3_01",
+      "source_file": "chatv3 (1).jpg",
+      "vault_id": "VAULT_38bb247ba1f3",
+      "sha256": "38bb247ba1f3670887e343fe82fe5b598b2cfff447f902045d7e68dc3b5d29d8",
+      "crop_mask": {
+        "top_px": 942,
+        "bottom_px": 942
+      },
+      "quiet_zone_seam_y": 1420,
+      "cumulative_y_offset": 0
+    },
+    {
+      "node_id": "node_chatv3_02",
+      "source_file": "chatv3 (2).jpg",
+      "vault_id": "VAULT_078ec7709ca4",
+      "sha256": "078ec7709ca4227e4433b4a422fc4e51d6aa13120f274561761706505938d7f0",
+      "crop_mask": {
+        "top_px": 360,
+        "bottom_px": 360
+      },
+      "quiet_zone_seam_y": 1200,
+      "cumulative_y_offset": 4390
+    }
+  ],
+  "focal_points": [
+    {
+      "event_id": "EV_CHATV3_001",
+      "label": "19:35 น. บับเบิ้ลบทสนทนาสำคัญ",
+      "source_file": "chatv3 (1).jpg",
+      "sha256": "38bb247ba1f3670887e343fe82fe5b598b2cfff447f902045d7e68dc3b5d29d8",
+      "vault_id": "VAULT_38bb247ba1f3",
+      "pixel_box": {
+        "ymin": 420,
+        "xmin": 80,
+        "ymax": 640,
+        "xmax": 560
+      },
+      "normalized_box": {
+        "ymin": 0.0668,
+        "xmin": 0.1258,
+        "ymax": 0.1018,
+        "xmax": 0.8805
+      },
+      "scroll_target_y": 480
+    }
+  ]
+}

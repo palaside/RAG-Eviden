@@ -1,0 +1,38 @@
+{
+  "index_metadata": {
+    "tokens_count": 5
+  },
+  "tokens": {
+    "19:35": [
+      {
+        "target_event": "EV_CHATV3_001",
+        "node": "node_chatv3_01",
+        "scroll_y": 480
+      }
+    ],
+    "19:28": [
+      {
+        "node": "node_chatv3_01",
+        "scroll_y": 320
+      }
+    ],
+    "08:04": [
+      {
+        "node": "node_chatv3_02",
+        "scroll_y": 4500
+      }
+    ],
+    "EVEANDBOY": [
+      {
+        "node": "node_chatv3_02",
+        "scroll_y": 4560
+      }
+    ],
+    "DUPLICATE": [
+      {
+        "node": "chatv3 (47).jpg",
+        "reason": "SHA-256 match with chatv3 (46)"
+      }
+    ]
+  }
+}

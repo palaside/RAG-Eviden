@@ -1,0 +1,13 @@
+{"timestamp": "2026-11-22T16:37:34Z", "phase": "Phase 1", "step": "P1->P2 Contract Alignment", "status": "PASS", "details": {"schema": "verified", "keys": ["file_id", "sha256", "quality_score", "laplacian_variance", "dimensions", "vault_uri"]}}
+{"timestamp": "2026-11-22T16:37:34Z", "phase": "Phase 1", "step": "P2->P3 Contract Alignment", "status": "PASS", "details": {"schema": "verified", "tokens_count": 3}}
+{"timestamp": "2026-11-22T16:37:34Z", "phase": "Phase 1", "step": "P3->P4 Contract Alignment", "status": "PASS", "details": {"nodes": 3, "cumulative_height": 4680}}
+{"timestamp": "2026-11-22T16:37:34Z", "phase": "Phase 1", "step": "P4->P5 Contract Alignment", "status": "PASS", "details": {"schema": "verified", "lean_entities": 4}}
+{"timestamp": "2026-11-22T16:37:34Z", "phase": "Phase 2", "step": "Boundary Interceptor: Invalid SHA-256", "status": "PASS_TRAPPED", "details": {"error_trapped": "Invalid SHA-256 length (11) in P1->P2 contract"}}
+{"timestamp": "2026-11-22T16:37:34Z", "phase": "Phase 2", "step": "Boundary Interceptor: Box Coordinates Overflow", "status": "PASS_TRAPPED", "details": {"error_trapped": "Bounding box coordinate ymin=-0.15 out of normalized bounds [0.0, 1.0]"}}
+{"timestamp": "2026-11-22T16:37:34Z", "phase": "Phase 2", "step": "Data Not Found Logic: Missing Tokens", "status": "PASS_RECOVERED", "details": {"tokens": "NOT_FOUND"}}
+{"timestamp": "2026-11-22T16:37:34Z", "phase": "Phase 2", "step": "Data Not Found Logic: Missing Slips Entity", "status": "PASS_RECOVERED", "details": {"slips": "NOT_FOUND"}}
+{"timestamp": "2026-11-22T16:37:34Z", "phase": "Phase 3", "step": "E2E Step 1: Intake -> Dedup & OCR", "status": "PASSED", "details": {"file_id": "E2E_CHAT_01.jpg"}}
+{"timestamp": "2026-11-22T16:37:34Z", "phase": "Phase 3", "step": "E2E Step 2: Dedup & OCR -> Stitching", "status": "PASSED", "details": {"tokens": 4, "boxes": 1}}
+{"timestamp": "2026-11-22T16:37:34Z", "phase": "Phase 3", "step": "E2E Step 3: Stitching -> SSOT Data Model", "status": "PASSED", "details": {"cumulative_height_px": 4200}}
+{"timestamp": "2026-11-22T16:37:34Z", "phase": "Phase 3", "step": "E2E Step 4: SSOT -> Presentation & Court Packaging", "status": "PASSED", "details": {"entities_modeled": 4}}
+{"timestamp": "2026-11-22T16:37:34Z", "phase": "Phase 3", "step": "E2E Step 5: Final Delivery Ready", "status": "PASSED", "details": {"render_mode": "HYBRID_DUAL_LAYER", "base_layer": "WebP (Quality 85%)", "overlay_layer": "SVG Vector (pointer-events: none)", "focal_jump_target": {"event_id": "EV01", "scroll_y": 1450, "marker_box": {"ymin": 0.284, "xmin": 0.231, "ymax": 0.348, "xmax": 0.628}}, "standalone_status": "OFFLINE_VERIFIED_AIR_GAPPED"}}

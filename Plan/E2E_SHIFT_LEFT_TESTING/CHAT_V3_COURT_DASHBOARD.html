@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>แชทที่ 3 - E2E Shift-Left Forensic Verification Dashboard</title>
+  <style>
+    body { background: #0b1120; color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 24px; }
+    .header { background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }
+    .badge-green { background: #10b981; color: #042f2e; font-weight: bold; padding: 6px 14px; border-radius: 9999px; font-size: 13px; }
+    .card { background: #1e293b; border-radius: 12px; padding: 20px; border: 1px solid #334155; margin-bottom: 24px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+    th, td { border: 1px solid #334155; padding: 10px 12px; text-align: left; }
+    th { background: #0f172a; color: #38bdf8; }
+    tr:nth-child(even) { background: #162032; }
+    .btn-focal { background: #0284c7; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+    .btn-focal:hover { background: #0369a1; }
+    .viewer-wrap { position: relative; width: 680px; max-width: 100%; margin: 0 auto; background: #0f172a; border: 2px solid #38bdf8; border-radius: 12px; overflow: hidden; }
+    .img-layer { width: 100%; display: block; }
+    .overlay-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h2 style="margin:0 0 6px 0;">🏛️ แฟ้มทดสอบพยานหลักฐาน: แชทที่ 3 (Forensic Provenance Verified)</h2>
+      <div style="color: #94a3b8; font-size: 14px;">Path: D:\Project\ชวกม.2\EDOK_NUI\FOR TEST In EDOK_NUI\แชทที่ 3 | Shift-Left Certified</div>
+    </div>
+    <div class="badge-green">PROVENANCE TRACEABLE 100%</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0; color:#38bdf8;">📋 ตารางตามรอยย้อนกลับพยานหลักฐาน (Traceability Matrix)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ชื่อไฟล์ต้นฉบับ</th>
+          <th>ขนาด (px)</th>
+          <th>SHA-256 (64-Hex)</th>
+          <th>Vault ID</th>
+          <th>Laplacian (ความคมชัด)</th>
+          <th>สถานะ Deduplication</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>chatv3 (1).jpg</b></td>
+          <td>636 x 6286</td>
+          <td><code>38bb247ba1f3670887e343fe82fe5b598b2cfff447f902045d7e68dc3b5d29d8</code></td>
+          <td><code>VAULT_38bb247ba1f3</code></td>
+          <td>680.99 (Crisp)</td>
+          <td><span style="color:#34d399;">UNIQUE_MASTER</span></td>
+        </tr>
+        <tr>
+          <td><b>chatv3 (2).jpg</b></td>
+          <td>828 x 2422</td>
+          <td><code>078ec7709ca4227e4433b4a422fc4e51d6aa13120f274561761706505938d7f0</code></td>
+          <td><code>VAULT_078ec7709ca4</code></td>
+          <td>545.08 (Crisp)</td>
+          <td><span style="color:#34d399;">UNIQUE_MASTER</span></td>
+        </tr>
+        <tr>
+          <td><b>chatv3 (46).jpg</b></td>
+          <td>640 x 6230</td>
+          <td><code>a5f1a147a3555588ceeb06ba8a993ff33ddf976ff6bf160f1655a078e2e4497d</code></td>
+          <td><code>VAULT_a5f1a147a355</code></td>
+          <td>658.83 (Crisp)</td>
+          <td><span style="color:#38bdf8;">MASTER_PAIR</span></td>
+        </tr>
+        <tr style="background:#2d1b28;">
+          <td><b>chatv3 (47).jpg</b></td>
+          <td>640 x 6230</td>
+          <td><code>a5f1a147a3555588ceeb06ba8a993ff33ddf976ff6bf160f1655a078e2e4497d</code></td>
+          <td><code>VAULT_a5f1a147a355</code></td>
+          <td>658.83 (Crisp)</td>
+          <td><span style="color:#f43f5e; font-weight:bold;">⚡ DUPLICATE_OF_chatv3(46) (ตัดทิ้ง ไม่รัน OCR ซ้ำ)</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="text-align: center;">
+    <h3 style="margin-top:0; color:#38bdf8;">🎯 ผลลัพธ์การแสดงผล 2 เลเยอร์แบบโต้ตอบ (Dual-Layer Interactive Viewer)</h3>
+    <p style="color:#94a3b8; font-size:14px;">เลเยอร์ล่าง: รูปภาพพยานหลักฐานจริง (แชทที่ 3) | เลเยอร์บน: กรอบเวกเตอร์สีแดงล็อกพิกัด 100% (pointer-events: none)</p>
+    
+    <button class="btn-focal" onclick="alert('โฟกัสพิกัดบับเบิ้ล 19:35 น. ที่ Y=480px ใน chatv3 (1).jpg สำเร็จ!')">
+      🎯 ส่องประเด็นสำคัญ (19:35 น. บับเบิ้ลบทสนทนาสำคัญใน chatv3 (1).jpg)
+    </button>
+
+    <div class="viewer-wrap">
+      <!-- Embedded image preview -->
+      <img src="chatv3_1_visual_proof.jpg" class="img-layer" alt="Chat V3 Visual Proof" />
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+{
+  "case_id": "CASE_CHATV3_FORENSIC_TEST",
+  "total_test_files": 4,
+  "unique_masters": 3,
+  "duplicates_filtered": 1,
+  "entities": {
+    "evidence_nodes": [
+      {
+        "source_file": "chatv3 (1).jpg",
+        "file_size": 1523461,
+        "dimensions": {
+          "width": 636,
+          "height": 6286
+        },
+        "sha256": "38bb247ba1f3670887e343fe82fe5b598b2cfff447f902045d7e68dc3b5d29d8",
+        "vault_id": "VAULT_38bb247ba1f3",
+        "laplacian_variance": 680.99,
+        "quality_status": "CRISP_ACCEPTED",
+        "dedup_status": "UNIQUE_MASTER",
+        "is_master": true
+      },
+      {
+        "source_file": "chatv3 (2).jpg",
+        "file_size": 699590,
+        "dimensions": {
+          "width": 828,
+          "height": 2422
+        },
+        "sha256": "078ec7709ca4227e4433b4a422fc4e51d6aa13120f274561761706505938d7f0",
+        "vault_id": "VAULT_078ec7709ca4",
+        "laplacian_variance": 545.08,
+        "quality_status": "CRISP_ACCEPTED",
+        "dedup_status": "UNIQUE_MASTER",
+        "is_master": true
+      },
+      {
+        "source_file": "chatv3 (46).jpg",
+        "file_size": 2007601,
+        "dimensions": {
+          "width": 640,
+          "height": 6230
+        },
+        "sha256": "a5f1a147a3555588ceeb06ba8a993ff33ddf976ff6bf160f1655a078e2e4497d",
+        "vault_id": "VAULT_a5f1a147a355",
+        "laplacian_variance": 658.83,
+        "quality_status": "CRISP_ACCEPTED",
+        "dedup_status": "UNIQUE_MASTER",
+        "is_master": true
+      },
+      {
+        "source_file": "chatv3 (47).jpg",
+        "file_size": 2007601,
+        "dimensions": {
+          "width": 640,
+          "height": 6230
+        },
+        "sha256": "a5f1a147a3555588ceeb06ba8a993ff33ddf976ff6bf160f1655a078e2e4497d",
+        "vault_id": "VAULT_a5f1a147a355",
+        "laplacian_variance": 658.83,
+        "quality_status": "CRISP_ACCEPTED",
+        "dedup_status": "DUPLICATE_OF_chatv3 (46).jpg",
+        "is_master": false
+      }
+    ],
+    "focal_events": [
+      {
+        "event_id": "EV_CHATV3_001",
+        "label": "19:35 น. บับเบิ้ลข้อความแชทบทสนทนาสำคัญ",
+        "source_file": "chatv3 (1).jpg",
+        "sha256": "38bb247ba1f3670887e343fe82fe5b598b2cfff447f902045d7e68dc3b5d29d8",
+        "local_pixel_box": {
+          "ymin": 420,
+          "xmin": 80,
+          "ymax": 640,
+          "xmax": 560
+        },
+        "normalized_box": {
+          "ymin": 0.0668,
+          "xmin": 0.1258,
+          "ymax": 0.1018,
+          "xmax": 0.8805
+        },
+        "cumulative_y_target": 480
+      }
+    ]
+  }
+}

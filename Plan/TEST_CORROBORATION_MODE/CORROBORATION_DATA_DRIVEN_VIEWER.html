@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Corroboration Truth Audit Viewer</title>
+<style>
+  body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0b0f19; color: #f1f5f9; padding: 24px; }
+  .card { background: #1e293b; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid #334155; }
+  .tag { display: inline-block; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 13px; }
+  .unmatched { background: #450a0a; color: #f87171; border: 1px solid #dc2626; }
+  .truth { background: #064e3b; color: #34d399; border: 1px solid #059669; }
+  table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+  th, td { padding: 12px; text-align: left; border-bottom: 1px solid #334155; }
+  th { background: #0f172a; color: #94a3b8; font-size: 13px; text-transform: uppercase; }
+  .highlight { color: #38bdf8; font-weight: bold; }
+</style>
+</head>
+<body>
+  <h2>🔍 Corroboration Mode: Forensic Truth Audit (Zero Hallucination)</h2>
+  <div class="card">
+    <span class="tag truth">PURE TRUTH STATE</span>
+    <span class="tag unmatched">LINK STATUS: UNMATCHED (NOT_FOUND)</span>
+    <p style="margin-top: 15px; line-height: 1.6;">
+      <strong>ผลการตรวจสอบภาพจริง:</strong> ในไฟล์ <code>chatv3 (1).jpg</code> ไม่ปรากฏข้อความสั่งโอนเงิน 1,500 บาท 
+      ระบบจึงคงค่า <code>transfer_amount = null (NOT_FOUND)</code> และกำหนดสถานะความเชื่อมโยงเป็น <code>UNMATCHED</code>
+      ตามกฎเหล็กขั้นตอนที่ 3: ห้ามอนุมาน ห้ามสร้างข้อมูลเท็จเด็ดขาด
+    </p>
+  </div>
+  <div class="card">
+    <h3>📊 เปรียบเทียบข้อมูลจริง (Truth Comparison Matrix)</h3>
+    <table>
+      <thead>
+        <tr><th>มิติข้อมูล</th><th>ฝั่งแชทจริง: chatv3 (1).jpg</th><th>ฝั่งสลิปจริง: slip_1500_kbank.jpg</th><th>ผลการตรวจสอบความเชื่อมโยง</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>ประเภทหลักฐาน</strong></td><td>MODE_CHAT (การสนทนาช่วงเปิดกลุ่ม)</td><td>MODE_SLIP (สลิปโอนเงินกสิกรไทย)</td><td>แยก Mode อิสระถูกต้อง</td></tr>
+        <tr><td><strong>ข้อความ / รายการ</strong></td><td>"20:26 ยกเลิกข้อความ @NuiEve..."</td><td>ยอดโอนเงินชำระค่าสินค้า/บริการ</td><td>ไม่เกี่ยวข้องกัน</td></tr>
+        <tr><td><strong>ยอดเงิน (Amount)</strong></td><td><span class="highlight">null (NOT_FOUND)</span></td><td><span class="highlight">1,500.00 THB</span></td><td><span style="color:#ef4444;">ไม่มียอดเงินในแชทภาพนี้</span></td></tr>
+        <tr><td><strong>วัน-เวลา (Timestamp)</strong></td><td>20:26 น.</td><td>14:15:22 น.</td><td>เวลาต่างกัน ~6 ชั่วโมง</td></tr>
+        <tr><td><strong>สถานะความเชื่อมโยง</strong></td><td colspan="2" style="text-align:center;"><strong>UNMATCHED</strong></td><td><span class="tag unmatched">NO MATCH</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card" style="text-align: center;">
+    <h3>📸 ภาพหลักฐานการตรวจสอบความจริง (Truth Audit Proof)</h3>
+    <img src="corroboration_pipeline_visual_proof.jpg" style="max-width: 100%; border-radius: 8px; border: 1px solid #475569;" alt="Proof Image">
+  </div>
+</body>
+</html>

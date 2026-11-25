@@ -1,0 +1,30 @@
+{
+  "sequence_id": "SEQ_2026_MASTER_STRIP",
+  "nodes": [
+    {
+      "node_id": "node_001",
+      "vault_id": "VAULT_54a638fca69c",
+      "crop_top": 360,
+      "crop_bottom": 360,
+      "seam_quiet_zone_y": 1420,
+      "ncc_match_confidence": 0.994,
+      "cumulative_y_start": 0,
+      "cumulative_y_end": 1680
+    }
+  ],
+  "total_strip_height_px": 1680,
+  "focal_points": [
+    {
+      "node_id": "node_001",
+      "label": "13:53 น. บับเบิ้ลขอ 2,000 บาท ค่าครีม & แฟนอับสัญญาณ",
+      "scroll_target_y": 1450,
+      "bounding_box": {
+        "token": "@NuiEve",
+        "ymin": 0.284,
+        "xmin": 0.225,
+        "ymax": 0.352,
+        "xmax": 0.635
+      }
+    }
+  ]
+}
