@@ -111,8 +111,8 @@ class Task1FeatureNormalizer:
         raw_amt = ocr.get("amount") if "amount" in ocr else meta.get("amount")
         amount = self._parse_amount(raw_amt)
 
-        ref_id = ocr.get("ref_id") or meta.get("ref_id")
-        raw_date = ocr.get("trans_date") or meta.get("trans_date")
+        ref_id = ocr.get("ref_id") or ocr.get("ref_no") or meta.get("ref_id") or meta.get("ref_no")
+        raw_date = ocr.get("trans_date") or ocr.get("datetime") or meta.get("trans_date") or meta.get("datetime")
         iso_ts = self._normalize_timestamp(raw_date)
 
         return NormalizedEvidenceRecord(
