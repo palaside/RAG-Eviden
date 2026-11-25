@@ -44,8 +44,8 @@ class MasterPipelineOrchestrator:
         self.task2_buf = Task2StagingBuffer()
         self.task3_poi = Task3RecipientSelector()
         self.task4_analyzer = Task4SixAgentsDeepAnalyzer()
-        self.task5_engine = LockedTask5PureSlipSOTEngine(LockedTask5Config(case_id=case_number))
-        self.task7_engine = LockedTask7EvidenceTableEngine(LockedTask7Config(case_id=case_number))
+        self.task5_engine = LockedTask5PureSlipSOTEngine()
+        self.task7_engine = LockedTask7EvidenceTableEngine()
         self.task8_assembler = Task8CourtDossierAssembler(LockedDossierConfig(case_number=case_number))
         self.task9_exporter = Task9VaultExporter(LockedVaultConfig(case_number=case_number))
 
