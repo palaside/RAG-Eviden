@@ -131,35 +131,28 @@
       padding: 0 32px;
     }
 
-    /* Tab Controls - Fixed on One Screen */
+    /* Tab Controls */
     .boss-tabs {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
+      display: flex;
+      gap: 12px;
       margin-bottom: 24px;
       border-bottom: 1px solid var(--border);
       padding-bottom: 14px;
-    }
-    @media (max-width: 1200px) {
-      .boss-tabs {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      }
+      overflow-x: auto;
     }
     .btab-btn {
       background: var(--bg-card);
       border: 1px solid var(--border);
       color: var(--text-muted);
-      padding: 10px 12px;
+      padding: 10px 20px;
       border-radius: 8px;
-      font-size: 13.5px;
+      font-size: 14.5px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      gap: 6px;
-      white-space: normal;
+      gap: 8px;
+      white-space: nowrap;
       transition: all 0.2s;
     }
     .btab-btn:hover { border-color: var(--gold); color: #fff; }
@@ -373,464 +366,70 @@
       .sim-steps { grid-template-columns: 1fr; }
       .flip-comparison { grid-template-columns: 1fr; }
     }
-  
-    
-
-
-    
-    
-    /* ==========================================================================
-       PROTOTYPE REFERENCE (PAGE 4 CANONICAL STANDARD) - LOCKED MASTER HEADER
-       ========================================================================== */
-    .sticky-master-wrapper {
-      position: sticky;
-      top: 0;
-      z-index: 10000;
-      background: #070b14;
-      border-bottom: 2px solid #1e293b;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.85);
-      width: 100% !important;
-      display: block !important;
-      box-sizing: border-box !important;
-    }
-    .master-header-frame {
-      display: block !important;
-      background: transparent !important;
-      border-bottom: 1px solid #1e293b !important;
-      padding: 10px 20px 8px !important;
-      margin-bottom: 0 !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
-    }
-    .master-tool-row {
-      display: grid !important;
-      grid-template-columns: repeat(6, 1fr) !important;
-      gap: 10px !important;
-      margin-bottom: 10px !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
-    }
-    .app-tool-btn {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid #1e293b;
-      border-radius: 8px;
-      padding: 8px 10px;
-      text-decoration: none;
-      color: #cbd5e1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      gap: 2px;
-      transition: all 0.2s;
-      position: relative;
-    }
-    .app-tool-btn:hover {
-      background: rgba(56, 189, 248, 0.15);
-      border-color: #38bdf8;
-      color: #ffffff;
-    }
-    .app-tool-btn.active {
-      background: linear-gradient(135deg, rgba(2, 132, 199, 0.35) 0%, rgba(14, 165, 233, 0.2) 100%);
-      border-color: #38bdf8;
-      color: #38bdf8;
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
-    }
-    .app-tool-btn.boss-tool {
-      border-color: #ca8a04;
-      background: rgba(30, 25, 10, 0.8);
-      color: #facc15;
-    }
-    .app-tool-btn.boss-tool:hover {
-      background: rgba(234, 179, 8, 0.2);
-      border-color: #facc15;
-    }
-    .app-tool-btn.boss-tool.active {
-      border-color: #facc15;
-      box-shadow: 0 0 12px rgba(250, 204, 21, 0.35);
-    }
-    .at-title { font-weight: 700; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .at-desc { font-size: 11px; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .nav-direction-row {
-      display: flex !important;
-      justify-content: space-between !important;
-      align-items: center !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
-    }
-    .btn-nav-dir {
-      background: rgba(30, 41, 59, 0.7);
-      border: 1px solid #334155;
-      color: #94a3b8;
-      text-decoration: none;
-      font-size: 12.5px;
-      font-weight: 700;
-      padding: 6px 18px;
-      border-radius: 6px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-    .btn-nav-dir:hover:not(.disabled) {
-      background: #1e293b;
-      border-color: #38bdf8;
-      color: #ffffff;
-    }
-    .btn-nav-dir.disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-    .sticky-titlebar {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: space-between !important;
-      padding: 8px 24px !important;
-      background: rgba(15, 23, 42, 0.6) !important;
-      border-bottom: 1px solid rgba(30, 41, 59, 0.7) !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
-    }
-    .sticky-titlebar .st-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: #38bdf8;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .tabs-bar {
-      display: flex !important;
-      justify-content: center !important;
-      align-items: center !important;
-      gap: 12px !important;
-      margin: 8px auto 10px auto !important;
-      width: 100% !important;
-      padding-bottom: 0 !important;
-      flex-wrap: wrap !important;
-      box-sizing: border-box !important;
-    }
-    .tab-btn {
-      background: #0f172a;
-      border: 1px solid #1e293b;
-      color: #94a3b8;
-      padding: 8px 22px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14.5px;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .tab-btn:hover {
-      color: #e2e8f0;
-      background: #1e293b;
-      border-color: #38bdf8;
-    }
-    .tab-btn.active {
-      background: #0284c7;
-      color: #ffffff;
-      border-color: #38bdf8;
-      box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
-    }
-
-
-    /* MASTER 6-TOOL APPLICATION NAV BAR */
-    .master-app-nav {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 8px;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #1e293b;
-      width: 100%;
-    }
-    .app-tool-btn {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid #1e293b;
-      border-radius: 8px;
-      padding: 8px 10px;
-      text-decoration: none;
-      color: #cbd5e1;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      transition: all 0.2s;
-      position: relative;
-    }
-    .app-tool-btn:hover {
-      background: rgba(56, 189, 248, 0.15);
-      border-color: #38bdf8;
-      color: #ffffff;
-    }
-    .app-tool-btn.active {
-      background: linear-gradient(135deg, rgba(2, 132, 199, 0.35) 0%, rgba(14, 165, 233, 0.2) 100%);
-      border-color: #38bdf8;
-      color: #38bdf8;
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
-    }
-    .app-tool-btn.boss-tool {
-      border-color: #ca8a04;
-      background: rgba(30, 25, 10, 0.8);
-      color: #facc15;
-    }
-    .app-tool-btn.boss-tool:hover {
-      background: rgba(234, 179, 8, 0.2);
-      border-color: #facc15;
-    }
-    .app-tool-btn.boss-tool.active {
-      border-color: #facc15;
-      box-shadow: 0 0 12px rgba(250, 204, 21, 0.35);
-    }
-    .at-title { font-weight: 700; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .at-desc { font-size: 11px; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .multi-page-pill {
-      position: absolute;
-      top: 4px;
-      right: 6px;
-      background: rgba(245, 158, 11, 0.2);
-      border: 1px solid #f59e0b;
-      color: #fbbf24;
-      font-size: 9.5px;
-      font-weight: 800;
-      padding: 1px 5px;
-      border-radius: 10px;
-    }
-
-    /* CANONICAL TABS BAR (STYLE FROM PAGE 4 - IMAGE 1) */
-    .tabs-bar {
-      display: flex;
-      gap: 10px;
-      border-bottom: 2px solid #1e293b;
-      margin-bottom: 24px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-      width: 100%;
-    }
-    .tab-btn {
-      background: #0f172a;
-      border: 1px solid #1e293b;
-      border-bottom: none;
-      color: #94a3b8;
-      padding: 10px 20px;
-      border-radius: 8px 8px 0 0;
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-    }
-    .tab-btn:hover {
-      color: #e2e8f0;
-      background: #1e293b;
-    }
-    .tab-btn.active {
-      background: #0284c7;
-      color: #ffffff;
-      border-color: #0284c7;
-      box-shadow: 0 -2px 10px rgba(2, 132, 199, 0.3);
-    }
-
-
-    /* MASTER HEADER & CENTERED TABS ARCHITECTURE (BLUEPRINT STANDARD) */
-    .master-header-frame {
-      background: #090d16;
-      border-bottom: 2px solid #1e293b;
-      padding: 12px 20px 14px;
-      margin-bottom: 20px;
-      width: 100%;
-    }
-    .master-tool-row {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .app-tool-btn {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid #1e293b;
-      border-radius: 8px;
-      padding: 8px 10px;
-      text-decoration: none;
-      color: #cbd5e1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      gap: 2px;
-      transition: all 0.2s;
-    }
-    .app-tool-btn:hover {
-      background: rgba(56, 189, 248, 0.15);
-      border-color: #38bdf8;
-      color: #ffffff;
-    }
-    .app-tool-btn.active {
-      background: linear-gradient(135deg, rgba(2, 132, 199, 0.35) 0%, rgba(14, 165, 233, 0.2) 100%);
-      border-color: #38bdf8;
-      color: #38bdf8;
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
-    }
-    .app-tool-btn.boss-tool {
-      border-color: #ca8a04;
-      background: rgba(30, 25, 10, 0.8);
-      color: #facc15;
-    }
-    .app-tool-btn.boss-tool:hover {
-      background: rgba(234, 179, 8, 0.2);
-      border-color: #facc15;
-    }
-    .app-tool-btn.boss-tool.active {
-      border-color: #facc15;
-      box-shadow: 0 0 12px rgba(250, 204, 21, 0.35);
-    }
-    .at-title { font-weight: 700; font-size: 13.5px; white-space: nowrap; }
-    .at-desc { font-size: 11px; color: #94a3b8; white-space: nowrap; }
-
-    /* BACK / FORWARD BAR */
-    .nav-direction-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-    }
-    .btn-nav-dir {
-      background: rgba(30, 41, 59, 0.7);
-      border: 1px solid #334155;
-      color: #94a3b8;
-      text-decoration: none;
-      font-size: 12.5px;
-      font-weight: 700;
-      padding: 6px 18px;
-      border-radius: 6px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-    .btn-nav-dir:hover:not(.disabled) {
-      background: #1e293b;
-      border-color: #38bdf8;
-      color: #ffffff;
-    }
-    .btn-nav-dir.disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-
-    /* CENTERED TABS BAR (STYLE FROM PAGE 4 - IMAGE 1) */
-    .tabs-bar {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      border-bottom: 2px solid #1e293b;
-      margin: 16px auto 24px auto;
-      width: 100%;
-      max-width: 1400px;
-      padding-bottom: 0;
-      flex-wrap: wrap;
-    }
-    .tab-btn {
-      background: #0f172a;
-      border: 1px solid #1e293b;
-      border-bottom: none;
-      color: #94a3b8;
-      padding: 10px 24px;
-      border-radius: 8px 8px 0 0;
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .tab-btn:hover {
-      color: #e2e8f0;
-      background: #1e293b;
-    }
-    .tab-btn.active {
-      background: #0284c7;
-      color: #ffffff;
-      border-color: #0284c7;
-      box-shadow: 0 -2px 10px rgba(2, 132, 199, 0.35);
-    }
-
-</style>
+  </style>
 </head>
 <body>
-  <!-- LOCKED MASTER HEADER (NAVBAR + TITLEBAR + CENTERED TABS) -->
-  <div class="sticky-master-wrapper">
-    <div class="master-header-frame">
-      <nav class="master-tool-row">
-        <a href="MASTER_SSOT_STITCH_VIEWER.html" class="app-tool-btn">
-          <span class="at-title">🏛️ SSOT</span>
-          <span class="at-desc">ร้อยเรียง 577 ภาพ</span>
-        </a>
-        <a href="TARGET_FOCUS_SELECTOR.html" class="app-tool-btn">
-          <span class="at-title">🎯 บุคคล</span>
-          <span class="at-desc">คลังบุคคล & ผังเงิน</span>
-        </a>
-        <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="app-tool-btn">
-          <span class="at-title">🧠 นิติวิทยาศาสตร์ภาษา</span>
-          <span class="at-desc">เวกเตอร์แชท & จุดตาย</span>
-        </a>
-        <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="app-tool-btn">
-          <span class="at-title">⚖️ สำนวนฟ้องรายบุคคล</span>
-          <span class="at-desc">6 จำเลย 26+ กระทง</span>
-        </a>
-        <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="app-tool-btn">
-          <span class="at-title">⏱️ สารบบเวกเตอร์แท้</span>
-          <span class="at-desc">Codex Master & 11 มิติ</span>
-        </a>
-        <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="app-tool-btn boss-tool active">
-          <span class="at-title">👑 ประธานศาลฎีกา</span>
-          <span class="at-desc">Supreme Command</span>
-        </a>
-      </nav>
-      <div class="nav-direction-row">
-        <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="btn-nav-dir">⬅️ BACK</a>
-        <span style="font-size: 12px; color: #64748b; font-weight:600; letter-spacing: 0.5px;">EVIDENCE CODEX SUITE • ISO/IEC 27037</span>
-        <a href="#" class="btn-nav-dir disabled">FORWARD ➡️</a>
-      </div>
-    </div>
 
-    <div class="sticky-titlebar">
-      <div class="st-title">
-        <span>👑 [6] Agent 6: President of the Supreme Court (จอมทัพประธานศาลฎีกา)</span>
+  <!-- Crown Header -->
+  <header class="crown-header">
+    <div class="crown-meta">
+      <div class="crown-title-group">
+        <div class="crown-icon">👑</div>
+        <div>
+          <div class="crown-title">
+            <span>Agent 6: President of the Supreme Court</span>
+            <span class="badge-gold">จอมทัพประธานศาลฎีกา</span>
+          </div>
+          <div class="crown-sub">
+            ศูนย์บัญชาการสูงสุดคุม ๕ เอเจนต์ • ๕ ฟีเจอร์ Game-Changer • The Ultimate Blueprint & Genesis Prompt
+          </div>
+        </div>
       </div>
       <div>
-        <a href="AGENT6_ULTIMATE_BLUEPRINT_AND_GENESIS.md" target="_blank" class="btn-gold" style="padding: 4px 12px; font-size: 12px;">
-          📜 The Ultimate Blueprint (.md)
+        <a href="AGENT6_ULTIMATE_BLUEPRINT_AND_GENESIS.md" target="_blank" class="btn-gold">
+          📜 เปิดอ่าน The Ultimate Blueprint (.md)
         </a>
       </div>
     </div>
 
-    <!-- CENTERED 5 TABS FOR AGENT 6 -->
-    <div class="tabs-bar">
-      <button class="tab-btn active" id="tabBtnSim" onclick="switchBossView('simulator')">🎭 แถบ Killer Cross-Examination Simulator</button>
-      <button class="tab-btn" id="tabBtnFlip" onclick="switchBossView('flipengine')">🔄 แถบ Civil-to-Criminal Flip Engine</button>
-      <button class="tab-btn" id="tabBtnHeat" onclick="switchBossView('heatmap')">🌊 แถบ Psychological Manipulation & Urgency Heatmap</button>
-      <button class="tab-btn" id="tabBtnBust" onclick="switchBossView('defensebuster')">🛡️ แถบ Defense-Buster Matrix 5/5</button>
-      <button class="tab-btn" id="tabBtnExh" onclick="switchBossView('exhibitgen')">📑 แถบ 1-Click Court Exhibit Generator</button>
+    <!-- Agent Nav Grid -->
+    <div class="agent-nav-grid" style="grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));">
+      <a href="MASTER_SSOT_STITCH_VIEWER.html" class="agent-card-nav" target="_blank" data-target="MASTER_SSOT_STITCH_VIEWER.html">
+        <span class="ac-title">🏛️ [1] SSOT Stream</span>
+        <span class="ac-desc">แชท 577 ภาพ สู่แกนเวลาเดียว</span>
+      </a>
+      <a href="TARGET_FOCUS_SELECTOR.html" class="agent-card-nav" target="_blank" data-target="TARGET_FOCUS_SELECTOR.html">
+        <span class="ac-title">🎯 [2] Target Focus (หลัก)</span>
+        <span class="ac-desc">คลังสารบบ 59 รายชื่อบุคคล</span>
+      </a>
+      <a href="BENEFICIARY_NETWORK_DASHBOARD.html?targets=jinnipha%2Cpreeyachat%2C" class="agent-card-nav" target="_blank" data-target="BENEFICIARY_NETWORK_DASHBOARD.html">
+        <span class="ac-title">🕸️ [2.1] Money Network</span>
+        <span class="ac-desc">ผังเส้นทางเงิน 10 บัญชีผู้รับ</span>
+      </a>
+      <a href="CHAT_FORENSIC_VECTOR_EXPLORER.html" class="agent-card-nav" target="_blank" data-target="CHAT_FORENSIC_VECTOR_EXPLORER.html">
+        <span class="ac-title">🧠 [3] Forensic Vector</span>
+        <span class="ac-desc">นิติภาษาศาสตร์ & สลิป 300 DPI</span>
+      </a>
+      <a href="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html" class="agent-card-nav" target="_blank" data-target="INDIVIDUAL_COURT_INDICTMENT_DASHBOARD.html">
+        <span class="ac-title">⚖️ [4] Indictment Engine</span>
+        <span class="ac-desc">สำนวนฟ้อง 6 จำเลย 26+ กระทง</span>
+      </a>
+      <a href="VECTOR_EVIDENCE/VECTOR_EVIDENCE_DASHBOARD.html" class="agent-card-nav" target="_blank" data-target="VECTOR_EVIDENCE_DASHBOARD.html">
+        <span class="ac-title">📑 [5] Master Dossier (หลัก)</span>
+        <span class="ac-desc">สารบบเวกเตอร์แท้ 35 แผ่น</span>
+      </a>
+      <a href="TIMELINE_11D_DASHBOARD.html" class="agent-card-nav" target="_blank" data-target="TIMELINE_11D_DASHBOARD.html">
+        <span class="ac-title">⏱️ [5.1] Timeline 11D</span>
+        <span class="ac-desc">ไทม์ไลน์ 11 มิติ & ซักค้าน Matrix</span>
+      </a>
+      <a href="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html" class="agent-card-nav boss-active" data-target="AGENT6_PRESIDENT_SUPREME_COURT_DASHBOARD.html">
+        <span class="ac-title">👑 [6] Supreme President</span>
+        <span class="ac-desc">ศูนย์บัญชาการสูงสุด ๖ เอเจนต์</span>
+      </a>
     </div>
-  </div>
+  </header>
 
-<div class="container">
+  <div class="container">
 
     <!-- KPI Summary Row -->
     <div class="kpi-row">
@@ -852,7 +451,24 @@
       </div>
     </div>
 
-    
+    <!-- Tabs -->
+    <div class="boss-tabs">
+      <button class="btab-btn active" onclick="switchBossTab('simulator', this)">
+        🎭 ๑. Killer Cross-Examination Simulator
+      </button>
+      <button class="btab-btn" onclick="switchBossTab('flipengine', this)">
+        🔄 ๒. Civil-to-Criminal Flip Engine
+      </button>
+      <button class="btab-btn" onclick="switchBossTab('heatmap', this)">
+        🌊 ๓. Psychological Urgency Heatmap (๔ ระลอก)
+      </button>
+      <button class="btab-btn" onclick="switchBossTab('defensebuster', this)">
+        🛡️ ๔. Defense-Buster Matrix 5/5
+      </button>
+      <button class="btab-btn" onclick="switchBossTab('exhibitgen', this)">
+        📑 ๕. 1-Click Court Exhibit Generator (จ.๑ - จ.๓๐)
+      </button>
+    </div>
 
     <!-- TAB 1: SIMULATOR -->
     <div id="btab-simulator" class="boss-section">
@@ -869,31 +485,22 @@
           <span class="badge-gold">COURTROOM TRIAL READY</span>
         </div>
 
-        <!-- Interactive Step Selector Buttons -->
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin:18px 0; background:#070b14; padding:12px 16px; border-radius:8px; border:1px solid #1e293b; align-items:center;">
-          <span style="font-size:14px; font-weight:700; color:#eab308;">🕹️ ปุ่มกดทดลองซักค้านสด:</span>
-          <button class="btab-btn active" id="btnSim1" onclick="runSimStep(1)" style="padding:6px 14px; font-size:13px;">▶️ Step 1: ตรึงฐานราก</button>
-          <button class="btab-btn" id="btnSim2" onclick="runSimStep(2)" style="padding:6px 14px; font-size:13px;">▶️ Step 2: ดักจับคำรับรอง</button>
-          <button class="btab-btn" id="btnSim3" onclick="runSimStep(3)" style="padding:6px 14px; font-size:13px;">⚡ Step 3: เผด็จศึกสารภาพ</button>
-          <button class="btab-btn" id="btnSimAll" onclick="runSimStep('all')" style="background:#0284c7; color:#fff; border-color:#38bdf8; padding:6px 14px; font-size:13px;">📜 แสดงครบทั้ง ๓ สเต็ป</button>
-        </div>
-
         <div class="sim-steps">
-          <div class="sim-step-box active-step" id="simStepBox1">
+          <div class="sim-step-box active-step">
             <span class="step-badge">STEP 1</span>
             <div class="step-name">ตรึงฐานราก (Premise Lock)</div>
             <div class="step-detail">
               บังคับให้จำเลยยอมรับการเป็นเจ้าของบัญชีแชท LINE 'JiN', การพิมพ์ข้อความด้วยตนเอง, และการได้รับเงินเข้าบัญชีจริง
             </div>
           </div>
-          <div class="sim-step-box" id="simStepBox2">
+          <div class="sim-step-box active-step">
             <span class="step-badge">STEP 2</span>
             <div class="step-name">ดักจับคำรับรอง (Representation Capture)</div>
             <div class="step-detail">
               นำบับเบิ้ลแชทจริงมาวางตรงหน้า เช่น "เดินชนน้ำหอมแตกเรื่องถึง สนง." หรือ "ต้น 50,000 คืนก่อน 1 ทุ่ม" เพื่อให้พยานยืนยันข้อความ
             </div>
           </div>
-          <div class="sim-step-box" id="simStepBox3">
+          <div class="sim-step-box active-step">
             <span class="step-badge">STEP 3</span>
             <div class="step-name">เผด็จศึกสารภาพ (Checkmate & Vacuum)</div>
             <div class="step-detail">
@@ -903,44 +510,35 @@
         </div>
 
         <!-- Interactive Dialogue Simulation -->
-        <div class="court-dialogue-box" id="courtDialogueBox">
-          <!-- Step 1 Pair -->
-          <div class="sim-dialogue-pair" id="simPair1">
-            <div class="dialogue-speaker speaker-lawyer">⚖️ ทนายโจทก์ / พนักงานอัยการ (ซักค้านชี้นำ - สเต็ป ๑ ตรึงฐานราก):</div>
-            <div class="dialogue-bubble">
-              "ในวันที่ ๑๕ กุมภาพันธ์ พยานเป็นผู้พิมพ์ข้อความขอยืมเงิน ๒,๐๐๐ บาท โดยอ้างว่า 'ไปเดินชนน้ำหอมเค้าแตก เรื่องถึงสำนักงาน' เข้าไปในห้องแชทด้วยตนเอง ใช่หรือไม่?"
-            </div>
-
-            <div class="dialogue-speaker speaker-witness">👤 จำเลย (น.ส. จิณห์นิภา ประสาทเขตต์การ ในคอกพยาน):</div>
-            <div class="dialogue-bubble" style="background:#1e1b18; border-left:3px solid #f87171;">
-              "...ใช่ค่ะ (ยอมรับเพราะจำนนต่อหลักฐานบันทึกแชท LINE 100%)"
-            </div>
+        <div class="court-dialogue-box">
+          <div class="dialogue-speaker speaker-lawyer">⚖️ ทนายโจทก์ / พนักงานอัยการ (ซักค้านชี้นำ):</div>
+          <div class="dialogue-bubble">
+            "ในวันที่ ๑๕ กุมภาพันธ์ พยานเป็นผู้พิมพ์ข้อความขอยืมเงิน ๒,๐๐๐ บาท โดยอ้างว่า 'ไปเดินชนน้ำหอมเค้าแตก เรื่องถึงสำนักงาน' เข้าไปในห้องแชทด้วยตนเอง ใช่หรือไม่?"
           </div>
 
-          <!-- Step 2 Pair -->
-          <div class="sim-dialogue-pair" id="simPair2" style="display:none; margin-top:14px;">
-            <div class="dialogue-speaker speaker-lawyer">⚖️ ทนายโจทก์ / พนักงานอัยการ (ขุดรากถอนโคน - สเต็ป ๒ ดักจับคำรับรอง):</div>
-            <div class="dialogue-bubble">
-              "ในความเป็นจริง พยานไม่มีใบเสร็จรับเงินค่าเสียหายจากร้านค้า และไม่มีรายงานข้อเท็จจริงจากสำนักงานเลยแม้แต่แผ่นเดียว ใช่หรือไม่?"
-            </div>
-
-            <div class="dialogue-speaker speaker-witness">👤 จำเลย (ในคอกพยาน):</div>
-            <div class="dialogue-bubble" style="background:#1e1b18; border-left:3px solid #f87171;">
-              "...ไม่มีค่ะ"
-            </div>
+          <div class="dialogue-speaker speaker-witness">👤 จำเลย (น.ส. จิณห์นิภา ประสาทเขตต์การ ในคอกพยาน):</div>
+          <div class="dialogue-bubble" style="background:#1e1b18; border-left:3px solid #f87171;">
+            "...ใช่ค่ะ (ยอมรับเพราะจำนนต่อหลักฐานบันทึกแชท LINE 100%)"
           </div>
 
-          <!-- Step 3 Pair -->
-          <div class="sim-dialogue-pair" id="simPair3" style="display:none; margin-top:14px;">
-            <div class="dialogue-speaker speaker-lawyer">⚖️ ทนายโจทก์ / พนักงานอัยการ (เผด็จศึกขั้นสุดท้าย - สเต็ป ๓ ปิดประตูหนี):</div>
-            <div class="dialogue-bubble">
-              "เหตุการณ์เดินชนน้ำหอมแตกที่พยานกุเรื่องบอกผู้เสียหาย ไม่เคยเกิดขึ้นจริง และเงิน ๒,๐๐๐ บาท พยานนำไปใช้จ่ายส่วนตัวทันที ใช่หรือไม่?"
-            </div>
+          <div class="dialogue-speaker speaker-lawyer">⚖️ ทนายโจทก์ / พนักงานอัยการ (ขุดรากถอนโคน):</div>
+          <div class="dialogue-bubble">
+            "ในความเป็นจริง พยานไม่มีใบเสร็จรับเงินค่าเสียหายจากร้านค้า และไม่มีรายงานข้อเท็จจริงจากสำนักงานเลยแม้แต่แผ่นเดียว ใช่หรือไม่?"
+          </div>
 
-            <div class="dialogue-speaker speaker-judge">🏛️ ศาลบันทึกคำเบิกความพยาน:</div>
-            <div class="dialogue-bubble" style="background:rgba(234,179,8,0.1); border-left:3px solid var(--gold); color:#fef08a;">
-              "พยานเบิกความรับว่า ได้พิมพ์ข้อความอ้างเรื่องน้ำหอมแตกจริง และไม่มีเหตุการณ์ดังกล่าวเกิดขึ้นจริง ได้รับเงินโอน ๒,๐๐๐ บาทแล้วนำไปใช้สอยส่วนตัว (เข้าองค์ประกอบฉ้อโกงตาม ป.อ. ๓๔๑ โดยสมบูรณ์)"
-            </div>
+          <div class="dialogue-speaker speaker-witness">👤 จำเลย (ในคอกพยาน):</div>
+          <div class="dialogue-bubble" style="background:#1e1b18; border-left:3px solid #f87171;">
+            "...ไม่มีค่ะ"
+          </div>
+
+          <div class="dialogue-speaker speaker-lawyer">⚖️ ทนายโจทก์ / พนักงานอัยการ (เผด็จศึกขั้นสุดท้าย):</div>
+          <div class="dialogue-bubble">
+            "เหตุการณ์เดินชนน้ำหอมแตกที่พยานกุเรื่องบอกผู้เสียหาย ไม่เคยเกิดขึ้นจริง และเงิน ๒,๐๐๐ บาท พยานนำไปใช้จ่ายส่วนตัวทันที ใช่หรือไม่?"
+          </div>
+
+          <div class="dialogue-speaker speaker-judge">🏛️ ศาลบันทึกคำเบิกความพยาน:</div>
+          <div class="dialogue-bubble" style="background:rgba(234,179,8,0.1); border-left:3px solid var(--gold); color:#fef08a;">
+            "พยานเบิกความรับว่า ได้พิมพ์ข้อความอ้างเรื่องน้ำหอมแตกจริง และไม่มีเหตุการณ์ดังกล่าวเกิดขึ้นจริง ได้รับเงินโอน ๒,๐๐๐ บาทแล้วนำไปใช้สอยส่วนตัว (เข้าองค์ประกอบฉ้อโกงตาม ป.อ. ๓๔๑ โดยสมบูรณ์)"
           </div>
         </div>
       </div>
@@ -1769,44 +1367,6 @@
       const target = document.getElementById('btab-' + tabId);
       if (target) target.style.display = 'block';
       if (btn) btn.classList.add('active');
-    }
-
-    // Interactive Cross-Examination Simulator Stepper
-    function runSimStep(step) {
-      document.querySelectorAll('[id^="btnSim"]').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('[id^="simStepBox"]').forEach(b => b.classList.remove('active-step'));
-      
-      const p1 = document.getElementById('simPair1');
-      const p2 = document.getElementById('simPair2');
-      const p3 = document.getElementById('simPair3');
-
-      if (step === 1) {
-        document.getElementById('btnSim1').classList.add('active');
-        document.getElementById('simStepBox1').classList.add('active-step');
-        p1.style.display = 'block';
-        p2.style.display = 'none';
-        p3.style.display = 'none';
-      } else if (step === 2) {
-        document.getElementById('btnSim2').classList.add('active');
-        document.getElementById('simStepBox2').classList.add('active-step');
-        p1.style.display = 'block';
-        p2.style.display = 'block';
-        p3.style.display = 'none';
-      } else if (step === 3) {
-        document.getElementById('btnSim3').classList.add('active');
-        document.getElementById('simStepBox3').classList.add('active-step');
-        p1.style.display = 'block';
-        p2.style.display = 'block';
-        p3.style.display = 'block';
-      } else {
-        document.getElementById('btnSimAll').classList.add('active');
-        document.getElementById('simStepBox1').classList.add('active-step');
-        document.getElementById('simStepBox2').classList.add('active-step');
-        document.getElementById('simStepBox3').classList.add('active-step');
-        p1.style.display = 'block';
-        p2.style.display = 'block';
-        p3.style.display = 'block';
-      }
     }
 
     // Universal Smart Link Resolver for Agent Navigation & Exhibits

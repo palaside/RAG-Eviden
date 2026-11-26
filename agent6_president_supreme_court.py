@@ -871,7 +871,7 @@ boss_html_template = """<!DOCTYPE html>
 
     // Universal Smart Link Resolver for Agent Navigation & Exhibits
     (function initSmartNav() {
-      const isSubdir = window.location.pathname.replace(/\\/g, '/').toLowerCase().includes('/vector_evidence/');
+      const isSubdir = window.location.pathname.replace(/\\\\/g, '/').toLowerCase().includes('/vector_evidence/');
       const linkMap = {
         '[1]': 'MASTER_SSOT_STITCH_VIEWER.html',
         '[2]': 'TARGET_FOCUS_SELECTOR.html',
@@ -892,7 +892,7 @@ boss_html_template = """<!DOCTYPE html>
             const resolved = isSubdir ? ((key === '[5]' || key === '[5.1]' || key === '[6]') ? target : '../' + target) : target;
             el.href = resolved;
             el.onclick = function() {
-              const curSub = window.location.pathname.replace(/\\/g, '/').toLowerCase().includes('/vector_evidence/');
+              const curSub = window.location.pathname.replace(/\\\\/g, '/').toLowerCase().includes('/vector_evidence/');
               this.href = curSub ? ((key === '[5]' || key === '[5.1]' || key === '[6]') ? target : '../' + target) : target;
             };
             break;
