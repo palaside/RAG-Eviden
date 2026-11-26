@@ -855,8 +855,18 @@
       border-color: #0284c7;
       box-shadow: 0 -2px 10px rgba(2, 132, 199, 0.35);
     }
-
 </style>
+<script>
+  function autoScrollBox(img) {
+    if (!img) return;
+    const box = img.closest ? img.closest('.img-preview-box') : img.parentElement;
+    if (!box) return;
+    const focalY = parseInt(box.getAttribute('data-focal-y') || '0', 10);
+    if (focalY > 0 && box.scrollTop === 0) {
+      box.scrollTop = focalY;
+    }
+  }
+</script>
 </head>
 <body>
   <!-- LOCKED MASTER HEADER (NAVBAR + TITLEBAR + CENTERED TABS) -->
@@ -27105,10 +27115,11 @@
                 </div>
                 ${item.isDuplicate ? '<div class="dup-alert">⛔ ตรวจพบคู่ขนานซ้ำในระบบ</div>' : ''}
                 <div class="img-preview-box" data-focal-y="0">
-                  <img src="${item.previewUrl || ('../test_assets/' + item.name)}" 
+                  <img src="${(item.previewUrl && !item.previewUrl.startsWith('blob:')) ? item.previewUrl : ('/api/evidence-image?name=' + encodeURIComponent(item.name))}" 
                        class="img-thumb" 
                        alt="${item.name}" 
                        title="คลิกเพื่อขยายดูภาพขนาดใหญ่"
+                       onerror="if (!this.dataset.triedFallback) { this.dataset.triedFallback = '1'; this.src = 'FOR%20TEST%20In%20EDOK_NUI/%E0%B9%81%E0%B8%8A%E0%B8%97%E0%B8%97%E0%B8%B5%E0%B9%88%203/' + encodeURIComponent('${item.name}'); }"
                        onclick="openModal(this.src, '${item.name}', 'พยานหลักฐานปัจจุบัน')">
                 </div>
               </div>

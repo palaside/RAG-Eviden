@@ -6647,7 +6647,7 @@
           bank: bank,
           sender: (type === 'TYPE_SLIP_SOLO' || type === 'TYPE_CHAT_WITH_SLIP') ? 'นาย ณัฐชัย รักษาวงษ์' : '',
           isDuplicate: isDuplicate,
-          previewUrl: previewUrl,
+          previewUrl: (optB64 && optB64.startsWith('data:')) ? optB64 : previewUrl,
           timestamp: new Date().toLocaleDateString('th-TH') + ' ' + new Date().toLocaleTimeString('th-TH'),
           chatSlices: null,
           currentSliceIndex: 0

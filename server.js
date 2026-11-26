@@ -178,15 +178,78 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Helper to find evidence files across known directories
+  function findEvidenceFile(filename) {
+    if (!filename) return null;
+    const cleanName = path.basename(filename);
+    const candidateDirs = [
+      path.join(__dirname, 'EDOK_NUI', 'FOR TEST In EDOK_NUI', 'แชทที่ 3'),
+      path.join(__dirname, 'test_assets'),
+      path.join(__dirname, 'EDOK_NUI'),
+      path.join(__dirname, 'artifacts'),
+      path.join(__dirname, 'EDOK_NUI', 'SSOT_STREAM_ASSETS'),
+      __dirname
+    ];
+
+    for (const dir of candidateDirs) {
+      const full = path.join(dir, cleanName);
+      if (fs.existsSync(full)) {
+        try {
+          if (fs.statSync(full).isFile()) return full;
+        } catch (e) {}
+      }
+    }
+    return null;
+  }
+
+  // =========================================================================
+  // API: EVIDENCE IMAGE STREAMER (/api/evidence-image?name=...)
+  // =========================================================================
+  if (reqPath.startsWith('/api/evidence-image')) {
+    const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
+    const imgName = parsedUrl.searchParams.get('name') || '';
+    const foundPath = findEvidenceFile(imgName);
+
+    if (foundPath) {
+      const ext = path.extname(foundPath).toLowerCase();
+      const contentType = MIME_TYPES[ext] || 'image/jpeg';
+      res.writeHead(200, {
+        'Content-Type': contentType,
+        'Cache-Control': 'public, max-age=86400'
+      });
+      fs.createReadStream(foundPath).pipe(res);
+      return;
+    } else {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('Evidence Image Not Found');
+      return;
+    }
+  }
+
   // =========================================================================
   // STATIC FILE SERVING
   // =========================================================================
-  let normPath = reqPath;
+  let decodedPath = '';
+  try {
+    decodedPath = decodeURIComponent(reqPath);
+  } catch (e) {
+    decodedPath = reqPath;
+  }
+
+  let normPath = decodedPath;
   if (normPath === '/' || normPath === '') {
     normPath = '/index.html';
   }
 
-  const filePath = path.join(__dirname, normPath);
+  let filePath = path.join(__dirname, normPath);
+
+  // If file doesn't exist at direct path and it's an image, attempt auto-resolution
+  if (!fs.existsSync(filePath) && /\.(jpe?g|png|webp|gif|bmp|svg)$/i.test(normPath)) {
+    const resolvedImg = findEvidenceFile(path.basename(normPath));
+    if (resolvedImg) {
+      filePath = resolvedImg;
+    }
+  }
 
   // Security check: stay within workspace
   if (!filePath.startsWith(__dirname)) {
@@ -197,6 +260,13 @@ const server = http.createServer((req, res) => {
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
+      // For images, never fallback to index.html (prevents broken image icon)
+      if (/\.(jpe?g|png|webp|gif|bmp|svg)$/i.test(normPath)) {
+        res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('Image Not Found');
+        return;
+      }
+
       // Fallback to index.html for SPA routing
       const fallback = path.join(__dirname, 'index.html');
       fs.readFile(fallback, (fErr, content) => {
